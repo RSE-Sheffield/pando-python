@@ -60,6 +60,9 @@ contact: 'robert.chisholm@sheffield.ac.uk'
 # Order of episodes in your lesson
 episodes: 
 - introduction.md
+- profiling-introduction.md
+- profiling-functions.md
+- profiling-lines.md
 
 # Information for Learners
 learners: 
