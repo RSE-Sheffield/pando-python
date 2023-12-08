@@ -24,11 +24,12 @@ If you are now comfortable using Python, this course may be of interest to suppl
     - Relevant
     - Time-bound (implicitly the length of the course)
 -->
+<!-- Evaluation tool: https://web.cs.manchester.ac.uk/iloadvisor/ -->
 After attending this training, participants will be able to:
 
 - identify the most expensive functions and lines of code using `cprofile` and `line_profiler`.
-- explain the limiting factors of a block of code’s performance.
-- recognise and implement remedies to common limiting factors of performance.
+- evaluate code to determine the limiting factors of it's performance.
+- recognise and implement optimisations for common limiting factors of performance.
 
 ::::::::::::::::::::::::::::::::::::::::::  prereq
 
