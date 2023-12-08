@@ -9,7 +9,7 @@ style='padding: 2%'}
 
 The training curriculum for this course is designed for researchers that are writing Python and lack formal training. The curriculum covers how to assess where time is being spent during execution of a Python program, it also provides a high level understanding of how code executes and how this maps to the limiting factors of performance.
 
-If you are now comfortable using Python, this course may be of interest to supplement and advance your programming knowledge. This course is particularly relevant if you are writing research code and desire greater confidence that your code is both performant and of suitable for publication.
+If you are now comfortable using Python, this course may be of interest to supplement and advance your programming knowledge. This course is particularly relevant if you are writing research code and desire greater confidence that your code is both performant and suitable for publication.
 
 <!-- TODO: course duration? -->
 <!-- TODO: confident code syllabus? -->
