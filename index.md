@@ -41,7 +41,6 @@ Before joining Performance Profiling & Optimisation (Python) Training, participa
 - follow the control flow of Python code, and dry run the execution in their head or on paper.
 
 See the [Research Computing Training Hub](https://sites.google.com/sheffield.ac.uk/research-training/research-training) for other courses to help with learning these skills.
-<!-- TODO: could make a dedicate page (like https://carpentries.github.io/lesson-development-training/markdown-github-primer.html) that highlights specific courses/resources. -->
-
+<!-- TODO: could make a dedicated page (like https://carpentries.github.io/lesson-development-training/markdown-github-primer.html) that highlights specific courses/resources. -->
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
