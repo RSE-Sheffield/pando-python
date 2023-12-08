@@ -76,4 +76,4 @@ profiles:
 # sandpaper and varnish versions) should live
 
 varnish: RSE-Sheffield/uos-varnish@main
-url: 'rse-sheffield.github.io/pando-python'
+url: 'rse.shef.ac.uk/pando-python'
