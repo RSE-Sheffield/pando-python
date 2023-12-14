@@ -55,15 +55,15 @@ print(f"C: {t_d - t_c} seconds")
 
 *Above is only one example of how you could manually profile your Python code, there are many similar techniques.*
 
-Whilst this can be appropriate for small sections of code, it becomes increasingly impractical as project grows in size and complexity.
-It's also unproductive to be routinely adding and removing these small changes if they interfere with your the required outputs of your project.
+Whilst this can be appropriate for profiling narrow sections of code, it becomes increasingly impractical as a project grows in size and complexity.
+Furthermore, it's also unproductive to be routinely adding and removing these small changes if they interfere with the required outputs of a project.
 
 ::::::::::::::::::::::::::::::::::::: callout
 
 You may have previously used [`timeit`](https://docs.python.org/3/library/timeit.html) for timing Python code.
 
-This package returns the **total runtime** of an isolated block of code, without providing a more **granular timing breakdown**.
-Therefore, it is better described as a tool for benchmarking.
+This package returns the **total runtime** of an isolated block of code, without providing a more granular timing breakdown.
+Therefore, it is better described as a tool for **benchmarking**.
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
