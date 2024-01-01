@@ -1,5 +1,7 @@
 # Building the Site Locally
 
+Both of these steps should be followed within `rterm`.
+
 ## Setup
 
 ```r
