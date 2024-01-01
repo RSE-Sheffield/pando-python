@@ -28,19 +28,19 @@ Profiling is useful when you have written any code that will be running for a su
 As your code grows in complexity, it becomes increasingly difficult to estimate where time is being spent during execution.
 Profiling allows you to narrow down where the time is being spent, to identify whether this is of concern or not.
 
-<!-- This allows enables faster/more (why)-->
+<!-- This allows enables faster/more (why) -->
 Profiling is a relatively quick process which can either provide you the peace of mind that your code is efficient, or highlight the performance bottleneck.
 Knowing the bottleneck allows you to optimise it (or more specifically request support in optimising it), potentially leading to significant speedups enabling faster research. In extreme cases, addressing bottlenecks has enabled programs to run hundreds or thousands of times faster!
 
 <!-- Increasingly, concern for green/eco compute and or cloud costs (why) -->
 Increasingly, particularly with relation to HPC, attention is being paid to the energy usage of software. Profiling your software will provide you the confidence that your software is an efficient use of resources.
- 
+
 
 ::::::::::::::::::::::::::::::::::::: callout
 
 ## All Programmers Can Benefit
 
-<!-- Everyone benefits (why)-->
+<!-- Everyone benefits (why) -->
 Even professional programmers make oversights that can lead to poor performance, that can be identified through profiling.
 
 For example Grand Theft Auto Online, which has allegedly earned over $7bn since it's 2013 release, was notorious for it's slow loading times.
@@ -95,11 +95,60 @@ Therefore, it is better described as a tool for **benchmarking**.
 :::::::::::::::::::::::::::::::::::::::::::::
 
 ### Function-Level Profiling
-### Line-Level Profiling
-### Hardware Metric Profiling
-<!-- "Hardware" metric profilers also exist, but atypical for high-level languages like Python, so won't be covering. -->
+<!-- Context -->
+Software is typically comprised of a hierarchy of function calls, both functions written by the developer and those used from the core language and third party packages.
 
-## 
+<!-- What -->
+Function-level profiling analyses where time is being spent with respect to functions. Typically function-level profiling will calculate the number of times each function is called and the total time spent executing each function, inclusive and exclusive of child function calls.
+
+<!-- Why -->
+This allows functions that occupy a disproportionate amount of the total runtime to be quickly identified and investigated.
+
+<!-- We will be covering -->
+In this course we will cover the usage of the function-level profiler `cprofile` and how it's output can be visualised with `snakeviz`.
+
+### Line-Level Profiling
+<!-- Context -->
+Function-level profiling may not always be granular enough, perhaps your software is a single long script, or function-level profiling highlighted a particularly complex function.
+
+<!-- What -->
+Line-level profiling provides greater granularity, analysing where time is being spent with respect to individual lines of code. 
+
+<!-- Why -->
+This will identify individual lines of code that occupy an disproportionate amount of the total runtime.
+
+<!-- Caveat (too early to introduce this?) -->
+<!-- Typically, function-level profiling should be attempted first as it has a greater signal-to-noise ratio and is often significantly cheaper to perform. -->
+
+<!-- We will be covering -->
+In this course we will cover the usage of the line-level profiler `line_profiler`.
+
+### Timeline Profiling
+<!-- Context -->
+Timeline profiling takes a different approach to visualising where time is being spent during execution.
+
+<!-- What -->
+Typically a subset of function-level profiling, the execution of the profiled software is instead presented as a timeline highlighting the order of function execution in addition to the time spent in each individual function call.
+
+<!-- Why -->
+By highlighting individual functions calls patterns relating to how performance scales over time can be identified. These would be hidden with the aforementioned aggregate approaches.
+
+<!-- We will be covering -->
+In this course we will cover the usage of the timeline profiler `viztracer`.
+
+### Hardware Metric Profiling
+
+Processor manufacturers typically release advanced profilers specific to their hardware with access to internal hardware metrics.
+These profilers can provide analysis of performance relative to theoretical hardware maximums (e.g. memory bandwidth or mathematical operations per second) and detail the utilisation of specific hardware features and operations.
+
+Using these hardware specific profilers requires an advanced understanding of the relevant processor architecture and may lead to hardware specific optimisations.
+
+Example of these profilers include; Intel's VTune, AMD's uProf, and NVIDIA's Nsight Compute.
+
+Profiling of this nature is outside the scope of this course and not typically appropriate for Python code.
+
+
+## Selecting an appropriate Test Case
 
 <!-- Todo, how to frame data-set selection -->
 
