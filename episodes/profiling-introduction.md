@@ -6,7 +6,9 @@ exercises: 0
 
 :::::::::::::::::::::::::::::::::::::: questions
 
-- TODO
+- Why should you profile your code?
+- How should you choose which type of profiler to use?
+- Which test case should be profiled?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -34,6 +36,14 @@ Knowing the bottleneck allows you to optimise it (or more specifically request s
 
 <!-- Increasingly, concern for green/eco compute and or cloud costs (why) -->
 Increasingly, particularly with relation to HPC, attention is being paid to the energy usage of software. Profiling your software will provide you the confidence that your software is an efficient use of resources.
+
+## When to Profile
+
+Profiling is most relevant to working code, when you have reached a stage that the code works and are considering deploying it.
+
+Any code that will run for more than a few minutes over it's lifetime, that isn't a quick one-shot script can benefit from profiling.
+
+Profiling should be a relatively quick and inexpensive process. If there are no significant bottlenecks in your code you can quickly be confident that your code is reasonably optimised. If you do identify a concerning bottleneck, further work to optimise your code and reduce the bottleneck could see significant improvements to the performance of your code and hence productivity.
 
 
 ::::::::::::::::::::::::::::::::::::: callout
@@ -131,7 +141,7 @@ Timeline profiling takes a different approach to visualising where time is being
 Typically a subset of function-level profiling, the execution of the profiled software is instead presented as a timeline highlighting the order of function execution in addition to the time spent in each individual function call.
 
 <!-- Why -->
-By highlighting individual functions calls patterns relating to how performance scales over time can be identified. These would be hidden with the aforementioned aggregate approaches.
+By highlighting individual functions calls, patterns relating to how performance scales over time can be identified. These would be hidden with the aforementioned aggregate approaches.
 
 <!-- We will be covering -->
 In this course we will cover the usage of the timeline profiler `viztracer`.
@@ -139,22 +149,33 @@ In this course we will cover the usage of the timeline profiler `viztracer`.
 ### Hardware Metric Profiling
 
 Processor manufacturers typically release advanced profilers specific to their hardware with access to internal hardware metrics.
-These profilers can provide analysis of performance relative to theoretical hardware maximums (e.g. memory bandwidth or mathematical operations per second) and detail the utilisation of specific hardware features and operations.
+These profilers can provide analysis of performance relative to theoretical hardware maximums (e.g. memory bandwidth or operations per second) and detail the utilisation of specific hardware features and operations.
 
-Using these hardware specific profilers requires an advanced understanding of the relevant processor architecture and may lead to hardware specific optimisations.
+Using these advanced profilers requires a thorough understanding of the relevant processor architecture and may lead to hardware specific optimisations.
 
-Example of these profilers include; Intel's VTune, AMD's uProf, and NVIDIA's Nsight Compute.
+Examples of these profilers include; Intel's VTune, AMD's uProf, and NVIDIA's Nsight Compute.
 
-Profiling of this nature is outside the scope of this course and not typically appropriate for Python code.
-
-
-## Selecting an appropriate Test Case
-
-<!-- Todo, how to frame data-set selection -->
+Profiling of this nature is outside the scope of this course.
 
 
+## Selecting an Appropriate Test Case
 
+<!-- Profiling runs slower -->
+The act of profiling your code, collecting additional timing metrics during execution, will cause your program to execute slower. The slowdown is dependent on many variables, however the profiling covered by this course shouldn't more than double the runtime. <!-- Is this true? -->
 
+<!-- Profiling may generate large amounts of data -->
+Similarly, the longer your code runs, the more code that is being executed, the more data that will be collected. A profile that runs for hours could produce gigabytes of output data!
+
+<!-- Important to select appropriate test-case/s -->
+Therefore, it is important to select an appropriate test-case that is both representative of a typical workload and small enough that it can be quickly iterated.
+Ideally, it should take no more than a few minutes to run the profiled test-case from start to finish, however you may have circumstances where something that short is not possible.
+
+<!-- For example -->
+<!-- I don't really like this paragraph -->
+For example, you may have a model which normally simulates a year in hourly timesteps.
+It would be appropriate to begin by profiling the simulation of a single day.
+If the model scales over time, such as due to population growth, it may be pertinent to profile a single day later into a simulation if the model can be resumed or configured.
+A larger population is likely to amplify any bottlenecks that scale with the population, making them easier to identify.
 
 
 ::::::::::::::::::::::::::::::::::::: discussion
@@ -164,8 +185,7 @@ Profiling of this nature is outside the scope of this course and not typically a
 Think about a project where you've been working with Python.
 Do you know where the time during execution is being spent?
 
-Write a short plan of the approach you would take to investigate and confirm
-where the majority of time is being spent during it's execution.
+Write a short plan of the approach you would take to investigate and confirm where the majority of time is being spent during it's execution.
 
 <!-- TODO should they share this anywhere, should it be discussed within the group? -->
 
@@ -182,6 +202,12 @@ where the majority of time is being spent during it's execution.
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
-todo summarise lessons learned
+- Profiling is a relatively quick process to analyse where time is being spent and bottlenecks during a program's execution.
+- Code should be profiled when ready for deployment if it will be running for more than a few minutes during it's lifetime.
+- There are several types of profiler each with slightly different purposes.
+    - function-level: `cprofile` (visualised with `snakeviz`)
+    - line-level: `line_profiler`
+    - timeline: `viztracer`
+- A representative test-case should be profiled, that is large enough to amplify any bottlenecks whilst executing to completion quickly.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
