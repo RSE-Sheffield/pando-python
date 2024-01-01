@@ -18,14 +18,39 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-
 ## Introduction
 
 <!-- Profiling is (what) -->
+Performance profiling is the process of analysing and measuring the performance of a program or script, to understand where time is being spent during execution.
+
 <!-- It can be used for (where) -->
+Profiling is useful when you have written any code that will be running for a substantial period of time.
+As your code grows in complexity, it becomes increasingly difficult to estimate where time is being spent during execution.
+Profiling allows you to narrow down where the time is being spent, to identify whether this is of concern or not.
+
 <!-- This allows enables faster/more (why)-->
-<!-- It can be difficult to know without profiling, surprise speedup (why2) -->
-<!-- Increasingly, concern for green/eco compute and or cloud costs (why3) -->
+Profiling is a relatively quick process which can either provide you the peace of mind that your code is efficient, or highlight the performance bottleneck.
+Knowing the bottleneck allows you to optimise it (or more specifically request support in optimising it), potentially leading to significant speedups enabling faster research. In extreme cases, addressing bottlenecks has enabled programs to run hundreds or thousands of times faster!
+
+<!-- Increasingly, concern for green/eco compute and or cloud costs (why) -->
+Increasingly, particularly with relation to HPC, attention is being paid to the energy usage of software. Profiling your software will provide you the confidence that your software is an efficient use of resources.
+ 
+
+::::::::::::::::::::::::::::::::::::: callout
+
+## All Programmers Can Benefit
+
+<!-- Everyone benefits (why)-->
+Even professional programmers make oversights that can lead to poor performance, that can be identified through profiling.
+
+For example Grand Theft Auto Online, which has allegedly earned over $7bn since it's 2013 release, was notorious for it's slow loading times.
+8 years after it's release [a 'hacker'](https://nee.lv/2021/02/28/How-I-cut-GTA-Online-loading-times-by-70/) had enough, they reverse engineered and profiled the code to enable a 70% speedup!
+
+*How much revenue did that unnecessary bottleneck cost, through user churn?*
+
+*How much time and energy was wasted, by unnecessarily slow loading screens?*
+
+:::::::::::::::::::::::::::::::::::::::::::::
 
 ## Types of Profiler
 
@@ -59,6 +84,8 @@ Whilst this can be appropriate for profiling narrow sections of code, it becomes
 Furthermore, it's also unproductive to be routinely adding and removing these small changes if they interfere with the required outputs of a project.
 
 ::::::::::::::::::::::::::::::::::::: callout
+
+## Benchmarking
 
 You may have previously used [`timeit`](https://docs.python.org/3/library/timeit.html) for timing Python code.
 
