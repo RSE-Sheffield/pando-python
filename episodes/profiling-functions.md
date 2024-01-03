@@ -225,6 +225,8 @@ The sunburst visualisation displays less text on the boxes, so it can be harder 
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
+## Exercises
+
 The following exercises allow you to review your understanding of what has been covered in this episode.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
