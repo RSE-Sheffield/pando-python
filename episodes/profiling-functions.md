@@ -62,8 +62,8 @@ python -m cProfile -o out.prof my_script.py input.csv
 <!-- yes it's that simple -->
 *No additional changes to your code are required, it's really that simple!*
 
-
-This will produce an output file similar to that shown below:
+<!-- TODO should the remainder of this section be in a call-out, it's unnecessary -->
+If you instead, don't specify output to file (e.g. remove `-o out.prof` from the command), `cProfile` will produce output to console similar to that shown below:
 
 <!-- TODO is there a better less-abstract example, this one is 're.compile("foo|bar")' ripped from the docs -->
 
@@ -93,7 +93,7 @@ The columns have the following definitions:
 | `percall` | The average cumtime per function call (`cumtime`/`percall`). |
 | `filename:lineno(function)` | The location of the given function's definition and it's name. |
 
-This output can be unwieldy to parse for complex programs, so the package `snakeviz` is often utilised to provide an interactive visualisation of the data.
+This output can often exceed the terminal's buffer length for large programs and can be unwieldy to parse, so the package `snakeviz` is often utilised to provide an interactive visualisation of the data when exported to file.
 
 
 ## snakeviz
@@ -125,7 +125,7 @@ The box which fills the top row represents the the root call, filling the row sh
 The second row holds the child methods called from the root, with their widths relative to the proportion of runtime they occupied.
 This continues with each subsequent row, however where a method only occupies 50% of the runtime, it's children can only occupy a maximum of that runtime hence the appearance of "icicles".
 
-By clicking a box within the diagram, it will "zoom" making the selected box the root allowing more detail to be explored (the diagram is limited to 10 rows by default and methods with a relatively small proportion of the runtime are hidden).
+By clicking a box within the diagram, it will "zoom" making the selected box the root allowing more detail to be explored. The diagram is limited to 10 rows by default ("Depth") and methods with a relatively small proportion of the runtime are hidden ("Cutoff").
 
 As you hover each box, information to the left of the diagram updates specifying the location of the method and for how long it ran.
 
@@ -208,11 +208,40 @@ Find the box representing `c_2()` on the icicle diagram, it's children are unlab
 
 To zoom back out you can either click the top row, which will zoom out one layer, or click "Reset Zoom" on the left-hand side.
 
+In this simple example the execution is fairly evenly balanced between all of the user-defined methods, so there is not a clear hot-spot to investigate.
+
+::::::::::::::::::::::::::::::::::::: callout
+
+## Sunburst
+
+Snakeviz provides an alternate "Sunburst" visualisation, accessed via the "Style" drop-down on the left-hand side.
+
+This provides the same information as "Icicle", however the rows are instead circular with the root method call found at the center.
+
+The sunburst visualisation displays less text on the boxes, so it can be harder to interpret.
+
+<!-- TODO: Alt text here is redundant? -->
+![An sunburst visualisation provided by `snakeviz` for the worked example's Python code.](episodes/fig/snakeviz-worked-example-sunburst.png){alt='The snakeviz sunburst visualisation for the worked example Python code.'}
+
+:::::::::::::::::::::::::::::::::::::::::::::
+
+The following exercises allow you to review your understanding of what has been covered in this episode.
+
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Exercise 1: TODO
 
-Example algorithm, with a synthetic bottleneck which produces a clear hierarchy.
+Download and profile [this]() Python program, try to locate the function call(s) where the majority of execution time is being spent.
+
+The program can be executed via `python snakeviz_1.py <int>`.
+The value of `int` should be in the inclusive range `[0, 100]`, larger numbers take longer to run.
+
+:::::::::::::::::::::::: hint
+
+- If a hotspot isn't visible with `int==0`, try increasing the value.
+- If you think you identified the hotspot with your first profile, try investigating how the value of `int` affects the hotspot within the profile.
+
+:::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::: solution 
 
