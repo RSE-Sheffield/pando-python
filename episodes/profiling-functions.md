@@ -143,6 +143,12 @@ python -m cProfile -o out.prof example.py
 python -m snakeviz out.prof
 ```
 
+:::::::::::::::::::::::::::::::::: instructor
+
+It can help to run the worked example by executing `snakeviz` live and explaining the visualisation with the code visible in split screen.
+
+:::::::::::::::::::::::::::::::::::::::::::::
+
 :::::::::::::::::::::::::::::::::::::::::::::
 
 To more clearly demonstrate how an execution hierarchy maps to the icicle diagram, the below toy example Python script has been implemented.
