@@ -258,13 +258,21 @@ Solution 1: TODO
 :::::::::::::::::::::::::::::::::
 
 
-## Exercise 2: TODO
+## Exercise 2: Predator Prey
 
-Example algorithm, with a (hidden) synthetic bottleneck, which leads to a complex function. (to lead into the next episode)
+Download and profile [the Python predator prey model](episodes/files/pred-prey/predprey.py), try to locate the function call(s) where the majority of execution time is being spent. 
+
+The program can be executed via `python predprey.py`.
+
+It takes no arguments, but contains various environment properties which can be modified to change the model's behaviour.
 
 :::::::::::::::::::::::: solution 
 
-Solution 2: TODO
+It should be clear from the profile that the method `Grass:eaten()` occupies the majority of the runtime.
+
+This is because it is called once per `Grass` agent which accesses each `Prey` agent, so it's doing alot of work.
+
+However, maybe we could investigate this further with line profiling!
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
