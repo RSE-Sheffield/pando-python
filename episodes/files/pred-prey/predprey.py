@@ -401,7 +401,7 @@ class Model:
         plt.plot(range(0, len(self.predator_log)), self.predator_log, 'r', label="Predators")
         plt.plot(range(0, len(self.grass_log)), self.grass_log, 'g', label="Grass/20")
         plt.legend()
-        plt.savefig('predpray_out.png')
+        plt.savefig('predprey_out.png')
     
     def run(self):
         # init

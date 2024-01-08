@@ -194,7 +194,7 @@ All of the methods except for `b_1()` call `time.sleep()`, this is used to provi
 
 The third row represents `a_1()`, the only method called from global scope, therefore the first two rows represent Python's internal code for launching our script and can be ignored (by clicking on the third row).
 
-The row following `a_1()` is split into three boxes representing `b_1()`, `time.sleep()` and `b_2()` in the order they were first called. Note that `b_1()` is called three times, but only has one box within the icicle diagram.
+The row following `a_1()` is split into three boxes representing `b_1()`, `time.sleep()` and `b_2()`. Note that `b_1()` is called three times, but only has one box within the icicle diagram. The boxes are ordered left-to-right according to cumulative time, which happens to be the order they were first called.
 
 If the box for `time.sleep()` is hovered it will change colour along with several other boxes that represent the other locations that `time.sleep()` was called from. Note that each of these boxes display the same duration, the timing statistics collected by `cProfile` (and visualised by `snakeviz`) are aggregate, so there is no information about individual method calls for methods which were called multiple times. This does however mean that if you check the properties to the left of the diagram whilst hovering `time.sleep()` you will see a cumulative time of 99% reported, the overhead of the method calls and for loop is insignificant in contrast to the time spent sleeping!
 
@@ -264,15 +264,21 @@ Download and profile [the Python predator prey model](episodes/files/pred-prey/p
 
 The program can be executed via `python predprey.py`.
 
-It takes no arguments, but contains various environment properties which can be modified to change the model's behaviour.
+It takes no arguments, but contains various environment properties which can be modified to change the model's behaviour and outputs a graph `predprey_out.png`.
 
 :::::::::::::::::::::::: solution 
 
-It should be clear from the profile that the method `Grass:eaten()` occupies the majority of the runtime.
+It should be clear from the profile that the method `Grass::eaten()` (from `predprey.py:278`) occupies the majority of the runtime.
 
-This is because it is called once per `Grass` agent which accesses each `Prey` agent, so it's doing alot of work.
+From the table below the Icicle diagram, we can see that it was called 125,000 times.
 
-However, maybe we could investigate this further with line profiling!
+If the table is ordered by `ncalls`, it can be identified as the joint 4th most called method and 2nd most called method from `predprey.py`.
+
+If you checked `predprey_out.png`, you should notice that there are significantly more `Grass` agents than `Predeators` or `Prey`.
+
+Similarly, the method's `percall` time is inline with other agent functions such as `Prey::flock()` (from `predprey.py:67`).
+
+Maybe we could investigate this further with line profiling!
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
