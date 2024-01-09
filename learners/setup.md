@@ -24,7 +24,7 @@ This course uses Python and was developed using Python 3.11, therefore it is rec
 
 The non-core Python packages required by the course are `snakeviz`, `line_profiler` and `viztracer` which can be installed via `pip`.
  
-```input
+```sh
 pip install snakeviz line_profiler[all] viztracer[full]
 ```
 

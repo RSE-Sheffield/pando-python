@@ -115,7 +115,7 @@ Function-level profiling analyses where time is being spent with respect to func
 This allows functions that occupy a disproportionate amount of the total runtime to be quickly identified and investigated.
 
 <!-- We will be covering -->
-In this course we will cover the usage of the function-level profiler `cprofile` and how it's output can be visualised with `snakeviz`.
+In this course we will cover the usage of the function-level profiler `cProfile` and how it's output can be visualised with `snakeviz`.
 
 ### Line-Level Profiling
 <!-- Context -->
@@ -205,7 +205,7 @@ Write a short plan of the approach you would take to investigate and confirm whe
 - Profiling is a relatively quick process to analyse where time is being spent and bottlenecks during a program's execution.
 - Code should be profiled when ready for deployment if it will be running for more than a few minutes during it's lifetime.
 - There are several types of profiler each with slightly different purposes.
-    - function-level: `cprofile` (visualised with `snakeviz`)
+    - function-level: `cProfile` (visualised with `snakeviz`)
     - line-level: `line_profiler`
     - timeline: `viztracer`
 - A representative test-case should be profiled, that is large enough to amplify any bottlenecks whilst executing to completion quickly.
