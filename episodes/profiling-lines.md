@@ -8,14 +8,14 @@ exercises: 0
 
 - When is line level profiling appropriate?
 - What adjustments are required to Python code to profile with `line_profiler`?
-- How can `line_profiler` be used to profile a Python program?
+- How can `kernprof` be used to profile a Python program?
 <!-- Last two overlap somewhat -->
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
 - decorate Python code to prepare it for profiling with `line_profiler`
-- execute a Python program via `line_profiler` to collect profiling information about a Python program’s execution
+- execute a Python program via `kernprof` to collect profiling information about a Python program’s execution
 - interpret output from `line_profiler`, to identify the lines where time is being spent during a program’s execution
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -125,12 +125,12 @@ As `line_profiler` must be attached to specific methods and cannot attach to a f
 if your Python file has significant code in the global scope it will be necessary to move it into a new method which can then instead be called from global scope.
 
 The profile is also output to file, in this case `my_script.py.lprof`.
-This file is not human-readable, but can be printed to console by passing it to `line_profiler`, which will print the same table as above.
-
+This file is not human-readable, but can be printed to console by passing it to `line_profiler`, which will then display the same table as above.
 
 ```sh
 python -m line_profiler -rm my_script.py.lprof
 ```
+<!-- TODO line_profiling significantly slows down the profiled methods. Is it possible to dynamically disable/enable profiling with `line_profiler`? kernprof -h implies so, but trial/error and docs is failing me -->
 
 ## Worked Example
 
@@ -236,7 +236,7 @@ Therefore it can be seen in this example, how the time spent executing each line
 
 ## Rich Output
 
-The `-r` argument passed to `kernprof` enables rich output, if you run the profile locally it should look similar to this.
+The `-r` argument passed to `kernprof` (or `line_profiler`) enables rich output, if you run the profile locally it should look similar to this.
 
 ![Rich (highlighted) console output provided by `line_profiler` for the above FizzBuzz profile code.](episodes/fig/line_profiler-worked-example.png){alt='A screenshot of the `line_profiler` output from the previous code block, where the code within the line contents column has basic highlighting.'}
 
@@ -250,24 +250,103 @@ The following exercises allow you to review your understanding of what has been 
 
 ## Exercise 1: Predator Prey
 
-TODO e.g. decorating a specific function
+During the function-level profiling episode, the Python predator prey model was function-level profiled.
+This highlighted that `Grass::eaten()` (from `predprey.py:278`) occupies the majority of the runtime.
+
+Line-profile this method, using the output from the profile consider how it might be optimised.
 
 :::::::::::::::::::::::: hint
 
-- TODO
+- Remember that the function needs to be decorated with `@profile`
+- This must be imported via `from line_profiler import profile`
+- Line-level profiling `Grass::eaten()`, the most called function will slow it down significantly. You may wish to reduce the number of steps `predprey.py:305`.
 
 :::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::: solution 
 
-Solution 1: TODO
+First the function must be decorated
+
+```python
+# line ~1
+from line_profiler import profile
+```
+
+```python
+# line ~278
+    @profile
+    def eaten(self, prey_list):
+```
+
+`line_profiler` can then be executed via `python -m kernprof -lvr predprey.py`.
+
+This will take much longer to run due to `line_profiler`, you may wish to reduce the number of steps. In this instance it may change the profiling output slightly, as the number of `Prey` and their member variables evaluated by this method both change as the model progresses, but the overall pattern is likely to remain similar.
+
+```python
+# line ~420
+model = Model(50) # 50 steps (originally defaulted to 250)
+```
+
+Alternatively, you can kill the profiling process (e.g. `ctrl + c`) after a minute and the currently collected partial profiling information will be output.
+
+This will produce output similar to that below.
+
+```output
+Wrote profile results to predprey.py.lprof
+Timer unit: 1e-06 s
+
+Total time: 101.573 s
+File: predprey.py
+Function: eaten at line 278
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   278                                               @profile
+   279                                               def eaten(self, prey_list):
+   280   1250000     227663.1      0.2      0.2          if self.available:
+   281   1201630     165896.4      0.1      0.2              prey_index = -1
+   282   1201630     166219.0      0.1      0.2              closest_prey = GRASS_EAT_DISTANCE
+   283
+   284                                                       # Iterate prey_location messages to find the closest prey
+   285 198235791   29227902.1      0.1     28.8              for i in range(len(prey_list)):
+   286 197034161   30158318.8      0.2     29.7                  prey = prey_list[i]
+   287 197034161   38781451.1      0.2     38.2                  if prey.life < PREY_HUNGER_THRESH:
+   288                                                               # Check if they are within interaction radius
+   289   2969470     579923.4      0.2      0.6                      dx = self.x - prey.x
+   290   2969470     552092.2      0.2      0.5                      dy = self.y - prey.y
+   291   2969470     938669.8      0.3      0.9                      distance = math.sqrt(dx*dx + dy*dy)
+   292
+   293   2969470     552853.8      0.2      0.5                      if distance < closest_prey:
+   294      2532        469.3      0.2      0.0                          prey_index = i
+   295      2532        430.1      0.2      0.0                          closest_prey = distance
+   296
+   297   1201630     217534.5      0.2      0.2              if prey_index >= 0:
+   298                                                           # Add grass eaten message
+   299      2497       2181.8      0.9      0.0                  prey_list[prey_index].life += GAIN_FROM_FOOD_PREY
+   300
+   301                                                           # Update grass agent variables
+   302      2497        793.9      0.3      0.0                  self.dead_cycles = 0
+   303      2497        631.0      0.3      0.0                  self.available = 0
+```
+
+From the profiling output it can be seen that lines 285-287 occupy over 90% of the method's runtime!
+
+```
+            for i in range(len(prey_list)):
+                prey = prey_list[i]
+                if prey.life < PREY_HUNGER_THRESH:
+```
+
+Given that the following line 289 only has a relative 0.6% time, it can be understood that the vast majority of times the condition `prey.life < PREY_HUNGER_THRESH` is evaluated it does not proceed.
+
+Remembering that this method is executed once per each of the 5000 `Grass` agents, it could make sense to pre-filter `prey_list` once each timestep before it is passed to `Grass::eaten()`. This would greatly reduce the number of `Prey` iterated, reducing the cost of the method.
 
 :::::::::::::::::::::::::::::::::
 
 
 ## Exercise 2: TODO
 
-TODO: e.g. one where there are no functions, so how to decorate
+TODO: e.g. one where there are no methods, so how to decorate
 
 :::::::::::::::::::::::: solution 
 
@@ -280,9 +359,9 @@ Solution 2: TODO
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
-<!-- TODO does this still fit after the content has been written -->
-- Specific functions can be line level profiled with `line_profiler` if decorated with `@profile`
-- Code in global scope must wrapped if it is to be profiled with `line_profiler`
-- The output from `line_profiler` lists the time spent per targeted line of code in descending order.
+- Specific methods can be line-level profiled if decorated with `@profile` that is imported from `line_profiler`
+- `kernprof` executes `line_profiler` via `python -m kernprof -lvr <script name/arguments>`
+- Code in global scope must wrapped in a method if it is to be profiled with `line_profiler`
+- The output from `line_profiler` lists the absolute and relative time spent per line for each targeted function.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
