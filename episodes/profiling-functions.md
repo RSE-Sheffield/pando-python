@@ -216,15 +216,17 @@ To zoom back out you can either click the top row, which will zoom out one layer
 
 In this simple example the execution is fairly evenly balanced between all of the user-defined methods, so there is not a clear hot-spot to investigate.
 
+Below the icicle diagram, there is a table similar to the default output from `cProfile`. However, in this case you can sort the columns by clicking their headers and filter the rows shown by entering a filename in the search box. This allows built-in methods to be hidden, which can make it easier to highlight optimisation priorities.
+
 ::::::::::::::::::::::::::::::::::::: callout
 
 ## Sunburst
 
-Snakeviz provides an alternate "Sunburst" visualisation, accessed via the "Style" drop-down on the left-hand side.
+`snakeviz` provides an alternate "Sunburst" visualisation, accessed via the "Style" drop-down on the left-hand side.
 
 This provides the same information as "Icicle", however the rows are instead circular with the root method call found at the center.
 
-The sunburst visualisation displays less text on the boxes, so it can be harder to interpret.
+The sunburst visualisation displays less text on the boxes, so it can be harder to interpret. However, it increases the visibility of boxes further from the root call.
 
 <!-- TODO: Alt text here is redundant? -->
 ![An sunburst visualisation provided by `snakeviz` for the worked example's Python code.](episodes/fig/snakeviz-worked-example-sunburst.png){alt='The snakeviz sunburst visualisation for the worked example Python code.'}
@@ -235,28 +237,36 @@ The sunburst visualisation displays less text on the boxes, so it can be harder 
 
 The following exercises allow you to review your understanding of what has been covered in this episode.
 
-::::::::::::::::::::::::::::::::::::: challenge 
+::::::::::::::::::::::::::::::::::::: challenge
 
-## Exercise 1: TODO
+## Exercise 1: Travelling Salesperson
 
-Download and profile [this]() Python program, try to locate the function call(s) where the majority of execution time is being spent.
+Download and profile [this](episodes/files/pred-prey/predprey.py) Python program, try to locate the function call(s) where the majority of execution time is being spent.
 
-The program can be executed via `python snakeviz_1.py <int>`.
-The value of `int` should be in the inclusive range `[0, 100]`, larger numbers take longer to run.
+The program can be executed via `travellingsales.py <cities>`.
+The value of `cities` should be a positive integer, this algorithm has poor scaling so larger numbers take significantly longer to run.
 
 :::::::::::::::::::::::: hint
 
-- If a hotspot isn't visible with `int==0`, try increasing the value.
+- If a hotspot isn't visible with the argument `1`, try increasing the value.
 - If you think you identified the hotspot with your first profile, try investigating how the value of `int` affects the hotspot within the profile.
 
 :::::::::::::::::::::::::::::::::
 
-:::::::::::::::::::::::: solution 
+:::::::::::::::::::::::: solution
 
-Solution 1: TODO
+The hotspot only becomes visible when an argument of `5` or greater is passed.
+
+Here it `distance()` (from `travellingsales.py:11`) becomes the largest box (similarly it's parent in the call-stack `total_distance()`) showing that it scales poorly with the number of cities. With 5 cities, `distance()` has a cumulative time of `~35%` the runtime, this increases to `~60%` with 9 cities.
+
+Other boxes within the diagram correspond to the initialisation of imports, or initialisation of cities. These have constant or linear scaling, so their cost barely increases with the number of cities.
+
+*This highlights the need to profile a realistic test-case expensive enough that initialisation costs are not the most expensive component.*
 
 :::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::
 
+::::::::::::::::::::::::::::::::::::: challenge
 
 ## Exercise 2: Predator Prey
 
@@ -280,9 +290,10 @@ Similarly, the method's `percall` time is inline with other agent functions such
 
 Maybe we could investigate this further with line profiling!
 
-:::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::
+*You may have noticed alot of iciles on the right hand of the diagram, these primarily correspond to the `import` of `matplotlib` which is relatively expensive!*
 
+:::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints
