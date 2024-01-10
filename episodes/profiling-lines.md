@@ -246,9 +246,123 @@ The `-r` argument passed to `kernprof` (or `line_profiler`) enables rich output,
 
 The following exercises allow you to review your understanding of what has been covered in this episode.
 
+
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Exercise 1: Predator Prey
+## Exercise 1: BubbleSort
+
+Download and profile [the Python bubblesort implementation](episodes/files/bubblesort/bubblesort.py), line-level profile the code to investigate where time is being spent. 
+
+The program can be executed via `python bubblesort.py <elements>`.
+The value of `elements` should be a positive integer as it represents the length of the array to be sorted.
+
+:::::::::::::::::::::::: hint
+
+- Remember that the code needs to be moved into a method decorated with `@profile`
+- This must be imported via `from line_profiler import profile`
+- 100 elements should be suitable for a quick profile
+
+:::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::: solution 
+
+If you chose to profile the whole code, it may look like this:
+
+```python
+import sys
+import random
+from line_profiler import profile        # Import profile decorator
+
+@profile                                 # Decorate the function to be profiled
+def main():                              # Create a simple function with the code to be profiled
+    # Argument parsing
+    if len(sys.argv) != 2:
+        print("Script expects 1 positive integer argument, %u found."%(len(sys.argv) - 1))
+        sys.exit()
+    n = int(sys.argv[1])
+    # Init
+    random.seed(12)
+    arr = [random.random() for i in range(n)]
+    print("Sorting %d elements"%(n))
+    # Sort
+    for i in range(n - 1):
+        swapped = False
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+        # If no two elements were swapped in the inner loop, the array is sorted
+        if not swapped:
+            break
+    # Validate
+    is_sorted = True
+    for i in range(n - 1):
+        if arr[i] > arr[i+1]:
+            is_sorted = False
+    print("Sorting: %s"%("Passed" if is_sorted else "Failed"))
+    
+main()                                  # Call the created function
+```
+
+The sort can be profiled with 100 elements, this is quick and should be representative.
+
+```sh
+python -m kernprof -lvr bubblesort.py 100
+```
+
+This produces output:
+
+```output
+Wrote profile results to bubblesort.py.lprof
+Timer unit: 1e-06 s
+
+Total time: 0.002973 s
+File: bubblesort.py
+Function: main at line 5
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     5                                           @profile
+     6                                           def main():
+     7                                               # Argument parsing
+     8         1          0.7      0.7      0.0      if len(sys.argv) != 2:
+     9                                                   print("Script expects 1 positive integer argument, %u found."%…
+    10                                                   sys.exit()
+    11         1          1.6      1.6      0.1      n = int(sys.argv[1])
+    12                                               # Init
+    13         1          8.8      8.8      0.3      random.seed(12)
+    14         1         16.6     16.6      0.6      arr = [random.random() for i in range(n)]
+    15         1         38.2     38.2      1.3      print("Sorting %d elements"%(n))
+    16                                               # Sort
+    17        95         14.5      0.2      0.5      for i in range(n - 1):
+    18        95         13.1      0.1      0.4          swapped = False
+    19      5035        723.1      0.1     24.3          for j in range(0, n - i - 1):
+    20      4940       1045.9      0.2     35.2              if arr[j] > arr[j + 1]:
+    21      2452        686.9      0.3     23.1                  arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    22      2452        353.0      0.1     11.9                  swapped = True
+    23                                                   # If no two elements were swapped in the inner loop, the array…
+    24        95         15.2      0.2      0.5          if not swapped:
+    25         1          0.2      0.2      0.0              break
+    26                                               # Validate
+    27         1          0.5      0.5      0.0      is_sorted = True
+    28       100         12.9      0.1      0.4      for i in range(n - 1):
+    29        99         20.3      0.2      0.7          if arr[i] > arr[i+1]:
+    30                                                       is_sorted = False
+    31         1         21.5     21.5      0.7      print("Sorting: %s"%("Passed" if is_sorted else "Failed"))
+```
+
+From this we can identify that the print statements were the most expensive individual calls ("Per Hit"), however both were only called once.
+Most execution time was spent at the inner loop (lines 19-22).
+
+As this is a reference implementation of a classic sorting algorithm we are unlikely to be able to improve it further.
+More on sorting algorithms later in the course.
+
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Exercise 2: Predator Prey
 
 During the function-level profiling episode, the Python predator prey model was function-level profiled.
 This highlighted that `Grass::eaten()` (from `predprey.py:278`) occupies the majority of the runtime.
@@ -331,7 +445,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 
 From the profiling output it can be seen that lines 285-287 occupy over 90% of the method's runtime!
 
-```
+```python
             for i in range(len(prey_list)):
                 prey = prey_list[i]
                 if prey.life < PREY_HUNGER_THRESH:
@@ -339,22 +453,10 @@ From the profiling output it can be seen that lines 285-287 occupy over 90% of t
 
 Given that the following line 289 only has a relative 0.6% time, it can be understood that the vast majority of times the condition `prey.life < PREY_HUNGER_THRESH` is evaluated it does not proceed.
 
-Remembering that this method is executed once per each of the 5000 `Grass` agents, it could make sense to pre-filter `prey_list` once each timestep before it is passed to `Grass::eaten()`. This would greatly reduce the number of `Prey` iterated, reducing the cost of the method.
-
-:::::::::::::::::::::::::::::::::
-
-
-## Exercise 2: TODO
-
-TODO: e.g. one where there are no methods, so how to decorate
-
-:::::::::::::::::::::::: solution 
-
-Solution 2: TODO
+Remembering that this method is executed once per each of the 5000 `Grass` agents each step of the model, it could make sense to pre-filter `prey_list` once each timestep before it is passed to `Grass::eaten()`. This would greatly reduce the number of `Prey` iterated, reducing the cost of the method.
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
-
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints
