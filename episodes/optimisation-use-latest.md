@@ -28,7 +28,7 @@ exercises: 0
 
 <!-- Not always possible due to incompatibilities -->
 
-<!-- Updates may include breaking changes -->
+<!-- Updates may include breaking changes, performance regressions for major packages are rare -->
 
 <!-- Important to have validation inplace to ensure results aren't affected -->
 
