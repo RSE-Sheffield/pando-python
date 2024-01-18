@@ -19,16 +19,6 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-
-
-<!--## How is Data Represented in Memory-->
-
-
-<!-- Integer 1 byte vs 8 bytes, where does python stand? -->
-<!-- Float, where does python stand? -->
-<!-- Explicit numpy types -->
-<!-- Strings -->
-
 ## Accessing Variables
 
 The storage and movement of data plays a large role in the performance of executing software.
@@ -173,17 +163,103 @@ This gives it an overhead versus reusing existing allocations, or avoiding redun
 
 Within Python memory is not explicitly allocated and deallocated, instead it is automatically allocated and later "garbage collected". The costs are still there, this just means that Python programmers have less control over where they occur.
 
+<!-- Based on the same premise as first example from Chapter 6 High Perf Python-->
 
-<!-- TODO example of slower code with allocations -->
+The below implementation of the [heat-equation](https://en.wikipedia.org/wiki/Heat_equation), reallocates `out_grid`, a large 2 dimensional (500x500) list each time `update()` is called which progresses the model.
+
 ```python
+import time
+grid_shape = (512, 512)
 
+def update(grid, a_dt):
+    x_max, y_max = grid_shape
+    out_grid = [[0.0 for x in range(y_max)] * y_max for x in range(x_max)]
+    for i in range(x_max):
+        for j in range(y_max):
+            out_xx = grid[(i-1)%x_max][j] - 2 * grid[i][j] + grid[(i+1)%x_max][j]
+            out_yy = grid[i][(j-1)%y_max] - 2 * grid[i][j] + grid[i][(j+1)%y_max]
+            out_grid[i][j] = grid[i][j] + (out_xx + out_yy) * a_dt 
+    return out_grid
+    
+def heat_equation(steps):
+    x_max, y_max = grid_shape
+    grid = [[0.0] * y_max for x in range(x_max)]
+    # Init central point to diffuse
+    grid[int(x_max/2)][int(y_max/2)] = 1.0
+    # Run steps
+    for i in range(steps):
+        grid = update(grid, 0.1)
+
+heat_equation(100)
 ```
 
-<!--## Less Python code, probably better-->
+Line profiling demonstrates that function takes over 55 seconds, with the cost of allocating the temporary `out_grid` list to be 39.3% of the total runtime of that function!
 
-<!--sum(range()) vs for i in range(): t+=i-->
+```output
+Total time: 55.4675 s
+File: heat_equation.py
+Function: update at line 4
 
-## Branch Prediction
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     3                                           @profile
+     4                                           def update(grid, a_dt):
+     5       100        127.7      1.3      0.0      x_max, y_max = grid_shape
+     6       100   21822304.9 218223.0     39.3      out_grid = [[0.0 for x in range(y_max)] * y_max for x in range(x_m…
+     7     51300       7741.9      0.2      0.0      for i in range(x_max):
+     8  26265600    3632718.1      0.1      6.5          for j in range(y_max):
+     9  26214400   11207717.9      0.4     20.2              out_xx = grid[(i-1)%x_max][j] - 2 * grid[i][j] + grid[(i+1…
+    10  26214400   11163116.5      0.4     20.1              out_yy = grid[i][(j-1)%y_max] - 2 * grid[i][j] + grid[i][(…
+    11  26214400    7633720.1      0.3     13.8              out_grid[i][j] = grid[i][j] + (out_xx + out_yy) * a_dt
+    12       100         27.8      0.3      0.0      return out_grid
+```
+
+If instead `out_grid` is double buffered, such that two buffers are allocated outside the function, which are swapped after each call to update().
+
+```python
+import time
+grid_shape = (512, 512)
+
+def update(grid, a_dt, out_grid):
+    x_max, y_max = grid_shape
+    for i in range(x_max):
+        for j in range(y_max):
+            out_xx = grid[(i-1)%x_max][j] - 2 * grid[i][j] + grid[(i+1)%x_max][j]
+            out_yy = grid[i][(j-1)%y_max] - 2 * grid[i][j] + grid[i][(j+1)%y_max]
+            out_grid[i][j] = grid[i][j] + (out_xx + out_yy) * a_dt 
+    
+def heat_equation(steps):
+    x_max, y_max = grid_shape
+    grid = [[0.0 for x in range(y_max)] for x in range(x_max)]
+    out_grid = [[0.0 for x in range(y_max)] for x in range(x_max)]  # Allocate a second buffer once
+    # Init central point to diffuse
+    grid[int(x_max/2)][int(y_max/2)] = 1.0
+    # Run steps
+    for i in range(steps):
+        update(grid, 0.1, out_grid)  # Pass the output buffer
+        grid, out_grid = out_grid, grid  # Swap buffers
+
+heat_equation(100)
+```
+
+The total time reduces to 34 seconds, reducing the runtime by 39% inline with the removed allocation.
+
+```output
+Total time: 34.0597 s
+File: heat_equation.py
+Function: update at line 3
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     3                                           @profile
+     4                                           def update(grid, a_dt, out_grid):
+     5       100         43.5      0.4      0.0      x_max, y_max = grid_shape
+     6     51300       7965.8      0.2      0.0      for i in range(x_max):
+     7  26265600    3569519.4      0.1     10.5          for j in range(y_max):
+     8  26214400   11291491.6      0.4     33.2              out_xx = grid[(i-1)%x_max][j] - 2 * grid[i][j] + grid[(i+1…
+     9  26214400   11409533.7      0.4     33.5              out_yy = grid[i][(j-1)%y_max] - 2 * grid[i][j] + grid[i][(…
+    10  26214400    7781156.4      0.3     22.8              out_grid[i][j] = grid[i][j] + (out_xx + out_yy) * a_dt
+```
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
