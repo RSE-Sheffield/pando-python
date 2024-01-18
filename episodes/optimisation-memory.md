@@ -56,10 +56,10 @@ However all is not lost, packages such as `numpy` and `pandas` implemented in C/
 *More on this later*
 :::::::::::::::::::::::::::::::::::::::::::::
 
-<!-- TODO python code example -->
+<!-- TODO python code example 
 ```python
 
-```
+```-->
 
 ## Accessing Disk
 
