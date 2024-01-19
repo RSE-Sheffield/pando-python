@@ -25,10 +25,10 @@ Now that you're able to find the most expensive components of your code with pro
 In order to optimise code for performance, it is necessary to have an understanding of what a computer is doing to execute it.
 
 <!-- Goal is to give you a high level understanding of how your code executes. You don't need to be an expert, even a vague general understanding will leave you in a stronger position. -->
-Even a high-level understanding of a typical computer architecture and the most common data-structures/algorithms, enables the identification of suboptimal approaches. If you have learned to write code informally out of necessity, to get something to work, it's not uncommon to have collected some bad habits along the way.
+Even a high-level understanding of a typical computer architecture, the most common data-structures/algorithms and how Python executes your code, enable the identification of suboptimal approaches. If you have learned to write code informally out of necessity, to get something to work, it's not uncommon to have collected some bad habits along the way.
 
 <!-- This is largely high-level/abstract knowledge applicable to the vast majority of programming languages, applies even more strongly if using compiled Python features like numba -->
-The remaining content is primarily abstract knowledge, that is applicable to the vast majority of programming languages.
+The remaining content is often abstract knowledge, that is transferable to the vast majority of programming languages.
 
 ## Premature Optimisation
 
