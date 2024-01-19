@@ -148,12 +148,13 @@ Repeated runs show some noise to the timing, however the slowdown is consistentl
 You might not even be reading 1000 different files, you could be reading the same file multiple times rather than reading it once and retaining it in memory during execution.
 The same performance overhead would apply.
 
-## Latency big picture
+## Latency Overview
 
-<!-- classic latency comparison -->
+Latency can have a big impact on the speed that a program executes, the below graph demonstrates this. Note the log scale!
 
-<!--TODO some kind of graph that clearly displays the order of magnitude difference-->
-https://blog.nahurst.com/visualizing-latency-numbers-every-programmer
+![A graph demonstrating the wide variety of latencies a programmer may experience when accessing data.](episodes/fig/latency.png){alt='A horizontal bar chart displaying the relative latencies for L1/L2/L3 cache, RAM, SSD, HDD and a packet being sent from London to California and back. These latencies range from 1 nanosecond  to 140 milliseconds and are displayed with a log scale.'}
+
+The lower the latency typically the higher the effective bandwidth. L1 and L2 cache have 1TB/s, RAM 100GB/s, SSDs upto 32 GB/s, HDDs upto 150MB/s. Making large memory transactions even slower.
 
 ## Memory Allocation is not Free
 
