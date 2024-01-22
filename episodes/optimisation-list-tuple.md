@@ -16,6 +16,7 @@ exercises: 0
 
 - Able to summarise how Lists and Tuples work behind the scenes.
 - Able to identify appropriate use-cases for tuples.
+- Able to use generator functions in appropriate situations.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -82,7 +83,7 @@ Preallocate: 2.48ms
 Comprehension: 1.69ms
 ```
 
-Results will vary between Python versions, hardware and list lengths. But in this example list comprehension was 2.1x faster, with preallocate fairing in the middle. Although this is milliseconds, this can soon add up if you are regularly creating lists.
+Results will vary between Python versions, hardware and list lengths. But in this example list comprehension was 2x faster, with pre-allocate fairing in the middle. Although this is milliseconds, this can soon add up if you are regularly creating lists.
 
 ## Tuples
 
@@ -106,9 +107,10 @@ This can be easily demonstrated with Python's `timeit` module in your console.
 
 It takes 3x as long to allocate a short list than a tuple of equal length. This gap only grows with the length, as the tuple cost remains roughly static whereas the cost of allocating the list grows slightly.
 
+
 ## Generator Functions
 
-You may not even require your data be stored in a list of tuple if it is only accessed once and in sequence.
+You may not even require your data be stored in a list or tuple if it is only accessed once and in sequence.
 
 Generators are special functions, that use `yield` rather than `return`. Each time the generator is called, it resumes computation until the next `yield` statement is hit to return the next value.
 
@@ -116,15 +118,85 @@ This avoids needing to allocate a data structure, and can greatly reduce memory 
 
 Common examples for generators include:
 * Reading from a large file that may not fit in memory.
-* A generated sequence where the required length is unknown.
+* Any generated sequence where the required length is unknown.
 
+The below example demonstrates how a generator function (`fibonnaci_generator()`) differs from one that simply returns a constructed list (`fibonacci_list()`).
 
-<!-- todo Fibonacci example -->
+```python
+from timeit import timeit
+
+N = 1000000
+repeats = 1000
+
+def fibonacci_generator():
+    a=0
+    b=1
+    while True:
+        yield b
+        a,b= b,a+b
+        
+def fibonacci_list(max_val):
+    rtn = []
+    a=0
+    b=1
+    while b < max_val:
+        rtn.append(b)
+        a,b= b,a+b
+    return rtn
+
+def test_generator():
+    t = 0
+    max_val = N
+    for i in fibonacci_generator():
+        if i > max_val:
+            break
+        t += i
+
+def test_list():
+    li = fibonacci_list(N)
+    t = 0
+    for i in li:
+        t += i
+        
+def test_list_long():
+    t = 0
+    max_val = N
+    li = fibonacci_list(max_val*10)
+    for i in li:
+        if i > max_val:
+            break
+        t += i
+
+print(f"Gen: {timeit(test_generator, number=repeats):.5f}ms")
+print(f"List: {timeit(test_list, number=repeats):.5f}ms")
+print(f"List_long: {timeit(test_list_long, number=repeats):.5f}ms")
+```
+
+The performance of `test_generator()` and `test_list()` are comparable, however `test_long_list()` which generates a list with 5 extra elements (35 vs 30) is consistently slower.
+
+```output
+Gen: 0.00251ms
+List: 0.00256ms
+List_long: 0.00332ms
+```
+
+Unlike list comprehension, a generator function will normally involve a Python loop. Therefore, their performance is typically slower than constructing a list where much of the computation can be offloaded to the CPython backend.
+
+::::::::::::::::::::::::::::::::::::: callout
+
+The use of `max_val` in the previous example moves the value of `N` from global to local scope.
+
+The Python interpreter checks local scope first when finding variables, therefore this makes accessing local scope variables slightly faster than global scope, this is most visible when a variable is being accessed regularly such as within a loop.
+
+Replacing the use of `max_val` with `N` inside `test_generator()` causes the function to consistently perform a little slower than `test_list()`, whereas before the change it would normally be a little faster.
+
+:::::::::::::::::::::::::::::::::::::::::::::
+
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
-- List comprehension 
+- List comprehension should be preferred when constructing lists.
 - Where appropriate, Tuples and Generator functions should be preferred over Python lists.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
