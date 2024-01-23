@@ -234,7 +234,7 @@ These results are subject to change based on the number of items and the proport
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
-- Dictionaries and sets are appropriate for storing a collection of unique data with no intrinsic order for random access
+- Dictionaries and sets are appropriate for storing a collection of unique data with no intrinsic order for random access.
 - When used appropriately, dictionaries and sets are significantly faster than lists.
 - If a list or array is used in-place of a set, it should be sorted and searched using `bisect_left()` (binary search).
 
