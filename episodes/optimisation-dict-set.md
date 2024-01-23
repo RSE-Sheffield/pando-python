@@ -1,18 +1,22 @@
 ---
-title: "Lists & Sets"
+title: "Dictionaries & Sets"
 teaching: 0
 exercises: 0
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions
 
-- 
+- When are sets appropriate?
+- How are sets used in Python?
+- What is the best way to search a list?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- 
+- Able to identify appropriate use-cases for dictionaries and sets
+- Able to use dictionaries and sets effectively
+- Able to use `bisect_left()` to perform a binary search of a list or array
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -45,6 +49,7 @@ When the hashing data structure exceeds a given load factor (e.g. 2/3 of indices
 
 To retrieve or check for the existence of a key within a hashing data structure, the key is hashed again and a process equivalent to insertion is repeated. However, now the key at each index is checked for equality with the one provided. If any empty index is found before an equivalent key, then the key must not be present in the ata structure.
 
+
 ### Keys
 
 Keys will typically be a core Python type such as a number or string. However multiple of these can be combined as a Tuple to form a compound key, or a custom class can be used if the methods `__hash__()` and `__eq__()` have been implemented.
@@ -76,7 +81,6 @@ The only limitation is that two objects where two objects are equal they must ha
 Sets are dictionaries without the values (both are declared using `{}`), a collection of unique keys equivalent to the mathematical set. *Modern CPython now uses a set implementation distinct from that of it's dictionary, however they still behave much the same in terms of performance characteristics.*
 
 Sets are used for eliminating duplicates and checking for membership, and will normally outperform lists especially when the list cannot be maintained sorted.
-
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
@@ -161,11 +165,77 @@ uniqueListSort: 2.67ms
 
 ## Checking Existence
 
-<!-- Exercise to demonstrate performance of access vs list/numpy array-->
+Independent of the performance to construct a unique set (as covered in the previous), it's worth identifying the performance to search the data-structure to retrieve an item or check whether it exists.
+
+The performance of a hashing data structure is subject to the load factor and number of collisions. An item that hashes with no collision can be checked almost directly, whereas one with collisions will probe until it finds the correct item or an empty slot. In the worst possible case, whereby all insert items have collided this would mean checking every single item. In practice, hashing data-structures are designed to minimise the chances of this happening and most items should be found or identified as missing with a single access.
+
+In contrast if searching a list or array, the default approach is to start at the first item and check all subsequent items until the correct item has been found. If the correct item is not present, this will require the entire list to be checked. Therefore the worst-case is similar to that of the hashing data-structure, however it is guaranteed in cases where the item is missing. Similarly, on-average we would expect an item to be found half way through the list, meaning that an average search will require checking half of the items.
+
+If the list or array is however sorted a binary search can be used. A binary search divides the list in half and checks which half the target item would be found in, this continues recursively until the search is exhausted whereby the item should be found or dismissed. This is significantly faster than performing a linear search of the list, checking `log N` items every time.
+
+The below code demonstrates these approaches and their performance.
+
+```python
+import random
+from timeit import timeit
+from bisect import bisect_left
+
+N = 25000  # Number of elements in list
+M = 2  # N*M == Range over which the elements span
+
+def generateInputs():
+    random.seed(12)  # Ensure every list is the same
+    st = set([random.randint(0, int(N*M)) for i in range(N)])
+    ls = list(st)
+    ls.sort()  # Sort required for binary
+    return st, ls  # Return both set and list
+    
+def search_set():
+    st, _ = generateInputs()
+    j = 0
+    for i in range(0, int(N*M), M):
+        if i in st:
+            j += 1
+    
+def linear_search_list():
+    _, ls = generateInputs()
+    j = 0
+    for i in range(0, int(N*M), M):
+        if i in ls:
+            j += 1
+    
+def binary_search_list():
+    _, ls = generateInputs()
+    j = 0
+    for i in range(0, int(N*M), M):
+        k = bisect_left(ls, i)
+        if k != len(ls) and ls[k] == i:
+            j += 1
+
+            
+repeats = 1000
+gen_time = timeit(generateInputs, number=repeats)
+print(f"search_set: {timeit(search_set, number=repeats)-gen_time:.2f}ms")
+print(f"linear_search_list: {timeit(linear_search_list, number=repeats)-gen_time:.2f}ms")
+print(f"binary_search_list: {timeit(binary_search_list, number=repeats)-gen_time:.2f}ms")
+```
+
+Searching the set is fastest performing 25,000 searches in 0.04ms.
+This is closely followed by the binary search of the (sorted) list, although the list has been filtered for duplicates. A list still containing duplicates would be longer, leading to a more expensive search.
+The linear search of the list is more than 1000x slower than the fastest.
+
+```output
+
+```
+
+These results are subject to change based on the number of items and the proportion of searched items that exist within the list. However, the pattern is likely to remain the same. Linear searches should be avoided!
+
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
-- Dictionaries and Sets are appropriate for storing a collection of unique data with no intrinsic order for random access
+- Dictionaries and sets are appropriate for storing a collection of unique data with no intrinsic order for random access
 - When used appropriately, dictionaries and sets are significantly faster than lists.
+- If a list or array is used in-place of a set, it should be sorted and searched using `bisect_left()` (binary search).
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
