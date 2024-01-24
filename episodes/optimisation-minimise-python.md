@@ -20,7 +20,7 @@ Python is an interpreted programming language. When you execute your `.py` file,
 
 In comparison, many languages such as C/C++ compile directly to machine code. This allows them to better exploit hardware nuance to achieve fast performance, at the cost of compiled software not being cross-platform.
 
-Whilst Python will rarely be as fast as compiled languages like C/C++, it is possible to take advantage of the CPython back-end and other libraries such as numpy and pandas that have been written in compiled languages to expose this performance.
+Whilst Python will rarely be as fast as compiled languages like C/C++, it is possible to take advantage of the CPython back-end and other libraries such as NumPy and pandas that have been written in compiled languages to expose this performance.
 
 A simple example of this would be to search a list.
 The below example creates a list of 2500 integers in the inclusive-exclusive range `[0, 5000)`.
@@ -216,23 +216,122 @@ Additionally the core package [`itertools`](https://docs.python.org/3/library/it
 
 ## Using NumPy (Effectively)
 
-NumPy is a commonly used package for scientific computing, which provides a wide variety of methods.
+[NumPy](https://numpy.org/) is a commonly used package for scientific computing, which provides a wide variety of methods.
 
-It adds restriction via it's own types, and static arrays to enable even greater performance than that of core Python. However, if these restrictions are ignored the performance can become significantly worse.
+It adds restriction via it's own [basic numeric types](https://numpy.org/doc/stable/user/basics.types.html), and static arrays to enable even greater performance than that of core Python. However if these restrictions are ignored, the performance can become significantly worse.
 
 ### Arrays
 
 NumPy's arrays (not to be confused with the core Python `array` package) are static arrays. Unlike core Python's lists, they do not dynamically resize. Therefore if you wish to append to a NumPy array, you must call `resize()` first. If you treat this like `append()` for a Python list, resizing for each individual append you will be performing significantly more copies and memory allocations than a Python list.
 
-<!-- todo short example of array resize sloww -->
+The below example sees lists and arrays constructed from `range(100000)`.
+
+```python
+from timeit import timeit
+import numpy
+
+N = 100000  # Number of elements in list/array
+
+def list_append():
+    ls = []
+    for i in range(N):
+        ls.append(i)
+
+def array_resize():
+    ar = numpy.zeros(1)
+    for i in range(1, N):
+        ar.resize(i+1)
+        ar[i] = i
+        
+repeats = 1000
+print(f"list_append: {timeit(list_append, number=repeats):.2f}ms")
+print(f"array_resize: {timeit(array_resize, number=repeats):.2f}ms")
+```
+
+Resizing a NumPy array is 5.2x slower than a list, probably 10x slower than list comprehension.
+
+```output
+list_append: 3.50ms
+array_resize: 18.04ms
+```
 
 Another difference, is that NumPy arrays require all data to be the same type (and a NumPy type). This enables more efficient access to elements, as they all exist contiguously in memory. In contrast, elements within Python lists can be of any type so the list always stores a pointer to where the element actually exists in memory, rather than the actual element. This has the side effect that if you are converting back and forth between Python lists and NumPy arrays, there is an additional overhead as it's not as simple as copying a single block of memory.
 
-<!-- todo how can this be demonstrated?-->
+The below example demonstrates the overhead of mixing Python lists and NumPy functions.
 
-### Numpy types
+```sh
+# Python list, numpy.random.choice()
+>python -m timeit -s "import numpy; ls = list(range(10000))" "numpy.random.choice(ls)"
+1000 loops, best of 5: 267 usec per loop
 
-### Numpy functions
+# NumPy array, numpy.random.choice()
+>python -m timeit -s "import numpy; ar = numpy.arange(10000)" "numpy.random.choice(ar)"
+50000 loops, best of 5: 4.06 usec per loop
+```
+
+Passing a Python list to `numpy.random.choice()` is 65.6x slower than passing a NumPy array. This is the additional overhead of converting the list to an array. If this function were called multiple times, it would make sense to transform the list to an array before calling the function so that overhead is only paid once.
+
+::::::::::::::::::::::::::::::::::::: callout
+
+```sh
+# Python list, Manually select 1 item
+>python -m timeit -s "import numpy; ls = list(range(10000))" "ls[numpy.random.randint(len(ls))]"
+200000 loops, best of 5: 1.19 usec per loop
+
+# NumPy array, Manually select 1 item
+>python -m timeit -s "import numpy; ar = numpy.arange(10000)" "ar[numpy.random.randint(len(ar))]"
+200000 loops, best of 5: 1.22 usec per loop
+```
+
+Regardless, for this simple application of `numpy.random.choice()`, merely using `numpy.random.randint(len())` is around 4x faster regardless whether a Python list or NumPy array is used. With `numpy.random.choice()` being such a general function (it has many of possible parameters), there is significant internal branching. If you don't require this advanced functionality and are calling a function regularly, it can be worthwhile considering using a more limited function.
+
+There is however a trade-off, using `numpy.random.choice()` can be clearer to someone reading your code, and is more difficult to use incorrectly.
+
+:::::::::::::::::::::::::::::::::::::::::::::
+
+### Vectorisation
+
+The manner by which NumPy stores data in arrays enables it's functions to utilise vectorisation, whereby the processor executes one instruction across multiple variables simultaneously, for every mathematical operation between arrays.
+
+Earlier in this episode it was demonstrated that using core Python methods over a list, will outperform a loop performing the same calculation faster. The below example takes this a step further by demonstrating the calculation of dot product.
+
+<!-- Inspired by High Performance Python Chapter 6 example 
+Added python sum array, skipped a couple of others--> 
+```python
+from timeit import timeit
+
+N = 1000000  # Number of elements in list
+
+gen_list = f"ls = list(range({N}))"
+gen_array = f"import numpy;ar = numpy.arange({N}, dtype=numpy.int64)"
+
+py_sum_ls = "sum([i*i for i in ls])"
+py_sum_ar = "sum(ar*ar)"
+np_sum_ar = "numpy.sum(ar*ar)"
+np_dot_ar = "numpy.dot(ar, ar)"
+
+repeats = 1000
+print(f"python_sum_list: {timeit(py_sum_ls, setup=gen_list, number=repeats):.2f}ms")
+print(f"python_sum_array: {timeit(py_sum_ar, setup=gen_array, number=repeats):.2f}ms")
+print(f"numpy_sum_array: {timeit(np_sum_ar, setup=gen_array, number=repeats):.2f}ms")
+print(f"numpy_dot_array: {timeit(np_dot_ar, setup=gen_array, number=repeats):.2f}ms")
+```
+
+* `python_sum_list` uses list comprehension to perform the multiplication, followed by the Python core `sum()`. This comes out at 46.93ms
+* `python_sum_array` instead directly multiplies the two arrays, taking advantage of NumPy's vectorisation. But uses the core Python `sum()`, this comes in slightly faster at 33.26ms.
+* `numpy_sum_array` again takes advantage of NumPy's vectorisation for the multiplication, and additionally uses NumPy's `sum()` implementation. These two rounds of vectorisation provide a much faster 1.44ms completion.
+* `numpy_dot_array` instead uses NumPy's `dot()` to calculate the dot product in a single operation. This comes out the fastest at 0.29ms, 162x faster than `python_sum_list`. 
+
+```output
+python_sum_list: 46.93ms
+python_sum_array: 33.26ms
+numpy_sum_array: 1.44ms
+numpy_dot_array: 0.29ms
+```
+
+<!-- todo np.vectorize() vs map() -->
+
+
 
 ## Using Pandas (Effectively)
 
