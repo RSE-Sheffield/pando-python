@@ -20,7 +20,7 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Python is an interpreted programming language. When you execute your `.py` file, the default CPython back-end compiles your Python source code to an intermediate bytecode. This bytecode is then interpreted in software at runtime generating instructions for the processor as necessary. This interpretation stage, and other features of the language, harm the performance of Python (whilst improving it's usability).
+Python is an interpreted programming language. When you execute your `.py` file, the default CPython back-end compiles your Python source code to an intermediate bytecode. This bytecode is then interpreted in software at runtime generating instructions for the processor as necessary. This interpretation stage, and other features of the language, harm the performance of Python (whilst improving it's usability).<!-- https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/ -->
 
 In comparison, many languages such as C/C++ compile directly to machine code. This allows them to better exploit hardware nuance to achieve fast performance, at the cost of compiled software not being cross-platform.
 
@@ -206,17 +206,23 @@ In particular, those which are passed an `iterable` are likely to provide the gr
 
 * [`all()`](https://docs.python.org/3/library/functions.html#all): boolean and of all items
 * [`any()`](https://docs.python.org/3/library/functions.html#all): boolean or of all items
-* [`filter()`](https://docs.python.org/3/library/functions.html#filter): Return an iterator of items that return true for the provided function
-* [`map()`](https://docs.python.org/3/library/functions.html#map): Return an iterator that applies the provided function to ever item.
 * [`max()`](https://docs.python.org/3/library/functions.html#max): Return the maximum item 
 * [`min()`](https://docs.python.org/3/library/functions.html#min): Return the minimum item 
 * [`sum()`](https://docs.python.org/3/library/functions.html#sum): Return the sum of all items
 * [`zip()`](https://docs.python.org/3/library/functions.html#zip): Return an iterator which returns a tuple of items from each of the provided iterables.
 
-
 Additionally the core package [`itertools`](https://docs.python.org/3/library/itertools.html) provide many advanced iterators such as [`accumulate()`](https://docs.python.org/3/library/itertools.html#itertools.accumulate) and [`functools`](https://docs.python.org/3/library/functools.html#module-functools) provides [`reduce()`](https://docs.python.org/3/library/functools.html#functools.reduce) for performing bespoke reductions over iterables.
 
 <!-- todo exercise/s where pure-python must be converted to use one of the above fns. -->
+
+::::::::::::::::::::::::::::::::::::: callout
+
+The built-in functions [`filter()`](https://docs.python.org/3/library/functions.html#filter) and [`map()`](https://docs.python.org/3/library/functions.html#map) can be used for processing iterables (e.g. lists). However list-comprehension is likely to be more performant.
+
+<!-- Would this benefit from an example? -->
+
+:::::::::::::::::::::::::::::::::::::::::::::
+
 
 ## Using NumPy (Effectively)
 
@@ -259,7 +265,30 @@ list_append: 3.50ms
 array_resize: 18.04ms
 ```
 
-Another difference, is that NumPy arrays require all data to be the same type (and a NumPy type). This enables more efficient access to elements, as they all exist contiguously in memory. In contrast, elements within Python lists can be of any type so the list always stores a pointer to where the element actually exists in memory, rather than the actual element. This has the side effect that if you are converting back and forth between Python lists and NumPy arrays, there is an additional overhead as it's not as simple as copying a single block of memory.
+Another difference, is that NumPy arrays typically require all data to be the same type (and a NumPy type). This enables more efficient access to elements, as they all exist contiguously in memory. In contrast, elements within Python lists can be of any type so the list always stores a pointer to where the element actually exists in memory, rather than the actual element. This has the side effect that if you are converting back and forth between Python lists and NumPy arrays, there is an additional overhead as it's not as simple as copying a single block of memory.
+
+::::::::::::::::::::::::::::::::::::: callout
+
+If you construct a NumPy array from a list containing a complex object, it will store your data as Python types and you won't be able to take advantage of NumPy's optimisations.
+
+```sh
+>python
+>>> import numpy as np
+>>> a = np.array([0.5, 5])
+>>> type(a[0])
+<class 'numpy.float64'>
+>>> type(a[1])
+<class 'numpy.float64'>
+>>> b = np.array([0.5, 5,{"foo":5}])
+>>> type(b[0])
+<class 'float'>
+>>> type(b[1])
+<class 'int'>
+>>> type(b[2])
+<class 'dict'>
+```
+
+:::::::::::::::::::::::::::::::::::::::::::::
 
 The below example demonstrates the overhead of mixing Python lists and NumPy functions.
 
