@@ -6,13 +6,17 @@ exercises: 0
 
 :::::::::::::::::::::::::::::::::::::: questions
 
-- 
+- Why is are Python loops slow?
+- Why is NumPy often faster than raw Python?
+- How can processing rows of a Pandas data table be made faster?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
 - Able to identify when Python code can be rewritten to perform execution in the back-end.
+- Able to utilise NumPy's vectorisation when operating on arrays of data.
+- Able to efficiently process rows when working with data tables.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -370,8 +374,145 @@ numpy_vectorize: 7.80ms
 
 ## Using Pandas (Effectively)
 
+[Pandas](https://pandas.pydata.org/) is the most common Python package used for scientific computing when working with tabular data akin to spreadsheets (DataFrames).
+
+Similar to NumPy, Pandas enables greater performance than pure Python implementations when used correctly, however incorrect usage can actively harm performance.
+
+## Operating on Rows
+
+Pandas' methods by default operate on columns. Each column or series can be thought of as a NumPy array, highly suitable for vectorisation.
+
+Following the theme of this episode, iterating over the rows of a data frame using a `for` loop is not advised. The pythonic iteration will be slower than other approaches.
+
+Pandas allows it's own methods to be applied to rows in many cases by passing `axis=1`, where available these functions should be preferred over manual loops. Where you can't find a suitable method `apply()` can be similar the `map()`/`vectorize()` to apply your own function to rows.
+
+```python
+from timeit import timeit
+import pandas
+import numpy
+
+N = 100000  # Number of rows in DataFrame
+
+def genDataFrame():
+    numpy.random.seed(12)  # Ensure each dataframe is identical
+    return pandas.DataFrame(
+    {
+        "f_vertical": numpy.random.random(size=N),
+        "f_horizontal": numpy.random.random(size=N),
+        # todo some spurious columns
+    })
+
+def pythagoras(row):
+    return (row["f_vertical"]**2 + row["f_horizontal"]**2)**0.5
+    
+def for_range():
+    rtn = []
+    df = genDataFrame()
+    for row_idx in range(df.shape[0]):
+        row = df.iloc[row_idx]
+        rtn.append(pythagoras(row))
+    return pandas.Series(rtn)
+
+def for_iterrows():
+    rtn = []
+    df = genDataFrame()
+    for row_idx, row in df.iterrows():
+        rtn.append(pythagoras(row))
+    return pandas.Series(rtn)
+    
+def pandas_apply():
+    df = genDataFrame()
+    return df.apply(pythagoras, axis=1)
+
+repeats = 100
+gentime = timeit(genDataFrame, number=repeats)
+print(f"for_range: {timeit(for_range, number=repeats)*10-gentime:.2f}ms")
+print(f"for_iterrows: {timeit(for_iterrows, number=repeats)*10-gentime:.2f}ms")
+print(f"pandas_apply: {timeit(pandas_apply, number=repeats)*10-gentime:.2f}ms")
+```
+
+`apply()` is 3x faster than the two `for` approaches, as it avoids the Python `for` loop.
+
+
+```output
+for_range: 1582.47ms
+for_iterrows: 1677.14ms
+pandas_apply: 390.49ms
+```
+
+**However**, rows don't exist in memory as arrays (columns do!), so `apply()` does not take advantage of NumPys vectorisation. You may be able to go a step further and avoid explicitly operating on rows entirely by passing only the required columns NumPy.
+
+```python
+def vectorize():
+    df = genDataFrame()
+    return pandas.Series(numpy.sqrt(numpy.square(df["f_vertical"]) + numpy.square(df["f_horizontal"])))
+    
+print(f"vectorize: {timeit(vectorize, number=repeats)-gentime:.2f}ms")
+```
+
+264x faster than `apply()`, 1000x faster than `for` `iterrows()`!
+
+```
+vectorize: 1.48ms
+```
+
+It won't always be possible to take full advantage of vectorisation, for example you may have conditional logic.
+
+An alternate approach is converting your dataframe to a Python dictionary using `to_dict(orient='index')`. This creates a nested dictionary, where each row of the outer dictionary is an internal dictionary. This can then be processed via list-comprehension:
+
+```python
+def to_dict():
+    df = genDataFrame()
+    df_as_dict = df.to_dict(orient='index')
+    return pandas.Series([(r['f_vertical']**2 + r['f_horizontal']**2)**0.5 for r in df_as_dict.values()])
+
+print(f"to_dict: {timeit(to_dict, number=repeats)*10-gentime:.2f}ms")
+```
+
+Whilst still nearly 100x slower than pure vectorisation, it's twice as fast as `apply()`.
+
+```sh
+to_dict: 131.15ms
+```
+
+This is because indexing into Pandas' `Series` (rows) is significantly slower than a Python dictionary. There is a slight overhead to creating the dictionary (40ms in this example), however the stark difference in access speed is more than enough to overcome that cost for any large data-table.
+
+```python
+from timeit import timeit
+import pandas as pandas
+
+N = 100000  # Number of rows in DataFrame
+
+def series():
+    x = pandas.Series({'a' : 1, 'b' : 2})
+    for i in range(N):
+        y = x['a'] * x['b']
+
+def dictionary():
+    x = {'a' : 1, 'b' : 2}
+    for i in range(N):
+        y = x['a'] * x['b']
+
+repeats = 1000
+print(f"series: {timeit(series, number=repeats):.2f}ms")
+print(f"dictionary: {timeit(dictionary, number=repeats):.2f}ms")
+```
+
+69x slower!
+
+```output
+series: 236.16ms
+dictionary: 3.42ms
+```
+
+## Filter Early
+
+If you can filter your rows before processing, rather than after, you may significantly reduce the amount of processing and memory used.
+
 ::::::::::::::::::::::::::::::::::::: keypoints
 
-- 
+- Python is an interpreted language, this adds an additional overhead at runtime to the execution of Python code. Many core Python and NumPy functions are implemented in faster C/C++, free from this overhead.
+- NumPy can take advantage of vectorisation to process arrays, which can greatly improve performance.
+- Pandas' data tables store columns as arrays, therefore operations applied to columns can take advantage of NumPys vectorisation.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
