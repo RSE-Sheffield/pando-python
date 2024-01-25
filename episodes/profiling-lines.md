@@ -10,6 +10,7 @@ exercises: 0
 - What adjustments are required to Python code to profile with `line_profiler`?
 - How can `kernprof` be used to profile a Python program?
 <!-- Last two overlap somewhat -->
+
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives

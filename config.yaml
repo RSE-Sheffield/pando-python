@@ -67,6 +67,9 @@ episodes:
 - optimisation-introduction.md
 - optimisation-use-latest.md
 - optimisation-memory.md
+- optimisation-list-tuple.md
+- optimisation-dict-set.md
+- optimisation-minimise-python.md
 
 # Information for Learners
 learners: 

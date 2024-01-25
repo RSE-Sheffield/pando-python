@@ -329,9 +329,44 @@ numpy_sum_array: 1.44ms
 numpy_dot_array: 0.29ms
 ```
 
-<!-- todo np.vectorize() vs map() -->
+### `vectorize()`
 
+Python's `map()` was introduced earlier, for applying a function to all elements within a list.
+NumPy provides `vectorize()` an equivalent for operating over it's arrays.
 
+This doesn't actually make use of processor-level vectorisation, from the [documentation](https://numpy.org/doc/stable/reference/generated/numpy.vectorize.html):
+
+> The `vectorize` function is provided primarily for convenience, not for performance. The implementation is essentially a for loop.
+
+The below example demonstrates how the performance of `vectorize()` is only marginally faster than `map()`.
+
+```python
+N = 100000  # Number of elements in list/array
+
+def genArray():
+    return numpy.arange(N)
+
+def plus_one(x):
+    return x + 1
+    
+def python_map():
+    ar = genArray()
+    return list(map(plus_one, ar))
+
+def numpy_vectorize():
+    ar = genArray()
+    return numpy.vectorize(plus_one)(ar)
+
+repeats = 1000
+gentime = timeit(genArray, number=repeats)
+print(f"python_map: {timeit(python_map, number=repeats)-gentime:.2f}ms")
+print(f"numpy_vectorize: {timeit(numpy_vectorize, number=repeats)-gentime:.2f}ms")
+```
+
+```output
+python_map: 7.94ms
+numpy_vectorize: 7.80ms
+```
 
 ## Using Pandas (Effectively)
 
