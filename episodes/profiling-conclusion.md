@@ -3,17 +3,17 @@ title: "Profiling Conclusion"
 teaching: 0
 exercises: 0
 ---
-<!--
+
 :::::::::::::::::::::::::::::::::::::: questions
 
-- Lorem ipsum
+- What has been learnt about profiling?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
--->
+
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Review what has been learned about profiling
+- Review what has been learnt about profiling
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
