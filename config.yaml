@@ -59,14 +59,21 @@ contact: 'robert.chisholm@sheffield.ac.uk'
 
 # Order of episodes in your lesson
 episodes: 
-- introduction.md
 - profiling-introduction.md
 - profiling-functions.md
 - profiling-lines.md
 - profiling-conclusion.md
+- optimisation-introduction.md
+- optimisation-use-latest.md
+- optimisation-memory.md
+- optimisation-list-tuple.md
+- optimisation-dict-set.md
+- optimisation-minimise-python.md
+- optimisation-conclusion.md
 
 # Information for Learners
 learners: 
+- setup.md
 
 # Information for Instructors
 instructors: 
