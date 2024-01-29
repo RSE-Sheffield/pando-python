@@ -24,7 +24,7 @@ exercises: 0
 <!-- TODO Currently it's a verbatim copy from profiling-introduction.md, there's space for more context in this episode.>
 
 <!-- Context -->
-Software is typically comprised of a hierarchy of function calls, both functions written by the developer and those used from the core language and third party packages.
+Software is typically comprised of a hierarchy of function calls, both functions written by the developer and those used from the language's standard library and third party packages.
 
 <!-- What -->
 Function-level profiling analyses where time is being spent with respect to functions. Typically function-level profiling will calculate the number of times each function is called and the total time spent executing each function, inclusive and exclusive of child function calls.
@@ -121,10 +121,10 @@ This should open your web browser displaying a page similar to that below.
 In the icicle visualization style functions are represented by rectangles. A root function is the top-most rectangle, with functions it calls below it, then the functions those call below them, and so on. The amount of time spent inside a function is represented by the width of the rectangle. A rectangle that stretches across most of the visualization represents a function that is taking up most of the time of its calling function, while a skinny rectangle represents a function that is using hardly any time at all.
 -->
 
-The icicle diagram displayed by `snakeviz` represents the call stack during the execution of the profiled code.
+The icicle diagram displayed by `snakeviz` represents an aggregate of the call stack during the execution of the profiled code.
 The box which fills the top row represents the the root call, filling the row shows that it occupied 100% of the runtime.
 The second row holds the child methods called from the root, with their widths relative to the proportion of runtime they occupied.
-This continues with each subsequent row, however where a method only occupies 50% of the runtime, it's children can only occupy a maximum of that runtime hence the appearance of "icicles".
+This continues with each subsequent row, however where a method only occupies 50% of the runtime, it's children can only occupy a maximum of that runtime hence the appearance of "icicles" as each row gets narrower when the overhead of methods with no further children is accounted for.
 
 By clicking a box within the diagram, it will "zoom" making the selected box the root allowing more detail to be explored. The diagram is limited to 10 rows by default ("Depth") and methods with a relatively small proportion of the runtime are hidden ("Cutoff").
 
