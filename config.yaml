@@ -64,11 +64,11 @@ episodes:
 - profiling-lines.md
 - profiling-conclusion.md
 - optimisation-introduction.md
-- optimisation-use-latest.md
-- optimisation-memory.md
 - optimisation-list-tuple.md
 - optimisation-dict-set.md
 - optimisation-minimise-python.md
+- optimisation-use-latest.md
+- optimisation-memory.md
 - optimisation-conclusion.md
 
 # Information for Learners
