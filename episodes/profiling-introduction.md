@@ -219,6 +219,8 @@ Write a short plan of the approach you would take to investigate and confirm whe
 - There are several types of profiler each with slightly different purposes.
     - function-level: `cProfile` (visualised with `snakeviz`)
     - line-level: `line_profiler`
+    - timeline: `viztracer`
+    - hardware-metric
 - A representative test-case should be profiled, that is large enough to amplify any bottlenecks whilst executing to completion quickly.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

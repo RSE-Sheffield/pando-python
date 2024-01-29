@@ -299,8 +299,8 @@ Maybe we could investigate this further with line profiling!
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
-- A python program can be function level profiled with `cProfile` via `python -m cProfile -o <output file> <script name/arguments>`
-- The output file from `cProfile` can be visualised with `snakeviz` via `python -m snakeviz <output file>`
+- A python program can be function level profiled with `cProfile` via `python -m cProfile -o <output file> <script name/arguments>`.
+- The output file from `cProfile` can be visualised with `snakeviz` via `python -m snakeviz <output file>`.
 - Function level profiling output displays the nested call hierarchy, listing both the cumulative and total minus sub functions time.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

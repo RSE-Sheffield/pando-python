@@ -80,7 +80,7 @@ def is_prime(number):
 print(is_prime(1087))
 ```
 
-This tells `line_profiler` to collect metrics for the lines within the method `fizzbuzz()`.
+This tells `line_profiler` to collect metrics for the lines within the method `is_prime()`.
 You can still execute your code as normal, and these changes will have no effect.
 
 Similar to the earlier tools, `line_profiler` can then be triggered via `kernprof`.
@@ -173,7 +173,7 @@ def fizzbuzz(n):
         else:
             print(i)
 
-fizzbuzz(n)
+fizzbuzz(100)
 ```
 
 Next the method can be decorated with `@profile` which must be imported via `line_profiler`:
@@ -193,7 +193,7 @@ def fizzbuzz(n):
         else:
             print(i)
 
-fizzbuzz(n)
+fizzbuzz(100)
 ```
 
 Now that the code has been decorated, it can be profiled!
@@ -229,7 +229,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
     13        53       1112.8     21.0     51.7              print(i)
 ```
 
-For this basic example, we can calculate that "FizzBuzz" would be printed 6 times out of 100, and the profile shows that line 7 (`print("FizzBuzz")` occupied 5.8% of the runtime. This is slightly lower than 6% due to the control flow code (printing to console is expensive relative to the control flow and conditional statements). Similarly, "Fizz" is printed 27 times and occupies 25.1%, likewise "Buzz" is printed 14 times and occupies 13.2%. Each print statement has a similar "Per Hit" time of 20-21 micro seconds.
+For this basic example, we can calculate that "FizzBuzz" would be printed 6 times out of 100, and the profile shows that line 7 (`print("FizzBuzz")`) occupied 5.8% of the runtime. This is slightly lower than 6% due to the control flow code (printing to console is expensive relative to the control flow and conditional statements). Similarly, "Fizz" is printed 27 times and occupies 25.1%, likewise "Buzz" is printed 14 times and occupies 13.2%. Each print statement has a similar "Per Hit" time of 20-21 micro seconds.
 
 Therefore it can be seen in this example, how the time spent executing each line matches expectations.
 
@@ -237,7 +237,7 @@ Therefore it can be seen in this example, how the time spent executing each line
 
 ## Rich Output
 
-The `-r` argument passed to `kernprof` (or `line_profiler`) enables rich output, if you run the profile locally it should look similar to this.
+The `-r` argument passed to `kernprof` (or `line_profiler`) enables rich output, if you run the profile locally it should look similar to this. *This requires the optional package `rich`, it will have been installed if `[all]` was specified when installing `line_profiler` with `pip`.*
 
 ![Rich (highlighted) console output provided by `line_profiler` for the above FizzBuzz profile code.](episodes/fig/line_profiler-worked-example.png){alt='A screenshot of the `line_profiler` output from the previous code block, where the code within the line contents column has basic highlighting.'}
 
@@ -356,7 +356,6 @@ From this we can identify that the print statements were the most expensive indi
 Most execution time was spent at the inner loop (lines 19-22).
 
 As this is a reference implementation of a classic sorting algorithm we are unlikely to be able to improve it further.
-More on sorting algorithms later in the course.
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -462,9 +461,9 @@ Remembering that this method is executed once per each of the 5000 `Grass` agent
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
-- Specific methods can be line-level profiled if decorated with `@profile` that is imported from `line_profiler`
-- `kernprof` executes `line_profiler` via `python -m kernprof -lvr <script name/arguments>`
-- Code in global scope must wrapped in a method if it is to be profiled with `line_profiler`
+- Specific methods can be line-level profiled if decorated with `@profile` that is imported from `line_profiler`.
+- `kernprof` executes `line_profiler` via `python -m kernprof -lvr <script name/arguments>`.
+- Code in global scope must wrapped in a method if it is to be profiled with `line_profiler`.
 - The output from `line_profiler` lists the absolute and relative time spent per line for each targeted function.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
