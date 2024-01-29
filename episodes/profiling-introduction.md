@@ -32,7 +32,7 @@ Profiling allows you to narrow down where the time is being spent, to identify w
 
 <!-- This allows enables faster/more (why) -->
 Profiling is a relatively quick process which can either provide you the peace of mind that your code is efficient, or highlight the performance bottleneck.
-Knowing the bottleneck allows you to optimise it (or more specifically request support in optimising it), potentially leading to significant speedups enabling faster research. In extreme cases, addressing bottlenecks has enabled programs to run hundreds or thousands of times faster!
+There is limited benefit to optimising components that may only contribute a tiny proportion of the overall runtime. Identifying bottlenecks allows optimisation to be precise and efficient, potentially leading to significant speedups enabling faster research. In extreme cases, addressing bottlenecks has enabled programs to run hundreds or thousands of times faster!
 
 <!-- Increasingly, concern for green/eco compute and or cloud costs (why) -->
 Increasingly, particularly with relation to HPC, attention is being paid to the energy usage of software. Profiling your software will provide you the confidence that your software is an efficient use of resources.
@@ -65,7 +65,7 @@ For example Grand Theft Auto Online, which has allegedly earned over $7bn since 
 ## Types of Profiler
 
 There are multiple approaches to profiling, most programming languages have one or more tools available covering these approaches.
-Whilst these tools differ, their core functionality can be grouped into four categories.
+Whilst these tools differ, their core functionality can be grouped into several categories.
 
 ### Manual Profiling
 
@@ -106,7 +106,7 @@ Therefore, it is better described as a tool for **benchmarking**.
 
 ### Function-Level Profiling
 <!-- Context -->
-Software is typically comprised of a hierarchy of function calls, both functions written by the developer and those used from the core language and third party packages.
+Software is typically comprised of a hierarchy of function calls, both functions written by the developer and those used from the language's standard library and third party packages.
 
 <!-- What -->
 Function-level profiling analyses where time is being spent with respect to functions. Typically function-level profiling will calculate the number of times each function is called and the total time spent executing each function, inclusive and exclusive of child function calls.
@@ -141,7 +141,7 @@ Line-level profiling can be particularly expensive, a program can execute hundre
 
 `line_profiler` is deterministic, meaning that it tracks every line of code executed. To avoid it being too costly, the profiling is restricted to methods targeted with the decorator `@profile`.
 
-In contrast [`scalene`](https://github.com/plasma-umass/scalene) is a more advanced Python profiler capable of line-level profiling. It uses a sampling based approach, whereby the profiler halts and samples the line of code currently executing thousands of times per second. This reduces the cost of profiling, whilst still maintaining representative metrics for the most expensive components profiled.
+In contrast [`scalene`](https://github.com/plasma-umass/scalene) is a more advanced Python profiler capable of line-level profiling. It uses a sampling based approach, whereby the profiler halts and samples the line of code currently executing thousands of times per second. This reduces the cost of profiling, whilst still maintaining representative metrics for the most expensive components.
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
@@ -173,7 +173,7 @@ Profiling of this nature is outside the scope of this course.
 ## Selecting an Appropriate Test Case
 
 <!-- Profiling runs slower -->
-The act of profiling your code, collecting additional timing metrics during execution, will cause your program to execute slower. The slowdown is dependent on many variables, however the profiling covered by this course shouldn't more than double the runtime. <!-- Is this true? -->
+The act of profiling your code, collecting additional timing metrics during execution, will cause your program to execute slower. The slowdown is dependent on many variables related to both your code and the granularity of metrics being collected.
 
 <!-- Profiling may generate large amounts of data -->
 Similarly, the longer your code runs, the more code that is being executed, the more data that will be collected. A profile that runs for hours could produce gigabytes of output data!
