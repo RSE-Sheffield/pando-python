@@ -159,12 +159,22 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         2. Introduction to Profiling
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+        
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#introduction">Introduction</a></li>
+<li><a href="#when-to-profile">When to Profile</a></li>
+<li><a href="#types-of-profiler">Types of Profiler</a></li>
+<li><a href="#selecting-an-appropriate-test-case">Selecting an Appropriate Test Case</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
         
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -182,6 +192,15 @@
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
         <a href="profiling-lines.html">4. Line Level Profiling</a>
+    </div><!--/div.accordion-header-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="profiling-conclusion.html">5. Profiling Conclusion</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -245,7 +264,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction to Profiling</h1>
-        <p>Last updated on 2024-01-10 |
+        <p>Last updated on 2024-01-29 |
         
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/profiling-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -266,7 +285,9 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<ul><li>TODO</li>
+<ul><li>Why should you profile your code?</li>
+<li>How should you choose which type of profiler to use?</li>
+<li>Which test case should be profiled?</li>
 </ul></div>
 </div>
 </div>
@@ -274,20 +295,312 @@
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<ul><li>TODO</li>
+<ul><li>explain the benefits of profiling code and different types of
+profiler</li>
+<li>identify the appropriate Python profiler for a given scenario</li>
+<li>explain how to select an appropriate test case for profiling and
+why</li>
 </ul></div>
 </div>
 </div>
+</div>
+</div>
+<section id="introduction"><h2 class="section-heading">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<hr class="half-width"><!-- Profiling is (what) --><p>Performance profiling is the process of analysing and measuring the
+performance of a program or script, to understand where time is being
+spent during execution.</p>
+<!-- It can be used for (where) -->
+<p>Profiling is useful when you have written any code that will be
+running for a substantial period of time. As your code grows in
+complexity, it becomes increasingly difficult to estimate where time is
+being spent during execution. Profiling allows you to narrow down where
+the time is being spent, to identify whether this is of concern or
+not.</p>
+<!-- This allows enables faster/more (why) -->
+<p>Profiling is a relatively quick process which can either provide you
+the peace of mind that your code is efficient, or highlight the
+performance bottleneck. Knowing the bottleneck allows you to optimise it
+(or more specifically request support in optimising it), potentially
+leading to significant speedups enabling faster research. In extreme
+cases, addressing bottlenecks has enabled programs to run hundreds or
+thousands of times faster!</p>
+<!-- Increasingly, concern for green/eco compute and or cloud costs (why) -->
+<p>Increasingly, particularly with relation to HPC, attention is being
+paid to the energy usage of software. Profiling your software will
+provide you the confidence that your software is an efficient use of
+resources.</p>
+</section><section id="when-to-profile"><h2 class="section-heading">When to Profile<a class="anchor" aria-label="anchor" href="#when-to-profile"></a>
+</h2>
+<hr class="half-width"><p>Profiling is most relevant to working code, when you have reached a
+stage that the code works and are considering deploying it.</p>
+<p>Any code that will run for more than a few minutes over it’s
+lifetime, that isn’t a quick one-shot script can benefit from
+profiling.</p>
+<p>Profiling should be a relatively quick and inexpensive process. If
+there are no significant bottlenecks in your code you can quickly be
+confident that your code is reasonably optimised. If you do identify a
+concerning bottleneck, further work to optimise your code and reduce the
+bottleneck could see significant improvements to the performance of your
+code and hence productivity.</p>
+<div id="all-programmers-can-benefit" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="all-programmers-can-benefit" class="callout-inner">
+<h3 class="callout-title">All Programmers Can Benefit<a class="anchor" aria-label="anchor" href="#all-programmers-can-benefit"></a>
+</h3>
+<div class="callout-content">
+<!-- Everyone benefits (why) -->
+<p>Even professional programmers make oversights that can lead to poor
+performance, that can be identified through profiling.</p>
+<p>For example Grand Theft Auto Online, which has allegedly earned over
+$7bn since it’s 2013 release, was notorious for it’s slow loading times.
+8 years after it’s release <a href="https://nee.lv/2021/02/28/How-I-cut-GTA-Online-loading-times-by-70/" class="external-link">a
+‘hacker’</a> had enough, they reverse engineered and profiled the code
+to enable a 70% speedup!</p>
+<p><em>How much revenue did that unnecessary bottleneck cost, through
+user churn?</em></p>
+<p><em>How much time and energy was wasted, by unnecessarily slow
+loading screens?</em></p>
+</div>
+</div>
+</div>
+</section><section id="types-of-profiler"><h2 class="section-heading">Types of Profiler<a class="anchor" aria-label="anchor" href="#types-of-profiler"></a>
+</h2>
+<hr class="half-width"><p>There are multiple approaches to profiling, most programming
+languages have one or more tools available covering these approaches.
+Whilst these tools differ, their core functionality can be grouped into
+four categories.</p>
+<div class="section level3">
+<h3 id="manual-profiling">Manual Profiling<a class="anchor" aria-label="anchor" href="#manual-profiling"></a></h3>
+<p>Similar to using <code>print()</code> for debugging, manually timing
+sections of code can provide a rudimentary form of profiling.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>t_a <span class="op">=</span> time.monotonic()</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># A: Do something</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>t_b <span class="op">=</span> time.monotonic()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># B: Do something else</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>t_c <span class="op">=</span> time.monotonic()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># C: Do another thing</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>t_d <span class="op">=</span> time.monotonic()</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>mainTimer_stop <span class="op">=</span> time.monotonic()</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"A: </span><span class="sc">{</span>t_b <span class="op">-</span> t_a<span class="sc">}</span><span class="ss"> seconds"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"B: </span><span class="sc">{</span>t_c <span class="op">-</span> t_b<span class="sc">}</span><span class="ss"> seconds"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"C: </span><span class="sc">{</span>t_d <span class="op">-</span> t_c<span class="sc">}</span><span class="ss"> seconds"</span>)</span></code></pre>
+</div>
+<p><em>Above is only one example of how you could manually profile your
+Python code, there are many similar techniques.</em></p>
+<p>Whilst this can be appropriate for profiling narrow sections of code,
+it becomes increasingly impractical as a project grows in size and
+complexity. Furthermore, it’s also unproductive to be routinely adding
+and removing these small changes if they interfere with the required
+outputs of a project.</p>
+<div id="benchmarking" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="benchmarking" class="callout-inner">
+<h3 class="callout-title">Benchmarking<a class="anchor" aria-label="anchor" href="#benchmarking"></a>
+</h3>
+<div class="callout-content">
+<p>You may have previously used <a href="https://docs.python.org/3/library/timeit.html" class="external-link"><code>timeit</code></a>
+for timing Python code.</p>
+<p>This package returns the <strong>total runtime</strong> of an
+isolated block of code, without providing a more granular timing
+breakdown. Therefore, it is better described as a tool for
+<strong>benchmarking</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="function-level-profiling">Function-Level Profiling<a class="anchor" aria-label="anchor" href="#function-level-profiling"></a></h3>
+<!-- Context -->
+<p>Software is typically comprised of a hierarchy of function calls,
+both functions written by the developer and those used from the core
+language and third party packages.</p>
+<!-- What -->
+<p>Function-level profiling analyses where time is being spent with
+respect to functions. Typically function-level profiling will calculate
+the number of times each function is called and the total time spent
+executing each function, inclusive and exclusive of child function
+calls.</p>
+<!-- Why -->
+<p>This allows functions that occupy a disproportionate amount of the
+total runtime to be quickly identified and investigated.</p>
+<!-- We will be covering -->
+<p>In this course we will cover the usage of the function-level profiler
+<code>cProfile</code> and how it’s output can be visualised with
+<code>snakeviz</code>.</p>
+</div>
+<div class="section level3">
+<h3 id="line-level-profiling">Line-Level Profiling<a class="anchor" aria-label="anchor" href="#line-level-profiling"></a></h3>
+<!-- Context -->
+<p>Function-level profiling may not always be granular enough, perhaps
+your software is a single long script, or function-level profiling
+highlighted a particularly complex function.</p>
+<!-- What -->
+<p>Line-level profiling provides greater granularity, analysing where
+time is being spent with respect to individual lines of code.</p>
+<!-- Why -->
+<p>This will identify individual lines of code that occupy an
+disproportionate amount of the total runtime.</p>
+<!-- Caveat (too early to introduce this?) -->
+<!-- Typically, function-level profiling should be attempted first as it has a greater signal-to-noise ratio and is often significantly cheaper to perform. -->
+<!-- We will be covering -->
+<p>In this course we will cover the usage of the line-level profiler
+<code>line_profiler</code>.</p>
+<div id="deterministic-vs-sampling-profilers" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="deterministic-vs-sampling-profilers" class="callout-inner">
+<h3 class="callout-title">Deterministic vs Sampling Profilers<a class="anchor" aria-label="anchor" href="#deterministic-vs-sampling-profilers"></a>
+</h3>
+<div class="callout-content">
+<p>Line-level profiling can be particularly expensive, a program can
+execute hundreds of thousands of lines of code per second. Therefore,
+collecting information about each line of code can be costly.</p>
+<p><code>line_profiler</code> is deterministic, meaning that it tracks
+every line of code executed. To avoid it being too costly, the profiling
+is restricted to methods targeted with the decorator
+<code>@profile</code>.</p>
+<p>In contrast <a href="https://github.com/plasma-umass/scalene" class="external-link"><code>scalene</code></a>
+is a more advanced Python profiler capable of line-level profiling. It
+uses a sampling based approach, whereby the profiler halts and samples
+the line of code currently executing thousands of times per second. This
+reduces the cost of profiling, whilst still maintaining representative
+metrics for the most expensive components profiled.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="timeline-profiling">Timeline Profiling<a class="anchor" aria-label="anchor" href="#timeline-profiling"></a></h3>
+<!-- Context -->
+<p>Timeline profiling takes a different approach to visualising where
+time is being spent during execution.</p>
+<!-- What -->
+<p>Typically a subset of function-level profiling, the execution of the
+profiled software is instead presented as a timeline highlighting the
+order of function execution in addition to the time spent in each
+individual function call.</p>
+<!-- Why -->
+<p>By highlighting individual functions calls, patterns relating to how
+performance scales over time can be identified. These would be hidden
+with the aforementioned aggregate approaches.</p>
+<!-- We will be covering -->
+<!-- In this course we will cover the usage of the timeline profiler `viztracer`. -->
+<p><a href="https://viztracer.readthedocs.io/en/latest/" class="external-link"><code>viztracer</code></a>
+is an example of a timeline profiler for Python, however we won’t be
+demonstrating timeline profiling on this course.</p>
+</div>
+<div class="section level3">
+<h3 id="hardware-metric-profiling">Hardware Metric Profiling<a class="anchor" aria-label="anchor" href="#hardware-metric-profiling"></a></h3>
+<p>Processor manufacturers typically release advanced profilers specific
+to their hardware with access to internal hardware metrics. These
+profilers can provide analysis of performance relative to theoretical
+hardware maximums (e.g. memory bandwidth or operations per second) and
+detail the utilisation of specific hardware features and operations.</p>
+<p>Using these advanced profilers requires a thorough understanding of
+the relevant processor architecture and may lead to hardware specific
+optimisations.</p>
+<p>Examples of these profilers include; Intel’s VTune, AMD’s uProf, and
+NVIDIA’s Nsight Compute.</p>
+<p>Profiling of this nature is outside the scope of this course.</p>
+</div>
+</section><section id="selecting-an-appropriate-test-case"><h2 class="section-heading">Selecting an Appropriate Test Case<a class="anchor" aria-label="anchor" href="#selecting-an-appropriate-test-case"></a>
+</h2>
+<hr class="half-width"><!-- Profiling runs slower --><p>The act of profiling your code, collecting additional timing metrics
+during execution, will cause your program to execute slower. The
+slowdown is dependent on many variables, however the profiling covered
+by this course shouldn’t more than double the runtime.
+<!-- Is this true? --></p>
+<!-- Profiling may generate large amounts of data -->
+<p>Similarly, the longer your code runs, the more code that is being
+executed, the more data that will be collected. A profile that runs for
+hours could produce gigabytes of output data!</p>
+<!-- Important to select appropriate test-case/s -->
+<p>Therefore, it is important to select an appropriate test-case that is
+both representative of a typical workload and small enough that it can
+be quickly iterated. Ideally, it should take no more than a few minutes
+to run the profiled test-case from start to finish, however you may have
+circumstances where something that short is not possible.</p>
+<!-- For example -->
+<!-- I don't really like this paragraph -->
+<p>For example, you may have a model which normally simulates a year in
+hourly timesteps. It would be appropriate to begin by profiling the
+simulation of a single day. If the model scales over time, such as due
+to population growth, it may be pertinent to profile a single day later
+into a simulation if the model can be resumed or configured. A larger
+population is likely to amplify any bottlenecks that scale with the
+population, making them easier to identify.</p>
+<div id="exercise-5-minutes" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="exercise-5-minutes" class="callout-inner">
+<h3 class="callout-title">Exercise (5 minutes)<a class="anchor" aria-label="anchor" href="#exercise-5-minutes"></a>
+</h3>
+<div class="callout-content">
+<p>Think about a project where you’ve been working with Python. Do you
+know where the time during execution is being spent?</p>
+<p>Write a short plan of the approach you would take to investigate and
+confirm where the majority of time is being spent during it’s
+execution.</p>
+<!-- TODO should they share this anywhere, should it be discussed within the group? -->
+</div>
+</div>
+</div>
+<div id="accordionHint1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
+  <h4 class="accordion-header" id="headingHint1">Give me a hint</h4>
+</button>
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div class="accordion-body">
+<ul><li>What tools and techniques would be required?</li>
+<li>Is there a clear priority to these approaches?</li>
+<li>Which test-case/s would be appropriate?</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
+</h3>
+<div class="callout-content">
+<ul><li>Profiling is a relatively quick process to analyse where time is
+being spent and bottlenecks during a program’s execution.</li>
+<li>Code should be profiled when ready for deployment if it will be
+running for more than a few minutes during it’s lifetime.</li>
+<li>There are several types of profiler each with slightly different
+purposes.
+<ul><li>function-level: <code>cProfile</code> (visualised with
+<code>snakeviz</code>)</li>
+<li>line-level: <code>line_profiler</code>
+</li>
+</ul></li>
+<li>A representative test-case should be profiled, that is large enough
+to amplify any bottlenecks whilst executing to completion quickly.</li>
+</ul></div>
 </div>
 </div>
 <!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
-
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/introduction.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/profiling-functions.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
@@ -355,9 +668,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "rse.shef.ac.uk/pando-python/instructor/profiling-introduction.html",
   "identifier": "rse.shef.ac.uk/pando-python/instructor/profiling-introduction.html",
-  "dateCreated": "2024-01-10",
-  "dateModified": "2024-01-10",
-  "datePublished": "2024-01-23"
+  "dateCreated": "2024-01-29",
+  "dateModified": "2024-01-29",
+  "datePublished": "2024-01-29"
 }
 
   </script><script>

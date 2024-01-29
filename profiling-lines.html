@@ -177,11 +177,30 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         4. Line Level Profiling
         </span>
-      
+      </button>
+    </div><!--/div.accordion-header-->
+        
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#introduction">Introduction</a></li>
+<li><a href="#line_profiler">line_profiler</a></li>
+<li><a href="#worked-example">Worked Example</a></li>
+<li><a href="#exercises">Exercises</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="profiling-conclusion.html">5. Profiling Conclusion</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -230,7 +249,7 @@
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Previous and Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="profiling-functions.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="profiling-conclusion.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -238,14 +257,14 @@
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Previous: Function Level
         </a>
-        <a class="chapter-link float-end" href="index.html" rel="next">
-          Home
+        <a class="chapter-link float-end" href="profiling-conclusion.html" rel="next">
+          Next: Profiling Conclusion... 
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Line Level Profiling</h1>
-        <p>Last updated on 2024-01-10 |
+        <p>Last updated on 2024-01-29 |
         
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/profiling-lines.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -264,7 +283,12 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<ul><li>TODO</li>
+<ul><li>When is line level profiling appropriate?</li>
+<li>What adjustments are required to Python code to profile with
+<code>line_profiler</code>?</li>
+<li>How can <code>kernprof</code> be used to profile a Python program?
+<!-- Last two overlap somewhat -->
+</li>
 </ul></div>
 </div>
 </div>
@@ -272,23 +296,592 @@
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<ul><li>TODO</li>
+<ul><li>decorate Python code to prepare it for profiling with
+<code>line_profiler</code>
+</li>
+<li>execute a Python program via <code>kernprof</code> to collect
+profiling information about a Python program’s execution</li>
+<li>interpret output from <code>line_profiler</code>, to identify the
+lines where time is being spent during a program’s execution</li>
 </ul></div>
 </div>
 </div>
+</div>
+</div>
+<section id="introduction"><h2 class="section-heading">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<hr class="half-width"><!-- Context --><p>Whilst profiling, you may find that function-level profiling
+highlights expensive methods where you can’t easily determine the cause
+of the cost due to their complexity.</p>
+<!-- What -->
+<p>Line level profiling allows you to target specific methods to collect
+more granular metrics, which can help narrow the source of expensive
+computation further. Typically line-level profiling will calculate the
+number of times each line is called and the total time spent executing
+each line. However, with the increased granularity come increased
+collection costs, which is why it’s targeted to specific methods.</p>
+<!-- Why -->
+<p>This allows lines that occupy a disproportionate amount of the total
+runtime to be quickly identified and investigated.</p>
+<!-- We will be covering -->
+<p>In this episode we will cover the usage of the line-level profiler
+<code>line_profiler</code>, how your code should be modified to target
+the profiling and how the output can be interpreted.</p>
+</section><section id="line_profiler"><h2 class="section-heading">line_profiler<a class="anchor" aria-label="anchor" href="#line_profiler"></a>
+</h2>
+<hr class="half-width"><!-- what is line_profiler, how is it installed --><p><a href="https://kernprof.readthedocs.io/en/latest/line_profiler.html#line-profiler-basic-usage" class="external-link"><code>line_profiler</code></a>
+is a line-level profiler which provides both text output and
+visualisation.</p>
+<!--TODO is covering pip here redundant as it's covered in the user setup file? -->
+<p>It is not part of the Python standard library, and therefore must be
+installed via pip.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install line_profiler[all]</span></code></pre>
+</div>
+<p>To use <code>line_profiler</code> decorate methods to be profiled
+with <code>@profile</code> which is imported from
+<code>line_profiler</code>.</p>
+<p>For example, the below code:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_prime(number):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> number <span class="op">&lt;</span> <span class="dv">2</span>:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="bu">int</span>(number<span class="op">**</span><span class="fl">0.5</span>) <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> number <span class="op">%</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_prime(<span class="dv">1087</span>))</span></code></pre>
+</div>
+<p>Would be updated to:</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> line_profiler <span class="im">import</span> profile</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">@profile</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_prime(number):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> number <span class="op">&lt;</span> <span class="dv">2</span>:</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="bu">int</span>(number<span class="op">**</span><span class="fl">0.5</span>) <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> number <span class="op">%</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_prime(<span class="dv">1087</span>))</span></code></pre>
+</div>
+<p>This tells <code>line_profiler</code> to collect metrics for the
+lines within the method <code>fizzbuzz()</code>. You can still execute
+your code as normal, and these changes will have no effect.</p>
+<p>Similar to the earlier tools, <code>line_profiler</code> can then be
+triggered via <code>kernprof</code>.</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> kernprof <span class="at">-lvr</span> my_script.py</span></code></pre>
+</div>
+<p>This will output a table per profiled method to console:</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Wrote profile results to my_script.py.lprof
+Timer unit: 1e-06 s
+
+Total time: 1.65e-05 s
+File: my_script.py
+Function: is_prime at line 3
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     3                                           @profile
+     4                                           def is_prime(number):
+     5         1          0.4      0.4      2.4      if number &lt; 2:
+     6                                                   return False
+     7        32          8.4      0.3     50.9      for i in range(2, int(number**0.5) + 1):
+     8        31          7.4      0.2     44.8          if number % i == 0:
+     9                                                       return False
+    10         1          0.3      0.3      1.8      return True</code></pre>
+</div>
+<p>The columns have the following definitions:</p>
+<table class="table"><colgroup><col width="15%"><col width="85%"></colgroup><thead><tr class="header"><th>Column</th>
+<th>Definition</th>
+</tr></thead><tbody><tr class="odd"><td><code>Line #</code></td>
+<td>The line number of the relevant line within the file (specified
+above the table).</td>
+</tr><tr class="even"><td><code>Hits</code></td>
+<td>The total number of times the line was executed.</td>
+</tr><tr class="odd"><td><code>Time</code></td>
+<td>The total time spent executing that line, including child function
+calls.</td>
+</tr><tr class="even"><td><code>Per Hit</code></td>
+<td>The average time per call, including child function calls
+(<code>Time</code>/<code>Hits</code>).</td>
+</tr><tr class="odd"><td><code>% Time</code></td>
+<td>The time spent executing the line, including child function calls,
+relative to the other lines of the function.</td>
+</tr><tr class="even"><td><code>Line Contents</code></td>
+<td>A copy of the line from the file.</td>
+</tr></tbody></table><p>As <code>line_profiler</code> must be attached to specific methods
+and cannot attach to a full Python file or project, if your Python file
+has significant code in the global scope it will be necessary to move it
+into a new method which can then instead be called from global
+scope.</p>
+<p>The profile is also output to file, in this case
+<code>my_script.py.lprof</code>. This file is not human-readable, but
+can be printed to console by passing it to <code>line_profiler</code>,
+which will then display the same table as above.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> line_profiler <span class="at">-rm</span> my_script.py.lprof</span></code></pre>
+</div>
+<!-- TODO line_profiling significantly slows down the profiled methods. Is it possible to dynamically disable/enable profiling with `line_profiler`? kernprof -h implies so, but trial/error and docs is failing me -->
+</section><section id="worked-example"><h2 class="section-heading">Worked Example<a class="anchor" aria-label="anchor" href="#worked-example"></a>
+</h2>
+<hr class="half-width"><div id="follow-along" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="follow-along" class="callout-inner">
+<h3 class="callout-title">Follow Along<a class="anchor" aria-label="anchor" href="#follow-along"></a>
+</h3>
+<div class="callout-content">
+<!-- TODO manually write this anchor to add download attribute to the python file? -->
+<p>Download the <a href="files/line_profiler-worked-example/fizzbuzz.py">Python source for
+the example</a> and follow along with the worked example on your own
+machine.</p>
+</div>
+</div>
+</div>
+<p>To more clearly demonstrate how to use <code>line_profiler</code>,
+the below implementation of “FizzBuzz” will be line profiled.</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span> <span class="kw">and</span> i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"FizzBuzz"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> i <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Fizz"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Buzz"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(i)</span></code></pre>
+</div>
+<p>As there are no methods, firstly it should be updated to move the
+code to be profiled into a method:</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fizzbuzz(n):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span> <span class="kw">and</span> i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"FizzBuzz"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> i <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"Fizz"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"Buzz"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(i)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>fizzbuzz(n)</span></code></pre>
+</div>
+<p>Next the method can be decorated with <code>@profile</code> which
+must be imported via <code>line_profiler</code>:</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> line_profiler <span class="im">import</span> profile</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="at">@profile</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fizzbuzz(n):</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span> <span class="kw">and</span> i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"FizzBuzz"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> i <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"Fizz"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"Buzz"</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(i)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>fizzbuzz(n)</span></code></pre>
+</div>
+<p>Now that the code has been decorated, it can be profiled!</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> kernprof <span class="at">-lvr</span> fizzbuzz.py</span></code></pre>
+</div>
+<p>This will output a table per profiled method to console:</p>
+<p><em>If you run this locally it should be highlighted due to
+<code>-r</code> passed to <code>kernprof</code>.</em></p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Wrote profile results to fizzbuzz.py.lprof
+Timer unit: 1e-06 s
+
+Total time: 0.0021535 s
+File: fizzbuzz.py
+Function: fizzbuzz at line 3
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     3                                           @profile
+     4                                           def fizzbuzz(n):
+     5       101         32.5      0.3      1.5      for i in range(1, n + 1):
+     6       100         26.9      0.3      1.2          if i % 3 == 0 and i % 5 == 0:
+     7         6        125.8     21.0      5.8              print("FizzBuzz")
+     8        94         16.7      0.2      0.8          elif i % 3 == 0:
+     9        27        541.3     20.0     25.1              print("Fizz")
+    10        67         12.4      0.2      0.6          elif i % 5 == 0:
+    11        14        285.1     20.4     13.2              print("Buzz")
+    12                                                   else:
+    13        53       1112.8     21.0     51.7              print(i)</code></pre>
+</div>
+<p>For this basic example, we can calculate that “FizzBuzz” would be
+printed 6 times out of 100, and the profile shows that line 7
+(<code>print("FizzBuzz")</code> occupied 5.8% of the runtime. This is
+slightly lower than 6% due to the control flow code (printing to console
+is expensive relative to the control flow and conditional statements).
+Similarly, “Fizz” is printed 27 times and occupies 25.1%, likewise
+“Buzz” is printed 14 times and occupies 13.2%. Each print statement has
+a similar “Per Hit” time of 20-21 micro seconds.</p>
+<p>Therefore it can be seen in this example, how the time spent
+executing each line matches expectations.</p>
+<div id="rich-output" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="rich-output" class="callout-inner">
+<h3 class="callout-title">Rich Output<a class="anchor" aria-label="anchor" href="#rich-output"></a>
+</h3>
+<div class="callout-content">
+<p>The <code>-r</code> argument passed to <code>kernprof</code> (or
+<code>line_profiler</code>) enables rich output, if you run the profile
+locally it should look similar to this.</p>
+<figure><img src="fig/line_profiler-worked-example.png" alt="A screenshot of the `line_profiler` output from the previous code block, where the code within the line contents column has basic highlighting." class="figure mx-auto d-block"><figcaption>Rich (highlighted) console output provided by
+<code>line_profiler</code> for the above FizzBuzz profile code.</figcaption></figure></div>
+</div>
+</div>
+</section><section id="exercises"><h2 class="section-heading">Exercises<a class="anchor" aria-label="anchor" href="#exercises"></a>
+</h2>
+<hr class="half-width"><p>The following exercises allow you to review your understanding of
+what has been covered in this episode.</p>
+<div id="exercise-1-bubblesort" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="exercise-1-bubblesort" class="callout-inner">
+<h3 class="callout-title">Exercise 1: BubbleSort<a class="anchor" aria-label="anchor" href="#exercise-1-bubblesort"></a>
+</h3>
+<div class="callout-content">
+<p>Download and profile <a href="files/bubblesort/bubblesort.py">the
+Python bubblesort implementation</a>, line-level profile the code to
+investigate where time is being spent.</p>
+<p>The program can be executed via
+<code>python bubblesort.py &lt;elements&gt;</code>. The value of
+<code>elements</code> should be a positive integer as it represents the
+length of the array to be sorted.</p>
+</div>
+</div>
+</div>
+<div id="accordionHint1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
+  <h4 class="accordion-header" id="headingHint1">Give me a hint</h4>
+</button>
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div class="accordion-body">
+<ul><li>Remember that the code needs to be moved into a method decorated
+with <code>@profile</code>
+</li>
+<li>This must be imported via
+<code>from line_profiler import profile</code>
+</li>
+<li>100 elements should be suitable for a quick profile</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<p>If you chose to profile the whole code, it may look like this:</p>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> line_profiler <span class="im">import</span> profile        <span class="co"># Import profile decorator</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="at">@profile</span>                                 <span class="co"># Decorate the function to be profiled</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():                              <span class="co"># Create a simple function with the code to be profiled</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Argument parsing</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(sys.argv) <span class="op">!=</span> <span class="dv">2</span>:</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Script expects 1 positive integer argument, </span><span class="sc">%u</span><span class="st"> found."</span><span class="op">%</span>(<span class="bu">len</span>(sys.argv) <span class="op">-</span> <span class="dv">1</span>))</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        sys.exit()</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">int</span>(sys.argv[<span class="dv">1</span>])</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Init</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    random.seed(<span class="dv">12</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    arr <span class="op">=</span> [random.random() <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n)]</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Sorting </span><span class="sc">%d</span><span class="st"> elements"</span><span class="op">%</span>(n))</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sort</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        swapped <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, n <span class="op">-</span> i <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> arr[j] <span class="op">&gt;</span> arr[j <span class="op">+</span> <span class="dv">1</span>]:</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>                arr[j], arr[j <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> arr[j <span class="op">+</span> <span class="dv">1</span>], arr[j]</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>                swapped <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># If no two elements were swapped in the inner loop, the array is sorted</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> swapped:</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Validate</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    is_sorted <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> arr[i] <span class="op">&gt;</span> arr[i<span class="op">+</span><span class="dv">1</span>]:</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>            is_sorted <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Sorting: </span><span class="sc">%s</span><span class="st">"</span><span class="op">%</span>(<span class="st">"Passed"</span> <span class="cf">if</span> is_sorted <span class="cf">else</span> <span class="st">"Failed"</span>))</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>main()                                  <span class="co"># Call the created function</span></span></code></pre>
+</div>
+<p>The sort can be profiled with 100 elements, this is quick and should
+be representative.</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> kernprof <span class="at">-lvr</span> bubblesort.py 100</span></code></pre>
+</div>
+<p>This produces output:</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Wrote profile results to bubblesort.py.lprof
+Timer unit: 1e-06 s
+
+Total time: 0.002973 s
+File: bubblesort.py
+Function: main at line 5
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     5                                           @profile
+     6                                           def main():
+     7                                               # Argument parsing
+     8         1          0.7      0.7      0.0      if len(sys.argv) != 2:
+     9                                                   print("Script expects 1 positive integer argument, %u found."%…
+    10                                                   sys.exit()
+    11         1          1.6      1.6      0.1      n = int(sys.argv[1])
+    12                                               # Init
+    13         1          8.8      8.8      0.3      random.seed(12)
+    14         1         16.6     16.6      0.6      arr = [random.random() for i in range(n)]
+    15         1         38.2     38.2      1.3      print("Sorting %d elements"%(n))
+    16                                               # Sort
+    17        95         14.5      0.2      0.5      for i in range(n - 1):
+    18        95         13.1      0.1      0.4          swapped = False
+    19      5035        723.1      0.1     24.3          for j in range(0, n - i - 1):
+    20      4940       1045.9      0.2     35.2              if arr[j] &gt; arr[j + 1]:
+    21      2452        686.9      0.3     23.1                  arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    22      2452        353.0      0.1     11.9                  swapped = True
+    23                                                   # If no two elements were swapped in the inner loop, the array…
+    24        95         15.2      0.2      0.5          if not swapped:
+    25         1          0.2      0.2      0.0              break
+    26                                               # Validate
+    27         1          0.5      0.5      0.0      is_sorted = True
+    28       100         12.9      0.1      0.4      for i in range(n - 1):
+    29        99         20.3      0.2      0.7          if arr[i] &gt; arr[i+1]:
+    30                                                       is_sorted = False
+    31         1         21.5     21.5      0.7      print("Sorting: %s"%("Passed" if is_sorted else "Failed"))</code></pre>
+</div>
+<p>From this we can identify that the print statements were the most
+expensive individual calls (“Per Hit”), however both were only called
+once. Most execution time was spent at the inner loop (lines 19-22).</p>
+<p>As this is a reference implementation of a classic sorting algorithm
+we are unlikely to be able to improve it further. More on sorting
+algorithms later in the course.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="exercise-2-predator-prey" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="exercise-2-predator-prey" class="callout-inner">
+<h3 class="callout-title">Exercise 2: Predator Prey<a class="anchor" aria-label="anchor" href="#exercise-2-predator-prey"></a>
+</h3>
+<div class="callout-content">
+<p>During the function-level profiling episode, the Python predator prey
+model was function-level profiled. This highlighted that
+<code>Grass::eaten()</code> (from <code>predprey.py:278</code>) occupies
+the majority of the runtime.</p>
+<p>Line-profile this method, using the output from the profile consider
+how it might be optimised.</p>
+</div>
+</div>
+</div>
+<div id="accordionHint2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
+  <h4 class="accordion-header" id="headingHint2">Give me a hint</h4>
+</button>
+<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
+<div class="accordion-body">
+<ul><li>Remember that the function needs to be decorated with
+<code>@profile</code>
+</li>
+<li>This must be imported via
+<code>from line_profiler import profile</code>
+</li>
+<li>Line-level profiling <code>Grass::eaten()</code>, the most called
+function will slow it down significantly. You may wish to reduce the
+number of steps <code>predprey.py:305</code>.</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div class="accordion-body">
+<p>First the function must be decorated</p>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># line ~1</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> line_profiler <span class="im">import</span> profile</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb16">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># line ~278</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">@profile</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> eaten(<span class="va">self</span>, prey_list):</span></code></pre>
+</div>
+<p><code>line_profiler</code> can then be executed via
+<code>python -m kernprof -lvr predprey.py</code>.</p>
+<p>This will take much longer to run due to <code>line_profiler</code>,
+you may wish to reduce the number of steps. In this instance it may
+change the profiling output slightly, as the number of <code>Prey</code>
+and their member variables evaluated by this method both change as the
+model progresses, but the overall pattern is likely to remain
+similar.</p>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># line ~420</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Model(<span class="dv">50</span>) <span class="co"># 50 steps (originally defaulted to 250)</span></span></code></pre>
+</div>
+<p>Alternatively, you can kill the profiling process
+(e.g. <code>ctrl + c</code>) after a minute and the currently collected
+partial profiling information will be output.</p>
+<p>This will produce output similar to that below.</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Wrote profile results to predprey.py.lprof
+Timer unit: 1e-06 s
+
+Total time: 101.573 s
+File: predprey.py
+Function: eaten at line 278
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   278                                               @profile
+   279                                               def eaten(self, prey_list):
+   280   1250000     227663.1      0.2      0.2          if self.available:
+   281   1201630     165896.4      0.1      0.2              prey_index = -1
+   282   1201630     166219.0      0.1      0.2              closest_prey = GRASS_EAT_DISTANCE
+   283
+   284                                                       # Iterate prey_location messages to find the closest prey
+   285 198235791   29227902.1      0.1     28.8              for i in range(len(prey_list)):
+   286 197034161   30158318.8      0.2     29.7                  prey = prey_list[i]
+   287 197034161   38781451.1      0.2     38.2                  if prey.life &lt; PREY_HUNGER_THRESH:
+   288                                                               # Check if they are within interaction radius
+   289   2969470     579923.4      0.2      0.6                      dx = self.x - prey.x
+   290   2969470     552092.2      0.2      0.5                      dy = self.y - prey.y
+   291   2969470     938669.8      0.3      0.9                      distance = math.sqrt(dx*dx + dy*dy)
+   292
+   293   2969470     552853.8      0.2      0.5                      if distance &lt; closest_prey:
+   294      2532        469.3      0.2      0.0                          prey_index = i
+   295      2532        430.1      0.2      0.0                          closest_prey = distance
+   296
+   297   1201630     217534.5      0.2      0.2              if prey_index &gt;= 0:
+   298                                                           # Add grass eaten message
+   299      2497       2181.8      0.9      0.0                  prey_list[prey_index].life += GAIN_FROM_FOOD_PREY
+   300
+   301                                                           # Update grass agent variables
+   302      2497        793.9      0.3      0.0                  self.dead_cycles = 0
+   303      2497        631.0      0.3      0.0                  self.available = 0</code></pre>
+</div>
+<p>From the profiling output it can be seen that lines 285-287 occupy
+over 90% of the method’s runtime!</p>
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(prey_list)):</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                prey <span class="op">=</span> prey_list[i]</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> prey.life <span class="op">&lt;</span> PREY_HUNGER_THRESH:</span></code></pre>
+</div>
+<p>Given that the following line 289 only has a relative 0.6% time, it
+can be understood that the vast majority of times the condition
+<code>prey.life &lt; PREY_HUNGER_THRESH</code> is evaluated it does not
+proceed.</p>
+<p>Remembering that this method is executed once per each of the 5000
+<code>Grass</code> agents each step of the model, it could make sense to
+pre-filter <code>prey_list</code> once each timestep before it is passed
+to <code>Grass::eaten()</code>. This would greatly reduce the number of
+<code>Prey</code> iterated, reducing the cost of the method.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
+</h3>
+<div class="callout-content">
+<ul><li>Specific methods can be line-level profiled if decorated with
+<code>@profile</code> that is imported from
+<code>line_profiler</code>
+</li>
+<li>
+<code>kernprof</code> executes <code>line_profiler</code> via
+<code>python -m kernprof -lvr &lt;script name/arguments&gt;</code>
+</li>
+<li>Code in global scope must wrapped in a method if it is to be
+profiled with <code>line_profiler</code>
+</li>
+<li>The output from <code>line_profiler</code> lists the absolute and
+relative time spent per line for each targeted function.</li>
+</ul></div>
 </div>
 </div>
 <!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
-
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="profiling-functions.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="profiling-conclusion.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -296,8 +889,8 @@ any links that you are not going to use.
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Previous: Function Level
         </a>
-        <a class="chapter-link float-end" href="index.html" rel="next">
-          Home
+        <a class="chapter-link float-end" href="profiling-conclusion.html" rel="next">
+          Next: Profiling Conclusion... 
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
@@ -353,9 +946,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "rse.shef.ac.uk/pando-python/profiling-lines.html",
   "identifier": "rse.shef.ac.uk/pando-python/profiling-lines.html",
-  "dateCreated": "2024-01-10",
-  "dateModified": "2024-01-10",
-  "datePublished": "2024-01-23"
+  "dateCreated": "2024-01-29",
+  "dateModified": "2024-01-29",
+  "datePublished": "2024-01-29"
 }
 
   </script><script>

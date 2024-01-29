@@ -231,6 +231,18 @@
 </div>
 <!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="profiling-conclusion.html">5. Profiling Conclusion</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -297,9 +309,94 @@ with your lesson</li>
 <li>Run <code>sandpaper::build_lesson()</code> to preview your lesson
 locally</li>
 </ul></section><section id="profiling-introduction"><h2 class="section-heading"><a href="profiling-introduction.html">Introduction to Profiling</a></h2>
-<hr class="half-width"></section><section id="profiling-functions"><h2 class="section-heading"><a href="profiling-functions.html">Function Level Profiling</a></h2>
-<hr class="half-width"></section><section id="profiling-lines"><h2 class="section-heading"><a href="profiling-lines.html">Line Level Profiling</a></h2>
-<hr class="half-width"></section>
+<hr class="half-width">
+<ul>
+<li>Profiling is a relatively quick process to analyse where time is
+being spent and bottlenecks during a program’s execution.</li>
+<li>Code should be profiled when ready for deployment if it will be
+running for more than a few minutes during it’s lifetime.</li>
+<li>There are several types of profiler each with slightly different
+purposes.
+<ul>
+<li>function-level: <code>cProfile</code> (visualised with
+<code>snakeviz</code>)</li>
+<li>line-level: <code>line_profiler</code>
+</li>
+</ul>
+</li>
+<li>A representative test-case should be profiled, that is large enough
+to amplify any bottlenecks whilst executing to completion quickly.</li>
+</ul></section><section id="profiling-functions"><h2 class="section-heading"><a href="profiling-functions.html">Function Level Profiling</a></h2>
+<hr class="half-width">
+<ul>
+<li>A python program can be function level profiled with
+<code>cProfile</code> via
+<code>python -m cProfile -o &lt;output file&gt; &lt;script name/arguments&gt;</code>
+</li>
+<li>The output file from <code>cProfile</code> can be visualised with
+<code>snakeviz</code> via
+<code>python -m snakeviz &lt;output file&gt;</code>
+</li>
+<li>Function level profiling output displays the nested call hierarchy,
+listing both the cumulative and total minus sub functions time.</li>
+</ul></section><section id="profiling-lines"><h2 class="section-heading"><a href="profiling-lines.html">Line Level Profiling</a></h2>
+<hr class="half-width">
+<ul>
+<li>Specific methods can be line-level profiled if decorated with
+<code>@profile</code> that is imported from
+<code>line_profiler</code>
+</li>
+<li>
+<code>kernprof</code> executes <code>line_profiler</code> via
+<code>python -m kernprof -lvr &lt;script name/arguments&gt;</code>
+</li>
+<li>Code in global scope must wrapped in a method if it is to be
+profiled with <code>line_profiler</code>
+</li>
+<li>The output from <code>line_profiler</code> lists the absolute and
+relative time spent per line for each targeted function.</li>
+</ul></section><section id="profiling-conclusion"><h2 class="section-heading"><a href="profiling-conclusion.html">Profiling Conclusion</a></h2>
+<hr class="half-width">
+<p>What profiling is:</p>
+<ul>
+<li>The collection and analysis of metrics relating to the performance
+of a program during execution .</li>
+</ul>
+<p>Why programmers can benefit from profiling:</p>
+<ul>
+<li>Narrows down the costly areas of code, allowing optimisation to be
+prioritised or decided to be unnecessary.</li>
+</ul>
+<p>When to Profile:</p>
+<ul>
+<li>Profiling should be performed on functional code, either when
+concerned about performance or prior to release/deployment.</li>
+</ul>
+<p>What to Profile:</p>
+<ul>
+<li>The collection of profiling metrics will often slow the execution of
+code, therefore the test-case should be narrow whilst remaining
+representative of a realistic run.</li>
+</ul>
+<p>How to function-level profile:</p>
+<ul>
+<li>Execute <code>cProfile</code> via
+<code>python -m cProfile -o &lt;output file&gt; &lt;script name/arguments&gt;</code>
+</li>
+<li>Execute <code>snakeviz</code> via
+<code>python -m snakeviz &lt;output file&gt;</code>
+</li>
+</ul>
+<p>How to line-level profile:</p>
+<ul>
+<li>Import <code>profile</code> from <code>line_profiling</code>
+</li>
+<li>Decorate targeted methods with <code>@profile</code>
+</li>
+<li>Execute <code>line_profiler</code> via
+<code>python -m kernprof -lvr &lt;script name/arguments&gt;</code>
+</li>
+</ul></section>
 </div>
     </main>
 </div>
@@ -357,9 +454,9 @@ locally</li>
   "creativeWorkStatus": "active",
   "url": "rse.shef.ac.uk/pando-python/key-points.html",
   "identifier": "rse.shef.ac.uk/pando-python/key-points.html",
-  "dateCreated": "2024-01-10",
-  "dateModified": "2024-01-23",
-  "datePublished": "2024-01-23"
+  "dateCreated": "2024-01-29",
+  "dateModified": "2024-01-29",
+  "datePublished": "2024-01-29"
 }
 
   </script><script>

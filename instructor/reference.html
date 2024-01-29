@@ -183,6 +183,15 @@
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="profiling-conclusion.html">5. Profiling Conclusion</a>
+    </div><!--/div.accordion-header-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -241,7 +250,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Reference</h1>
-        <p>Last updated on 2024-01-03 |
+        <p>Last updated on 2024-01-29 |
         
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/learners/reference.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -256,12 +265,63 @@
         
 <section id="glossary"><h2 class="section-heading">Glossary<a class="anchor" aria-label="anchor" href="#glossary"></a>
 </h2>
-<hr class="half-width"><p>This is a placeholder file. Please add content here.</p>
-<!-- 
+<hr class="half-width"><dl><dt>Benchmarking</dt>
+<dd>
+The process of running a program in order to assess it’s overall
+performance. This can be useful to confirm the impact of optimisations.
+</dd>
+<dt>Bottleneck</dt>
+<dd>
+The component with the lowest throughput, which limits performance of
+the overall program. Improving the throughput of this component should
+improve the overall performance.
+</dd>
+</dl><p><em>Bottleneck is a synonym of limiting factor.</em></p>
+<dl><dt><code>cProfile</code></dt>
+<dd>
+A function level profiler provided by the Python standard library.
+</dd>
+<dt>Hot Path</dt>
+<dd>
+The parts of the code that are executed very frequently during normal
+operation.
+</dd>
+<dt>Latency</dt>
+<dd>
+The time taken for an operation to complete.
+</dd>
+<dt>Limiting Factor</dt>
+<dd>
+The component with the lowest throughput, which limits performance of
+the overall program. Improving the throughput of this component should
+improve the overall performance.
+</dd>
+</dl><p><em>Limiting factor is a synonym of bottleneck.</em></p>
+<dl><dt><code>line_profiler</code></dt>
+<dd>
+A line level profiler for Python that can be installed via
+<code>pip</code>.
+</dd>
+<dt>Profiling</dt>
+<dd>
+The measuring and analysis of granular performance metrics of a program,
+to understand where time is being spent during execution. Typically used
+to prioritise optimisation.
+</dd>
+<dt><code>snakeviz</code></dt>
+<dd>
+A web-browser based visualisation tool for <code>cProfile</code> outputs
+that can be installed via <code>pip</code>.
+</dd>
+<dt><code>viztracer</code></dt>
+<dd>
+A timeline profiler for Python that can be installed via
+<code>pip</code>.
+</dd>
+</dl><!-- 
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
- -->
-</section></div> <!-- / div.lesson-content -->
+ --></section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/index.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/index.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
@@ -329,9 +389,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "rse.shef.ac.uk/pando-python/instructor/reference.html",
   "identifier": "rse.shef.ac.uk/pando-python/instructor/reference.html",
-  "dateCreated": "2024-01-10",
-  "dateModified": "2024-01-03",
-  "datePublished": "2024-01-23"
+  "dateCreated": "2024-01-29",
+  "dateModified": "2024-01-29",
+  "datePublished": "2024-01-29"
 }
 
   </script><script>

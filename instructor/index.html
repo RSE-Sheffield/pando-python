@@ -194,6 +194,15 @@
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="profiling-conclusion.html">5. Profiling Conclusion</a>
+    </div><!--/div.accordion-header-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -314,7 +323,8 @@ How do you write a lesson using Markdown and <a href="https://carpentries.github
  2. <a href="profiling-introduction.html">Introduction to Profiling</a>
 </td>
 <td>
-TODO
+Why should you profile your code?<br>How should you choose which type
+of profiler to use?<br>Which test case should be profiled?
 </td>
 </tr><tr><td>
 <span class="visually-hidden">Duration: </span>00h 12m
@@ -323,7 +333,10 @@ TODO
  3. <a href="profiling-functions.html">Function Level Profiling</a>
 </td>
 <td>
-TODO
+When is function level profiling appropriate?<br>How can
+<code>cProfile</code> and <code>snakeviz</code> be used to profile a
+Python program?<br>How are the outputs from function level profiling
+interpreted?
 </td>
 </tr><tr><td>
 <span class="visually-hidden">Duration: </span>00h 12m
@@ -332,7 +345,18 @@ TODO
  4. <a href="profiling-lines.html">Line Level Profiling</a>
 </td>
 <td>
-TODO
+When is line level profiling appropriate?<br>What adjustments are
+required to Python code to profile with
+<code>line_profiler</code>?<br>How can <code>kernprof</code> be used to
+profile a Python program?
+</td>
+</tr><tr><td>
+<span class="visually-hidden">Duration: </span>00h 12m
+</td>
+<td>
+ 5. <a href="profiling-conclusion.html">Profiling Conclusion</a>
+</td>
+<td>
 </td>
 </tr><tr><td>
 <span class="visually-hidden">Duration: </span>00h 12m
@@ -371,9 +395,13 @@ therefore it is recommended that you have a Python 3.11 or newer
 environment.</p>
 <!-- Todo suggest using a venv?-->
 <p>The non-core Python packages required by the course are
-<code>snakeviz</code> and <code>line_profiler</code> and can be
+<code>snakeviz</code> and <code>line_profiler</code> which can be
 installed via <code>pip</code>.</p>
-<pre class="input"><code>pip install snakeviz line_profiler[all]</code></pre>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install snakeviz line_profiler[all]</span></code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -440,9 +468,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "rse.shef.ac.uk/pando-python/instructor/index.html",
   "identifier": "rse.shef.ac.uk/pando-python/instructor/index.html",
-  "dateCreated": "2024-01-10",
-  "dateModified": "2024-01-23",
-  "datePublished": "2024-01-23"
+  "dateCreated": "2024-01-29",
+  "dateModified": "2024-01-29",
+  "datePublished": "2024-01-29"
 }
 
   </script><script>

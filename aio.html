@@ -231,6 +231,18 @@
 </div>
 <!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="profiling-conclusion.html">5. Profiling Conclusion</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -460,7 +472,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-profiling-introduction"><p>Content from <a href="profiling-introduction.html">Introduction to Profiling</a></p>
 <hr>
-<p>Last updated on 2024-01-10 |
+<p>Last updated on 2024-01-29 |
         
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/profiling-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -474,7 +486,9 @@ any links that you are not going to use.
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>TODO</li>
+<li>Why should you profile your code?</li>
+<li>How should you choose which type of profiler to use?</li>
+<li>Which test case should be profiled?</li>
 </ul>
 </div>
 </div>
@@ -484,15 +498,330 @@ any links that you are not going to use.
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>TODO</li>
+<li>explain the benefits of profiling code and different types of
+profiler</li>
+<li>identify the appropriate Python profiler for a given scenario</li>
+<li>explain how to select an appropriate test case for profiling and
+why</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
-</div></section><section id="aio-profiling-functions"><p>Content from <a href="profiling-functions.html">Function Level Profiling</a></p>
+</div>
+<section id="introduction"><h2 class="section-heading">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<hr class="half-width">
+<!-- Profiling is (what) --><p>Performance profiling is the process of analysing and measuring the
+performance of a program or script, to understand where time is being
+spent during execution.</p>
+<!-- It can be used for (where) -->
+<p>Profiling is useful when you have written any code that will be
+running for a substantial period of time. As your code grows in
+complexity, it becomes increasingly difficult to estimate where time is
+being spent during execution. Profiling allows you to narrow down where
+the time is being spent, to identify whether this is of concern or
+not.</p>
+<!-- This allows enables faster/more (why) -->
+<p>Profiling is a relatively quick process which can either provide you
+the peace of mind that your code is efficient, or highlight the
+performance bottleneck. Knowing the bottleneck allows you to optimise it
+(or more specifically request support in optimising it), potentially
+leading to significant speedups enabling faster research. In extreme
+cases, addressing bottlenecks has enabled programs to run hundreds or
+thousands of times faster!</p>
+<!-- Increasingly, concern for green/eco compute and or cloud costs (why) -->
+<p>Increasingly, particularly with relation to HPC, attention is being
+paid to the energy usage of software. Profiling your software will
+provide you the confidence that your software is an efficient use of
+resources.</p>
+</section><section id="when-to-profile"><h2 class="section-heading">When to Profile<a class="anchor" aria-label="anchor" href="#when-to-profile"></a>
+</h2>
+<hr class="half-width">
+<p>Profiling is most relevant to working code, when you have reached a
+stage that the code works and are considering deploying it.</p>
+<p>Any code that will run for more than a few minutes over it’s
+lifetime, that isn’t a quick one-shot script can benefit from
+profiling.</p>
+<p>Profiling should be a relatively quick and inexpensive process. If
+there are no significant bottlenecks in your code you can quickly be
+confident that your code is reasonably optimised. If you do identify a
+concerning bottleneck, further work to optimise your code and reduce the
+bottleneck could see significant improvements to the performance of your
+code and hence productivity.</p>
+<div id="all-programmers-can-benefit" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="all-programmers-can-benefit" class="callout-inner">
+<h3 class="callout-title">All Programmers Can Benefit<a class="anchor" aria-label="anchor" href="#all-programmers-can-benefit"></a>
+</h3>
+<div class="callout-content">
+<!-- Everyone benefits (why) -->
+<p>Even professional programmers make oversights that can lead to poor
+performance, that can be identified through profiling.</p>
+<p>For example Grand Theft Auto Online, which has allegedly earned over
+$7bn since it’s 2013 release, was notorious for it’s slow loading times.
+8 years after it’s release <a href="https://nee.lv/2021/02/28/How-I-cut-GTA-Online-loading-times-by-70/" class="external-link">a
+‘hacker’</a> had enough, they reverse engineered and profiled the code
+to enable a 70% speedup!</p>
+<p><em>How much revenue did that unnecessary bottleneck cost, through
+user churn?</em></p>
+<p><em>How much time and energy was wasted, by unnecessarily slow
+loading screens?</em></p>
+</div>
+</div>
+</div>
+</section><section id="types-of-profiler"><h2 class="section-heading">Types of Profiler<a class="anchor" aria-label="anchor" href="#types-of-profiler"></a>
+</h2>
+<hr class="half-width">
+<p>There are multiple approaches to profiling, most programming
+languages have one or more tools available covering these approaches.
+Whilst these tools differ, their core functionality can be grouped into
+four categories.</p>
+<div class="section level3">
+<h3 id="manual-profiling">Manual Profiling<a class="anchor" aria-label="anchor" href="#manual-profiling"></a>
+</h3>
+<p>Similar to using <code>print()</code> for debugging, manually timing
+sections of code can provide a rudimentary form of profiling.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>t_a <span class="op">=</span> time.monotonic()</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># A: Do something</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>t_b <span class="op">=</span> time.monotonic()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># B: Do something else</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>t_c <span class="op">=</span> time.monotonic()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># C: Do another thing</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>t_d <span class="op">=</span> time.monotonic()</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>mainTimer_stop <span class="op">=</span> time.monotonic()</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"A: </span><span class="sc">{</span>t_b <span class="op">-</span> t_a<span class="sc">}</span><span class="ss"> seconds"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"B: </span><span class="sc">{</span>t_c <span class="op">-</span> t_b<span class="sc">}</span><span class="ss"> seconds"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"C: </span><span class="sc">{</span>t_d <span class="op">-</span> t_c<span class="sc">}</span><span class="ss"> seconds"</span>)</span></code></pre>
+</div>
+<p><em>Above is only one example of how you could manually profile your
+Python code, there are many similar techniques.</em></p>
+<p>Whilst this can be appropriate for profiling narrow sections of code,
+it becomes increasingly impractical as a project grows in size and
+complexity. Furthermore, it’s also unproductive to be routinely adding
+and removing these small changes if they interfere with the required
+outputs of a project.</p>
+<div id="benchmarking" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="benchmarking" class="callout-inner">
+<h3 class="callout-title">Benchmarking<a class="anchor" aria-label="anchor" href="#benchmarking"></a>
+</h3>
+<div class="callout-content">
+<p>You may have previously used <a href="https://docs.python.org/3/library/timeit.html" class="external-link"><code>timeit</code></a>
+for timing Python code.</p>
+<p>This package returns the <strong>total runtime</strong> of an
+isolated block of code, without providing a more granular timing
+breakdown. Therefore, it is better described as a tool for
+<strong>benchmarking</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="function-level-profiling">Function-Level Profiling<a class="anchor" aria-label="anchor" href="#function-level-profiling"></a>
+</h3>
+<!-- Context -->
+<p>Software is typically comprised of a hierarchy of function calls,
+both functions written by the developer and those used from the core
+language and third party packages.</p>
+<!-- What -->
+<p>Function-level profiling analyses where time is being spent with
+respect to functions. Typically function-level profiling will calculate
+the number of times each function is called and the total time spent
+executing each function, inclusive and exclusive of child function
+calls.</p>
+<!-- Why -->
+<p>This allows functions that occupy a disproportionate amount of the
+total runtime to be quickly identified and investigated.</p>
+<!-- We will be covering -->
+<p>In this course we will cover the usage of the function-level profiler
+<code>cProfile</code> and how it’s output can be visualised with
+<code>snakeviz</code>.</p>
+</div>
+<div class="section level3">
+<h3 id="line-level-profiling">Line-Level Profiling<a class="anchor" aria-label="anchor" href="#line-level-profiling"></a>
+</h3>
+<!-- Context -->
+<p>Function-level profiling may not always be granular enough, perhaps
+your software is a single long script, or function-level profiling
+highlighted a particularly complex function.</p>
+<!-- What -->
+<p>Line-level profiling provides greater granularity, analysing where
+time is being spent with respect to individual lines of code.</p>
+<!-- Why -->
+<p>This will identify individual lines of code that occupy an
+disproportionate amount of the total runtime.</p>
+<!-- Caveat (too early to introduce this?) -->
+<!-- Typically, function-level profiling should be attempted first as it has a greater signal-to-noise ratio and is often significantly cheaper to perform. -->
+<!-- We will be covering -->
+<p>In this course we will cover the usage of the line-level profiler
+<code>line_profiler</code>.</p>
+<div id="deterministic-vs-sampling-profilers" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="deterministic-vs-sampling-profilers" class="callout-inner">
+<h3 class="callout-title">Deterministic vs Sampling Profilers<a class="anchor" aria-label="anchor" href="#deterministic-vs-sampling-profilers"></a>
+</h3>
+<div class="callout-content">
+<p>Line-level profiling can be particularly expensive, a program can
+execute hundreds of thousands of lines of code per second. Therefore,
+collecting information about each line of code can be costly.</p>
+<p><code>line_profiler</code> is deterministic, meaning that it tracks
+every line of code executed. To avoid it being too costly, the profiling
+is restricted to methods targeted with the decorator
+<code>@profile</code>.</p>
+<p>In contrast <a href="https://github.com/plasma-umass/scalene" class="external-link"><code>scalene</code></a>
+is a more advanced Python profiler capable of line-level profiling. It
+uses a sampling based approach, whereby the profiler halts and samples
+the line of code currently executing thousands of times per second. This
+reduces the cost of profiling, whilst still maintaining representative
+metrics for the most expensive components profiled.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="timeline-profiling">Timeline Profiling<a class="anchor" aria-label="anchor" href="#timeline-profiling"></a>
+</h3>
+<!-- Context -->
+<p>Timeline profiling takes a different approach to visualising where
+time is being spent during execution.</p>
+<!-- What -->
+<p>Typically a subset of function-level profiling, the execution of the
+profiled software is instead presented as a timeline highlighting the
+order of function execution in addition to the time spent in each
+individual function call.</p>
+<!-- Why -->
+<p>By highlighting individual functions calls, patterns relating to how
+performance scales over time can be identified. These would be hidden
+with the aforementioned aggregate approaches.</p>
+<!-- We will be covering -->
+<!-- In this course we will cover the usage of the timeline profiler `viztracer`. -->
+<p><a href="https://viztracer.readthedocs.io/en/latest/" class="external-link"><code>viztracer</code></a>
+is an example of a timeline profiler for Python, however we won’t be
+demonstrating timeline profiling on this course.</p>
+</div>
+<div class="section level3">
+<h3 id="hardware-metric-profiling">Hardware Metric Profiling<a class="anchor" aria-label="anchor" href="#hardware-metric-profiling"></a>
+</h3>
+<p>Processor manufacturers typically release advanced profilers specific
+to their hardware with access to internal hardware metrics. These
+profilers can provide analysis of performance relative to theoretical
+hardware maximums (e.g. memory bandwidth or operations per second) and
+detail the utilisation of specific hardware features and operations.</p>
+<p>Using these advanced profilers requires a thorough understanding of
+the relevant processor architecture and may lead to hardware specific
+optimisations.</p>
+<p>Examples of these profilers include; Intel’s VTune, AMD’s uProf, and
+NVIDIA’s Nsight Compute.</p>
+<p>Profiling of this nature is outside the scope of this course.</p>
+</div>
+</section><section id="selecting-an-appropriate-test-case"><h2 class="section-heading">Selecting an Appropriate Test Case<a class="anchor" aria-label="anchor" href="#selecting-an-appropriate-test-case"></a>
+</h2>
+<hr class="half-width">
+<!-- Profiling runs slower --><p>The act of profiling your code, collecting additional timing metrics
+during execution, will cause your program to execute slower. The
+slowdown is dependent on many variables, however the profiling covered
+by this course shouldn’t more than double the runtime.
+<!-- Is this true? --></p>
+<!-- Profiling may generate large amounts of data -->
+<p>Similarly, the longer your code runs, the more code that is being
+executed, the more data that will be collected. A profile that runs for
+hours could produce gigabytes of output data!</p>
+<!-- Important to select appropriate test-case/s -->
+<p>Therefore, it is important to select an appropriate test-case that is
+both representative of a typical workload and small enough that it can
+be quickly iterated. Ideally, it should take no more than a few minutes
+to run the profiled test-case from start to finish, however you may have
+circumstances where something that short is not possible.</p>
+<!-- For example -->
+<!-- I don't really like this paragraph -->
+<p>For example, you may have a model which normally simulates a year in
+hourly timesteps. It would be appropriate to begin by profiling the
+simulation of a single day. If the model scales over time, such as due
+to population growth, it may be pertinent to profile a single day later
+into a simulation if the model can be resumed or configured. A larger
+population is likely to amplify any bottlenecks that scale with the
+population, making them easier to identify.</p>
+<div id="exercise-5-minutes" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<div id="exercise-5-minutes" class="callout-inner">
+<h3 class="callout-title">Exercise (5 minutes)<a class="anchor" aria-label="anchor" href="#exercise-5-minutes"></a>
+</h3>
+<div class="callout-content">
+<p>Think about a project where you’ve been working with Python. Do you
+know where the time during execution is being spent?</p>
+<p>Write a short plan of the approach you would take to investigate and
+confirm where the majority of time is being spent during it’s
+execution.</p>
+<!-- TODO should they share this anywhere, should it be discussed within the group? -->
+</div>
+</div>
+</div>
+<div id="accordionHint1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
+  <h4 class="accordion-header" id="headingHint1">Give me a hint</h4>
+</button>
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div class="accordion-body">
+<ul>
+<li>What tools and techniques would be required?</li>
+<li>Is there a clear priority to these approaches?</li>
+<li>Which test-case/s would be appropriate?</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
+</h3>
+<div class="callout-content">
+<ul>
+<li>Profiling is a relatively quick process to analyse where time is
+being spent and bottlenecks during a program’s execution.</li>
+<li>Code should be profiled when ready for deployment if it will be
+running for more than a few minutes during it’s lifetime.</li>
+<li>There are several types of profiler each with slightly different
+purposes.
+<ul>
+<li>function-level: <code>cProfile</code> (visualised with
+<code>snakeviz</code>)</li>
+<li>line-level: <code>line_profiler</code>
+</li>
+</ul>
+</li>
+<li>A representative test-case should be profiled, that is large enough
+to amplify any bottlenecks whilst executing to completion quickly.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
+</section></section><section id="aio-profiling-functions"><p>Content from <a href="profiling-functions.html">Function Level Profiling</a></p>
 <hr>
-<p>Last updated on 2024-01-10 |
+<p>Last updated on 2024-01-29 |
         
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/profiling-functions.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -506,7 +835,10 @@ any links that you are not going to use.
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>TODO</li>
+<li>When is function level profiling appropriate?</li>
+<li>How can <code>cProfile</code> and <code>snakeviz</code> be used to
+profile a Python program?</li>
+<li>How are the outputs from function level profiling interpreted?</li>
 </ul>
 </div>
 </div>
@@ -516,15 +848,479 @@ any links that you are not going to use.
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>TODO</li>
+<li>execute a Python program via <code>cProfile</code> to collect
+profiling information about a Python program’s execution</li>
+<li>use <code>snakeviz</code> to visualise profiling information output
+by <code>cProfile</code>
+</li>
+<li>interpret <code>snakeviz</code> views, to identify the functions
+where time is being spent during a program’s execution</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
-</div></section><section id="aio-profiling-lines"><p>Content from <a href="profiling-lines.html">Line Level Profiling</a></p>
+</div>
+<section id="introduction"><h2 class="section-heading">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<hr class="half-width">
+<!-- TODO Currently it's a verbatim copy from profiling-introduction.md, there's space for more context in this episode.>
+
+<!-- Context --><p>Software is typically comprised of a hierarchy of function calls,
+both functions written by the developer and those used from the core
+language and third party packages.</p>
+<!-- What -->
+<p>Function-level profiling analyses where time is being spent with
+respect to functions. Typically function-level profiling will calculate
+the number of times each function is called and the total time spent
+executing each function, inclusive and exclusive of child function
+calls.</p>
+<!-- Why -->
+<p>This allows functions that occupy a disproportionate amount of the
+total runtime to be quickly identified and investigated.</p>
+<!-- We will be covering -->
+<p>In this episode we will cover the usage of the function-level
+profiler <code>cProfile</code>, how it’s output can be visualised with
+<code>snakeviz</code> and how the output can be interpreted.</p>
+</section><section id="cprofile"><h2 class="section-heading">cProfile<a class="anchor" aria-label="anchor" href="#cprofile"></a>
+</h2>
+<hr class="half-width">
+<!-- What is cProfile/How is it installed --><p><a href="https://docs.python.org/3/library/profile.html#instant-user-s-manual" class="external-link"><code>cProfile</code></a>
+is a function-level profiler provided as part of the Python standard
+library.</p>
+<!-- How is it used? -->
+<p>It can be called directly within your Python code as an imported
+package, however it’s easier to use it’s script interface:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> cProfile <span class="at">-o</span> <span class="op">&lt;</span>output file<span class="op">&gt;</span> <span class="op">&lt;</span>script name/arguments<span class="op">&gt;</span></span></code></pre>
+</div>
+<p>For example if you normally run your program as:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> my_script.py input.csv</span></code></pre>
+</div>
+<p>You would call <code>cProfile</code> to produce profiling output
+<code>out.prof</code> with:</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> cProfile <span class="at">-o</span> out.prof my_script.py input.csv</span></code></pre>
+</div>
+<!-- yes it's that simple -->
+<p><em>No additional changes to your code are required, it’s really that
+simple!</em></p>
+<!-- TODO should the remainder of this section be in a call-out, it's unnecessary -->
+<p>If you instead, don’t specify output to file (e.g. remove
+<code>-o out.prof</code> from the command), <code>cProfile</code> will
+produce output to console similar to that shown below:</p>
+<!-- TODO is there a better less-abstract example, this one is 're.compile("foo|bar")' ripped from the docs -->
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>      214 function calls (207 primitive calls) in 0.002 seconds
+
+Ordered by: cumulative time
+
+ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     1    0.000    0.000    0.002    0.002 {built-in method builtins.exec}
+     1    0.000    0.000    0.001    0.001 &lt;string&gt;:1(&lt;module&gt;)
+     1    0.000    0.000    0.001    0.001 __init__.py:250(compile)
+     1    0.000    0.000    0.001    0.001 __init__.py:289(_compile)
+     1    0.000    0.000    0.000    0.000 _compiler.py:759(compile)
+     1    0.000    0.000    0.000    0.000 _parser.py:937(parse)
+     1    0.000    0.000    0.000    0.000 _compiler.py:598(_code)
+     1    0.000    0.000    0.000    0.000 _parser.py:435(_parse_sub)</code></pre>
+</div>
+<p>The columns have the following definitions:</p>
+<table class="table">
+<colgroup>
+<col width="15%">
+<col width="85%">
+</colgroup>
+<thead><tr class="header">
+<th>Column</th>
+<th>Definition</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>ncalls</code></td>
+<td>The number of times the given function was called.</td>
+</tr>
+<tr class="even">
+<td><code>tottime</code></td>
+<td>The total time spent in the given function, excluding child function
+calls.</td>
+</tr>
+<tr class="odd">
+<td><code>percall</code></td>
+<td>The average tottime per function call
+(<code>tottime</code>/<code>percall</code>).</td>
+</tr>
+<tr class="even">
+<td><code>cumtime</code></td>
+<td>The total time spent in the given function, including child function
+calls.</td>
+</tr>
+<tr class="odd">
+<td><code>percall</code></td>
+<td>The average cumtime per function call
+(<code>cumtime</code>/<code>percall</code>).</td>
+</tr>
+<tr class="even">
+<td><code>filename:lineno(function)</code></td>
+<td>The location of the given function’s definition and it’s name.</td>
+</tr>
+</tbody>
+</table>
+<p>This output can often exceed the terminal’s buffer length for large
+programs and can be unwieldy to parse, so the package
+<code>snakeviz</code> is often utilised to provide an interactive
+visualisation of the data when exported to file.</p>
+</section><section id="snakeviz"><h2 class="section-heading">snakeviz<a class="anchor" aria-label="anchor" href="#snakeviz"></a>
+</h2>
+<hr class="half-width">
+<!-- what is snakeviz/how is it installed--><p><a href="https://jiffyclub.github.io/snakeviz/" class="external-link"><code>snakeviz</code></a>
+is a web browser based graphical viewer for <code>cProfile</code> output
+files.
+<!--TODO is covering pip here redundant as it's covered in the user setup file? -->
+It is not part of the Python standard library, and therefore must be
+installed via pip.</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install snakeviz</span></code></pre>
+</div>
+<p>Once installed, you can visualise a <code>cProfile</code> output file
+such as <code>out.prof</code> via:</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> snakeviz out.prof</span></code></pre>
+</div>
+<p>This should open your web browser displaying a page similar to that
+below.</p>
+<figure><img src="fig/snakeviz-home.png" alt="A web page, with a central diagram representing a call-stack, with the root at the top and the horizontal axis representing the duration of each call. Below this diagram is the top of a table detailing the statistics of individual methods." class="figure mx-auto d-block"><figcaption>An example of the default ‘icicle’ visualisation
+provided by <code>snakeviz</code>.</figcaption></figure><!-- From SnakeViz docs
+In the icicle visualization style functions are represented by rectangles. A root function is the top-most rectangle, with functions it calls below it, then the functions those call below them, and so on. The amount of time spent inside a function is represented by the width of the rectangle. A rectangle that stretches across most of the visualization represents a function that is taking up most of the time of its calling function, while a skinny rectangle represents a function that is using hardly any time at all.
+--><p>The icicle diagram displayed by <code>snakeviz</code> represents the
+call stack during the execution of the profiled code. The box which
+fills the top row represents the the root call, filling the row shows
+that it occupied 100% of the runtime. The second row holds the child
+methods called from the root, with their widths relative to the
+proportion of runtime they occupied. This continues with each subsequent
+row, however where a method only occupies 50% of the runtime, it’s
+children can only occupy a maximum of that runtime hence the appearance
+of “icicles”.</p>
+<p>By clicking a box within the diagram, it will “zoom” making the
+selected box the root allowing more detail to be explored. The diagram
+is limited to 10 rows by default (“Depth”) and methods with a relatively
+small proportion of the runtime are hidden (“Cutoff”).</p>
+<p>As you hover each box, information to the left of the diagram updates
+specifying the location of the method and for how long it ran.</p>
+</section><section id="worked-example"><h2 class="section-heading">Worked Example<a class="anchor" aria-label="anchor" href="#worked-example"></a>
+</h2>
+<hr class="half-width">
+<div id="follow-along" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="follow-along" class="callout-inner">
+<h3 class="callout-title">Follow Along<a class="anchor" aria-label="anchor" href="#follow-along"></a>
+</h3>
+<div class="callout-content">
+<!-- TODO manually write this anchor to add download attribute to the python file? -->
+<p>Download the <a href="files/snakeviz-worked-example/example.py">Python source for the
+example</a> or <a href="files/snakeviz-worked-example/out.prof"><code>cProfile</code>
+output file</a> and follow along with the worked example on your own
+machine.</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> cProfile <span class="at">-o</span> out.prof example.py</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> snakeviz out.prof</span></code></pre>
+</div>
+
+</div>
+</div>
+</div>
+<p>To more clearly demonstrate how an execution hierarchy maps to the
+icicle diagram, the below toy example Python script has been
+implemented.</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> a_1():</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        b_1()</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    b_2()</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> b_1():</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    c_1()</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    c_2()</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> b_2():</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> c_1():</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.5</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> c_2():</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.3</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    d_1()</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> d_1():</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.1</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Entry Point</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>a_1()</span></code></pre>
+</div>
+<p>All of the methods except for <code>b_1()</code> call
+<code>time.sleep()</code>, this is used to provide synthetic bottlenecks
+to create an interesting profile.</p>
+<ul>
+<li>
+<code>a_1()</code> calls <code>b_1()</code> x3 and
+<code>b_2()</code> x1</li>
+<li>
+<code>b_1()</code> calls <code>c_1()</code> x1 and
+<code>c_2()</code> x1</li>
+<li>
+<code>c_2()</code> calls <code>d_1()</code>
+</li>
+</ul>
+<!-- TODO: Alt text here is redundant? --><figure><img src="fig/snakeviz-worked-example-icicle.png" alt="The snakeviz icicle visualisation for the worked example Python code." class="figure mx-auto d-block"><figcaption>An icicle visualisation provided by
+<code>snakeviz</code> for the above Python code.</figcaption></figure><p>The third row represents <code>a_1()</code>, the only method called
+from global scope, therefore the first two rows represent Python’s
+internal code for launching our script and can be ignored (by clicking
+on the third row).</p>
+<p>The row following <code>a_1()</code> is split into three boxes
+representing <code>b_1()</code>, <code>time.sleep()</code> and
+<code>b_2()</code>. Note that <code>b_1()</code> is called three times,
+but only has one box within the icicle diagram. The boxes are ordered
+left-to-right according to cumulative time, which happens to be the
+order they were first called.</p>
+<p>If the box for <code>time.sleep()</code> is hovered it will change
+colour along with several other boxes that represent the other locations
+that <code>time.sleep()</code> was called from. Note that each of these
+boxes display the same duration, the timing statistics collected by
+<code>cProfile</code> (and visualised by <code>snakeviz</code>) are
+aggregate, so there is no information about individual method calls for
+methods which were called multiple times. This does however mean that if
+you check the properties to the left of the diagram whilst hovering
+<code>time.sleep()</code> you will see a cumulative time of 99%
+reported, the overhead of the method calls and for loop is insignificant
+in contrast to the time spent sleeping!</p>
+<p><em>Below are the properties shown, the time may differ if you
+generated the profile yourself.</em></p>
+<ul>
+<li>
+<strong>Name:</strong>
+<code>&lt;built-in method time.sleep&gt;</code>
+</li>
+<li>
+<strong>Cumulative Time:</strong> <code>4.71 s (99.99 %)</code>
+</li>
+<li>
+<strong>File:</strong> <code>~</code>
+</li>
+<li>
+<strong>Line:</strong> <code>0</code>
+</li>
+<li><strong>Directory:</strong></li>
+</ul>
+<p>As <code>time.sleep()</code> is a core Python method it is displayed
+as “built-in method” and doesn’t have a file, line or directory.</p>
+<p>If you hover any boxes representing the methods from the above code,
+you will see file and line properties completed. The directory property
+remains empty as the profiled code was in the root of the working
+directory. A profile of a large project with many files across multiple
+directories will see this filled.</p>
+<p>Find the box representing <code>c_2()</code> on the icicle diagram,
+it’s children are unlabelled because they are not wide enough (but they
+can still be hovered). Clicking <code>c_2()</code> zooms in the diagram,
+showing the children to be <code>time.sleep()</code> and
+<code>d_1()</code>.</p>
+<p>To zoom back out you can either click the top row, which will zoom
+out one layer, or click “Reset Zoom” on the left-hand side.</p>
+<p>In this simple example the execution is fairly evenly balanced
+between all of the user-defined methods, so there is not a clear
+hot-spot to investigate.</p>
+<p>Below the icicle diagram, there is a table similar to the default
+output from <code>cProfile</code>. However, in this case you can sort
+the columns by clicking their headers and filter the rows shown by
+entering a filename in the search box. This allows built-in methods to
+be hidden, which can make it easier to highlight optimisation
+priorities.</p>
+<div id="sunburst" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="sunburst" class="callout-inner">
+<h3 class="callout-title">Sunburst<a class="anchor" aria-label="anchor" href="#sunburst"></a>
+</h3>
+<div class="callout-content">
+<p><code>snakeviz</code> provides an alternate “Sunburst” visualisation,
+accessed via the “Style” drop-down on the left-hand side.</p>
+<p>This provides the same information as “Icicle”, however the rows are
+instead circular with the root method call found at the center.</p>
+<p>The sunburst visualisation displays less text on the boxes, so it can
+be harder to interpret. However, it increases the visibility of boxes
+further from the root call.</p>
+<!-- TODO: Alt text here is redundant? -->
+<figure><img src="fig/snakeviz-worked-example-sunburst.png" alt="The snakeviz sunburst visualisation for the worked example Python code." class="figure mx-auto d-block"><figcaption>An sunburst visualisation provided by
+<code>snakeviz</code> for the worked example’s Python code.</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="exercises"><h2 class="section-heading">Exercises<a class="anchor" aria-label="anchor" href="#exercises"></a>
+</h2>
+<hr class="half-width">
+<p>The following exercises allow you to review your understanding of
+what has been covered in this episode.</p>
+<div id="exercise-1-travelling-salesperson" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="exercise-1-travelling-salesperson" class="callout-inner">
+<h3 class="callout-title">Exercise 1: Travelling Salesperson<a class="anchor" aria-label="anchor" href="#exercise-1-travelling-salesperson"></a>
+</h3>
+<div class="callout-content">
+<p>Download and profile <a href="files/pred-prey/predprey.py">this</a>
+Python program, try to locate the function call(s) where the majority of
+execution time is being spent.</p>
+<p>The program can be executed via
+<code>python travellingsales.py &lt;cities&gt;</code>. The value of
+<code>cities</code> should be a positive integer, this algorithm has
+poor scaling so larger numbers take significantly longer to run.</p>
+</div>
+</div>
+</div>
+<div id="accordionHint1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
+  <h4 class="accordion-header" id="headingHint1">Give me a hint</h4>
+</button>
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div class="accordion-body">
+<ul>
+<li>If a hotspot isn’t visible with the argument <code>1</code>, try
+increasing the value.</li>
+<li>If you think you identified the hotspot with your first profile, try
+investigating how the value of <code>int</code> affects the hotspot
+within the profile.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<p>The hotspot only becomes visible when an argument of <code>5</code>
+or greater is passed.</p>
+<p>Here it <code>distance()</code> (from
+<code>travellingsales.py:11</code>) becomes the largest box (similarly
+it’s parent in the call-stack <code>total_distance()</code>) showing
+that it scales poorly with the number of cities. With 5 cities,
+<code>distance()</code> has a cumulative time of <code>~35%</code> the
+runtime, this increases to <code>~60%</code> with 9 cities.</p>
+<p>Other boxes within the diagram correspond to the initialisation of
+imports, or initialisation of cities. These have constant or linear
+scaling, so their cost barely increases with the number of cities.</p>
+<p><em>This highlights the need to profile a realistic test-case
+expensive enough that initialisation costs are not the most expensive
+component.</em></p>
+</div>
+</div>
+</div>
+</div>
+<div id="exercise-2-predator-prey" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="exercise-2-predator-prey" class="callout-inner">
+<h3 class="callout-title">Exercise 2: Predator Prey<a class="anchor" aria-label="anchor" href="#exercise-2-predator-prey"></a>
+</h3>
+<div class="callout-content">
+<p>Download and profile <a href="files/pred-prey/predprey.py">the Python
+predator prey model</a>, try to locate the function call(s) where the
+majority of execution time is being spent.</p>
+<p>The program can be executed via <code>python predprey.py</code>.</p>
+<p>It takes no arguments, but contains various environment properties
+which can be modified to change the model’s behaviour and outputs a
+graph <code>predprey_out.png</code>.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div class="accordion-body">
+<p>It should be clear from the profile that the method
+<code>Grass::eaten()</code> (from <code>predprey.py:278</code>) occupies
+the majority of the runtime.</p>
+<p>From the table below the Icicle diagram, we can see that it was
+called 125,000 times.</p>
+<p>If the table is ordered by <code>ncalls</code>, it can be identified
+as the joint 4th most called method and 2nd most called method from
+<code>predprey.py</code>.</p>
+<p>If you checked <code>predprey_out.png</code>, you should notice that
+there are significantly more <code>Grass</code> agents than
+<code>Predeators</code> or <code>Prey</code>.</p>
+<p>Similarly, the method’s <code>percall</code> time is inline with
+other agent functions such as <code>Prey::flock()</code> (from
+<code>predprey.py:67</code>).</p>
+<p>Maybe we could investigate this further with line profiling!</p>
+<p><em>You may have noticed alot of iciles on the right hand of the
+diagram, these primarily correspond to the <code>import</code> of
+<code>matplotlib</code> which is relatively expensive!</em></p>
+</div>
+</div>
+</div>
+</div>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
+</h3>
+<div class="callout-content">
+<ul>
+<li>A python program can be function level profiled with
+<code>cProfile</code> via
+<code>python -m cProfile -o &lt;output file&gt; &lt;script name/arguments&gt;</code>
+</li>
+<li>The output file from <code>cProfile</code> can be visualised with
+<code>snakeviz</code> via
+<code>python -m snakeviz &lt;output file&gt;</code>
+</li>
+<li>Function level profiling output displays the nested call hierarchy,
+listing both the cumulative and total minus sub functions time.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
+</section></section><section id="aio-profiling-lines"><p>Content from <a href="profiling-lines.html">Line Level Profiling</a></p>
 <hr>
-<p>Last updated on 2024-01-10 |
+<p>Last updated on 2024-01-29 |
         
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/profiling-lines.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -538,7 +1334,12 @@ any links that you are not going to use.
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>TODO</li>
+<li>When is line level profiling appropriate?</li>
+<li>What adjustments are required to Python code to profile with
+<code>line_profiler</code>?</li>
+<li>How can <code>kernprof</code> be used to profile a Python program?
+<!-- Last two overlap somewhat -->
+</li>
 </ul>
 </div>
 </div>
@@ -548,10 +1349,685 @@ any links that you are not going to use.
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>TODO</li>
+<li>decorate Python code to prepare it for profiling with
+<code>line_profiler</code>
+</li>
+<li>execute a Python program via <code>kernprof</code> to collect
+profiling information about a Python program’s execution</li>
+<li>interpret output from <code>line_profiler</code>, to identify the
+lines where time is being spent during a program’s execution</li>
 </ul>
 </div>
 </div>
+</div>
+</div>
+</div>
+<section id="introduction"><h2 class="section-heading">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<hr class="half-width">
+<!-- Context --><p>Whilst profiling, you may find that function-level profiling
+highlights expensive methods where you can’t easily determine the cause
+of the cost due to their complexity.</p>
+<!-- What -->
+<p>Line level profiling allows you to target specific methods to collect
+more granular metrics, which can help narrow the source of expensive
+computation further. Typically line-level profiling will calculate the
+number of times each line is called and the total time spent executing
+each line. However, with the increased granularity come increased
+collection costs, which is why it’s targeted to specific methods.</p>
+<!-- Why -->
+<p>This allows lines that occupy a disproportionate amount of the total
+runtime to be quickly identified and investigated.</p>
+<!-- We will be covering -->
+<p>In this episode we will cover the usage of the line-level profiler
+<code>line_profiler</code>, how your code should be modified to target
+the profiling and how the output can be interpreted.</p>
+</section><section id="line_profiler"><h2 class="section-heading">line_profiler<a class="anchor" aria-label="anchor" href="#line_profiler"></a>
+</h2>
+<hr class="half-width">
+<!-- what is line_profiler, how is it installed --><p><a href="https://kernprof.readthedocs.io/en/latest/line_profiler.html#line-profiler-basic-usage" class="external-link"><code>line_profiler</code></a>
+is a line-level profiler which provides both text output and
+visualisation.</p>
+<!--TODO is covering pip here redundant as it's covered in the user setup file? -->
+<p>It is not part of the Python standard library, and therefore must be
+installed via pip.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install line_profiler[all]</span></code></pre>
+</div>
+<p>To use <code>line_profiler</code> decorate methods to be profiled
+with <code>@profile</code> which is imported from
+<code>line_profiler</code>.</p>
+<p>For example, the below code:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_prime(number):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> number <span class="op">&lt;</span> <span class="dv">2</span>:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="bu">int</span>(number<span class="op">**</span><span class="fl">0.5</span>) <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> number <span class="op">%</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_prime(<span class="dv">1087</span>))</span></code></pre>
+</div>
+<p>Would be updated to:</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> line_profiler <span class="im">import</span> profile</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">@profile</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_prime(number):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> number <span class="op">&lt;</span> <span class="dv">2</span>:</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="bu">int</span>(number<span class="op">**</span><span class="fl">0.5</span>) <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> number <span class="op">%</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_prime(<span class="dv">1087</span>))</span></code></pre>
+</div>
+<p>This tells <code>line_profiler</code> to collect metrics for the
+lines within the method <code>fizzbuzz()</code>. You can still execute
+your code as normal, and these changes will have no effect.</p>
+<p>Similar to the earlier tools, <code>line_profiler</code> can then be
+triggered via <code>kernprof</code>.</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> kernprof <span class="at">-lvr</span> my_script.py</span></code></pre>
+</div>
+<p>This will output a table per profiled method to console:</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Wrote profile results to my_script.py.lprof
+Timer unit: 1e-06 s
+
+Total time: 1.65e-05 s
+File: my_script.py
+Function: is_prime at line 3
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     3                                           @profile
+     4                                           def is_prime(number):
+     5         1          0.4      0.4      2.4      if number &lt; 2:
+     6                                                   return False
+     7        32          8.4      0.3     50.9      for i in range(2, int(number**0.5) + 1):
+     8        31          7.4      0.2     44.8          if number % i == 0:
+     9                                                       return False
+    10         1          0.3      0.3      1.8      return True</code></pre>
+</div>
+<p>The columns have the following definitions:</p>
+<table class="table">
+<colgroup>
+<col width="15%">
+<col width="85%">
+</colgroup>
+<thead><tr class="header">
+<th>Column</th>
+<th>Definition</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>Line #</code></td>
+<td>The line number of the relevant line within the file (specified
+above the table).</td>
+</tr>
+<tr class="even">
+<td><code>Hits</code></td>
+<td>The total number of times the line was executed.</td>
+</tr>
+<tr class="odd">
+<td><code>Time</code></td>
+<td>The total time spent executing that line, including child function
+calls.</td>
+</tr>
+<tr class="even">
+<td><code>Per Hit</code></td>
+<td>The average time per call, including child function calls
+(<code>Time</code>/<code>Hits</code>).</td>
+</tr>
+<tr class="odd">
+<td><code>% Time</code></td>
+<td>The time spent executing the line, including child function calls,
+relative to the other lines of the function.</td>
+</tr>
+<tr class="even">
+<td><code>Line Contents</code></td>
+<td>A copy of the line from the file.</td>
+</tr>
+</tbody>
+</table>
+<p>As <code>line_profiler</code> must be attached to specific methods
+and cannot attach to a full Python file or project, if your Python file
+has significant code in the global scope it will be necessary to move it
+into a new method which can then instead be called from global
+scope.</p>
+<p>The profile is also output to file, in this case
+<code>my_script.py.lprof</code>. This file is not human-readable, but
+can be printed to console by passing it to <code>line_profiler</code>,
+which will then display the same table as above.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> line_profiler <span class="at">-rm</span> my_script.py.lprof</span></code></pre>
+</div>
+<!-- TODO line_profiling significantly slows down the profiled methods. Is it possible to dynamically disable/enable profiling with `line_profiler`? kernprof -h implies so, but trial/error and docs is failing me -->
+</section><section id="worked-example"><h2 class="section-heading">Worked Example<a class="anchor" aria-label="anchor" href="#worked-example"></a>
+</h2>
+<hr class="half-width">
+<div id="follow-along" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="follow-along" class="callout-inner">
+<h3 class="callout-title">Follow Along<a class="anchor" aria-label="anchor" href="#follow-along"></a>
+</h3>
+<div class="callout-content">
+<!-- TODO manually write this anchor to add download attribute to the python file? -->
+<p>Download the <a href="files/line_profiler-worked-example/fizzbuzz.py">Python source for
+the example</a> and follow along with the worked example on your own
+machine.</p>
+</div>
+</div>
+</div>
+<p>To more clearly demonstrate how to use <code>line_profiler</code>,
+the below implementation of “FizzBuzz” will be line profiled.</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span> <span class="kw">and</span> i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"FizzBuzz"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> i <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Fizz"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Buzz"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(i)</span></code></pre>
+</div>
+<p>As there are no methods, firstly it should be updated to move the
+code to be profiled into a method:</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fizzbuzz(n):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span> <span class="kw">and</span> i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"FizzBuzz"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> i <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"Fizz"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"Buzz"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(i)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>fizzbuzz(n)</span></code></pre>
+</div>
+<p>Next the method can be decorated with <code>@profile</code> which
+must be imported via <code>line_profiler</code>:</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> line_profiler <span class="im">import</span> profile</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="at">@profile</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fizzbuzz(n):</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span> <span class="kw">and</span> i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"FizzBuzz"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> i <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"Fizz"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"Buzz"</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(i)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>fizzbuzz(n)</span></code></pre>
+</div>
+<p>Now that the code has been decorated, it can be profiled!</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> kernprof <span class="at">-lvr</span> fizzbuzz.py</span></code></pre>
+</div>
+<p>This will output a table per profiled method to console:</p>
+<p><em>If you run this locally it should be highlighted due to
+<code>-r</code> passed to <code>kernprof</code>.</em></p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Wrote profile results to fizzbuzz.py.lprof
+Timer unit: 1e-06 s
+
+Total time: 0.0021535 s
+File: fizzbuzz.py
+Function: fizzbuzz at line 3
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     3                                           @profile
+     4                                           def fizzbuzz(n):
+     5       101         32.5      0.3      1.5      for i in range(1, n + 1):
+     6       100         26.9      0.3      1.2          if i % 3 == 0 and i % 5 == 0:
+     7         6        125.8     21.0      5.8              print("FizzBuzz")
+     8        94         16.7      0.2      0.8          elif i % 3 == 0:
+     9        27        541.3     20.0     25.1              print("Fizz")
+    10        67         12.4      0.2      0.6          elif i % 5 == 0:
+    11        14        285.1     20.4     13.2              print("Buzz")
+    12                                                   else:
+    13        53       1112.8     21.0     51.7              print(i)</code></pre>
+</div>
+<p>For this basic example, we can calculate that “FizzBuzz” would be
+printed 6 times out of 100, and the profile shows that line 7
+(<code>print("FizzBuzz")</code> occupied 5.8% of the runtime. This is
+slightly lower than 6% due to the control flow code (printing to console
+is expensive relative to the control flow and conditional statements).
+Similarly, “Fizz” is printed 27 times and occupies 25.1%, likewise
+“Buzz” is printed 14 times and occupies 13.2%. Each print statement has
+a similar “Per Hit” time of 20-21 micro seconds.</p>
+<p>Therefore it can be seen in this example, how the time spent
+executing each line matches expectations.</p>
+<div id="rich-output" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="rich-output" class="callout-inner">
+<h3 class="callout-title">Rich Output<a class="anchor" aria-label="anchor" href="#rich-output"></a>
+</h3>
+<div class="callout-content">
+<p>The <code>-r</code> argument passed to <code>kernprof</code> (or
+<code>line_profiler</code>) enables rich output, if you run the profile
+locally it should look similar to this.</p>
+<figure><img src="fig/line_profiler-worked-example.png" alt="A screenshot of the `line_profiler` output from the previous code block, where the code within the line contents column has basic highlighting." class="figure mx-auto d-block"><figcaption>Rich (highlighted) console output provided by
+<code>line_profiler</code> for the above FizzBuzz profile code.</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="exercises"><h2 class="section-heading">Exercises<a class="anchor" aria-label="anchor" href="#exercises"></a>
+</h2>
+<hr class="half-width">
+<p>The following exercises allow you to review your understanding of
+what has been covered in this episode.</p>
+<div id="exercise-1-bubblesort" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="exercise-1-bubblesort" class="callout-inner">
+<h3 class="callout-title">Exercise 1: BubbleSort<a class="anchor" aria-label="anchor" href="#exercise-1-bubblesort"></a>
+</h3>
+<div class="callout-content">
+<p>Download and profile <a href="files/bubblesort/bubblesort.py">the
+Python bubblesort implementation</a>, line-level profile the code to
+investigate where time is being spent.</p>
+<p>The program can be executed via
+<code>python bubblesort.py &lt;elements&gt;</code>. The value of
+<code>elements</code> should be a positive integer as it represents the
+length of the array to be sorted.</p>
+</div>
+</div>
+</div>
+<div id="accordionHint1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
+  <h4 class="accordion-header" id="headingHint1">Give me a hint</h4>
+</button>
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div class="accordion-body">
+<ul>
+<li>Remember that the code needs to be moved into a method decorated
+with <code>@profile</code>
+</li>
+<li>This must be imported via
+<code>from line_profiler import profile</code>
+</li>
+<li>100 elements should be suitable for a quick profile</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<p>If you chose to profile the whole code, it may look like this:</p>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> line_profiler <span class="im">import</span> profile        <span class="co"># Import profile decorator</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="at">@profile</span>                                 <span class="co"># Decorate the function to be profiled</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():                              <span class="co"># Create a simple function with the code to be profiled</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Argument parsing</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(sys.argv) <span class="op">!=</span> <span class="dv">2</span>:</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Script expects 1 positive integer argument, </span><span class="sc">%u</span><span class="st"> found."</span><span class="op">%</span>(<span class="bu">len</span>(sys.argv) <span class="op">-</span> <span class="dv">1</span>))</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        sys.exit()</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">int</span>(sys.argv[<span class="dv">1</span>])</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Init</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    random.seed(<span class="dv">12</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    arr <span class="op">=</span> [random.random() <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n)]</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Sorting </span><span class="sc">%d</span><span class="st"> elements"</span><span class="op">%</span>(n))</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sort</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        swapped <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, n <span class="op">-</span> i <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> arr[j] <span class="op">&gt;</span> arr[j <span class="op">+</span> <span class="dv">1</span>]:</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>                arr[j], arr[j <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> arr[j <span class="op">+</span> <span class="dv">1</span>], arr[j]</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>                swapped <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># If no two elements were swapped in the inner loop, the array is sorted</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> swapped:</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Validate</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    is_sorted <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> arr[i] <span class="op">&gt;</span> arr[i<span class="op">+</span><span class="dv">1</span>]:</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>            is_sorted <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Sorting: </span><span class="sc">%s</span><span class="st">"</span><span class="op">%</span>(<span class="st">"Passed"</span> <span class="cf">if</span> is_sorted <span class="cf">else</span> <span class="st">"Failed"</span>))</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>main()                                  <span class="co"># Call the created function</span></span></code></pre>
+</div>
+<p>The sort can be profiled with 100 elements, this is quick and should
+be representative.</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> kernprof <span class="at">-lvr</span> bubblesort.py 100</span></code></pre>
+</div>
+<p>This produces output:</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Wrote profile results to bubblesort.py.lprof
+Timer unit: 1e-06 s
+
+Total time: 0.002973 s
+File: bubblesort.py
+Function: main at line 5
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     5                                           @profile
+     6                                           def main():
+     7                                               # Argument parsing
+     8         1          0.7      0.7      0.0      if len(sys.argv) != 2:
+     9                                                   print("Script expects 1 positive integer argument, %u found."%…
+    10                                                   sys.exit()
+    11         1          1.6      1.6      0.1      n = int(sys.argv[1])
+    12                                               # Init
+    13         1          8.8      8.8      0.3      random.seed(12)
+    14         1         16.6     16.6      0.6      arr = [random.random() for i in range(n)]
+    15         1         38.2     38.2      1.3      print("Sorting %d elements"%(n))
+    16                                               # Sort
+    17        95         14.5      0.2      0.5      for i in range(n - 1):
+    18        95         13.1      0.1      0.4          swapped = False
+    19      5035        723.1      0.1     24.3          for j in range(0, n - i - 1):
+    20      4940       1045.9      0.2     35.2              if arr[j] &gt; arr[j + 1]:
+    21      2452        686.9      0.3     23.1                  arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    22      2452        353.0      0.1     11.9                  swapped = True
+    23                                                   # If no two elements were swapped in the inner loop, the array…
+    24        95         15.2      0.2      0.5          if not swapped:
+    25         1          0.2      0.2      0.0              break
+    26                                               # Validate
+    27         1          0.5      0.5      0.0      is_sorted = True
+    28       100         12.9      0.1      0.4      for i in range(n - 1):
+    29        99         20.3      0.2      0.7          if arr[i] &gt; arr[i+1]:
+    30                                                       is_sorted = False
+    31         1         21.5     21.5      0.7      print("Sorting: %s"%("Passed" if is_sorted else "Failed"))</code></pre>
+</div>
+<p>From this we can identify that the print statements were the most
+expensive individual calls (“Per Hit”), however both were only called
+once. Most execution time was spent at the inner loop (lines 19-22).</p>
+<p>As this is a reference implementation of a classic sorting algorithm
+we are unlikely to be able to improve it further. More on sorting
+algorithms later in the course.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="exercise-2-predator-prey" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="exercise-2-predator-prey" class="callout-inner">
+<h3 class="callout-title">Exercise 2: Predator Prey<a class="anchor" aria-label="anchor" href="#exercise-2-predator-prey"></a>
+</h3>
+<div class="callout-content">
+<p>During the function-level profiling episode, the Python predator prey
+model was function-level profiled. This highlighted that
+<code>Grass::eaten()</code> (from <code>predprey.py:278</code>) occupies
+the majority of the runtime.</p>
+<p>Line-profile this method, using the output from the profile consider
+how it might be optimised.</p>
+</div>
+</div>
+</div>
+<div id="accordionHint2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
+  <h4 class="accordion-header" id="headingHint2">Give me a hint</h4>
+</button>
+<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
+<div class="accordion-body">
+<ul>
+<li>Remember that the function needs to be decorated with
+<code>@profile</code>
+</li>
+<li>This must be imported via
+<code>from line_profiler import profile</code>
+</li>
+<li>Line-level profiling <code>Grass::eaten()</code>, the most called
+function will slow it down significantly. You may wish to reduce the
+number of steps <code>predprey.py:305</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div class="accordion-body">
+<p>First the function must be decorated</p>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># line ~1</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> line_profiler <span class="im">import</span> profile</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb16">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># line ~278</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">@profile</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> eaten(<span class="va">self</span>, prey_list):</span></code></pre>
+</div>
+<p><code>line_profiler</code> can then be executed via
+<code>python -m kernprof -lvr predprey.py</code>.</p>
+<p>This will take much longer to run due to <code>line_profiler</code>,
+you may wish to reduce the number of steps. In this instance it may
+change the profiling output slightly, as the number of <code>Prey</code>
+and their member variables evaluated by this method both change as the
+model progresses, but the overall pattern is likely to remain
+similar.</p>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># line ~420</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Model(<span class="dv">50</span>) <span class="co"># 50 steps (originally defaulted to 250)</span></span></code></pre>
+</div>
+<p>Alternatively, you can kill the profiling process
+(e.g. <code>ctrl + c</code>) after a minute and the currently collected
+partial profiling information will be output.</p>
+<p>This will produce output similar to that below.</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>Wrote profile results to predprey.py.lprof
+Timer unit: 1e-06 s
+
+Total time: 101.573 s
+File: predprey.py
+Function: eaten at line 278
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+   278                                               @profile
+   279                                               def eaten(self, prey_list):
+   280   1250000     227663.1      0.2      0.2          if self.available:
+   281   1201630     165896.4      0.1      0.2              prey_index = -1
+   282   1201630     166219.0      0.1      0.2              closest_prey = GRASS_EAT_DISTANCE
+   283
+   284                                                       # Iterate prey_location messages to find the closest prey
+   285 198235791   29227902.1      0.1     28.8              for i in range(len(prey_list)):
+   286 197034161   30158318.8      0.2     29.7                  prey = prey_list[i]
+   287 197034161   38781451.1      0.2     38.2                  if prey.life &lt; PREY_HUNGER_THRESH:
+   288                                                               # Check if they are within interaction radius
+   289   2969470     579923.4      0.2      0.6                      dx = self.x - prey.x
+   290   2969470     552092.2      0.2      0.5                      dy = self.y - prey.y
+   291   2969470     938669.8      0.3      0.9                      distance = math.sqrt(dx*dx + dy*dy)
+   292
+   293   2969470     552853.8      0.2      0.5                      if distance &lt; closest_prey:
+   294      2532        469.3      0.2      0.0                          prey_index = i
+   295      2532        430.1      0.2      0.0                          closest_prey = distance
+   296
+   297   1201630     217534.5      0.2      0.2              if prey_index &gt;= 0:
+   298                                                           # Add grass eaten message
+   299      2497       2181.8      0.9      0.0                  prey_list[prey_index].life += GAIN_FROM_FOOD_PREY
+   300
+   301                                                           # Update grass agent variables
+   302      2497        793.9      0.3      0.0                  self.dead_cycles = 0
+   303      2497        631.0      0.3      0.0                  self.available = 0</code></pre>
+</div>
+<p>From the profiling output it can be seen that lines 285-287 occupy
+over 90% of the method’s runtime!</p>
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(prey_list)):</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                prey <span class="op">=</span> prey_list[i]</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> prey.life <span class="op">&lt;</span> PREY_HUNGER_THRESH:</span></code></pre>
+</div>
+<p>Given that the following line 289 only has a relative 0.6% time, it
+can be understood that the vast majority of times the condition
+<code>prey.life &lt; PREY_HUNGER_THRESH</code> is evaluated it does not
+proceed.</p>
+<p>Remembering that this method is executed once per each of the 5000
+<code>Grass</code> agents each step of the model, it could make sense to
+pre-filter <code>prey_list</code> once each timestep before it is passed
+to <code>Grass::eaten()</code>. This would greatly reduce the number of
+<code>Prey</code> iterated, reducing the cost of the method.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
+</h3>
+<div class="callout-content">
+<ul>
+<li>Specific methods can be line-level profiled if decorated with
+<code>@profile</code> that is imported from
+<code>line_profiler</code>
+</li>
+<li>
+<code>kernprof</code> executes <code>line_profiler</code> via
+<code>python -m kernprof -lvr &lt;script name/arguments&gt;</code>
+</li>
+<li>Code in global scope must wrapped in a method if it is to be
+profiled with <code>line_profiler</code>
+</li>
+<li>The output from <code>line_profiler</code> lists the absolute and
+relative time spent per line for each targeted function.</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- 
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use. 
+ -->
+</section></section><section id="aio-profiling-conclusion"><p>Content from <a href="profiling-conclusion.html">Profiling Conclusion</a></p>
+<hr>
+<p>Last updated on 2024-01-29 |
+        
+        <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/profiling-conclusion.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<p>This concludes the profiling portion of the course.</p>
+<p><code>cProfile</code>, <code>snakeviz</code> and
+<code>line_profiler</code> have been introduced, these are some of the
+most accessible Python profiling tools.</p>
+<p>With these transferable skills, if necessary, you should be able to
+follow documentation to use more advanced Python profiling tools such as
+<a href="https://github.com/plasma-umass/scalene" class="external-link"><code>scalene</code></a>.</p>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
+</h3>
+<div class="callout-content">
+<p>What profiling is:</p>
+<ul>
+<li>The collection and analysis of metrics relating to the performance
+of a program during execution .</li>
+</ul>
+<p>Why programmers can benefit from profiling:</p>
+<ul>
+<li>Narrows down the costly areas of code, allowing optimisation to be
+prioritised or decided to be unnecessary.</li>
+</ul>
+<p>When to Profile:</p>
+<ul>
+<li>Profiling should be performed on functional code, either when
+concerned about performance or prior to release/deployment.</li>
+</ul>
+<p>What to Profile:</p>
+<ul>
+<li>The collection of profiling metrics will often slow the execution of
+code, therefore the test-case should be narrow whilst remaining
+representative of a realistic run.</li>
+</ul>
+<p>How to function-level profile:</p>
+<ul>
+<li>Execute <code>cProfile</code> via
+<code>python -m cProfile -o &lt;output file&gt; &lt;script name/arguments&gt;</code>
+</li>
+<li>Execute <code>snakeviz</code> via
+<code>python -m snakeviz &lt;output file&gt;</code>
+</li>
+</ul>
+<p>How to line-level profile:</p>
+<ul>
+<li>Import <code>profile</code> from <code>line_profiling</code>
+</li>
+<li>Decorate targeted methods with <code>@profile</code>
+</li>
+<li>Execute <code>line_profiler</code> via
+<code>python -m kernprof -lvr &lt;script name/arguments&gt;</code>
+</li>
+</ul>
 </div>
 </div>
 </div></section>
@@ -612,9 +2088,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "rse.shef.ac.uk/pando-python/aio.html",
   "identifier": "rse.shef.ac.uk/pando-python/aio.html",
-  "dateCreated": "2024-01-10",
-  "dateModified": "2024-01-23",
-  "datePublished": "2024-01-23"
+  "dateCreated": "2024-01-29",
+  "dateModified": "2024-01-29",
+  "datePublished": "2024-01-29"
 }
 
   </script><script>
