@@ -23,11 +23,10 @@ exercises: 0
 
 The storage and movement of data plays a large role in the performance of executing software.
 
-
 <!-- Read/operate on variable ram->cpu cache->registers->cpu -->
 When reading a variable, to perform an operation with it, the CPU will first look in it's registers. These exist per core, they are the location that computation is actually performed. Accessing them is incredibly fast, but there only exists enough storage for around 32 variables (typical number, e.g. 4 bytes).
 As the register file is so small, most variables won't be found and the CPU's caches will be searched.
-It will first check the current processing core's L1 cache, this small cache (typically 64 KB per physical core) is the smallest and fastest to access cache on a processor.
+It will first check the current processing core's L1 (Level 1) cache, this small cache (typically 64 KB per physical core) is the smallest and fastest to access cache on a processor.
 If the variable is not found in the L1 cache, the L2 cache that is shared between multiple cores will be checked. This shared cache, is slower to access but larger than L1 (typically 1-3MB per core).
 This process then repeats for the L3 cache which may be shared among all cores of the processor. This cache again has higher latency to access, but increased size (typically slightly larger than the total L2 cache size).
 If the variable has not been found in any of the CPU's cache, the CPU will look to the computer's RAM. This is an order of magnitude slower to access, with several orders of magnitude greater capacity (tens to hundreds of GB are now standard).
@@ -53,7 +52,6 @@ Python as a programming language, does not give you enough control to carefully 
 
 However all is not lost, packages such as `numpy` and `pandas` implemented in C/C++ enable Python users to take advantage of efficient memory accesses (when they are used correctly).
 
-*More on this later*
 :::::::::::::::::::::::::::::::::::::::::::::
 
 <!-- TODO python code example 
@@ -75,13 +73,13 @@ Python's `io` package is already buffered, so automatically handles this for you
 However before a file can be read, the file system on the disk must be polled to transform the file path to it's address on disk to initiate the transfer (or throw an exception).
 
 Following the common theme of this episode, the cost of accessing randomly scattered files can be significantly slower than accessing a single larger file of the same size.
-This is because for each file accessed the file system must be polled to transform the file path to an address on disk. 
+This is because for each file accessed, the file system must be polled to transform the file path to an address on disk. 
 Traditional hard disk drives particularly suffer, as the read head must physically move to locate data.
 
-Hence, it can be wise to avoid storing outputs in many individual files and to instead create a macro output file.
+Hence, it can be wise to avoid storing outputs in many individual files and to instead create a larger output file.
 
 This is even visible outside of your own code. If you try to upload/download 1 GB to HPC.
-The transfer will be significantly faster if that's a single file, rather than thousands.
+The transfer will be significantly faster, assuming good internet bandwidth, if that's a single file rather than thousands.
 
 The below example code runs a small benchmark, whereby 10MB is written to disk and read back whilst being timed. In one case this is as a single file, and the other, 1000 file segments.
 
@@ -145,8 +143,8 @@ Running this locally, on an SSD I received the following timings.
 
 Repeated runs show some noise to the timing, however the slowdown is consistently the same order of magnitude slower when split across multiple files.
 
-You might not even be reading 1000 different files, you could be reading the same file multiple times rather than reading it once and retaining it in memory during execution.
-The same performance overhead would apply.
+You might not even be reading 1000 different files. You could be reading the same file multiple times, rather than reading it once and retaining it in memory during execution.
+An even greater overhead would apply.
 
 ## Latency Overview
 
@@ -265,8 +263,8 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 ::::::::::::::::::::::::::::::::::::: keypoints
 
 - Sequential accesses to memory (RAM or disk) will be faster than random or scattered accesses.
-  - This is not always natively possible in Python without the use of packages such as `numpy` and `pandas`
-- One large file should be preferable over many small files.
+  - This is not always natively possible in Python without the use of packages such as NumPy and Pandas
+- One large file is preferable to many small files.
 - Memory allocation is not free, avoiding destroying and recreating objects can improve performance.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

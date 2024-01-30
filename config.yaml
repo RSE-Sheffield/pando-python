@@ -64,8 +64,7 @@ episodes:
 - profiling-lines.md
 - profiling-conclusion.md
 - optimisation-introduction.md
-- optimisation-list-tuple.md
-- optimisation-dict-set.md
+- optimisation-data-structures-algorithms.md
 - optimisation-minimise-python.md
 - optimisation-use-latest.md
 - optimisation-memory.md
