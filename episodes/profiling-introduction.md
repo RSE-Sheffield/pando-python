@@ -51,7 +51,7 @@ Profiling should be a relatively quick and inexpensive process. If there are no 
 ## All Programmers Can Benefit
 
 <!-- Everyone benefits (why) -->
-Even professional programmers make oversights that can lead to poor performance, that can be identified through profiling.
+Even professional programmers make oversights that can lead to poor performance, and can be identified through profiling.
 
 For example Grand Theft Auto Online, which has allegedly earned over $7bn since it's 2013 release, was notorious for it's slow loading times.
 8 years after it's release [a 'hacker'](https://nee.lv/2021/02/28/How-I-cut-GTA-Online-loading-times-by-70/) had enough, they reverse engineered and profiled the code to enable a 70% speedup!
@@ -60,6 +60,9 @@ For example Grand Theft Auto Online, which has allegedly earned over $7bn since 
 
 *How much time and energy was wasted, by unnecessarily slow loading screens?*
 
+*Why wasn't this caught by one of the hundreds of developers with access to the source code?*
+
+<!-- This could be fleshed out further and turned into an exercise to better emphasize the importance. -->
 :::::::::::::::::::::::::::::::::::::::::::::
 
 ## Types of Profiler
