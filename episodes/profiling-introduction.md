@@ -159,6 +159,9 @@ By highlighting individual functions calls, patterns relating to how performance
 <!-- In this course we will cover the usage of the timeline profiler `viztracer`. -->
 [`viztracer`](https://viztracer.readthedocs.io/en/latest/) is an example of a timeline profiler for Python, however we won't be demonstrating timeline profiling on this course.
 
+
+![An example timeline visualisation provided by `viztracer`/`vizviewer`.](episodes/fig/viztracer-example.png){alt='A viztracer timeline of the execution of the Pred-Prey exercise from later in the course. There is a shallow repeating pattern on the left side which corresponds to model steps, the right side instead has a range of 'icicles' which correspond to the deep call hierarchies of matplotlib generating a graph.'}
+
 ### Hardware Metric Profiling
 
 Processor manufacturers typically release advanced profilers specific to their hardware with access to internal hardware metrics.
