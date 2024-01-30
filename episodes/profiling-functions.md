@@ -189,8 +189,7 @@ As you hover each box, information to the left of the diagram updates specifying
 
 ## Follow Along
 
-<!-- TODO manually write this anchor to add download attribute to the python file? -->
-Download the [Python source for the example](episodes/files/snakeviz-worked-example/example.py) or [`cProfile` output file](episodes/files/snakeviz-worked-example/out.prof) and follow along with the worked example on your own machine.
+Download the <a href="files/snakeviz-worked-example/example.py" download>Python source for the example</a> or <a href="files/snakeviz-worked-example/out.prof" download>`cProfile` output file</a> and follow along with the worked example on your own machine.
 
 ```sh
 python -m cProfile -o out.prof example.py
@@ -295,7 +294,7 @@ The following exercises allow you to review your understanding of what has been 
 
 ## Exercise 1: Travelling Salesperson
 
-Download and profile [this](episodes/files/pred-prey/predprey.py) Python program, try to locate the function call(s) where the majority of execution time is being spent.
+Download and profile <a href="files/travelling-sales/travellingsales.py" download>this</a> Python program, try to locate the function call(s) where the majority of execution time is being spent.
 
 The program can be executed via `python travellingsales.py <cities>`.
 The value of `cities` should be a positive integer, this algorithm has poor scaling so larger numbers take significantly longer to run.
@@ -324,7 +323,7 @@ Other boxes within the diagram correspond to the initialisation of imports, or i
 
 ## Exercise 2: Predator Prey
 
-Download and profile [the Python predator prey model](episodes/files/pred-prey/predprey.py), try to locate the function call(s) where the majority of execution time is being spent. 
+Download and profile <a href="files/pred-prey/predprey.py" download>the Python predator prey model</a>, try to locate the function call(s) where the majority of execution time is being spent. 
 
 The program can be executed via `python predprey.py`.
 

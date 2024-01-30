@@ -139,8 +139,7 @@ python -m line_profiler -rm my_script.py.lprof
 
 ## Follow Along
 
-<!-- TODO manually write this anchor to add download attribute to the python file? -->
-Download the [Python source for the example](episodes/files/line_profiler-worked-example/fizzbuzz.py) and follow along with the worked example on your own machine.
+Download the <a href="files/line_profiler-worked-example/fizzbuzz.py" download>Python source for the example</a> and follow along with the worked example on your own machine.
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
@@ -252,7 +251,7 @@ The following exercises allow you to review your understanding of what has been 
 
 ## Exercise 1: BubbleSort
 
-Download and profile [the Python bubblesort implementation](episodes/files/bubblesort/bubblesort.py), line-level profile the code to investigate where time is being spent. 
+Download and profile <a href="files/bubblesort/bubblesort.py" download>the Python bubblesort implementation</a>, line-level profile the code to investigate where time is being spent. 
 
 The program can be executed via `python bubblesort.py <elements>`.
 The value of `elements` should be a positive integer as it represents the length of the array to be sorted.
@@ -364,7 +363,7 @@ As this is a reference implementation of a classic sorting algorithm we are unli
 
 ## Exercise 2: Predator Prey
 
-During the function-level profiling episode, the Python predator prey model was function-level profiled.
+During the function-level profiling episode, <a href="files/pred-prey/predprey.py" download>the Python predator prey model</a> was function-level profiled.
 This highlighted that `Grass::eaten()` (from `predprey.py:278`) occupies the majority of the runtime.
 
 Line-profile this method, using the output from the profile consider how it might be optimised.
