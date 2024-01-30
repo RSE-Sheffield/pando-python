@@ -117,58 +117,6 @@ This allows functions that occupy a disproportionate amount of the total runtime
 <!-- We will be covering -->
 In this course we will cover the usage of the function-level profiler `cProfile` and how it's output can be visualised with `snakeviz`.
 
-::::::::::::::::::::::::::::::::::::: callout
-
-## What is a Call Stack?
-
-The call stack keeps track of the active hierarchy of function calls and their associated variables.
-
-As a stack it is last-in first-out (LIFO) data structure.
-
-When a function is called, a frame to track it's variables and metadata is pushed to the call stack.
-When that same function finishes and returns, it is popped from the stack and variables local the function are dropped.
-
-If you've ever seen a stack overflow error, this refers to the call stack becoming too large.
-These are typically caused by recursive algorithms, whereby a function calls itself, that don't exit early enough.
-
-Within Python the current call-stack can be printed using the core `traceback` package, `traceback.print_stack()` will print the current call stack.
-
-
-The below example:
-
-```python
-import traceback
-
-def a():
-    b1()
-    b2()
-def b1():
-    pass
-def b2():
-    c()
-def c():
-    traceback.print_stack()
-
-a()
-```
-
-Prints the following call stack:
-
-```output
-  File "C:\call_stack.py", line 13, in <module>
-    a()
-  File "C:\call_stack.py", line 5, in a
-    b2()
-  File "C:\call_stack.py", line 9, in b2
-    c()
-  File "C:\call_stack.py", line 11, in c
-    traceback.print_stack()
-```
-
-In this instance the base of the stack is printed first, other visualisations of call stacks may use the reverse ordering.
-
-:::::::::::::::::::::::::::::::::::::::::::::
-
 ### Line-Level Profiling
 <!-- Context -->
 Function-level profiling may not always be granular enough, perhaps your software is a single long script, or function-level profiling highlighted a particularly complex function.
