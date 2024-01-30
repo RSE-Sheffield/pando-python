@@ -60,9 +60,21 @@ For example Grand Theft Auto Online, which has allegedly earned over $7bn since 
 
 *How much time and energy was wasted, by unnecessarily slow loading screens?*
 
-*Why wasn't this caught by one of the hundreds of developers with access to the source code?*
+::: instructor
 
-<!-- This could be fleshed out further and turned into an exercise to better emphasize the importance. -->
+The bottlenecked implementation was naively parsing a 10MB JSON file to create a list of unique items.
+
+Repeatedly:
+
+* Checking the length of (C) strings, e.g. iterating till the terminating character is found, resolved by caching the results.
+* Performing a linear search of a list to check for duplicates before inserting, resolved by using an appropriate data structure (dictionary).
+    * Allegedly duplicates were never even present in the JSON.
+
+Why wasn't this caught by one of the hundreds of developers with access to the source code?
+
+Was more money saved by not investigating performance than committing time to profiling and fixing the issue?
+
+:::
 :::::::::::::::::::::::::::::::::::::::::::::
 
 ## Types of Profiler
