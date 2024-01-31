@@ -327,23 +327,28 @@ Download and profile <a href="files/pred-prey/predprey.py" download>the Python p
 
 The program can be executed via `python predprey.py`.
 
-It takes no arguments, but contains various environment properties which can be modified to change the model's behaviour and outputs a graph `predprey_out.png`.
+It takes no arguments, but contains various environment properties which can be modified to change the model's behaviour and outputs a graph of the 3 populations `predprey_out.png`.
 
 :::::::::::::::::::::::: solution 
 
 It should be clear from the profile that the method `Grass::eaten()` (from `predprey.py:278`) occupies the majority of the runtime.
 
-From the table below the Icicle diagram, we can see that it was called 125,000 times.
+From the table below the Icicle diagram, we can see that it was called 1,250,000 times.
+
+
+![The top of the table shown by snakeviz.](episodes/fig/snakeviz-predprey-table.png){alt='The top 9 rows of the table shown by snakeviz when profiling predprey.py. The top row shows that predprey.py:278(eaten) was called 1,250,000 times, taking a total time of 8 seconds. The table is ordered in descending total time, with the next row taking a mere 0.74 seconds.'}
 
 If the table is ordered by `ncalls`, it can be identified as the joint 4th most called method and 2nd most called method from `predprey.py`.
 
-If you checked `predprey_out.png`, you should notice that there are significantly more `Grass` agents than `Predeators` or `Prey`.
+If you checked `predprey_out.png` (shown below), you should notice that there are significantly more `Grass` agents than `Predeators` or `Prey`.
 
-Similarly, the method's `percall` time is inline with other agent functions such as `Prey::flock()` (from `predprey.py:67`).
+![`predprey_out.png` as produced by the default configuration of `predprey.py`.](episodes/fig/predprey_out.png){alt='A line graph plotting population over time through 250 steps of the pred prey model. Grass/20, shown in green, has a brief dip in the first 30 steps, but recovers holding steady at approximately 240 (4800 agents). Prey, shown in blue, starts at 200, quickly drops to around 185, before levelling off for steps and then slowly declining to a final value of 50. The data for predators, shown in red, has significantly more noise. There are 50 predators to begin, this rises briefly before falling to around 10, from here it noisily grows to around 70 by step 250 with several larger declines during the growth.'}
+
+Similarly, the `Grass::eaten()` has a `percall` time is inline with other agent functions such as `Prey::flock()` (from `predprey.py:67`).
 
 Maybe we could investigate this further with line profiling!
 
-*You may have noticed alot of iciles on the right hand of the diagram, these primarily correspond to the `import` of `matplotlib` which is relatively expensive!*
+*You may have noticed many iciles on the right hand of the diagram, these primarily correspond to the `import` of `matplotlib` which is relatively expensive!*
 
 :::::::::::::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::::::::::::
