@@ -118,22 +118,22 @@ python -m cProfile -o out.prof my_script.py input.csv
 <!-- TODO should the remainder of this section be in a call-out, it's unnecessary -->
 If you instead, don't specify output to file (e.g. remove `-o out.prof` from the command), `cProfile` will produce output to console similar to that shown below:
 
-<!-- TODO is there a better less-abstract example, this one is 're.compile("foo|bar")' ripped from the docs -->
-
 ```output
-      214 function calls (207 primitive calls) in 0.002 seconds
+         28 function calls in 4.754 seconds
 
-Ordered by: cumulative time
+   Ordered by: standard name
 
-ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-     1    0.000    0.000    0.002    0.002 {built-in method builtins.exec}
-     1    0.000    0.000    0.001    0.001 <string>:1(<module>)
-     1    0.000    0.000    0.001    0.001 __init__.py:250(compile)
-     1    0.000    0.000    0.001    0.001 __init__.py:289(_compile)
-     1    0.000    0.000    0.000    0.000 _compiler.py:759(compile)
-     1    0.000    0.000    0.000    0.000 _parser.py:937(parse)
-     1    0.000    0.000    0.000    0.000 _compiler.py:598(_code)
-     1    0.000    0.000    0.000    0.000 _parser.py:435(_parse_sub)
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    4.754    4.754 worked_example.py:1(<module>)
+        1    0.000    0.000    1.001    1.001 worked_example.py:13(b_2)
+        3    0.000    0.000    1.513    0.504 worked_example.py:16(c_1)
+        3    0.000    0.000    1.238    0.413 worked_example.py:19(c_2)
+        3    0.000    0.000    0.334    0.111 worked_example.py:23(d_1)
+        1    0.000    0.000    4.754    4.754 worked_example.py:3(a_1)
+        3    0.000    0.000    2.751    0.917 worked_example.py:9(b_1)
+        1    0.000    0.000    4.754    4.754 {built-in method builtins.exec}
+       11    4.753    0.432    4.753    0.432 {built-in method time.sleep}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 ```
 
 The columns have the following definitions:
