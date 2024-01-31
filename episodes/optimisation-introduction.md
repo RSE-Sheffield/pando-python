@@ -113,6 +113,7 @@ Whilst not designed for benchmarking, it does provide the total time the test su
 
 This is only the simplest introduction to using pytest, it has advanced features common to other testing frameworks such as fixtures, mocking and test skipping.
 [pytest's documentation](https://docs.pytest.org/en/latest/how-to/index.html) covers all this and more.
+You may already have a different testing workflow in-place for validating the correctness of the outputs from your code.
 
 ::: instructor
 

@@ -33,11 +33,12 @@ It is implemented as a form of dynamic array found within many programming langu
 They allows direct and sequential element access, with the convenience to append items.
 
 This is achieved by internally storing items in a static array.
-This array however can be longer than the `List`.
-When an item is added, the `List` checks whether it has enough spare space to add the item to the end.
+This array however can be longer than the `List`, so the current length of the list is stored alongside the array.
+When an item is appended, the `List` checks whether it has enough spare space to add the item to the end.
 If it doesn't, it will reallocate a larger array, copy across the elements, and deallocate the old array.
+Before copying the item to the end and incrementing the counter which tracks the list's length.
 
-The growth is dependent on the implementation's growth factor.
+The amount the internal array grows by is dependent on the particular list implementation's growth factor.
 CPython for example uses [`newsize + (newsize >> 3) + 6`](https://github.com/python/cpython/blob/a571a2fd3fdaeafdfd71f3d80ed5a3b22b63d0f7/Objects/listobject.c#L74), which works out to an over allocation of roughly ~12.5%.
 
 ![The relationship between the number of appends to an empty list, and the number of internal resizes in CPython.](episodes/fig/cpython_list_allocations.png){alt='A line graph displaying the relationship between the number of calls to append() and the number of internal resizes of a CPython list. It has a logarithmic relationship, at 1 million appends there have been 84 internal resizes.'}
@@ -185,7 +186,7 @@ List: 0.00256ms
 List_long: 0.00332ms
 ```
 
-Unlike list comprehension, a generator function will normally involve a Python loop. Therefore, their performance is typically slower than constructing a list where much of the computation can be offloaded to the CPython backend.
+Unlike list comprehension, a generator function will normally involve a Python loop. Therefore, their performance is typically slower than list comprehension where much of the computation can be offloaded to the CPython backend.
 
 ::::::::::::::::::::::::::::::::::::: callout
 
