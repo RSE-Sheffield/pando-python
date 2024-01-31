@@ -253,8 +253,14 @@ The following exercises allow you to review your understanding of what has been 
 
 Download and profile <a href="files/bubblesort/bubblesort.py" download>the Python bubblesort implementation</a>, line-level profile the code to investigate where time is being spent. 
 
+> Bubblesort is a basic sorting algorithm, it is not considered to be efficient so in practice other sorting algorithms are typically used.
+>
+> The array to be sorted is iterated, with a pair-wise sort being applied to each element and it's neighbour.
+> This can cause elements to rise (or sink) multiple positions in a single pass, hence the name bubblesort.
+> This iteration continues until the array is fully iterated with no elements being swapped.
+
 The program can be executed via `python bubblesort.py <elements>`.
-The value of `elements` should be a positive integer as it represents the length of the array to be sorted.
+The value of `elements` should be a positive integer as it represents the number of elements to be sorted.
 
 :::::::::::::::::::::::: hint
 
@@ -262,7 +268,7 @@ The value of `elements` should be a positive integer as it represents the length
 - This must be imported via `from line_profiler import profile`
 - 100 elements should be suitable for a quick profile
 
-:::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::: solution 
 

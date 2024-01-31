@@ -296,6 +296,11 @@ The following exercises allow you to review your understanding of what has been 
 
 Download and profile <a href="files/travelling-sales/travellingsales.py" download>this</a> Python program, try to locate the function call(s) where the majority of execution time is being spent.
 
+> The travelling salesperson problem aims to optimise the route for a scenario where a salesperson is requires to travel between N locations.
+> They wish to travel to each location exactly once, in any order, whilst minimising the total distance travelled.
+>
+> The provided implementation uses a naive brute-force approach.
+
 The program can be executed via `python travellingsales.py <cities>`.
 The value of `cities` should be a positive integer, this algorithm has poor scaling so larger numbers take significantly longer to run.
 
@@ -325,9 +330,15 @@ Other boxes within the diagram correspond to the initialisation of imports, or i
 
 Download and profile <a href="files/pred-prey/predprey.py" download>the Python predator prey model</a>, try to locate the function call(s) where the majority of execution time is being spent. 
 
+> The predator prey model is a simple agent-based model of population dynamics. Predators and prey co-exist in a common environment and compete over finite resources. 
+>
+> The three agents; predators, prey and grass exist in a two dimensional grid. Predators eat prey, prey eat grass. The size of each population changes over time. Depending on the parameters of the model, the populations may oscillate, grow or collapse due to the availability of their food source.
+
 The program can be executed via `python predprey.py`.
 
-It takes no arguments, but contains various environment properties which can be modified to change the model's behaviour and outputs a graph of the 3 populations `predprey_out.png`.
+It takes no arguments, but contains various environment properties which can be modified to change the model's behaviour.
+When the model finishes it outputs a graph of the three populations `predprey_out.png`.
+
 
 :::::::::::::::::::::::: solution 
 
@@ -335,12 +346,11 @@ It should be clear from the profile that the method `Grass::eaten()` (from `pred
 
 From the table below the Icicle diagram, we can see that it was called 1,250,000 times.
 
-
 ![The top of the table shown by snakeviz.](episodes/fig/snakeviz-predprey-table.png){alt='The top 9 rows of the table shown by snakeviz when profiling predprey.py. The top row shows that predprey.py:278(eaten) was called 1,250,000 times, taking a total time of 8 seconds. The table is ordered in descending total time, with the next row taking a mere 0.74 seconds.'}
 
 If the table is ordered by `ncalls`, it can be identified as the joint 4th most called method and 2nd most called method from `predprey.py`.
 
-If you checked `predprey_out.png` (shown below), you should notice that there are significantly more `Grass` agents than `Predeators` or `Prey`.
+If you checked `predprey_out.png` (shown below), you should notice that there are significantly more `Grass` agents than `Predators` or `Prey`.
 
 ![`predprey_out.png` as produced by the default configuration of `predprey.py`.](episodes/fig/predprey_out.png){alt='A line graph plotting population over time through 250 steps of the pred prey model. Grass/20, shown in green, has a brief dip in the first 30 steps, but recovers holding steady at approximately 240 (4800 agents). Prey, shown in blue, starts at 200, quickly drops to around 185, before levelling off for steps and then slowly declining to a final value of 50. The data for predators, shown in red, has significantly more noise. There are 50 predators to begin, this rises briefly before falling to around 10, from here it noisily grows to around 70 by step 250 with several larger declines during the growth.'}
 
