@@ -54,6 +54,8 @@ If you add to a variable, perform large amount of unrelated processing, then add
 <!-- Latency/Throughput typically inversely proportional to capacity -->
 It's not necessary to remember this full detail of how memory access work within a computer, but the context perhaps helps understand why memory locality is important.
 
+![An abstract diagram showing the path data takes from disk or RAM to be used for computation.](episodes/fig/hardware.png){alt='An abstract representation of a CPU, RAM and Disk, showing their internal caches and the pathways data can pass.'}
+
 ::::::::::::::::::::::::::::::::::::: callout
 
 Python as a programming language, does not give you enough control to carefully pack your variables in this manner (every variable is an object, so it's stored as a pointer that redirects to the actual data stored elsewhere).
