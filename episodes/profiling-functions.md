@@ -35,6 +35,59 @@ This allows functions that occupy a disproportionate amount of the total runtime
 <!-- We will be covering -->
 In this episode we will cover the usage of the function-level profiler `cProfile`, how it's output can be visualised with `snakeviz` and how the output can be interpreted.
 
+
+::::::::::::::::::::::::::::::::::::: callout
+
+## What is a Call Stack?
+
+The call stack keeps track of the active hierarchy of function calls and their associated variables.
+
+As a stack it is last-in first-out (LIFO) data structure.
+
+When a function is called, a frame to track it's variables and metadata is pushed to the call stack.
+When that same function finishes and returns, it is popped from the stack and variables local the function are dropped.
+
+If you've ever seen a stack overflow error, this refers to the call stack becoming too large.
+These are typically caused by recursive algorithms, whereby a function calls itself, that don't exit early enough.
+
+Within Python the current call-stack can be printed using the core `traceback` package, `traceback.print_stack()` will print the current call stack.
+
+
+The below example:
+
+```python
+import traceback
+
+def a():
+    b1()
+    b2()
+def b1():
+    pass
+def b2():
+    c()
+def c():
+    traceback.print_stack()
+
+a()
+```
+
+Prints the following call stack:
+
+```output
+  File "C:\call_stack.py", line 13, in <module>
+    a()
+  File "C:\call_stack.py", line 5, in a
+    b2()
+  File "C:\call_stack.py", line 9, in b2
+    c()
+  File "C:\call_stack.py", line 11, in c
+    traceback.print_stack()
+```
+
+In this instance the base of the stack is printed first, other visualisations of call stacks may use the reverse ordering.
+
+:::::::::::::::::::::::::::::::::::::::::::::
+
 ## cProfile
 
 <!-- What is cProfile/How is it installed -->
@@ -65,22 +118,22 @@ python -m cProfile -o out.prof my_script.py input.csv
 <!-- TODO should the remainder of this section be in a call-out, it's unnecessary -->
 If you instead, don't specify output to file (e.g. remove `-o out.prof` from the command), `cProfile` will produce output to console similar to that shown below:
 
-<!-- TODO is there a better less-abstract example, this one is 're.compile("foo|bar")' ripped from the docs -->
-
 ```output
-      214 function calls (207 primitive calls) in 0.002 seconds
+         28 function calls in 4.754 seconds
 
-Ordered by: cumulative time
+   Ordered by: standard name
 
-ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-     1    0.000    0.000    0.002    0.002 {built-in method builtins.exec}
-     1    0.000    0.000    0.001    0.001 <string>:1(<module>)
-     1    0.000    0.000    0.001    0.001 __init__.py:250(compile)
-     1    0.000    0.000    0.001    0.001 __init__.py:289(_compile)
-     1    0.000    0.000    0.000    0.000 _compiler.py:759(compile)
-     1    0.000    0.000    0.000    0.000 _parser.py:937(parse)
-     1    0.000    0.000    0.000    0.000 _compiler.py:598(_code)
-     1    0.000    0.000    0.000    0.000 _parser.py:435(_parse_sub)
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    4.754    4.754 worked_example.py:1(<module>)
+        1    0.000    0.000    1.001    1.001 worked_example.py:13(b_2)
+        3    0.000    0.000    1.513    0.504 worked_example.py:16(c_1)
+        3    0.000    0.000    1.238    0.413 worked_example.py:19(c_2)
+        3    0.000    0.000    0.334    0.111 worked_example.py:23(d_1)
+        1    0.000    0.000    4.754    4.754 worked_example.py:3(a_1)
+        3    0.000    0.000    2.751    0.917 worked_example.py:9(b_1)
+        1    0.000    0.000    4.754    4.754 {built-in method builtins.exec}
+       11    4.753    0.432    4.753    0.432 {built-in method time.sleep}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 ```
 
 The columns have the following definitions:
@@ -136,8 +189,7 @@ As you hover each box, information to the left of the diagram updates specifying
 
 ## Follow Along
 
-<!-- TODO manually write this anchor to add download attribute to the python file? -->
-Download the [Python source for the example](episodes/files/snakeviz-worked-example/example.py) or [`cProfile` output file](episodes/files/snakeviz-worked-example/out.prof) and follow along with the worked example on your own machine.
+Download the <a href="files/snakeviz-worked-example/example.py" download>Python source for the example</a> or <a href="files/snakeviz-worked-example/out.prof" download>`cProfile` output file</a> and follow along with the worked example on your own machine.
 
 ```sh
 python -m cProfile -o out.prof example.py
@@ -242,7 +294,12 @@ The following exercises allow you to review your understanding of what has been 
 
 ## Exercise 1: Travelling Salesperson
 
-Download and profile [this](episodes/files/pred-prey/predprey.py) Python program, try to locate the function call(s) where the majority of execution time is being spent.
+Download and profile <a href="files/travelling-sales/travellingsales.py" download>this</a> Python program, try to locate the function call(s) where the majority of execution time is being spent.
+
+> The travelling salesperson problem aims to optimise the route for a scenario where a salesperson is requires to travel between N locations.
+> They wish to travel to each location exactly once, in any order, whilst minimising the total distance travelled.
+>
+> The provided implementation uses a naive brute-force approach.
 
 The program can be executed via `python travellingsales.py <cities>`.
 The value of `cities` should be a positive integer, this algorithm has poor scaling so larger numbers take significantly longer to run.
@@ -271,27 +328,37 @@ Other boxes within the diagram correspond to the initialisation of imports, or i
 
 ## Exercise 2: Predator Prey
 
-Download and profile [the Python predator prey model](episodes/files/pred-prey/predprey.py), try to locate the function call(s) where the majority of execution time is being spent. 
+Download and profile <a href="files/pred-prey/predprey.py" download>the Python predator prey model</a>, try to locate the function call(s) where the majority of execution time is being spent. 
+
+> The predator prey model is a simple agent-based model of population dynamics. Predators and prey co-exist in a common environment and compete over finite resources. 
+>
+> The three agents; predators, prey and grass exist in a two dimensional grid. Predators eat prey, prey eat grass. The size of each population changes over time. Depending on the parameters of the model, the populations may oscillate, grow or collapse due to the availability of their food source.
 
 The program can be executed via `python predprey.py`.
 
-It takes no arguments, but contains various environment properties which can be modified to change the model's behaviour and outputs a graph `predprey_out.png`.
+It takes no arguments, but contains various environment properties which can be modified to change the model's behaviour.
+When the model finishes it outputs a graph of the three populations `predprey_out.png`.
+
 
 :::::::::::::::::::::::: solution 
 
 It should be clear from the profile that the method `Grass::eaten()` (from `predprey.py:278`) occupies the majority of the runtime.
 
-From the table below the Icicle diagram, we can see that it was called 125,000 times.
+From the table below the Icicle diagram, we can see that it was called 1,250,000 times.
+
+![The top of the table shown by snakeviz.](episodes/fig/snakeviz-predprey-table.png){alt='The top 9 rows of the table shown by snakeviz when profiling predprey.py. The top row shows that predprey.py:278(eaten) was called 1,250,000 times, taking a total time of 8 seconds. The table is ordered in descending total time, with the next row taking a mere 0.74 seconds.'}
 
 If the table is ordered by `ncalls`, it can be identified as the joint 4th most called method and 2nd most called method from `predprey.py`.
 
-If you checked `predprey_out.png`, you should notice that there are significantly more `Grass` agents than `Predeators` or `Prey`.
+If you checked `predprey_out.png` (shown below), you should notice that there are significantly more `Grass` agents than `Predators` or `Prey`.
 
-Similarly, the method's `percall` time is inline with other agent functions such as `Prey::flock()` (from `predprey.py:67`).
+![`predprey_out.png` as produced by the default configuration of `predprey.py`.](episodes/fig/predprey_out.png){alt='A line graph plotting population over time through 250 steps of the pred prey model. Grass/20, shown in green, has a brief dip in the first 30 steps, but recovers holding steady at approximately 240 (4800 agents). Prey, shown in blue, starts at 200, quickly drops to around 185, before levelling off for steps and then slowly declining to a final value of 50. The data for predators, shown in red, has significantly more noise. There are 50 predators to begin, this rises briefly before falling to around 10, from here it noisily grows to around 70 by step 250 with several larger declines during the growth.'}
+
+Similarly, the `Grass::eaten()` has a `percall` time is inline with other agent functions such as `Prey::flock()` (from `predprey.py:67`).
 
 Maybe we could investigate this further with line profiling!
 
-*You may have noticed alot of iciles on the right hand of the diagram, these primarily correspond to the `import` of `matplotlib` which is relatively expensive!*
+*You may have noticed many iciles on the right hand of the diagram, these primarily correspond to the `import` of `matplotlib` which is relatively expensive!*
 
 :::::::::::::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::::::::::::
@@ -299,8 +366,8 @@ Maybe we could investigate this further with line profiling!
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
-- A python program can be function level profiled with `cProfile` via `python -m cProfile -o <output file> <script name/arguments>`
-- The output file from `cProfile` can be visualised with `snakeviz` via `python -m snakeviz <output file>`
+- A python program can be function level profiled with `cProfile` via `python -m cProfile -o <output file> <script name/arguments>`.
+- The output file from `cProfile` can be visualised with `snakeviz` via `python -m snakeviz <output file>`.
 - Function level profiling output displays the nested call hierarchy, listing both the cumulative and total minus sub functions time.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

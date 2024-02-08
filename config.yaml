@@ -64,16 +64,16 @@ episodes:
 - profiling-lines.md
 - profiling-conclusion.md
 - optimisation-introduction.md
+- optimisation-data-structures-algorithms.md
+- optimisation-minimise-python.md
 - optimisation-use-latest.md
 - optimisation-memory.md
-- optimisation-list-tuple.md
-- optimisation-dict-set.md
-- optimisation-minimise-python.md
 - optimisation-conclusion.md
 
 # Information for Learners
 learners: 
 - setup.md
+- acknowledgements.md
 
 # Information for Instructors
 instructors: 

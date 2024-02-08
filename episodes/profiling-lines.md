@@ -80,7 +80,7 @@ def is_prime(number):
 print(is_prime(1087))
 ```
 
-This tells `line_profiler` to collect metrics for the lines within the method `fizzbuzz()`.
+This tells `line_profiler` to collect metrics for the lines within the method `is_prime()`.
 You can still execute your code as normal, and these changes will have no effect.
 
 Similar to the earlier tools, `line_profiler` can then be triggered via `kernprof`.
@@ -139,8 +139,7 @@ python -m line_profiler -rm my_script.py.lprof
 
 ## Follow Along
 
-<!-- TODO manually write this anchor to add download attribute to the python file? -->
-Download the [Python source for the example](episodes/files/line_profiler-worked-example/fizzbuzz.py) and follow along with the worked example on your own machine.
+Download the <a href="files/line_profiler-worked-example/fizzbuzz.py" download>Python source for the example</a> and follow along with the worked example on your own machine.
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
@@ -173,7 +172,7 @@ def fizzbuzz(n):
         else:
             print(i)
 
-fizzbuzz(n)
+fizzbuzz(100)
 ```
 
 Next the method can be decorated with `@profile` which must be imported via `line_profiler`:
@@ -193,7 +192,7 @@ def fizzbuzz(n):
         else:
             print(i)
 
-fizzbuzz(n)
+fizzbuzz(100)
 ```
 
 Now that the code has been decorated, it can be profiled!
@@ -229,7 +228,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
     13        53       1112.8     21.0     51.7              print(i)
 ```
 
-For this basic example, we can calculate that "FizzBuzz" would be printed 6 times out of 100, and the profile shows that line 7 (`print("FizzBuzz")` occupied 5.8% of the runtime. This is slightly lower than 6% due to the control flow code (printing to console is expensive relative to the control flow and conditional statements). Similarly, "Fizz" is printed 27 times and occupies 25.1%, likewise "Buzz" is printed 14 times and occupies 13.2%. Each print statement has a similar "Per Hit" time of 20-21 micro seconds.
+For this basic example, we can calculate that "FizzBuzz" would be printed 6 times out of 100, and the profile shows that line 7 (`print("FizzBuzz")`) occupied 5.8% of the runtime. This is slightly lower than 6% due to the control flow code (printing to console is expensive relative to the control flow and conditional statements). Similarly, "Fizz" is printed 27 times and occupies 25.1%, likewise "Buzz" is printed 14 times and occupies 13.2%. Each print statement has a similar "Per Hit" time of 20-21 micro seconds.
 
 Therefore it can be seen in this example, how the time spent executing each line matches expectations.
 
@@ -237,7 +236,7 @@ Therefore it can be seen in this example, how the time spent executing each line
 
 ## Rich Output
 
-The `-r` argument passed to `kernprof` (or `line_profiler`) enables rich output, if you run the profile locally it should look similar to this.
+The `-r` argument passed to `kernprof` (or `line_profiler`) enables rich output, if you run the profile locally it should look similar to this. *This requires the optional package `rich`, it will have been installed if `[all]` was specified when installing `line_profiler` with `pip`.*
 
 ![Rich (highlighted) console output provided by `line_profiler` for the above FizzBuzz profile code.](episodes/fig/line_profiler-worked-example.png){alt='A screenshot of the `line_profiler` output from the previous code block, where the code within the line contents column has basic highlighting.'}
 
@@ -252,10 +251,16 @@ The following exercises allow you to review your understanding of what has been 
 
 ## Exercise 1: BubbleSort
 
-Download and profile [the Python bubblesort implementation](episodes/files/bubblesort/bubblesort.py), line-level profile the code to investigate where time is being spent. 
+Download and profile <a href="files/bubblesort/bubblesort.py" download>the Python bubblesort implementation</a>, line-level profile the code to investigate where time is being spent. 
+
+> Bubblesort is a basic sorting algorithm, it is not considered to be efficient so in practice other sorting algorithms are typically used.
+>
+> The array to be sorted is iterated, with a pair-wise sort being applied to each element and it's neighbour.
+> This can cause elements to rise (or sink) multiple positions in a single pass, hence the name bubblesort.
+> This iteration continues until the array is fully iterated with no elements being swapped.
 
 The program can be executed via `python bubblesort.py <elements>`.
-The value of `elements` should be a positive integer as it represents the length of the array to be sorted.
+The value of `elements` should be a positive integer as it represents the number of elements to be sorted.
 
 :::::::::::::::::::::::: hint
 
@@ -263,7 +268,7 @@ The value of `elements` should be a positive integer as it represents the length
 - This must be imported via `from line_profiler import profile`
 - 100 elements should be suitable for a quick profile
 
-:::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::: solution 
 
@@ -356,7 +361,6 @@ From this we can identify that the print statements were the most expensive indi
 Most execution time was spent at the inner loop (lines 19-22).
 
 As this is a reference implementation of a classic sorting algorithm we are unlikely to be able to improve it further.
-More on sorting algorithms later in the course.
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -365,7 +369,7 @@ More on sorting algorithms later in the course.
 
 ## Exercise 2: Predator Prey
 
-During the function-level profiling episode, the Python predator prey model was function-level profiled.
+During the function-level profiling episode, <a href="files/pred-prey/predprey.py" download>the Python predator prey model</a> was function-level profiled.
 This highlighted that `Grass::eaten()` (from `predprey.py:278`) occupies the majority of the runtime.
 
 Line-profile this method, using the output from the profile consider how it might be optimised.
@@ -462,9 +466,9 @@ Remembering that this method is executed once per each of the 5000 `Grass` agent
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
-- Specific methods can be line-level profiled if decorated with `@profile` that is imported from `line_profiler`
-- `kernprof` executes `line_profiler` via `python -m kernprof -lvr <script name/arguments>`
-- Code in global scope must wrapped in a method if it is to be profiled with `line_profiler`
+- Specific methods can be line-level profiled if decorated with `@profile` that is imported from `line_profiler`.
+- `kernprof` executes `line_profiler` via `python -m kernprof -lvr <script name/arguments>`.
+- Code in global scope must wrapped in a method if it is to be profiled with `line_profiler`.
 - The output from `line_profiler` lists the absolute and relative time spent per line for each targeted function.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

@@ -6,7 +6,7 @@ exercises: 0
 
 :::::::::::::::::::::::::::::::::::::: questions
 
-- Why is are Python loops slow?
+- Why are Python loops slow?
 - Why is NumPy often faster than raw Python?
 - How can processing rows of a Pandas data table be made faster?
 
@@ -20,13 +20,13 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Python is an interpreted programming language. When you execute your `.py` file, the default CPython back-end compiles your Python source code to an intermediate bytecode. This bytecode is then interpreted in software at runtime generating instructions for the processor as necessary. This interpretation stage, and other features of the language, harm the performance of Python (whilst improving it's usability).<!-- https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/ -->
+Python is an interpreted programming language. When you execute your `.py` file, the (default) CPython back-end compiles your Python source code to an intermediate bytecode. This bytecode is then interpreted in software at runtime generating instructions for the processor as necessary. This interpretation stage, and other features of the language, harm the performance of Python (whilst improving it's usability).<!-- https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/ -->
 
-In comparison, many languages such as C/C++ compile directly to machine code. This allows them to better exploit hardware nuance to achieve fast performance, at the cost of compiled software not being cross-platform.
+In comparison, many languages such as C/C++ compile directly to machine code. This allows the compiler to perform low-level optimisations that better exploit hardware nuance to achieve fast performance. This however comes at the cost of compiled software not being cross-platform.
 
-Whilst Python will rarely be as fast as compiled languages like C/C++, it is possible to take advantage of the CPython back-end and other libraries such as NumPy and pandas that have been written in compiled languages to expose this performance.
+Whilst Python will rarely be as fast as compiled languages like C/C++, it is possible to take advantage of the CPython back-end and packages such as NumPy and Pandas that have been written in compiled languages to expose this performance.
 
-A simple example of this would be to search a list.
+A simple example of this would be to perform a linear search of a list (in the previous episode we did say this is not recommended).
 The below example creates a list of 2500 integers in the inclusive-exclusive range `[0, 5000)`.
 It then searches for all of the even numbers in that range.
 `searchlistPython()` is implemented manually, iterating `ls` checking each individual item in Python code.
@@ -198,11 +198,13 @@ dis.dis(searchListC)
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
-## Functional Operators
+## Built-in Functions Operators
 
 In order to take advantage of offloading computation to the CPython back-end it's necessary to be aware of what functionality is present. Those available without importing packages are considered [built-in](https://docs.python.org/3/library/functions.html) functions.
 
-In particular, those which are passed an `iterable` are likely to provide the greatest benefits to performance. The Python documentation provides equivalent Python code for many of these cases
+Built-in functions are typically implemented in the CPython back-end, so their performance benefits from bypassing the Python interpreter.
+
+In particular, those which are passed an `iterable` (e.g. lists) are likely to provide the greatest benefits to performance. The Python documentation provides equivalent Python code for many of these cases
 
 * [`all()`](https://docs.python.org/3/library/functions.html#all): boolean and of all items
 * [`any()`](https://docs.python.org/3/library/functions.html#all): boolean or of all items
@@ -211,13 +213,11 @@ In particular, those which are passed an `iterable` are likely to provide the gr
 * [`sum()`](https://docs.python.org/3/library/functions.html#sum): Return the sum of all items
 * [`zip()`](https://docs.python.org/3/library/functions.html#zip): Return an iterator which returns a tuple of items from each of the provided iterables.
 
-Additionally the core package [`itertools`](https://docs.python.org/3/library/itertools.html) provide many advanced iterators such as [`accumulate()`](https://docs.python.org/3/library/itertools.html#itertools.accumulate) and [`functools`](https://docs.python.org/3/library/functools.html#module-functools) provides [`reduce()`](https://docs.python.org/3/library/functools.html#functools.reduce) for performing bespoke reductions over iterables.
-
 <!-- todo exercise/s where pure-python must be converted to use one of the above fns. -->
 
 ::::::::::::::::::::::::::::::::::::: callout
 
-The built-in functions [`filter()`](https://docs.python.org/3/library/functions.html#filter) and [`map()`](https://docs.python.org/3/library/functions.html#map) can be used for processing iterables (e.g. lists). However list-comprehension is likely to be more performant.
+The built-in functions [`filter()`](https://docs.python.org/3/library/functions.html#filter) and [`map()`](https://docs.python.org/3/library/functions.html#map) can be used for processing iterables However list-comprehension is likely to be more performant.
 
 <!-- Would this benefit from an example? -->
 
@@ -316,7 +316,9 @@ Passing a Python list to `numpy.random.choice()` is 65.6x slower than passing a 
 200000 loops, best of 5: 1.22 usec per loop
 ```
 
-Regardless, for this simple application of `numpy.random.choice()`, merely using `numpy.random.randint(len())` is around 4x faster regardless whether a Python list or NumPy array is used. With `numpy.random.choice()` being such a general function (it has many of possible parameters), there is significant internal branching. If you don't require this advanced functionality and are calling a function regularly, it can be worthwhile considering using a more limited function.
+Regardless, for this simple application of `numpy.random.choice()`, merely using `numpy.random.randint(len())` is around 4x faster regardless whether a Python list or NumPy array is used. 
+
+With `numpy.random.choice()` being such a general function (it has many possible parameters), there is significant internal branching. If you don't require this advanced functionality and are calling a function regularly, it can be worthwhile considering using a more limited function.
 
 There is however a trade-off, using `numpy.random.choice()` can be clearer to someone reading your code, and is more difficult to use incorrectly.
 
@@ -413,7 +415,7 @@ Pandas' methods by default operate on columns. Each column or series can be thou
 
 Following the theme of this episode, iterating over the rows of a data frame using a `for` loop is not advised. The pythonic iteration will be slower than other approaches.
 
-Pandas allows it's own methods to be applied to rows in many cases by passing `axis=1`, where available these functions should be preferred over manual loops. Where you can't find a suitable method `apply()` can be similar the `map()`/`vectorize()` to apply your own function to rows.
+Pandas allows it's own methods to be applied to rows in many cases by passing `axis=1`, where available these functions should be preferred over manual loops. Where you can't find a suitable method, `apply()` can be used, which is similar to `map()`/`vectorize()`, to apply your own function to rows.
 
 ```python
 from timeit import timeit
@@ -469,7 +471,7 @@ for_iterrows: 1677.14ms
 pandas_apply: 390.49ms
 ```
 
-**However**, rows don't exist in memory as arrays (columns do!), so `apply()` does not take advantage of NumPys vectorisation. You may be able to go a step further and avoid explicitly operating on rows entirely by passing only the required columns NumPy.
+However, rows don't exist in memory as arrays (columns do!), so `apply()` does not take advantage of NumPys vectorisation. You may be able to go a step further and avoid explicitly operating on rows entirely by passing only the required columns to NumPy.
 
 ```python
 def vectorize():
@@ -504,7 +506,7 @@ Whilst still nearly 100x slower than pure vectorisation, it's twice as fast as `
 to_dict: 131.15ms
 ```
 
-This is because indexing into Pandas' `Series` (rows) is significantly slower than a Python dictionary. There is a slight overhead to creating the dictionary (40ms in this example), however the stark difference in access speed is more than enough to overcome that cost for any large data-table.
+This is because indexing into Pandas' `Series` (rows) is significantly slower than a Python dictionary. There is a slight overhead to creating the dictionary (40ms in this example), however the stark difference in access speed is more than enough to overcome that cost for any large dataframe.
 
 ```python
 from timeit import timeit

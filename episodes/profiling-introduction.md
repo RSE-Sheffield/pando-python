@@ -51,7 +51,7 @@ Profiling should be a relatively quick and inexpensive process. If there are no 
 ## All Programmers Can Benefit
 
 <!-- Everyone benefits (why) -->
-Even professional programmers make oversights that can lead to poor performance, that can be identified through profiling.
+Even professional programmers make oversights that can lead to poor performance, and can be identified through profiling.
 
 For example Grand Theft Auto Online, which has allegedly earned over $7bn since it's 2013 release, was notorious for it's slow loading times.
 8 years after it's release [a 'hacker'](https://nee.lv/2021/02/28/How-I-cut-GTA-Online-loading-times-by-70/) had enough, they reverse engineered and profiled the code to enable a 70% speedup!
@@ -60,6 +60,21 @@ For example Grand Theft Auto Online, which has allegedly earned over $7bn since 
 
 *How much time and energy was wasted, by unnecessarily slow loading screens?*
 
+::: instructor
+
+The bottlenecked implementation was naively parsing a 10MB JSON file to create a list of unique items.
+
+Repeatedly:
+
+* Checking the length of (C) strings, e.g. iterating till the terminating character is found, resolved by caching the results.
+* Performing a linear search of a list to check for duplicates before inserting, resolved by using an appropriate data structure (dictionary).
+    * Allegedly duplicates were never even present in the JSON.
+
+Why wasn't this caught by one of the hundreds of developers with access to the source code?
+
+Was more money saved by not investigating performance than committing time to profiling and fixing the issue?
+
+:::
 :::::::::::::::::::::::::::::::::::::::::::::
 
 ## Types of Profiler
@@ -159,6 +174,9 @@ By highlighting individual functions calls, patterns relating to how performance
 <!-- In this course we will cover the usage of the timeline profiler `viztracer`. -->
 [`viztracer`](https://viztracer.readthedocs.io/en/latest/) is an example of a timeline profiler for Python, however we won't be demonstrating timeline profiling on this course.
 
+
+![An example timeline visualisation provided by `viztracer`/`vizviewer`.](episodes/fig/viztracer-example.png){alt='A viztracer timeline of the execution of the Pred-Prey exercise from later in the course. There is a shallow repeating pattern on the left side which corresponds to model steps, the right side instead has a range of 'icicles' which correspond to the deep call hierarchies of matplotlib generating a graph.'}
+
 ### Hardware Metric Profiling
 
 Processor manufacturers typically release advanced profilers specific to their hardware with access to internal hardware metrics.
@@ -219,6 +237,8 @@ Write a short plan of the approach you would take to investigate and confirm whe
 - There are several types of profiler each with slightly different purposes.
     - function-level: `cProfile` (visualised with `snakeviz`)
     - line-level: `line_profiler`
+    - timeline: `viztracer`
+    - hardware-metric
 - A representative test-case should be profiled, that is large enough to amplify any bottlenecks whilst executing to completion quickly.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
