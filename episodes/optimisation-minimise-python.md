@@ -198,11 +198,13 @@ dis.dis(searchListC)
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
-## Functional Operators
+## Built-in Functions Operators
 
 In order to take advantage of offloading computation to the CPython back-end it's necessary to be aware of what functionality is present. Those available without importing packages are considered [built-in](https://docs.python.org/3/library/functions.html) functions.
 
-In particular, those which are passed an `iterable` are likely to provide the greatest benefits to performance. The Python documentation provides equivalent Python code for many of these cases
+Built-in functions are typically implemented in the CPython back-end, so their performance benefits from bypassing the Python interpreter.
+
+In particular, those which are passed an `iterable` (e.g. lists) are likely to provide the greatest benefits to performance. The Python documentation provides equivalent Python code for many of these cases
 
 * [`all()`](https://docs.python.org/3/library/functions.html#all): boolean and of all items
 * [`any()`](https://docs.python.org/3/library/functions.html#all): boolean or of all items
@@ -211,13 +213,11 @@ In particular, those which are passed an `iterable` are likely to provide the gr
 * [`sum()`](https://docs.python.org/3/library/functions.html#sum): Return the sum of all items
 * [`zip()`](https://docs.python.org/3/library/functions.html#zip): Return an iterator which returns a tuple of items from each of the provided iterables.
 
-Additionally the core package [`itertools`](https://docs.python.org/3/library/itertools.html) provide many advanced iterators such as [`accumulate()`](https://docs.python.org/3/library/itertools.html#itertools.accumulate) and [`functools`](https://docs.python.org/3/library/functools.html#module-functools) provides [`reduce()`](https://docs.python.org/3/library/functools.html#functools.reduce) for performing bespoke reductions over iterables.
-
 <!-- todo exercise/s where pure-python must be converted to use one of the above fns. -->
 
 ::::::::::::::::::::::::::::::::::::: callout
 
-The built-in functions [`filter()`](https://docs.python.org/3/library/functions.html#filter) and [`map()`](https://docs.python.org/3/library/functions.html#map) can be used for processing iterables (e.g. lists). However list-comprehension is likely to be more performant.
+The built-in functions [`filter()`](https://docs.python.org/3/library/functions.html#filter) and [`map()`](https://docs.python.org/3/library/functions.html#map) can be used for processing iterables However list-comprehension is likely to be more performant.
 
 <!-- Would this benefit from an example? -->
 
