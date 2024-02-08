@@ -15,7 +15,7 @@ exercises: 0
 ::::::::::::::::::::::::::::::::::::: objectives
 
 - Able to explain, at a high-level, how memory accesses occur during computation and how this impacts optimisation considerations.
-- 
+- Able to identify the relationship between different latencies relevant to software.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -23,13 +23,20 @@ exercises: 0
 
 The storage and movement of data plays a large role in the performance of executing software.
 
+<!-- Brief summary of hardware -->
+Modern computer's typically have a single processor (CPU), within this processor there are multiple processing cores each capable of executing different code in parallel.
+
+Data held in memory by running software is exists in RAM, this memory is faster to access than hard drives (and solid-state drives).
+But the CPU has much smaller caches on-board, to make accessing the most recent variables even faster.
+
+![An annotated photo of a computer's hardware.](episodes/fig/annotated-motherboard.jpg){alt='An annotated photo of inside a desktop computer's case. The CPU, RAM, power supply, graphics cards (GPUs) and harddrive are labelled.'}
 
 <!-- Read/operate on variable ram->cpu cache->registers->cpu -->
 When reading a variable, to perform an operation with it, the CPU will first look in it's registers. These exist per core, they are the location that computation is actually performed. Accessing them is incredibly fast, but there only exists enough storage for around 32 variables (typical number, e.g. 4 bytes).
 As the register file is so small, most variables won't be found and the CPU's caches will be searched.
-It will first check the current processing core's L1 cache, this small cache (typically 64 KB per physical core) is the smallest and fastest to access cache on a processor.
+It will first check the current processing core's L1 (Level 1) cache, this small cache (typically 64 KB per physical core) is the smallest and fastest to access cache on a CPU.
 If the variable is not found in the L1 cache, the L2 cache that is shared between multiple cores will be checked. This shared cache, is slower to access but larger than L1 (typically 1-3MB per core).
-This process then repeats for the L3 cache which may be shared among all cores of the processor. This cache again has higher latency to access, but increased size (typically slightly larger than the total L2 cache size).
+This process then repeats for the L3 cache which may be shared among all cores of the CPU. This cache again has higher latency to access, but increased size (typically slightly larger than the total L2 cache size).
 If the variable has not been found in any of the CPU's cache, the CPU will look to the computer's RAM. This is an order of magnitude slower to access, with several orders of magnitude greater capacity (tens to hundreds of GB are now standard).
 
 Correspondingly, the earlier the CPU finds the variable the faster it will be to access.
@@ -45,7 +52,9 @@ Therefore, to **optimally** access variables they should be stored contiguously 
 If you add to a variable, perform large amount of unrelated processing, then add to the variable again it will likely have been evicted from caches and need to be reloaded from slower RAM again.
 
 <!-- Latency/Throughput typically inversely proportional to capacity -->
-It's not necessary to remember this full detail of how memory access work within a processor, but the context perhaps helps you understand why memory locality is important.
+It's not necessary to remember this full detail of how memory access work within a computer, but the context perhaps helps understand why memory locality is important.
+
+![An abstract diagram showing the path data takes from disk or RAM to be used for computation.](episodes/fig/hardware.png){alt='An abstract representation of a CPU, RAM and Disk, showing their internal caches and the pathways data can pass.'}
 
 ::::::::::::::::::::::::::::::::::::: callout
 
@@ -53,7 +62,6 @@ Python as a programming language, does not give you enough control to carefully 
 
 However all is not lost, packages such as `numpy` and `pandas` implemented in C/C++ enable Python users to take advantage of efficient memory accesses (when they are used correctly).
 
-*More on this later*
 :::::::::::::::::::::::::::::::::::::::::::::
 
 <!-- TODO python code example 
@@ -75,13 +83,13 @@ Python's `io` package is already buffered, so automatically handles this for you
 However before a file can be read, the file system on the disk must be polled to transform the file path to it's address on disk to initiate the transfer (or throw an exception).
 
 Following the common theme of this episode, the cost of accessing randomly scattered files can be significantly slower than accessing a single larger file of the same size.
-This is because for each file accessed the file system must be polled to transform the file path to an address on disk. 
+This is because for each file accessed, the file system must be polled to transform the file path to an address on disk. 
 Traditional hard disk drives particularly suffer, as the read head must physically move to locate data.
 
-Hence, it can be wise to avoid storing outputs in many individual files and to instead create a macro output file.
+Hence, it can be wise to avoid storing outputs in many individual files and to instead create a larger output file.
 
 This is even visible outside of your own code. If you try to upload/download 1 GB to HPC.
-The transfer will be significantly faster if that's a single file, rather than thousands.
+The transfer will be significantly faster, assuming good internet bandwidth, if that's a single file rather than thousands.
 
 The below example code runs a small benchmark, whereby 10MB is written to disk and read back whilst being timed. In one case this is as a single file, and the other, 1000 file segments.
 
@@ -132,7 +140,7 @@ for i in range(file_ct):
     os.remove(f"small_{i}.bin")
 ```
 
-Running this locally, on an SSD I received the following timings.
+Running this locally, with an SSD I received the following timings.
 
 ```sh
     1x10.0MB Write: 0.00198 seconds
@@ -145,8 +153,8 @@ Running this locally, on an SSD I received the following timings.
 
 Repeated runs show some noise to the timing, however the slowdown is consistently the same order of magnitude slower when split across multiple files.
 
-You might not even be reading 1000 different files, you could be reading the same file multiple times rather than reading it once and retaining it in memory during execution.
-The same performance overhead would apply.
+You might not even be reading 1000 different files. You could be reading the same file multiple times, rather than reading it once and retaining it in memory during execution.
+An even greater overhead would apply.
 
 ## Latency Overview
 
@@ -194,7 +202,7 @@ def heat_equation(steps):
 heat_equation(100)
 ```
 
-Line profiling demonstrates that function takes over 55 seconds, with the cost of allocating the temporary `out_grid` list to be 39.3% of the total runtime of that function!
+Line profiling demonstrates that function takes up over 55 seconds of the total runtime, with the cost of allocating the temporary `out_grid` list to be 39.3% of the total runtime of that function!
 
 ```output
 Total time: 55.4675 s
@@ -265,8 +273,8 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 ::::::::::::::::::::::::::::::::::::: keypoints
 
 - Sequential accesses to memory (RAM or disk) will be faster than random or scattered accesses.
-  - This is not always natively possible in Python without the use of packages such as `numpy` and `pandas`
-- One large file should be preferable over many small files.
+  - This is not always natively possible in Python without the use of packages such as NumPy and Pandas
+- One large file is preferable to many small files.
 - Memory allocation is not free, avoiding destroying and recreating objects can improve performance.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
