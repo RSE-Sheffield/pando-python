@@ -10,6 +10,9 @@
     <loc>rse.shef.ac.uk/pando-python/LICENSE.html</loc>
   </url>
   <url>
+    <loc>rse.shef.ac.uk/pando-python/acknowledgements.html</loc>
+  </url>
+  <url>
     <loc>rse.shef.ac.uk/pando-python/aio.html</loc>
   </url>
   <url>
@@ -26,6 +29,9 @@
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/instructor/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/instructor/acknowledgements.html</loc>
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/instructor/aio.html</loc>
@@ -47,6 +53,9 @@
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/instructor/optimisation-conclusion.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/instructor/optimisation-data-structures-algorithms.html</loc>
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/instructor/optimisation-dict-set.html</loc>
@@ -95,6 +104,9 @@
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/optimisation-conclusion.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/optimisation-data-structures-algorithms.html</loc>
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/optimisation-dict-set.html</loc>

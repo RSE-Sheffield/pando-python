@@ -76,7 +76,8 @@
           <button class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             More <i data-feather="chevron-down"></i>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul></li>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="acknowledgements.html">Acknowledgements</a></li>
+          </ul></li>
       </ul></div>
     <form class="d-flex col-md-2 search-form">
       <fieldset disabled><input class="form-control me-2 searchbox" type="search" placeholder="Search" aria-label="Search"><button class="btn btn-outline-success tablet-search-button" type="submit">
@@ -194,7 +195,25 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="optimisation-use-latest.html">6. Keep Python &amp; Packages up to Date</a>
+        <a href="optimisation-data-structures-algorithms.html">6. Data Structures &amp; Algorithms</a>
+    </div><!--/div.accordion-header-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush8">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading8">
+        <a href="optimisation-minimise-python.html">7. Minimise Python (Numpy/Pandas)</a>
+    </div><!--/div.accordion-header-->
+        
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush9">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading9">
+        <a href="optimisation-use-latest.html">8. Keep Python &amp; Packages up to Date</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -206,7 +225,7 @@
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
-        7. Understanding Memory
+        9. Understanding Memory
         </span>
       </button>
     </div><!--/div.accordion-header-->
@@ -223,37 +242,10 @@
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
-<div class="accordion accordion-flush" id="accordionFlush9">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading9">
-        <a href="optimisation-list-tuple.html">8. Lists (&amp; Tuples)</a>
-    </div><!--/div.accordion-header-->
-        
-  </div><!--/div.accordion-item-->
-</div><!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush10">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading10">
-        <a href="optimisation-dict-set.html">9. Dictionaries &amp; Sets</a>
-    </div><!--/div.accordion-header-->
-        
-  </div><!--/div.accordion-item-->
-</div><!--/div.accordion-flush-->
-
 <div class="accordion accordion-flush" id="accordionFlush11">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading11">
-        <a href="optimisation-minimise-python.html">10. Minimise Python (Numpy/Pandas)</a>
-    </div><!--/div.accordion-header-->
-        
-  </div><!--/div.accordion-item-->
-</div><!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush12">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading12">
-        <a href="optimisation-conclusion.html">11. Optimisation Conclusion</a>
+        <a href="optimisation-conclusion.html">10. Optimisation Conclusion</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -281,7 +273,7 @@
                       <li>
                         <a href="profiles.html">Learner Profiles</a>
                       </li>
-                      
+                      <li><a href="acknowledgements.html">Acknowledgements</a></li>
                     </ul></div>
                 </div>
               </div>
@@ -302,7 +294,7 @@
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Previous and Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="optimisation-use-latest.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="optimisation-list-tuple.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="optimisation-conclusion.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -310,14 +302,14 @@
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Previous: Keep Python &amp;
         </a>
-        <a class="chapter-link float-end" href="optimisation-list-tuple.html" rel="next">
-          Next: Lists (&amp; Tuples)... 
+        <a class="chapter-link float-end" href="optimisation-conclusion.html" rel="next">
+          Next: Optimisation... 
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Understanding Memory</h1>
-        <p>Last updated on 2024-01-29 |
+        <p>Last updated on 2024-02-08 |
         
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/optimisation-memory.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -349,8 +341,8 @@ files?</li>
 <h3 class="card-title">Objectives</h3>
 <ul><li>Able to explain, at a high-level, how memory accesses occur during
 computation and how this impacts optimisation considerations.</li>
-<li>
-</li>
+<li>Able to identify the relationship between different latencies
+relevant to software.</li>
 </ul></div>
 </div>
 </div>
@@ -360,6 +352,17 @@ computation and how this impacts optimisation considerations.</li>
 </h2>
 <hr class="half-width"><p>The storage and movement of data plays a large role in the
 performance of executing software.</p>
+<!-- Brief summary of hardware -->
+<p>Modern computer’s typically have a single processor (CPU), within
+this processor there are multiple processing cores each capable of
+executing different code in parallel.</p>
+<p>Data held in memory by running software is exists in RAM, this memory
+is faster to access than hard drives (and solid-state drives). But the
+CPU has much smaller caches on-board, to make accessing the most recent
+variables even faster.</p>
+<p><img src="fig/annotated-motherboard.jpg" alt="An annotated photo of a computer’s hardware." class="figure">{alt=‘An annotated
+photo of inside a desktop computer’s case. The CPU, RAM, power supply,
+graphics cards (GPUs) and harddrive are labelled.’}</p>
 <!-- Read/operate on variable ram->cpu cache->registers->cpu -->
 <p>When reading a variable, to perform an operation with it, the CPU
 will first look in it’s registers. These exist per core, they are the
@@ -367,13 +370,13 @@ location that computation is actually performed. Accessing them is
 incredibly fast, but there only exists enough storage for around 32
 variables (typical number, e.g. 4 bytes). As the register file is so
 small, most variables won’t be found and the CPU’s caches will be
-searched. It will first check the current processing core’s L1 cache,
-this small cache (typically 64 KB per physical core) is the smallest and
-fastest to access cache on a processor. If the variable is not found in
-the L1 cache, the L2 cache that is shared between multiple cores will be
-checked. This shared cache, is slower to access but larger than L1
-(typically 1-3MB per core). This process then repeats for the L3 cache
-which may be shared among all cores of the processor. This cache again
+searched. It will first check the current processing core’s L1 (Level 1)
+cache, this small cache (typically 64 KB per physical core) is the
+smallest and fastest to access cache on a CPU. If the variable is not
+found in the L1 cache, the L2 cache that is shared between multiple
+cores will be checked. This shared cache, is slower to access but larger
+than L1 (typically 1-3MB per core). This process then repeats for the L3
+cache which may be shared among all cores of the CPU. This cache again
 has higher latency to access, but increased size (typically slightly
 larger than the total L2 cache size). If the variable has not been found
 in any of the CPU’s cache, the CPU will look to the computer’s RAM. This
@@ -398,9 +401,10 @@ been evicted from caches and need to be reloaded from slower RAM
 again.</p>
 <!-- Latency/Throughput typically inversely proportional to capacity -->
 <p>It’s not necessary to remember this full detail of how memory access
-work within a processor, but the context perhaps helps you understand
-why memory locality is important.</p>
-<div id="callout1" class="callout callout">
+work within a computer, but the context perhaps helps understand why
+memory locality is important.</p>
+<figure><img src="fig/hardware.png" alt="An abstract representation of a CPU, RAM and Disk, showing their internal caches and the pathways data can pass." class="figure mx-auto d-block"><figcaption>An abstract diagram showing the path data takes from
+disk or RAM to be used for computation.</figcaption></figure><div id="callout1" class="callout callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -416,7 +420,6 @@ stored elsewhere).</p>
 <code>pandas</code> implemented in C/C++ enable Python users to take
 advantage of efficient memory accesses (when they are used
 correctly).</p>
-<p><em>More on this later</em></p>
 </div>
 </div>
 </div>
@@ -441,14 +444,15 @@ the transfer (or throw an exception).</p>
 <p>Following the common theme of this episode, the cost of accessing
 randomly scattered files can be significantly slower than accessing a
 single larger file of the same size. This is because for each file
-accessed the file system must be polled to transform the file path to an
-address on disk. Traditional hard disk drives particularly suffer, as
+accessed, the file system must be polled to transform the file path to
+an address on disk. Traditional hard disk drives particularly suffer, as
 the read head must physically move to locate data.</p>
 <p>Hence, it can be wise to avoid storing outputs in many individual
-files and to instead create a macro output file.</p>
+files and to instead create a larger output file.</p>
 <p>This is even visible outside of your own code. If you try to
-upload/download 1 GB to HPC. The transfer will be significantly faster
-if that’s a single file, rather than thousands.</p>
+upload/download 1 GB to HPC. The transfer will be significantly faster,
+assuming good internet bandwidth, if that’s a single file rather than
+thousands.</p>
 <p>The below example code runs a small benchmark, whereby 10MB is
 written to disk and read back whilst being timed. In one case this is as
 a single file, and the other, 1000 file segments.</p>
@@ -500,7 +504,8 @@ a single file, and the other, 1000 file segments.</p>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(file_ct):</span>
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    os.remove(<span class="ss">f"small_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.bin"</span>)</span></code></pre>
 </div>
-<p>Running this locally, on an SSD I received the following timings.</p>
+<p>Running this locally, with an SSD I received the following
+timings.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -514,10 +519,10 @@ a single file, and the other, 1000 file segments.</p>
 <p>Repeated runs show some noise to the timing, however the slowdown is
 consistently the same order of magnitude slower when split across
 multiple files.</p>
-<p>You might not even be reading 1000 different files, you could be
-reading the same file multiple times rather than reading it once and
-retaining it in memory during execution. The same performance overhead
-would apply.</p>
+<p>You might not even be reading 1000 different files. You could be
+reading the same file multiple times, rather than reading it once and
+retaining it in memory during execution. An even greater overhead would
+apply.</p>
 </section><section id="latency-overview"><h2 class="section-heading">Latency Overview<a class="anchor" aria-label="anchor" href="#latency-overview"></a>
 </h2>
 <hr class="half-width"><p>Latency can have a big impact on the speed that a program executes,
@@ -568,9 +573,10 @@ model.</p>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>heat_equation(<span class="dv">100</span>)</span></code></pre>
 </div>
-<p>Line profiling demonstrates that function takes over 55 seconds, with
-the cost of allocating the temporary <code>out_grid</code> list to be
-39.3% of the total runtime of that function!</p>
+<p>Line profiling demonstrates that function takes up over 55 seconds of
+the total runtime, with the cost of allocating the temporary
+<code>out_grid</code> list to be 39.3% of the total runtime of that
+function!</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -652,10 +658,9 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 <ul><li>Sequential accesses to memory (RAM or disk) will be faster than
 random or scattered accesses.
 <ul><li>This is not always natively possible in Python without the use of
-packages such as <code>numpy</code> and <code>pandas</code>
-</li>
+packages such as NumPy and Pandas</li>
 </ul></li>
-<li>One large file should be preferable over many small files.</li>
+<li>One large file is preferable to many small files.</li>
 <li>Memory allocation is not free, avoiding destroying and recreating
 objects can improve performance.</li>
 </ul></div>
@@ -668,7 +673,7 @@ any links that you are not going to use.
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="optimisation-use-latest.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="optimisation-list-tuple.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="optimisation-conclusion.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -676,8 +681,8 @@ any links that you are not going to use.
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Previous: Keep Python &amp;
         </a>
-        <a class="chapter-link float-end" href="optimisation-list-tuple.html" rel="next">
-          Next: Lists (&amp; Tuples)... 
+        <a class="chapter-link float-end" href="optimisation-conclusion.html" rel="next">
+          Next: Optimisation... 
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
@@ -733,9 +738,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "rse.shef.ac.uk/pando-python/optimisation-memory.html",
   "identifier": "rse.shef.ac.uk/pando-python/optimisation-memory.html",
-  "dateCreated": "2024-01-29",
-  "dateModified": "2024-01-29",
-  "datePublished": "2024-02-06"
+  "dateCreated": "2024-02-08",
+  "dateModified": "2024-02-08",
+  "datePublished": "2024-02-08"
 }
 
   </script><script>

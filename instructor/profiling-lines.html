@@ -76,7 +76,8 @@
           <button class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             More <i data-feather="chevron-down"></i>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"><hr></ul></li>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"><hr><li><a class="dropdown-item" href="acknowledgements.html">Acknowledgements</a></li>
+          </ul></li>
       </ul></div>
     <form class="d-flex col-md-2 search-form">
       <fieldset disabled><input class="form-control me-2 searchbox" type="search" placeholder="Search" aria-label="Search"><button class="btn btn-outline-success tablet-search-button" type="submit">
@@ -208,7 +209,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="optimisation-use-latest.html">6. Keep Python &amp; Packages up to Date</a>
+        <a href="optimisation-data-structures-algorithms.html">6. Data Structures &amp; Algorithms</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -217,7 +218,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="optimisation-memory.html">7. Understanding Memory</a>
+        <a href="optimisation-minimise-python.html">7. Minimise Python (Numpy/Pandas)</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -226,7 +227,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="optimisation-list-tuple.html">8. Lists (&amp; Tuples)</a>
+        <a href="optimisation-use-latest.html">8. Keep Python &amp; Packages up to Date</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -235,7 +236,7 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="optimisation-dict-set.html">9. Dictionaries &amp; Sets</a>
+        <a href="optimisation-memory.html">9. Understanding Memory</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -244,16 +245,7 @@
 <div class="accordion accordion-flush" id="accordionFlush11">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading11">
-        <a href="optimisation-minimise-python.html">10. Minimise Python (Numpy/Pandas)</a>
-    </div><!--/div.accordion-header-->
-        
-  </div><!--/div.accordion-item-->
-</div><!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush12">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading12">
-        <a href="optimisation-conclusion.html">11. Optimisation Conclusion</a>
+        <a href="optimisation-conclusion.html">10. Optimisation Conclusion</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -281,7 +273,8 @@
                       <li>
                         <a href="../instructor/images.html">Extract All Images</a>
                       </li>
-                      <hr></ul></div>
+                      <hr><li><a class="dropdown-item" href="acknowledgements.html">Acknowledgements</a></li>
+                    </ul></div>
                 </div>
               </div>
             </div>
@@ -316,7 +309,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Line Level Profiling</h1>
-        <p>Last updated on 2024-01-29 |
+        <p>Last updated on 2024-02-08 |
         
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/profiling-lines.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -429,7 +422,7 @@ with <code>@profile</code> which is imported from
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_prime(<span class="dv">1087</span>))</span></code></pre>
 </div>
 <p>This tells <code>line_profiler</code> to collect metrics for the
-lines within the method <code>fizzbuzz()</code>. You can still execute
+lines within the method <code>is_prime()</code>. You can still execute
 your code as normal, and these changes will have no effect.</p>
 <p>Similar to the earlier tools, <code>line_profiler</code> can then be
 triggered via <code>kernprof</code>.</p>
@@ -504,10 +497,10 @@ which will then display the same table as above.</p>
 <h3 class="callout-title">Follow Along<a class="anchor" aria-label="anchor" href="#follow-along"></a>
 </h3>
 <div class="callout-content">
-<!-- TODO manually write this anchor to add download attribute to the python file? -->
-<p>Download the <a href="../files/line_profiler-worked-example/fizzbuzz.py">Python source for
-the example</a> and follow along with the worked example on your own
-machine.</p>
+<p>Download the
+<a href="../files/line_profiler-worked-example/fizzbuzz.py" download>Python
+source for the example</a> and follow along with the worked example on
+your own machine.</p>
 </div>
 </div>
 </div>
@@ -543,7 +536,7 @@ code to be profiled into a method:</p>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(i)</span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>fizzbuzz(n)</span></code></pre>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>fizzbuzz(<span class="dv">100</span>)</span></code></pre>
 </div>
 <p>Next the method can be decorated with <code>@profile</code> which
 must be imported via <code>line_profiler</code>:</p>
@@ -564,7 +557,7 @@ must be imported via <code>line_profiler</code>:</p>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(i)</span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>fizzbuzz(n)</span></code></pre>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>fizzbuzz(<span class="dv">100</span>)</span></code></pre>
 </div>
 <p>Now that the code has been decorated, it can be profiled!</p>
 <div class="codewrapper sourceCode" id="cb10">
@@ -601,7 +594,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </div>
 <p>For this basic example, we can calculate that “FizzBuzz” would be
 printed 6 times out of 100, and the profile shows that line 7
-(<code>print("FizzBuzz")</code> occupied 5.8% of the runtime. This is
+(<code>print("FizzBuzz")</code>) occupied 5.8% of the runtime. This is
 slightly lower than 6% due to the control flow code (printing to console
 is expensive relative to the control flow and conditional statements).
 Similarly, “Fizz” is printed 27 times and occupies 25.1%, likewise
@@ -619,7 +612,10 @@ executing each line matches expectations.</p>
 <div class="callout-content">
 <p>The <code>-r</code> argument passed to <code>kernprof</code> (or
 <code>line_profiler</code>) enables rich output, if you run the profile
-locally it should look similar to this.</p>
+locally it should look similar to this. <em>This requires the optional
+package <code>rich</code>, it will have been installed if
+<code>[all]</code> was specified when installing
+<code>line_profiler</code> with <code>pip</code>.</em></p>
 <figure><img src="../fig/line_profiler-worked-example.png" alt="A screenshot of the `line_profiler` output from the previous code block, where the code within the line contents column has basic highlighting." class="figure mx-auto d-block"><figcaption>Rich (highlighted) console output provided by
 <code>line_profiler</code> for the above FizzBuzz profile code.</figcaption></figure></div>
 </div>
@@ -636,13 +632,24 @@ what has been covered in this episode.</p>
 <h3 class="callout-title">Exercise 1: BubbleSort<a class="anchor" aria-label="anchor" href="#exercise-1-bubblesort"></a>
 </h3>
 <div class="callout-content">
-<p>Download and profile <a href="../files/bubblesort/bubblesort.py">the
-Python bubblesort implementation</a>, line-level profile the code to
-investigate where time is being spent.</p>
+<p>Download and profile
+<a href="../files/bubblesort/bubblesort.py" download>the Python bubblesort
+implementation</a>, line-level profile the code to investigate where
+time is being spent.</p>
+<blockquote>
+<p>Bubblesort is a basic sorting algorithm, it is not considered to be
+efficient so in practice other sorting algorithms are typically
+used.</p>
+<p>The array to be sorted is iterated, with a pair-wise sort being
+applied to each element and it’s neighbour. This can cause elements to
+rise (or sink) multiple positions in a single pass, hence the name
+bubblesort. This iteration continues until the array is fully iterated
+with no elements being swapped.</p>
+</blockquote>
 <p>The program can be executed via
 <code>python bubblesort.py &lt;elements&gt;</code>. The value of
 <code>elements</code> should be a positive integer as it represents the
-length of the array to be sorted.</p>
+number of elements to be sorted.</p>
 </div>
 </div>
 </div>
@@ -761,8 +768,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 expensive individual calls (“Per Hit”), however both were only called
 once. Most execution time was spent at the inner loop (lines 19-22).</p>
 <p>As this is a reference implementation of a classic sorting algorithm
-we are unlikely to be able to improve it further. More on sorting
-algorithms later in the course.</p>
+we are unlikely to be able to improve it further.</p>
 </div>
 </div>
 </div>
@@ -775,8 +781,9 @@ algorithms later in the course.</p>
 <h3 class="callout-title">Exercise 2: Predator Prey<a class="anchor" aria-label="anchor" href="#exercise-2-predator-prey"></a>
 </h3>
 <div class="callout-content">
-<p>During the function-level profiling episode, the Python predator prey
-model was function-level profiled. This highlighted that
+<p>During the function-level profiling episode,
+<a href="../files/pred-prey/predprey.py" download>the Python predator prey
+model</a> was function-level profiled. This highlighted that
 <code>Grass::eaten()</code> (from <code>predprey.py:278</code>) occupies
 the majority of the runtime.</p>
 <p>Line-profile this method, using the output from the profile consider
@@ -914,15 +921,12 @@ to <code>Grass::eaten()</code>. This would greatly reduce the number of
 <div class="callout-content">
 <ul><li>Specific methods can be line-level profiled if decorated with
 <code>@profile</code> that is imported from
-<code>line_profiler</code>
-</li>
+<code>line_profiler</code>.</li>
 <li>
 <code>kernprof</code> executes <code>line_profiler</code> via
-<code>python -m kernprof -lvr &lt;script name/arguments&gt;</code>
-</li>
+<code>python -m kernprof -lvr &lt;script name/arguments&gt;</code>.</li>
 <li>Code in global scope must wrapped in a method if it is to be
-profiled with <code>line_profiler</code>
-</li>
+profiled with <code>line_profiler</code>.</li>
 <li>The output from <code>line_profiler</code> lists the absolute and
 relative time spent per line for each targeted function.</li>
 </ul></div>
@@ -1000,9 +1004,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "rse.shef.ac.uk/pando-python/instructor/profiling-lines.html",
   "identifier": "rse.shef.ac.uk/pando-python/instructor/profiling-lines.html",
-  "dateCreated": "2024-01-29",
-  "dateModified": "2024-01-29",
-  "datePublished": "2024-02-06"
+  "dateCreated": "2024-02-08",
+  "dateModified": "2024-02-08",
+  "datePublished": "2024-02-08"
 }
 
   </script><script>

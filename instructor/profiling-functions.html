@@ -76,7 +76,8 @@
           <button class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             More <i data-feather="chevron-down"></i>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"><hr></ul></li>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"><hr><li><a class="dropdown-item" href="acknowledgements.html">Acknowledgements</a></li>
+          </ul></li>
       </ul></div>
     <form class="d-flex col-md-2 search-form">
       <fieldset disabled><input class="form-control me-2 searchbox" type="search" placeholder="Search" aria-label="Search"><button class="btn btn-outline-success tablet-search-button" type="submit">
@@ -209,7 +210,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="optimisation-use-latest.html">6. Keep Python &amp; Packages up to Date</a>
+        <a href="optimisation-data-structures-algorithms.html">6. Data Structures &amp; Algorithms</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -218,7 +219,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="optimisation-memory.html">7. Understanding Memory</a>
+        <a href="optimisation-minimise-python.html">7. Minimise Python (Numpy/Pandas)</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -227,7 +228,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="optimisation-list-tuple.html">8. Lists (&amp; Tuples)</a>
+        <a href="optimisation-use-latest.html">8. Keep Python &amp; Packages up to Date</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -236,7 +237,7 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="optimisation-dict-set.html">9. Dictionaries &amp; Sets</a>
+        <a href="optimisation-memory.html">9. Understanding Memory</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -245,16 +246,7 @@
 <div class="accordion accordion-flush" id="accordionFlush11">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading11">
-        <a href="optimisation-minimise-python.html">10. Minimise Python (Numpy/Pandas)</a>
-    </div><!--/div.accordion-header-->
-        
-  </div><!--/div.accordion-item-->
-</div><!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush12">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading12">
-        <a href="optimisation-conclusion.html">11. Optimisation Conclusion</a>
+        <a href="optimisation-conclusion.html">10. Optimisation Conclusion</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -282,7 +274,8 @@
                       <li>
                         <a href="../instructor/images.html">Extract All Images</a>
                       </li>
-                      <hr></ul></div>
+                      <hr><li><a class="dropdown-item" href="acknowledgements.html">Acknowledgements</a></li>
+                    </ul></div>
                 </div>
               </div>
             </div>
@@ -317,7 +310,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Function Level Profiling</h1>
-        <p>Last updated on 2024-01-29 |
+        <p>Last updated on 2024-02-08 |
         
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/profiling-functions.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -381,6 +374,64 @@ total runtime to be quickly identified and investigated.</p>
 <p>In this episode we will cover the usage of the function-level
 profiler <code>cProfile</code>, how it’s output can be visualised with
 <code>snakeviz</code> and how the output can be interpreted.</p>
+<div id="what-is-a-call-stack" class="callout callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="what-is-a-call-stack" class="callout-inner">
+<h3 class="callout-title">What is a Call Stack?<a class="anchor" aria-label="anchor" href="#what-is-a-call-stack"></a>
+</h3>
+<div class="callout-content">
+<p>The call stack keeps track of the active hierarchy of function calls
+and their associated variables.</p>
+<p>As a stack it is last-in first-out (LIFO) data structure.</p>
+<p>When a function is called, a frame to track it’s variables and
+metadata is pushed to the call stack. When that same function finishes
+and returns, it is popped from the stack and variables local the
+function are dropped.</p>
+<p>If you’ve ever seen a stack overflow error, this refers to the call
+stack becoming too large. These are typically caused by recursive
+algorithms, whereby a function calls itself, that don’t exit early
+enough.</p>
+<p>Within Python the current call-stack can be printed using the core
+<code>traceback</code> package, <code>traceback.print_stack()</code>
+will print the current call stack.</p>
+<p>The below example:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> traceback</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> a():</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    b1()</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    b2()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> b1():</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> b2():</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    c()</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> c():</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    traceback.print_stack()</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>a()</span></code></pre>
+</div>
+<p>Prints the following call stack:</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>  File "C:\call_stack.py", line 13, in &lt;module&gt;
+    a()
+  File "C:\call_stack.py", line 5, in a
+    b2()
+  File "C:\call_stack.py", line 9, in b2
+    c()
+  File "C:\call_stack.py", line 11, in c
+    traceback.print_stack()</code></pre>
+</div>
+<p>In this instance the base of the stack is printed first, other
+visualisations of call stacks may use the reverse ordering.</p>
+</div>
+</div>
+</div>
 </section><section id="cprofile"><h2 class="section-heading">cProfile<a class="anchor" aria-label="anchor" href="#cprofile"></a>
 </h2>
 <hr class="half-width"><!-- What is cProfile/How is it installed --><p><a href="https://docs.python.org/3/library/profile.html#instant-user-s-manual" class="external-link"><code>cProfile</code></a>
@@ -389,23 +440,23 @@ library.</p>
 <!-- How is it used? -->
 <p>It can be called directly within your Python code as an imported
 package, however it’s easier to use it’s script interface:</p>
-<div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> cProfile <span class="at">-o</span> <span class="op">&lt;</span>output file<span class="op">&gt;</span> <span class="op">&lt;</span>script name/arguments<span class="op">&gt;</span></span></code></pre>
-</div>
-<p>For example if you normally run your program as:</p>
-<div class="codewrapper sourceCode" id="cb2">
-<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> my_script.py input.csv</span></code></pre>
-</div>
-<p>You would call <code>cProfile</code> to produce profiling output
-<code>out.prof</code> with:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> cProfile <span class="at">-o</span> out.prof my_script.py input.csv</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> cProfile <span class="at">-o</span> <span class="op">&lt;</span>output file<span class="op">&gt;</span> <span class="op">&lt;</span>script name/arguments<span class="op">&gt;</span></span></code></pre>
+</div>
+<p>For example if you normally run your program as:</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> my_script.py input.csv</span></code></pre>
+</div>
+<p>You would call <code>cProfile</code> to produce profiling output
+<code>out.prof</code> with:</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> cProfile <span class="at">-o</span> out.prof my_script.py input.csv</span></code></pre>
 </div>
 <!-- yes it's that simple -->
 <p><em>No additional changes to your code are required, it’s really that
@@ -414,23 +465,24 @@ simple!</em></p>
 <p>If you instead, don’t specify output to file (e.g. remove
 <code>-o out.prof</code> from the command), <code>cProfile</code> will
 produce output to console similar to that shown below:</p>
-<!-- TODO is there a better less-abstract example, this one is 're.compile("foo|bar")' ripped from the docs -->
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>      214 function calls (207 primitive calls) in 0.002 seconds
+<pre class="output" tabindex="0"><code>         28 function calls in 4.754 seconds
 
-Ordered by: cumulative time
+   Ordered by: standard name
 
-ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-     1    0.000    0.000    0.002    0.002 {built-in method builtins.exec}
-     1    0.000    0.000    0.001    0.001 &lt;string&gt;:1(&lt;module&gt;)
-     1    0.000    0.000    0.001    0.001 __init__.py:250(compile)
-     1    0.000    0.000    0.001    0.001 __init__.py:289(_compile)
-     1    0.000    0.000    0.000    0.000 _compiler.py:759(compile)
-     1    0.000    0.000    0.000    0.000 _parser.py:937(parse)
-     1    0.000    0.000    0.000    0.000 _compiler.py:598(_code)
-     1    0.000    0.000    0.000    0.000 _parser.py:435(_parse_sub)</code></pre>
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    4.754    4.754 worked_example.py:1(&lt;module&gt;)
+        1    0.000    0.000    1.001    1.001 worked_example.py:13(b_2)
+        3    0.000    0.000    1.513    0.504 worked_example.py:16(c_1)
+        3    0.000    0.000    1.238    0.413 worked_example.py:19(c_2)
+        3    0.000    0.000    0.334    0.111 worked_example.py:23(d_1)
+        1    0.000    0.000    4.754    4.754 worked_example.py:3(a_1)
+        3    0.000    0.000    2.751    0.917 worked_example.py:9(b_1)
+        1    0.000    0.000    4.754    4.754 {built-in method builtins.exec}
+       11    4.753    0.432    4.753    0.432 {built-in method time.sleep}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}</code></pre>
 </div>
 <p>The columns have the following definitions:</p>
 <table class="table"><colgroup><col width="15%"><col width="85%"></colgroup><thead><tr class="header"><th>Column</th>
@@ -463,17 +515,17 @@ files.
 <!--TODO is covering pip here redundant as it's covered in the user setup file? -->
 It is not part of the Python standard library, and therefore must be
 installed via pip.</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install snakeviz</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install snakeviz</span></code></pre>
 </div>
 <p>Once installed, you can visualise a <code>cProfile</code> output file
 such as <code>out.prof</code> via:</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> snakeviz out.prof</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> snakeviz out.prof</span></code></pre>
 </div>
 <p>This should open your web browser displaying a page similar to that
 below.</p>
@@ -506,16 +558,17 @@ specifying the location of the method and for how long it ran.</p>
 <h3 class="callout-title">Follow Along<a class="anchor" aria-label="anchor" href="#follow-along"></a>
 </h3>
 <div class="callout-content">
-<!-- TODO manually write this anchor to add download attribute to the python file? -->
-<p>Download the <a href="../files/snakeviz-worked-example/example.py">Python source for the
-example</a> or <a href="../files/snakeviz-worked-example/out.prof"><code>cProfile</code>
+<p>Download the
+<a href="../files/snakeviz-worked-example/example.py" download>Python
+source for the example</a> or
+<a href="../files/snakeviz-worked-example/out.prof" download><code>cProfile</code>
 output file</a> and follow along with the worked example on your own
 machine.</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> cProfile <span class="at">-o</span> out.prof example.py</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> snakeviz out.prof</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> cProfile <span class="at">-o</span> out.prof example.py</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> snakeviz out.prof</span></code></pre>
 </div>
 <div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
 <div class="accordion-item">
@@ -523,7 +576,7 @@ machine.</p>
   <h3 class="accordion-header" id="headingInstructor1">
 <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>Instructor Note</h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>It can help to run the worked example by executing
 <code>snakeviz</code> live and explaining the visualisation with the
@@ -538,36 +591,36 @@ code visible in split screen.</p>
 <p>To more clearly demonstrate how an execution hierarchy maps to the
 icicle diagram, the below toy example Python script has been
 implemented.</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> a_1():</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        b_1()</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    b_2()</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> b_1():</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    c_1()</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    c_2()</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> b_2():</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> c_1():</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.5</span>)</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> c_2():</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.3</span>)</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    d_1()</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> d_1():</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.1</span>)</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Entry Point</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>a_1()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> a_1():</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        b_1()</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    b_2()</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> b_1():</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    c_1()</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    c_2()</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> b_2():</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> c_1():</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.5</span>)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> c_2():</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.3</span>)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    d_1()</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> d_1():</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="fl">0.1</span>)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Entry Point</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>a_1()</span></code></pre>
 </div>
 <p>All of the methods except for <code>b_1()</code> call
 <code>time.sleep()</code>, this is used to provide synthetic bottlenecks
@@ -674,9 +727,17 @@ what has been covered in this episode.</p>
 <h3 class="callout-title">Exercise 1: Travelling Salesperson<a class="anchor" aria-label="anchor" href="#exercise-1-travelling-salesperson"></a>
 </h3>
 <div class="callout-content">
-<p>Download and profile <a href="../files/pred-prey/predprey.py">this</a>
+<p>Download and profile
+<a href="../files/travelling-sales/travellingsales.py" download>this</a>
 Python program, try to locate the function call(s) where the majority of
 execution time is being spent.</p>
+<blockquote>
+<p>The travelling salesperson problem aims to optimise the route for a
+scenario where a salesperson is requires to travel between N locations.
+They wish to travel to each location exactly once, in any order, whilst
+minimising the total distance travelled.</p>
+<p>The provided implementation uses a naive brute-force approach.</p>
+</blockquote>
 <p>The program can be executed via
 <code>python travellingsales.py &lt;cities&gt;</code>. The value of
 <code>cities</code> should be a positive integer, this algorithm has
@@ -689,7 +750,7 @@ poor scaling so larger numbers take significantly longer to run.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1">Give me a hint</h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <ul><li>If a hotspot isn’t visible with the argument <code>1</code>, try
 increasing the value.</li>
@@ -705,7 +766,7 @@ within the profile.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>The hotspot only becomes visible when an argument of <code>5</code>
 or greater is passed.</p>
@@ -733,13 +794,25 @@ component.</em></p>
 <h3 class="callout-title">Exercise 2: Predator Prey<a class="anchor" aria-label="anchor" href="#exercise-2-predator-prey"></a>
 </h3>
 <div class="callout-content">
-<p>Download and profile <a href="../files/pred-prey/predprey.py">the Python
-predator prey model</a>, try to locate the function call(s) where the
-majority of execution time is being spent.</p>
+<p>Download and profile
+<a href="../files/pred-prey/predprey.py" download>the Python predator prey
+model</a>, try to locate the function call(s) where the majority of
+execution time is being spent.</p>
+<blockquote>
+<p>The predator prey model is a simple agent-based model of population
+dynamics. Predators and prey co-exist in a common environment and
+compete over finite resources.</p>
+<p>The three agents; predators, prey and grass exist in a two
+dimensional grid. Predators eat prey, prey eat grass. The size of each
+population changes over time. Depending on the parameters of the model,
+the populations may oscillate, grow or collapse due to the availability
+of their food source.</p>
+</blockquote>
 <p>The program can be executed via <code>python predprey.py</code>.</p>
 <p>It takes no arguments, but contains various environment properties
-which can be modified to change the model’s behaviour and outputs a
-graph <code>predprey_out.png</code>.</p>
+which can be modified to change the model’s behaviour. When the model
+finishes it outputs a graph of the three populations
+<code>predprey_out.png</code>.</p>
 </div>
 </div>
 </div>
@@ -748,24 +821,25 @@ graph <code>predprey_out.png</code>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>It should be clear from the profile that the method
 <code>Grass::eaten()</code> (from <code>predprey.py:278</code>) occupies
 the majority of the runtime.</p>
 <p>From the table below the Icicle diagram, we can see that it was
-called 125,000 times.</p>
-<p>If the table is ordered by <code>ncalls</code>, it can be identified
+called 1,250,000 times.</p>
+<figure><img src="../fig/snakeviz-predprey-table.png" alt="The top 9 rows of the table shown by snakeviz when profiling predprey.py. The top row shows that predprey.py:278(eaten) was called 1,250,000 times, taking a total time of 8 seconds. The table is ordered in descending total time, with the next row taking a mere 0.74 seconds." class="figure mx-auto d-block"><figcaption>The top of the table shown by snakeviz.</figcaption></figure><p>If the table is ordered by <code>ncalls</code>, it can be identified
 as the joint 4th most called method and 2nd most called method from
 <code>predprey.py</code>.</p>
-<p>If you checked <code>predprey_out.png</code>, you should notice that
-there are significantly more <code>Grass</code> agents than
-<code>Predeators</code> or <code>Prey</code>.</p>
-<p>Similarly, the method’s <code>percall</code> time is inline with
-other agent functions such as <code>Prey::flock()</code> (from
-<code>predprey.py:67</code>).</p>
+<p>If you checked <code>predprey_out.png</code> (shown below), you
+should notice that there are significantly more <code>Grass</code>
+agents than <code>Predators</code> or <code>Prey</code>.</p>
+<figure><img src="../fig/predprey_out.png" alt="A line graph plotting population over time through 250 steps of the pred prey model. Grass/20, shown in green, has a brief dip in the first 30 steps, but recovers holding steady at approximately 240 (4800 agents). Prey, shown in blue, starts at 200, quickly drops to around 185, before levelling off for steps and then slowly declining to a final value of 50. The data for predators, shown in red, has significantly more noise. There are 50 predators to begin, this rises briefly before falling to around 10, from here it noisily grows to around 70 by step 250 with several larger declines during the growth." class="figure mx-auto d-block"><figcaption><code>predprey_out.png</code> as produced by the
+default configuration of <code>predprey.py</code>.</figcaption></figure><p>Similarly, the <code>Grass::eaten()</code> has a <code>percall</code>
+time is inline with other agent functions such as
+<code>Prey::flock()</code> (from <code>predprey.py:67</code>).</p>
 <p>Maybe we could investigate this further with line profiling!</p>
-<p><em>You may have noticed alot of iciles on the right hand of the
+<p><em>You may have noticed many iciles on the right hand of the
 diagram, these primarily correspond to the <code>import</code> of
 <code>matplotlib</code> which is relatively expensive!</em></p>
 </div>
@@ -782,12 +856,10 @@ diagram, these primarily correspond to the <code>import</code> of
 <div class="callout-content">
 <ul><li>A python program can be function level profiled with
 <code>cProfile</code> via
-<code>python -m cProfile -o &lt;output file&gt; &lt;script name/arguments&gt;</code>
-</li>
+<code>python -m cProfile -o &lt;output file&gt; &lt;script name/arguments&gt;</code>.</li>
 <li>The output file from <code>cProfile</code> can be visualised with
 <code>snakeviz</code> via
-<code>python -m snakeviz &lt;output file&gt;</code>
-</li>
+<code>python -m snakeviz &lt;output file&gt;</code>.</li>
 <li>Function level profiling output displays the nested call hierarchy,
 listing both the cumulative and total minus sub functions time.</li>
 </ul></div>
@@ -865,9 +937,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "rse.shef.ac.uk/pando-python/instructor/profiling-functions.html",
   "identifier": "rse.shef.ac.uk/pando-python/instructor/profiling-functions.html",
-  "dateCreated": "2024-01-29",
-  "dateModified": "2024-01-29",
-  "datePublished": "2024-02-06"
+  "dateCreated": "2024-02-08",
+  "dateModified": "2024-02-08",
+  "datePublished": "2024-02-08"
 }
 
   </script><script>

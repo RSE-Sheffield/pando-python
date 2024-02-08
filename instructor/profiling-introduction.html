@@ -76,7 +76,8 @@
           <button class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             More <i data-feather="chevron-down"></i>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"><hr></ul></li>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"><hr><li><a class="dropdown-item" href="acknowledgements.html">Acknowledgements</a></li>
+          </ul></li>
       </ul></div>
     <form class="d-flex col-md-2 search-form">
       <fieldset disabled><input class="form-control me-2 searchbox" type="search" placeholder="Search" aria-label="Search"><button class="btn btn-outline-success tablet-search-button" type="submit">
@@ -208,7 +209,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="optimisation-use-latest.html">6. Keep Python &amp; Packages up to Date</a>
+        <a href="optimisation-data-structures-algorithms.html">6. Data Structures &amp; Algorithms</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -217,7 +218,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="optimisation-memory.html">7. Understanding Memory</a>
+        <a href="optimisation-minimise-python.html">7. Minimise Python (Numpy/Pandas)</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -226,7 +227,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="optimisation-list-tuple.html">8. Lists (&amp; Tuples)</a>
+        <a href="optimisation-use-latest.html">8. Keep Python &amp; Packages up to Date</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -235,7 +236,7 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="optimisation-dict-set.html">9. Dictionaries &amp; Sets</a>
+        <a href="optimisation-memory.html">9. Understanding Memory</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -244,16 +245,7 @@
 <div class="accordion accordion-flush" id="accordionFlush11">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading11">
-        <a href="optimisation-minimise-python.html">10. Minimise Python (Numpy/Pandas)</a>
-    </div><!--/div.accordion-header-->
-        
-  </div><!--/div.accordion-item-->
-</div><!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush12">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading12">
-        <a href="optimisation-conclusion.html">11. Optimisation Conclusion</a>
+        <a href="optimisation-conclusion.html">10. Optimisation Conclusion</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -281,7 +273,8 @@
                       <li>
                         <a href="../instructor/images.html">Extract All Images</a>
                       </li>
-                      <hr></ul></div>
+                      <hr><li><a class="dropdown-item" href="acknowledgements.html">Acknowledgements</a></li>
+                    </ul></div>
                 </div>
               </div>
             </div>
@@ -316,7 +309,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction to Profiling</h1>
-        <p>Last updated on 2024-01-29 |
+        <p>Last updated on 2024-02-08 |
         
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/profiling-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -406,7 +399,7 @@ code and hence productivity.</p>
 <div class="callout-content">
 <!-- Everyone benefits (why) -->
 <p>Even professional programmers make oversights that can lead to poor
-performance, that can be identified through profiling.</p>
+performance, and can be identified through profiling.</p>
 <p>For example Grand Theft Auto Online, which has allegedly earned over
 $7bn since it’s 2013 release, was notorious for it’s slow loading times.
 8 years after it’s release <a href="https://nee.lv/2021/02/28/How-I-cut-GTA-Online-loading-times-by-70/" class="external-link">a
@@ -416,6 +409,31 @@ to enable a 70% speedup!</p>
 user churn?</em></p>
 <p><em>How much time and energy was wasted, by unnecessarily slow
 loading screens?</em></p>
+<div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
+  <h3 class="accordion-header" id="headingInstructor1">
+<div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>Instructor Note</h3>
+</button>
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div class="accordion-body">
+<p>The bottlenecked implementation was naively parsing a 10MB JSON file
+to create a list of unique items.</p>
+<p>Repeatedly:</p>
+<ul><li>Checking the length of (C) strings, e.g. iterating till the
+terminating character is found, resolved by caching the results.</li>
+<li>Performing a linear search of a list to check for duplicates before
+inserting, resolved by using an appropriate data structure (dictionary).
+<ul><li>Allegedly duplicates were never even present in the JSON.</li>
+</ul></li>
+</ul><p>Why wasn’t this caught by one of the hundreds of developers with
+access to the source code?</p>
+<p>Was more money saved by not investigating performance than committing
+time to profiling and fixing the issue?</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -553,6 +571,12 @@ with the aforementioned aggregate approaches.</p>
 <p><a href="https://viztracer.readthedocs.io/en/latest/" class="external-link"><code>viztracer</code></a>
 is an example of a timeline profiler for Python, however we won’t be
 demonstrating timeline profiling on this course.</p>
+<p><img src="../fig/viztracer-example.png" alt="An example timeline visualisation provided by viztracer/vizviewer." class="figure">{alt=‘A
+viztracer timeline of the execution of the Pred-Prey exercise from later
+in the course. There is a shallow repeating pattern on the left side
+which corresponds to model steps, the right side instead has a range of
+’icicles’ which correspond to the deep call hierarchies of matplotlib
+generating a graph.’}</p>
 </div>
 <div class="section level3">
 <h3 id="hardware-metric-profiling">Hardware Metric Profiling<a class="anchor" aria-label="anchor" href="#hardware-metric-profiling"></a></h3>
@@ -615,7 +639,7 @@ execution.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1">Give me a hint</h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <ul><li>What tools and techniques would be required?</li>
 <li>Is there a clear priority to these approaches?</li>
@@ -642,6 +666,9 @@ purposes.
 <code>snakeviz</code>)</li>
 <li>line-level: <code>line_profiler</code>
 </li>
+<li>timeline: <code>viztracer</code>
+</li>
+<li>hardware-metric</li>
 </ul></li>
 <li>A representative test-case should be profiled, that is large enough
 to amplify any bottlenecks whilst executing to completion quickly.</li>
@@ -720,9 +747,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "rse.shef.ac.uk/pando-python/instructor/profiling-introduction.html",
   "identifier": "rse.shef.ac.uk/pando-python/instructor/profiling-introduction.html",
-  "dateCreated": "2024-01-29",
-  "dateModified": "2024-01-29",
-  "datePublished": "2024-02-06"
+  "dateCreated": "2024-02-08",
+  "dateModified": "2024-02-08",
+  "datePublished": "2024-02-08"
 }
 
   </script><script>

@@ -97,7 +97,9 @@
           <button class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             More <i data-feather="chevron-down"></i>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+<li><a class="dropdown-item" href="acknowledgements.html">Acknowledgements</a></li>
+          </ul>
 </li>
       </ul>
 </div>
@@ -244,7 +246,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="optimisation-use-latest.html">6. Keep Python &amp; Packages up to Date</a>
+        <a href="optimisation-data-structures-algorithms.html">6. Data Structures &amp; Algorithms</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -256,7 +258,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="optimisation-memory.html">7. Understanding Memory</a>
+        <a href="optimisation-minimise-python.html">7. Minimise Python (Numpy/Pandas)</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -268,7 +270,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="optimisation-list-tuple.html">8. Lists (&amp; Tuples)</a>
+        <a href="optimisation-use-latest.html">8. Keep Python &amp; Packages up to Date</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -280,7 +282,7 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="optimisation-dict-set.html">9. Dictionaries &amp; Sets</a>
+        <a href="optimisation-memory.html">9. Understanding Memory</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -292,19 +294,7 @@
 <div class="accordion accordion-flush" id="accordionFlush11">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading11">
-        <a href="optimisation-minimise-python.html">10. Minimise Python (Numpy/Pandas)</a>
-    </div>
-<!--/div.accordion-header-->
-        
-  </div>
-<!--/div.accordion-item-->
-</div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush12">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading12">
-        <a href="optimisation-conclusion.html">11. Optimisation Conclusion</a>
+        <a href="optimisation-conclusion.html">10. Optimisation Conclusion</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -337,7 +327,7 @@
                       <li>
                         <a href="profiles.html">Learner Profiles</a>
                       </li>
-                      
+                      <li><a href="acknowledgements.html">Acknowledgements</a></li>
                     </ul>
 </div>
                 </div>
@@ -381,6 +371,9 @@ purposes.
 <code>snakeviz</code>)</li>
 <li>line-level: <code>line_profiler</code>
 </li>
+<li>timeline: <code>viztracer</code>
+</li>
+<li>hardware-metric</li>
 </ul>
 </li>
 <li>A representative test-case should be profiled, that is large enough
@@ -390,12 +383,10 @@ to amplify any bottlenecks whilst executing to completion quickly.</li>
 <ul>
 <li>A python program can be function level profiled with
 <code>cProfile</code> via
-<code>python -m cProfile -o &lt;output file&gt; &lt;script name/arguments&gt;</code>
-</li>
+<code>python -m cProfile -o &lt;output file&gt; &lt;script name/arguments&gt;</code>.</li>
 <li>The output file from <code>cProfile</code> can be visualised with
 <code>snakeviz</code> via
-<code>python -m snakeviz &lt;output file&gt;</code>
-</li>
+<code>python -m snakeviz &lt;output file&gt;</code>.</li>
 <li>Function level profiling output displays the nested call hierarchy,
 listing both the cumulative and total minus sub functions time.</li>
 </ul></section><section id="profiling-lines"><h2 class="section-heading"><a href="profiling-lines.html">Line Level Profiling</a></h2>
@@ -403,15 +394,12 @@ listing both the cumulative and total minus sub functions time.</li>
 <ul>
 <li>Specific methods can be line-level profiled if decorated with
 <code>@profile</code> that is imported from
-<code>line_profiler</code>
-</li>
+<code>line_profiler</code>.</li>
 <li>
 <code>kernprof</code> executes <code>line_profiler</code> via
-<code>python -m kernprof -lvr &lt;script name/arguments&gt;</code>
-</li>
+<code>python -m kernprof -lvr &lt;script name/arguments&gt;</code>.</li>
 <li>Code in global scope must wrapped in a method if it is to be
-profiled with <code>line_profiler</code>
-</li>
+profiled with <code>line_profiler</code>.</li>
 <li>The output from <code>line_profiler</code> lists the absolute and
 relative time spent per line for each targeted function.</li>
 </ul></section><section id="profiling-conclusion"><h2 class="section-heading"><a href="profiling-conclusion.html">Profiling Conclusion</a></h2>
@@ -465,6 +453,28 @@ potential impact, both to the performance and maintainability of the
 code.</li>
 <li>Many high-level optimisations should be considered
 good-practice.</li>
+</ul></section><section id="optimisation-data-structures-algorithms"><h2 class="section-heading"><a href="optimisation-data-structures-algorithms.html">Data Structures &amp; Algorithms</a></h2>
+<hr class="half-width">
+<ul>
+<li>List comprehension should be preferred when constructing lists.</li>
+<li>Where appropriate, Tuples and Generator functions should be
+preferred over Python lists.</li>
+<li>Dictionaries and sets are appropriate for storing a collection of
+unique data with no intrinsic order for random access.</li>
+<li>When used appropriately, dictionaries and sets are significantly
+faster than lists.</li>
+<li>If searching a list or array is required, it should be sorted and
+searched using <code>bisect_left()</code> (binary search).</li>
+</ul></section><section id="optimisation-minimise-python"><h2 class="section-heading"><a href="optimisation-minimise-python.html">Minimise Python (Numpy/Pandas)</a></h2>
+<hr class="half-width">
+<ul>
+<li>Python is an interpreted language, this adds an additional overhead
+at runtime to the execution of Python code. Many core Python and NumPy
+functions are implemented in faster C/C++, free from this overhead.</li>
+<li>NumPy can take advantage of vectorisation to process arrays, which
+can greatly improve performance.</li>
+<li>Pandas’ data tables store columns as arrays, therefore operations
+applied to columns can take advantage of NumPys vectorisation.</li>
 </ul></section><section id="optimisation-use-latest"><h2 class="section-heading"><a href="optimisation-use-latest.html">Keep Python &amp; Packages up to Date</a></h2>
 <hr class="half-width">
 <ul>
@@ -483,38 +493,12 @@ you have a method of validation ready prior to attempting upgrades.</li>
 random or scattered accesses.
 <ul>
 <li>This is not always natively possible in Python without the use of
-packages such as <code>numpy</code> and <code>pandas</code>
-</li>
+packages such as NumPy and Pandas</li>
 </ul>
 </li>
-<li>One large file should be preferable over many small files.</li>
+<li>One large file is preferable to many small files.</li>
 <li>Memory allocation is not free, avoiding destroying and recreating
 objects can improve performance.</li>
-</ul></section><section id="optimisation-list-tuple"><h2 class="section-heading"><a href="optimisation-list-tuple.html">Lists (&amp; Tuples)</a></h2>
-<hr class="half-width">
-<ul>
-<li>List comprehension should be preferred when constructing lists.</li>
-<li>Where appropriate, Tuples and Generator functions should be
-preferred over Python lists.</li>
-</ul></section><section id="optimisation-dict-set"><h2 class="section-heading"><a href="optimisation-dict-set.html">Dictionaries &amp; Sets</a></h2>
-<hr class="half-width">
-<ul>
-<li>Dictionaries and sets are appropriate for storing a collection of
-unique data with no intrinsic order for random access.</li>
-<li>When used appropriately, dictionaries and sets are significantly
-faster than lists.</li>
-<li>If a list or array is used in-place of a set, it should be sorted
-and searched using <code>bisect_left()</code> (binary search).</li>
-</ul></section><section id="optimisation-minimise-python"><h2 class="section-heading"><a href="optimisation-minimise-python.html">Minimise Python (Numpy/Pandas)</a></h2>
-<hr class="half-width">
-<ul>
-<li>Python is an interpreted language, this adds an additional overhead
-at runtime to the execution of Python code. Many core Python and NumPy
-functions are implemented in faster C/C++, free from this overhead.</li>
-<li>NumPy can take advantage of vectorisation to process arrays, which
-can greatly improve performance.</li>
-<li>Pandas’ data tables store columns as arrays, therefore operations
-applied to columns can take advantage of NumPys vectorisation.</li>
 </ul></section><section id="optimisation-conclusion"><h2 class="section-heading"><a href="optimisation-conclusion.html">Optimisation Conclusion</a></h2>
 <hr class="half-width"></section>
 </div>
@@ -574,9 +558,9 @@ applied to columns can take advantage of NumPys vectorisation.</li>
   "creativeWorkStatus": "active",
   "url": "rse.shef.ac.uk/pando-python/key-points.html",
   "identifier": "rse.shef.ac.uk/pando-python/key-points.html",
-  "dateCreated": "2024-01-29",
-  "dateModified": "2024-02-06",
-  "datePublished": "2024-02-06"
+  "dateCreated": "2024-02-08",
+  "dateModified": "2024-02-08",
+  "datePublished": "2024-02-08"
 }
 
   </script><script>

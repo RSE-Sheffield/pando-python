@@ -76,7 +76,8 @@
           <button class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             More <i data-feather="chevron-down"></i>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul></li>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="acknowledgements.html">Acknowledgements</a></li>
+          </ul></li>
       </ul></div>
     <form class="d-flex col-md-2 search-form">
       <fieldset disabled><input class="form-control me-2 searchbox" type="search" placeholder="Search" aria-label="Search"><button class="btn btn-outline-success tablet-search-button" type="submit">
@@ -197,6 +198,8 @@
       <div class="accordion-body">
         <ul><li><a href="#introduction">Introduction</a></li>
 <li><a href="#premature-optimisation">Premature Optimisation</a></li>
+<li><a href="#ensuring-reproducible-results">Ensuring Reproducible Results</a></li>
+<li><a href="#pytest-overview">pytest Overview</a></li>
 <li><a href="#coming-up">Coming Up</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
@@ -207,7 +210,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="optimisation-use-latest.html">6. Keep Python &amp; Packages up to Date</a>
+        <a href="optimisation-data-structures-algorithms.html">6. Data Structures &amp; Algorithms</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -216,7 +219,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="optimisation-memory.html">7. Understanding Memory</a>
+        <a href="optimisation-minimise-python.html">7. Minimise Python (Numpy/Pandas)</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -225,7 +228,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="optimisation-list-tuple.html">8. Lists (&amp; Tuples)</a>
+        <a href="optimisation-use-latest.html">8. Keep Python &amp; Packages up to Date</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -234,7 +237,7 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="optimisation-dict-set.html">9. Dictionaries &amp; Sets</a>
+        <a href="optimisation-memory.html">9. Understanding Memory</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -243,16 +246,7 @@
 <div class="accordion accordion-flush" id="accordionFlush11">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading11">
-        <a href="optimisation-minimise-python.html">10. Minimise Python (Numpy/Pandas)</a>
-    </div><!--/div.accordion-header-->
-        
-  </div><!--/div.accordion-item-->
-</div><!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush12">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading12">
-        <a href="optimisation-conclusion.html">11. Optimisation Conclusion</a>
+        <a href="optimisation-conclusion.html">10. Optimisation Conclusion</a>
     </div><!--/div.accordion-header-->
         
   </div><!--/div.accordion-item-->
@@ -280,7 +274,7 @@
                       <li>
                         <a href="profiles.html">Learner Profiles</a>
                       </li>
-                      
+                      <li><a href="acknowledgements.html">Acknowledgements</a></li>
                     </ul></div>
                 </div>
               </div>
@@ -301,7 +295,7 @@
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Previous and Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="profiling-conclusion.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="optimisation-use-latest.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="optimisation-data-structures-algorithms.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -309,14 +303,14 @@
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Previous: Profiling Conclusion
         </a>
-        <a class="chapter-link float-end" href="optimisation-use-latest.html" rel="next">
-          Next: Keep Python &amp;... 
+        <a class="chapter-link float-end" href="optimisation-data-structures-algorithms.html" rel="next">
+          Next: Data Structures &amp;... 
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction to Optimisation</h1>
-        <p>Last updated on 2024-01-29 |
+        <p>Last updated on 2024-02-08 |
         
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/optimisation-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
         
@@ -359,15 +353,18 @@ that expense is reasonable.</p>
 <p>In order to optimise code for performance, it is necessary to have an
 understanding of what a computer is doing to execute it.</p>
 <!-- Goal is to give you a high level understanding of how your code executes. You don't need to be an expert, even a vague general understanding will leave you in a stronger position. -->
-<p>Even a high-level understanding of a typical computer architecture,
-the most common data-structures/algorithms and how Python executes your
-code, enable the identification of suboptimal approaches. If you have
-learned to write code informally out of necessity, to get something to
-work, it’s not uncommon to have collected some bad habits along the
+<p>Even a high-level understanding of a typical computer architecture;
+the most common data-structures and algorithms; and how Python executes
+your code, enable the identification of suboptimal approaches. If you
+have learned to write code informally out of necessity, to get something
+to work, it’s not uncommon to have collected some bad habits along the
 way.</p>
 <!-- This is largely high-level/abstract knowledge applicable to the vast majority of programming languages, applies even more strongly if using compiled Python features like numba -->
 <p>The remaining content is often abstract knowledge, that is
-transferable to the vast majority of programming languages.</p>
+transferable to the vast majority of programming languages. This is
+because the hardware architecture, data-structures and algorithms used
+are common to many languages and they hold some of the greatest
+influence over performance bottlenecks.</p>
 </section><section id="premature-optimisation"><h2 class="section-heading">Premature Optimisation<a class="anchor" aria-label="anchor" href="#premature-optimisation"></a>
 </h2>
 <hr class="half-width"><blockquote>
@@ -384,33 +381,121 @@ optimisation it is important to focus on the potential impact, both to
 the performance and maintainability of the code.</p>
 <p>Profiling is a valuable tool in this cause. Should effort be expended
 to optimise a component which occupies 1% of the runtime? Or would that
-time be better spent focusing on the mostly components?</p>
+time be better spent focusing on the most expensive components?</p>
 <p>Advanced optimisations, mostly outside the scope of this course, can
 increase the cost of maintenance by obfuscating what code is doing. Even
 if you are a solo-developer working on private code, your future self
 should be able to easily comprehend your implementation.</p>
 <p>Therefore, the balance between the impact to both performance and
 maintainability should be considered when optimising code.</p>
-<p>This is not to say, don’t consider optimisation when first writing
-code. The selection of appropriate algorithms and data-structures as
-will be covered is good practice, simply don’t fret over a need to
-micro-optimise every small component of the code that you write.</p>
+<p>This is not to say, don’t consider performance when first writing
+code. The selection of appropriate algorithms and data-structures
+covered in this course form good practice, simply don’t fret over a need
+to micro-optimise every small component of the code that you write.</p>
+</section><section id="ensuring-reproducible-results"><h2 class="section-heading">Ensuring Reproducible Results<a class="anchor" aria-label="anchor" href="#ensuring-reproducible-results"></a>
+</h2>
+<hr class="half-width"><!-- This is also good practice when optimising your code, to ensure mistakes aren't made --><p>When optimising your code, you are making speculative changes. It’s
+easy to make mistakes, many of which can be subtle. Therefore, it’s
+important to have a strategy in place to check that the outputs remain
+correct.</p>
+<p>Testing is hopefully already a seamless part of your research
+software development process. Test can be used to clarify how your
+software should perform, ensuring that new features work as intended and
+protecting against unintended changes to old functionality.</p>
+<p>There are a plethora of methods for testing code. Most Python
+developers use the testing package <a href="https://docs.pytest.org/en/latest/" class="external-link">pytest</a>.</p>
+</section><section id="pytest-overview"><h2 class="section-heading">pytest Overview<a class="anchor" aria-label="anchor" href="#pytest-overview"></a>
+</h2>
+<hr class="half-width"><p>Typically a developer will create a folder for their tests. Tests can
+be split across one of more Python files. As a codebase grows so will
+the number of tests, so it’s important to organise them sensibly.</p>
+<figure><img src="fig/testsuite-dir.png" alt="A partial screenshot of windows file explorer, showing seven folders (codegen, detail, io, model, runtime, simulation, util) and two files conftest.py and test_version.py." class="figure mx-auto d-block"><figcaption>The python tests directory of FLAMEGPU2.</figcaption></figure><p>Visible in the above screenshot <code>conftest.py</code> is an
+optional configuration that pytest will parse, in this case it runs
+additional code before and after the tests to disable telemetry.</p>
+<p>Tests should be created within your testing directory, by creating
+files named with the form <code>test_*.py</code> or
+<code>*_test.py</code>. pytest looks for these files, when running the
+test suite.</p>
+<p>Within the created test file, any functions named in the form
+<code>test*</code> are considered tests that will be executed by
+pytest.</p>
+<p>The <code>assert</code> keyword is used, to test whether a condition
+evaluates to <code>True</code>.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># file: test_demonstration.py</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A simple function to be tested, this could instead be an imported package</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> squared(x):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># A simple test case</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_example():</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> squared(<span class="dv">5</span>) <span class="op">==</span> <span class="dv">24</span></span></code></pre>
+</div>
+<p>When <code>py.test</code> is called inside a working directory, it
+will then recursively find and execute all the available tests.</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>py.test</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">=================================================</span> test session starts =================================================</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">platform</span> win32 <span class="at">--</span> Python 3.10.12, pytest-7.3.1, pluggy-1.3.0</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">rootdir:</span> C:<span class="dt">\d</span>emo</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">plugins:</span> anyio-4.0.0, cov-4.1.0, xdoctest-1.1.2</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">collected</span> 1 item</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">test_demonstration.py</span> F                                                                                          [100%]</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">======================================================</span> FAILURES =======================================================</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">____________________________________________________</span> test_example _____________________________________________________</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="ex">def</span> test_example<span class="er">(</span><span class="kw">)</span><span class="bu">:</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>       assert <span class="ex">squared</span><span class="er">(</span><span class="ex">5</span><span class="kw">)</span> <span class="ex">==</span> 24</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="ex">E</span>       assert 25 == 24</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ex">E</span>        +  where 25 = squared<span class="er">(</span><span class="ex">5</span><span class="kw">)</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="ex">test_demonstration.py:9:</span> AssertionError</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="ex">===============================================</span> short test summary info ===============================================</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="ex">FAILED</span> test_demonstration.py::test_example <span class="at">-</span> assert 25 == 24</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="ex">==================================================</span> 1 failed in 0.07s ==================================================</span></code></pre>
+</div>
+<p>Whilst not designed for benchmarking, it does provide the total time
+the test suite took to execute. In some cases this may help identify
+whether the optimisations have had a significant impact on
+performance.</p>
+<p>This is only the simplest introduction to using pytest, it has
+advanced features common to other testing frameworks such as fixtures,
+mocking and test skipping. <a href="https://docs.pytest.org/en/latest/how-to/index.html" class="external-link">pytest’s
+documentation</a> covers all this and more. You may already have a
+different testing workflow in-place for validating the correctness of
+the outputs from your code.</p>
+
+<!-- todo exercise, write a test (suite?) for a provided function, to catch people not handling edge-cases-->
+<!-- todo callout FAIR: testing course (when it's ready) -->
 </section><section id="coming-up"><h2 class="section-heading">Coming Up<a class="anchor" aria-label="anchor" href="#coming-up"></a>
 </h2>
 <hr class="half-width"><p>In the remainder of this course we will cover:</p>
-<ul><li>todo</li>
-</ul><!--
-We will cover: 
-* 
-* How code executes on hardware
-    * latency
-    * caching
-    * branch prediction
-* Algorithm/Data-structure selection
-   * numpy types vs core python
-* data table operations (pandas specific)
-* When CPU/GPU/Distributed parallel are appropriate
---><div id="keypoints1" class="callout keypoints">
+<ul><li>Data Structures &amp; Algorithms
+<ul><li>Lists vs Tuples</li>
+<li>Sets</li>
+<li>Generator Functions</li>
+<li>Searching</li>
+</ul></li>
+<li>How Python Executes
+<ul><li>Why less Python is often faster</li>
+<li>How to use NumPy for performance</li>
+<li>How to get the most from pandas</li>
+</ul></li>
+<li>Newer is Often Faster
+<ul><li>Keeping Python and packages upto date</li>
+</ul></li>
+<li>How the Computer Hardware Affects Performance
+<ul><li>Why some accessing some variables can be faster than others</li>
+<li>Putting latencies in perspective</li>
+</ul></li>
+</ul><div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
@@ -435,7 +520,7 @@ any links that you are not going to use.
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="profiling-conclusion.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
-        <a class="chapter-link float-end" href="optimisation-use-latest.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="optimisation-data-structures-algorithms.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
@@ -443,8 +528,8 @@ any links that you are not going to use.
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
           Previous: Profiling Conclusion
         </a>
-        <a class="chapter-link float-end" href="optimisation-use-latest.html" rel="next">
-          Next: Keep Python &amp;... 
+        <a class="chapter-link float-end" href="optimisation-data-structures-algorithms.html" rel="next">
+          Next: Data Structures &amp;... 
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
@@ -500,9 +585,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "rse.shef.ac.uk/pando-python/optimisation-introduction.html",
   "identifier": "rse.shef.ac.uk/pando-python/optimisation-introduction.html",
-  "dateCreated": "2024-01-29",
-  "dateModified": "2024-01-29",
-  "datePublished": "2024-02-06"
+  "dateCreated": "2024-02-08",
+  "dateModified": "2024-02-08",
+  "datePublished": "2024-02-08"
 }
 
   </script><script>
