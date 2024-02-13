@@ -136,15 +136,16 @@ In the remainder of this course we will cover:
   - Sets
   - Generator Functions
   - Searching
-- How Python Executes
-  - Why less Python is often faster
-  - How to use NumPy for performance
-  - How to get the most from pandas
+- Minimise Python Written
+    - built-ins
+    - NumPY
+    - Pandas
 - Newer is Often Faster
   - Keeping Python and packages upto date
 - How the Computer Hardware Affects Performance
-  - Why some accessing some variables can be faster than others
-  - Putting latencies in perspective
+   - How variables are accessed & the performance implications
+   - Latency in perspective
+   - Memory allocation isn't free
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 

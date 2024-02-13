@@ -1,5 +1,5 @@
 ---
-title: "Minimise Python (Numpy/Pandas)"
+title: "Minimise Python (NumPY/Pandas)"
 teaching: 0
 exercises: 0
 ---
