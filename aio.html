@@ -258,7 +258,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="optimisation-minimise-python.html">7. Minimise Python (Numpy/Pandas)</a>
+        <a href="optimisation-minimise-python.html">7. Minimise Python (NumPY/Pandas)</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -670,7 +670,7 @@ execution.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1">Give me a hint</h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <ul>
 <li>What tools and techniques would be required?</li>
@@ -1172,7 +1172,7 @@ poor scaling so larger numbers take significantly longer to run.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1">Give me a hint</h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <ul>
 <li>If a hotspot isn’t visible with the argument <code>1</code>, try
@@ -1190,7 +1190,7 @@ within the profile.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>The hotspot only becomes visible when an argument of <code>5</code>
 or greater is passed.</p>
@@ -1245,7 +1245,7 @@ finishes it outputs a graph of the three populations
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>It should be clear from the profile that the method
 <code>Grass::eaten()</code> (from <code>predprey.py:278</code>) occupies
@@ -2045,7 +2045,7 @@ representative of a realistic run.</li>
 </div>
 </div></section><section id="aio-optimisation-introduction"><p>Content from <a href="optimisation-introduction.html">Introduction to Optimisation</a></p>
 <hr>
-<p>Last updated on 2024-02-08 |
+<p>Last updated on 2024-02-15 |
         
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/optimisation-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2224,11 +2224,11 @@ the outputs from your code.</p>
 <li>Searching</li>
 </ul>
 </li>
-<li>How Python Executes
+<li>Minimise Python Written
 <ul>
-<li>Why less Python is often faster</li>
-<li>How to use NumPy for performance</li>
-<li>How to get the most from pandas</li>
+<li>built-ins</li>
+<li>NumPY</li>
+<li>Pandas</li>
 </ul>
 </li>
 <li>Newer is Often Faster
@@ -2238,8 +2238,9 @@ the outputs from your code.</p>
 </li>
 <li>How the Computer Hardware Affects Performance
 <ul>
-<li>Why some accessing some variables can be faster than others</li>
-<li>Putting latencies in perspective</li>
+<li>How variables are accessed &amp; the performance implications</li>
+<li>Latency in perspective</li>
+<li>Memory allocation isn’t free</li>
 </ul>
 </li>
 </ul>
@@ -2864,9 +2865,9 @@ searched using <code>bisect_left()</code> (binary search).</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use. 
  -->
-</section></section><section id="aio-optimisation-minimise-python"><p>Content from <a href="optimisation-minimise-python.html">Minimise Python (Numpy/Pandas)</a></p>
+</section></section><section id="aio-optimisation-minimise-python"><p>Content from <a href="optimisation-minimise-python.html">Minimise Python (NumPY/Pandas)</a></p>
 <hr>
-<p>Last updated on 2024-02-08 |
+<p>Last updated on 2024-02-15 |
         
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/optimisation-minimise-python.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -4075,7 +4076,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-optimisation-conclusion"><p>Content from <a href="optimisation-conclusion.html">Optimisation Conclusion</a></p>
 <hr>
-<p>Last updated on 2024-01-29 |
+<p>Last updated on 2024-02-15 |
         
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/optimisation-conclusion.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -4124,7 +4125,33 @@ know</a> what you think we’ve missed, so we can improve it too!</p>
 <h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
 </h3>
 <div class="callout-content">
-<!-- todo -->
+<p>Data Structures &amp; Algorithms - List comprehension should be
+preferred when constructing lists. - Where appropriate, Tuples and
+Generator functions should be preferred over Python lists. -
+Dictionaries and sets are appropriate for storing a collection of unique
+data with no intrinsic order for random access. - When used
+appropriately, dictionaries and sets are significantly faster than
+lists. - If searching a list or array is required, it should be sorted
+and searched using <code>bisect_left()</code> (binary search). -
+Minimise Python Written - Python is an interpreted language, this adds
+an additional overhead at runtime to the execution of Python code. Many
+core Python and NumPy functions are implemented in faster C/C++, free
+from this overhead. - NumPy can take advantage of vectorisation to
+process arrays, which can greatly improve performance. - Pandas’ data
+tables store columns as arrays, therefore operations applied to columns
+can take advantage of NumPys vectorisation. - Newer is Often Faster -
+Where feasible, the latest version of Python and packages should be used
+as they can include significant free improvements to the performance of
+your code. - There is a risk that updating Python or packages will not
+be possible to due to version incompatibilities or will require breaking
+changes to your code. - Changes to packages may impact results output by
+your code, ensure you have a method of validation ready prior to
+attempting upgrades. - How the Computer Hardware Affects Performance -
+Sequential accesses to memory (RAM or disk) will be faster than random
+or scattered accesses. - This is not always natively possible in Python
+without the use of packages such as NumPy and Pandas - One large file is
+preferable to many small files. - Memory allocation is not free,
+avoiding destroying and recreating objects can improve performance.</p>
 </div>
 </div>
 </div></section>
@@ -4185,9 +4212,9 @@ know</a> what you think we’ve missed, so we can improve it too!</p>
   "creativeWorkStatus": "active",
   "url": "rse.shef.ac.uk/pando-python/aio.html",
   "identifier": "rse.shef.ac.uk/pando-python/aio.html",
-  "dateCreated": "2024-02-08",
-  "dateModified": "2024-02-13",
-  "datePublished": "2024-02-13"
+  "dateCreated": "2024-02-15",
+  "dateModified": "2024-02-15",
+  "datePublished": "2024-02-15"
 }
 
   </script><script>
