@@ -29,7 +29,7 @@ This course's website can be used as a reference manual when profiling your own 
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
-Data Structures & Algorithms
+- Data Structures & Algorithms
     - List comprehension should be preferred when constructing lists.
     - Where appropriate, Tuples and Generator functions should be preferred over Python lists.
     - Dictionaries and sets are appropriate for storing a collection of unique data with no intrinsic order for random access.
