@@ -42,10 +42,12 @@ In this episode we will cover the usage of the function-level profiler `cProfile
 
 The call stack keeps track of the active hierarchy of function calls and their associated variables.
 
-As a stack it is last-in first-out (LIFO) data structure.
+As a stack it is a last-in first-out (LIFO) data structure.
+
+![A diagram of a call stack](fig/stack.png){alt="A greyscale diagram showing a (call)stack, containing 5 stack frame. Two additional stack frames are shown outside the stack, one is marked as entering the call stack with an arrow labelled push and the other is marked as exiting the call stack labelled pop."}
 
 When a function is called, a frame to track it's variables and metadata is pushed to the call stack.
-When that same function finishes and returns, it is popped from the stack and variables local the function are dropped.
+When that same function finishes and returns, it is popped from the stack and variables local to the function are dropped.
 
 If you've ever seen a stack overflow error, this refers to the call stack becoming too large.
 These are typically caused by recursive algorithms, whereby a function calls itself, that don't exit early enough.
@@ -71,7 +73,9 @@ def c():
 a()
 ```
 
-Prints the following call stack:
+Here we can see that the printing of the stack trace is called in `c()`, which is called by `b2()`, which is called by `a()`, which is called from global scope.
+
+Hence, this prints the following call stack:
 
 ```output
   File "C:\call_stack.py", line 13, in <module>
@@ -84,7 +88,11 @@ Prints the following call stack:
     traceback.print_stack()
 ```
 
-In this instance the base of the stack is printed first, other visualisations of call stacks may use the reverse ordering.
+The first line states the file and line number where `a()` was called from (the last line of code in the file shown). The second line states that it was the function `a()` that was called, this could include it's arguments. The third line then repeats this pattern, stating the line number where `b2()` was called inside `a()`. This continues until the call to `traceback.print_stack()` is reached.
+
+You may see stack traces like this when an unhandled exception is thrown by your code.
+
+*In this instance the base of the stack has been printed first, other visualisations of call stacks may use the reverse ordering.*
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
