@@ -282,7 +282,7 @@ This provides the same information as "Icicle", however the rows are instead cir
 The sunburst visualisation displays less text on the boxes, so it can be harder to interpret. However, it increases the visibility of boxes further from the root call.
 
 <!-- TODO: Alt text here is redundant? -->
-![An sunburst visualisation provided by `snakeviz` for the worked example's Python code.](episodes/fig/snakeviz-worked-example-sunburst.png){alt='The snakeviz sunburst visualisation for the worked example Python code.'}
+![An sunburst visualisation provided by `snakeviz` for the worked example's Python code.](episodes/fig/snakeviz-worked-example-sunburst.png){alt="The snakeviz sunburst visualisation for the worked example Python code."}
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
@@ -352,7 +352,7 @@ If the table is ordered by `ncalls`, it can be identified as the joint 4th most 
 
 If you checked `predprey_out.png` (shown below), you should notice that there are significantly more `Grass` agents than `Predators` or `Prey`.
 
-![`predprey_out.png` as produced by the default configuration of `predprey.py`.](episodes/fig/predprey_out.png){alt='A line graph plotting population over time through 250 steps of the pred prey model. Grass/20, shown in green, has a brief dip in the first 30 steps, but recovers holding steady at approximately 240 (4800 agents). Prey, shown in blue, starts at 200, quickly drops to around 185, before levelling off for steps and then slowly declining to a final value of 50. The data for predators, shown in red, has significantly more noise. There are 50 predators to begin, this rises briefly before falling to around 10, from here it noisily grows to around 70 by step 250 with several larger declines during the growth.'}
+![`predprey_out.png` as produced by the default configuration of `predprey.py`.](episodes/fig/predprey_out.png){alt="A line graph plotting population over time through 250 steps of the pred prey model. Grass/20, shown in green, has a brief dip in the first 30 steps, but recovers holding steady at approximately 240 (4800 agents). Prey, shown in blue, starts at 200, quickly drops to around 185, before levelling off for steps and then slowly declining to a final value of 50. The data for predators, shown in red, has significantly more noise. There are 50 predators to begin, this rises briefly before falling to around 10, from here it noisily grows to around 70 by step 250 with several larger declines during the growth."}
 
 Similarly, the `Grass::eaten()` has a `percall` time is inline with other agent functions such as `Prey::flock()` (from `predprey.py:67`).
 
