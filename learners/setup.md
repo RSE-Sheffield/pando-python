@@ -22,10 +22,10 @@ This course uses Python and was developed using Python 3.11, therefore it is rec
 
 <!-- Todo suggest using a venv?-->
 
-The non-core Python packages required by the course are `pytest`, `snakeviz` and `line_profiler` which can be installed via `pip`.
+The non-core Python packages required by the course are `pytest`, `snakeviz`, `line_profiler`, `numpy` and `matplotlib` which can be installed via `pip`.
  
 ```sh
-pip install pytest snakeviz line_profiler[all]
+pip install pytest snakeviz line_profiler[all] numpy matplotlib
 ```
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::

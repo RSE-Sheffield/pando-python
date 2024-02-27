@@ -336,7 +336,9 @@ Other boxes within the diagram correspond to the initialisation of imports, or i
 
 ## Exercise 2: Predator Prey
 
-Download and profile <a href="files/pred-prey/predprey.py" download>the Python predator prey model</a>, try to locate the function call(s) where the majority of execution time is being spent. 
+Download and profile <a href="files/pred-prey/predprey.py" download>the Python predator prey model</a>, try to locate the function call(s) where the majority of execution time is being spent
+
+*This exercise uses the packages `numpy` and `matplotlib`, they can be installed via `pip install numpy matplotlib`.* 
 
 > The predator prey model is a simple agent-based model of population dynamics. Predators and prey co-exist in a common environment and compete over finite resources. 
 >
