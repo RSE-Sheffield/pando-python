@@ -29,7 +29,7 @@ Modern computer's typically have a single processor (CPU), within this processor
 Data held in memory by running software is exists in RAM, this memory is faster to access than hard drives (and solid-state drives).
 But the CPU has much smaller caches on-board, to make accessing the most recent variables even faster.
 
-![An annotated photo of a computer's hardware.](episodes/fig/annotated-motherboard.jpg){alt='An annotated photo of inside a desktop computer's case. The CPU, RAM, power supply, graphics cards (GPUs) and harddrive are labelled.'}
+![An annotated photo of a computer's hardware.](episodes/fig/annotated-motherboard.jpg){alt="An annotated photo of inside a desktop computer's case. The CPU, RAM, power supply, graphics cards (GPUs) and harddrive are labelled."}
 
 <!-- Read/operate on variable ram->cpu cache->registers->cpu -->
 When reading a variable, to perform an operation with it, the CPU will first look in it's registers. These exist per core, they are the location that computation is actually performed. Accessing them is incredibly fast, but there only exists enough storage for around 32 variables (typical number, e.g. 4 bytes).
@@ -160,7 +160,7 @@ An even greater overhead would apply.
 
 Latency can have a big impact on the speed that a program executes, the below graph demonstrates this. Note the log scale!
 
-![A graph demonstrating the wide variety of latencies a programmer may experience when accessing data.](episodes/fig/latency.png){alt='A horizontal bar chart displaying the relative latencies for L1/L2/L3 cache, RAM, SSD, HDD and a packet being sent from London to California and back. These latencies range from 1 nanosecond  to 140 milliseconds and are displayed with a log scale.'}
+![A graph demonstrating the wide variety of latencies a programmer may experience when accessing data.](episodes/fig/latency.png){alt="A horizontal bar chart displaying the relative latencies for L1/L2/L3 cache, RAM, SSD, HDD and a packet being sent from London to California and back. These latencies range from 1 nanosecond  to 140 milliseconds and are displayed with a log scale."}
 
 The lower the latency typically the higher the effective bandwidth. L1 and L2 cache have 1TB/s, RAM 100GB/s, SSDs upto 32 GB/s, HDDs upto 150MB/s. Making large memory transactions even slower.
 
