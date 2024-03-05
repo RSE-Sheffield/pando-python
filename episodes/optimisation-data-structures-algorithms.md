@@ -36,7 +36,7 @@ It should not be a concern to students if they find the data-structure/algorithm
 
 ::::::::::::::::::::::::::::::::::::: callout
 
-This episode is challenging!
+## This episode is challenging!
 
 Within this episode you will be introduced to how certain data-structures and algorithms work.
 
@@ -142,7 +142,7 @@ They provide a key-value store, whereby unique keys with no intrinsic order map 
 
 ::::::::::::::::::::::::::::::::::::: callout
 
-> no intrinsic order
+## "no intrinsic order"
 
 Since Python 3.6, the items within a dictionary will iterate in the order that they were inserted. This does not apply to sets.
 
