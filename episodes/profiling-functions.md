@@ -314,6 +314,24 @@ The sunburst visualisation displays less text on the boxes, so it can be harder 
 
 The following exercises allow you to review your understanding of what has been covered in this episode.
 
+:::::::::::::::::::::::::::::::::: instructor
+
+Arguments 1-9 passed to `travellingsales.py` should execute relatively fast (less than a minute)
+
+This will be slower via the profiler, and is likely to vary on different hardware.
+
+Larger values should be avoided.
+
+Download the set of profiles for arguments 1-10, these can be opened by passing the directory to `snakeviz`.
+
+
+* <a href="files/travelling-sales/profiles.zip" download>files/travelling-sales/profiles</a>
+
+```sh
+python -m snakeviz .
+```
+
+:::::::::::::::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::: challenge
 
 ## Exercise 1: Travelling Salesperson
@@ -348,6 +366,11 @@ Other boxes within the diagram correspond to the initialisation of imports, or i
 :::::::::::::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::::::::::::
 
+:::::::::::::::::::::::::::::::::: instructor
+
+The default configuration of the Predator Prey model takes around 10 seconds to run, it may be slower on other hardware.
+
+:::::::::::::::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::: challenge
 
 ## Exercise 2: Predator Prey
