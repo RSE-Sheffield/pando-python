@@ -213,7 +213,6 @@ In particular, those which are passed an `iterable` (e.g. lists) are likely to p
 * [`max()`](https://docs.python.org/3/library/functions.html#max): Return the maximum item 
 * [`min()`](https://docs.python.org/3/library/functions.html#min): Return the minimum item 
 * [`sum()`](https://docs.python.org/3/library/functions.html#sum): Return the sum of all items
-* [`zip()`](https://docs.python.org/3/library/functions.html#zip): Return an iterator which returns a tuple of items from each of the provided iterables.
 
 <!-- todo exercise/s where pure-python must be converted to use one of the above fns. -->
 
