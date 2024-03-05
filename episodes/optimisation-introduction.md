@@ -53,18 +53,16 @@ When optimising your code, you are making speculative changes. It's easy to make
 Testing is hopefully already a seamless part of your research software development process.
 Test can be used to clarify how your software should perform, ensuring that new features work as intended and protecting against unintended changes to old functionality.
 
-There are a plethora of methods for testing code. Most Python developers use the testing package [pytest](https://docs.pytest.org/en/latest/).
+There are a plethora of methods for testing code.
 
 ## pytest Overview
 
-Typically a developer will create a folder for their tests.
-Tests can be split across one of more Python files. As a codebase grows so will the number of tests, so it's important to organise them sensibly.
+Most Python developers use the testing package [pytest](https://docs.pytest.org/en/latest/), it's a great place to get started if you're new to testing code.
 
-![The python tests directory of FLAMEGPU2.](episodes/fig/testsuite-dir.png){alt='A partial screenshot of windows file explorer, showing seven folders (codegen, detail, io, model, runtime, simulation, util) and two files conftest.py and test_version.py.'}
+Here's a quick example of how a test can be used to check your function's output against an expected value.
 
-Visible in the above screenshot `conftest.py` is an optional configuration that pytest will parse, in this case it runs additional code before and after the tests to disable telemetry.
+Tests should be created within a project's testing directory, by creating files named with the form `test_*.py` or `*_test.py`.
 
-Tests should be created within your testing directory, by creating files named with the form `test_*.py` or `*_test.py`.
 pytest looks for these files, when running the test suite.
 
 Within the created test file, any functions named in the form `test*` are considered tests that will be executed by pytest.
@@ -123,7 +121,6 @@ You may already have a different testing workflow in-place for validating the co
 
 :::
 
-<!-- todo exercise, write a test (suite?) for a provided function, to catch people not handling edge-cases-->
 
 <!-- todo callout FAIR: testing course (when it's ready) -->
 
