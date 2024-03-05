@@ -43,13 +43,13 @@ What to Profile:
 
 How to function-level profile:
 
-- Execute `cProfile` via `python -m cProfile -o <output file> <script name/arguments>`
+- Execute `cProfile` via `python -m cProfile -o <output file> <script name> <arguments>`
 - Execute `snakeviz` via `python -m snakeviz <output file>`
 
 How to line-level profile:
 
 - Import `profile` from `line_profiling`
 - Decorate targeted methods with `@profile`
-- Execute `line_profiler` via `python -m kernprof -lvr <script name/arguments>`
+- Execute `line_profiler` via `python -m kernprof -lvr <script name> <arguments>`
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

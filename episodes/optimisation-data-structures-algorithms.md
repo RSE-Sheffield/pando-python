@@ -7,8 +7,7 @@ exercises: 0
 :::::::::::::::::::::::::::::::::::::: questions
 
 - What's the most efficient way to construct a list?
-- When should Tuples be used?
-- When should generator functions be used?
+- When should tuples be used?
 - When are sets appropriate?
 - What is the best way to search a list?
 
@@ -16,9 +15,8 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Able to summarise how Lists and Tuples work behind the scenes.
+- Able to summarise how lists and tuples work behind the scenes.
 - Able to identify appropriate use-cases for tuples.
-- Able to use generator functions in appropriate situations.
 - Able to utilise dictionaries and sets effectively
 - Able to use `bisect_left()` to perform a binary search of a list or array
 
@@ -52,13 +50,13 @@ Lists are a fundamental data structure within Python.
 
 It is implemented as a form of dynamic array found within many programming languages by different names (C++: `std::vector`, Java: `ArrayList`, R: `vector`, Julia: `Vector`).
 
-They allows direct and sequential element access, with the convenience to append items.
+They allow direct and sequential element access, with the convenience to append items.
 
 This is achieved by internally storing items in a static array.
-This array however can be longer than the `List`, so the current length of the list is stored alongside the array.
-When an item is appended, the `List` checks whether it has enough spare space to add the item to the end.
-If it doesn't, it will reallocate a larger array, copy across the elements, and deallocate the old array.
-Before copying the item to the end and incrementing the counter which tracks the list's length.
+This array however can be longer than the list, so the current length of the list is stored alongside the array.
+When an item is appended, the list checks whether it has enough spare space to add the item to the end.
+If it doesn't, it will re-allocate a larger array, copy across the elements, and deallocate the old array.
+The item to be appended is then copied to the end and the counter which tracks the list's length is increemnted.
 
 The amount the internal array grows by is dependent on the particular list implementation's growth factor.
 CPython for example uses [`newsize + (newsize >> 3) + 6`](https://github.com/python/cpython/blob/a571a2fd3fdaeafdfd71f3d80ed5a3b22b63d0f7/Objects/listobject.c#L74), which works out to an over allocation of roughly ~12.5%.
@@ -114,7 +112,7 @@ Results will vary between Python versions, hardware and list lengths. But in thi
 
 ## Tuples
 
-In contrast, Python's Tuples are immutable static arrays (similar to strings), their elements cannot be modified and they cannot be resized.
+In contrast, Python's tuples are immutable static arrays (similar to strings), their elements cannot be modified and they cannot be resized.
 
 Their potential use-cases are greatly reduced due to these two limitations, they are only suitable for groups of immutable properties.
 
@@ -189,7 +187,7 @@ class MyKey:
 dict = {}
 dict[MyKey("one", 2, 3.0)] = 12
 ```
-The only limitation is that two objects where two objects are equal they must have the same hash, hence all member variables which contribute to `__eq__()` should also contribute to `__hash__()` and vice versa (it's fine to have irrelevant or redundant internal members contribute to neither).
+The only limitation is that where two objects are equal they must have the same hash, hence all member variables which contribute to `__eq__()` should also contribute to `__hash__()` and vice versa (it's fine to have irrelevant or redundant internal members contribute to neither).
 
 ## Sets
 
@@ -199,7 +197,7 @@ Sets are used for eliminating duplicates and checking for membership, and will n
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
-## Unique Collection
+## Exercise: Unique Collection
 
 There are four implementations in the below example code, each builds a collection of unique elements from 25,000 where 50% can be expected to be duplicates.
 
@@ -351,7 +349,7 @@ These results are subject to change based on the number of items and the proport
 ::::::::::::::::::::::::::::::::::::: keypoints
 
 - List comprehension should be preferred when constructing lists.
-- Where appropriate, Tuples and Generator functions should be preferred over Python lists.
+- Where appropriate, tuples should be preferred over Python lists.
 - Dictionaries and sets are appropriate for storing a collection of unique data with no intrinsic order for random access.
 - When used appropriately, dictionaries and sets are significantly faster than lists.
 - If searching a list or array is required, it should be sorted and searched using `bisect_left()` (binary search).
