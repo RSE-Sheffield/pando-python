@@ -373,8 +373,9 @@ the list’s length.</p>
 <p>The amount the internal array grows by is dependent on the particular
 list implementation’s growth factor. CPython for example uses <a href="https://github.com/python/cpython/blob/a571a2fd3fdaeafdfd71f3d80ed5a3b22b63d0f7/Objects/listobject.c#L74" class="external-link"><code>newsize + (newsize &gt;&gt; 3) + 6</code></a>,
 which works out to an over allocation of roughly ~12.5%.</p>
-<figure><img src="fig/cpython_list_allocations.png" alt="A line graph displaying the relationship between the number of calls to append() and the number of internal resizes of a CPython list. It has a logarithmic relationship, at 1 million appends there have been 84 internal resizes." class="figure mx-auto d-block"><figcaption>The relationship between the number of appends to an
-empty list, and the number of internal resizes in CPython.</figcaption></figure><p>This has two implications:</p>
+<figure><img src="fig/cpython_list_allocations.png" alt="A line graph displaying the relationship between the number of calls to append() and the number of internal resizes of a CPython list. It has a logarithmic relationship, at 1 million appends there have been 84 internal resizes." class="figure mx-auto d-block"><div class="figcaption">The relationship between the number of appends
+to an empty list, and the number of internal resizes in CPython.</div>
+</figure><p>This has two implications:</p>
 <ul><li>If you are creating large static lists, they will use upto 12.5%
 excess memory.</li>
 <li>If you are growing a list with <code>append()</code>, there will be
@@ -394,25 +395,25 @@ overheads.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> timeit <span class="im">import</span> timeit</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> list_append():</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    li <span class="op">=</span> []</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100000</span>):</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        li.append(i)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> list_preallocate():</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    li <span class="op">=</span> [<span class="dv">0</span>]<span class="op">*</span><span class="dv">100000</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100000</span>):</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        li[i] <span class="op">=</span> i</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> list_comprehension():</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    li <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100000</span>)]</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Append: </span><span class="sc">{</span>timeit(list_append, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Preallocate: </span><span class="sc">{</span>timeit(list_preallocate, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Comprehension: </span><span class="sc">{</span>timeit(list_comprehension, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">from</span> timeit <span class="im">import</span> timeit</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="kw">def</span> list_append():</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>    li <span class="op">=</span> []</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100000</span>):</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>        li.append(i)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="kw">def</span> list_preallocate():</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>    li <span class="op">=</span> [<span class="dv">0</span>]<span class="op">*</span><span class="dv">100000</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100000</span>):</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>        li[i] <span class="op">=</span> i</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="kw">def</span> list_comprehension():</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>    li <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100000</span>)]</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Append: </span><span class="sc">{</span>timeit(list_append, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Preallocate: </span><span class="sc">{</span>timeit(list_preallocate, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Comprehension: </span><span class="sc">{</span>timeit(list_comprehension, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
 </div>
 <p><code>timeit</code> is used to run each function 1000 times,
 providing the below averages:</p>
@@ -447,11 +448,11 @@ module in your console.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>python <span class="ex">-m</span> timeit <span class="st">"li = [0,1,2,3,4,5]"</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">10000000</span> loops, best of 5: 26.4 nsec per loop</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span>python <span class="ex">-m</span> timeit <span class="st">"tu = (0,1,2,3,4,5)"</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">50000000</span> loops, best of 5: 7.99 nsec per loop</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="op">&gt;</span>python <span class="ex">-m</span> timeit <span class="st">"li = [0,1,2,3,4,5]"</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">10000000</span> loops, best of 5: 26.4 nsec per loop</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="op">&gt;</span>python <span class="ex">-m</span> timeit <span class="st">"tu = (0,1,2,3,4,5)"</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="ex">50000000</span> loops, best of 5: 7.99 nsec per loop</span></code></pre>
 </div>
 <p>It takes 3x as long to allocate a short list than a tuple of equal
 length. This gap only grows with the length, as the tuple cost remains
@@ -476,53 +477,53 @@ returns a constructed list (<code>fibonacci_list()</code>).</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> timeit <span class="im">import</span> timeit</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">1000000</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fibonacci_generator():</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    a<span class="op">=</span><span class="dv">0</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    b<span class="op">=</span><span class="dv">1</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">yield</span> b</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        a,b<span class="op">=</span> b,a<span class="op">+</span>b</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fibonacci_list(max_val):</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    rtn <span class="op">=</span> []</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    a<span class="op">=</span><span class="dv">0</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    b<span class="op">=</span><span class="dv">1</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> b <span class="op">&lt;</span> max_val:</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        rtn.append(b)</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        a,b<span class="op">=</span> b,a<span class="op">+</span>b</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> rtn</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_generator():</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    max_val <span class="op">=</span> N</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> fibonacci_generator():</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">&gt;</span> max_val:</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        t <span class="op">+=</span> i</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_list():</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    li <span class="op">=</span> fibonacci_list(N)</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> li:</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>        t <span class="op">+=</span> i</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_list_long():</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    max_val <span class="op">=</span> N</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    li <span class="op">=</span> fibonacci_list(max_val<span class="op">*</span><span class="dv">10</span>)</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> li:</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">&gt;</span> max_val:</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>        t <span class="op">+=</span> i</span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Gen: </span><span class="sc">{</span>timeit(test_generator, number<span class="op">=</span>repeats)<span class="sc">:.5f}</span><span class="ss">ms"</span>)</span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"List: </span><span class="sc">{</span>timeit(test_list, number<span class="op">=</span>repeats)<span class="sc">:.5f}</span><span class="ss">ms"</span>)</span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"List_long: </span><span class="sc">{</span>timeit(test_list_long, number<span class="op">=</span>repeats)<span class="sc">:.5f}</span><span class="ss">ms"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="im">from</span> timeit <span class="im">import</span> timeit</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">1000000</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="kw">def</span> fibonacci_generator():</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>    a<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>    b<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>        <span class="cf">yield</span> b</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>        a,b<span class="op">=</span> b,a<span class="op">+</span>b</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>        </span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="kw">def</span> fibonacci_list(max_val):</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>    rtn <span class="op">=</span> []</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>    a<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>    b<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>    <span class="cf">while</span> b <span class="op">&lt;</span> max_val:</span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>        rtn.append(b)</span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>        a,b<span class="op">=</span> b,a<span class="op">+</span>b</span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>    <span class="cf">return</span> rtn</span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="kw">def</span> test_generator():</span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a>    t <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a>    max_val <span class="op">=</span> N</span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> fibonacci_generator():</span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">&gt;</span> max_val:</span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a>        t <span class="op">+=</span> i</span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a><span class="kw">def</span> test_list():</span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a>    li <span class="op">=</span> fibonacci_list(N)</span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a>    t <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> li:</span>
+<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a>        t <span class="op">+=</span> i</span>
+<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a>        </span>
+<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a><span class="kw">def</span> test_list_long():</span>
+<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a>    t <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a>    max_val <span class="op">=</span> N</span>
+<span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a>    li <span class="op">=</span> fibonacci_list(max_val<span class="op">*</span><span class="dv">10</span>)</span>
+<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> li:</span>
+<span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">&gt;</span> max_val:</span>
+<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb4-43"><a href="#cb4-43" tabindex="-1"></a>        t <span class="op">+=</span> i</span>
+<span id="cb4-44"><a href="#cb4-44" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Gen: </span><span class="sc">{</span>timeit(test_generator, number<span class="op">=</span>repeats)<span class="sc">:.5f}</span><span class="ss">ms"</span>)</span>
+<span id="cb4-46"><a href="#cb4-46" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"List: </span><span class="sc">{</span>timeit(test_list, number<span class="op">=</span>repeats)<span class="sc">:.5f}</span><span class="ss">ms"</span>)</span>
+<span id="cb4-47"><a href="#cb4-47" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"List_long: </span><span class="sc">{</span>timeit(test_list_long, number<span class="op">=</span>repeats)<span class="sc">:.5f}</span><span class="ss">ms"</span>)</span></code></pre>
 </div>
 <p>The performance of <code>test_generator()</code> and
 <code>test_list()</code> are comparable, however
@@ -539,13 +540,12 @@ List_long: 0.00332ms</code></pre>
 a Python loop. Therefore, their performance is typically slower than
 list comprehension where much of the computation can be offloaded to the
 CPython backend.</p>
-<div id="callout1" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>The use of <code>max_val</code> in the previous example moves the
 value of <code>N</code> from global to local scope.</p>
@@ -565,13 +565,12 @@ the change it would normally be a little faster.</p>
 <hr class="half-width"><p>Dictionaries are another fundamental Python data-structure. They
 provide a key-value store, whereby unique keys with no intrinsic order
 map to attached values.</p>
-<div id="callout2" class="callout callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout2"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <blockquote>
 <p>no intrinsic order</p>
@@ -602,8 +601,9 @@ hashing data structure exceeds a given load factor (e.g. 2/3 of indices
 have been assigned keys), the internal storage must grow. This process
 requires every item to be re-inserted which can be expensive, but
 reduces the average probes for a key to be found.</p>
-<figure><img src="fig/hash_linear_probing.png" alt="A diagram demonstrating how the keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. This is followed by the insertion of 59, 80 and 39 which require linear probing to be inserted due to collisions." class="figure mx-auto d-block"><figcaption>An visual explanation of linear probing, CPython uses
-an advanced form of this.</figcaption></figure><p>To retrieve or check for the existence of a key within a hashing data
+<figure><img src="fig/hash_linear_probing.png" alt="A diagram demonstrating how the keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. This is followed by the insertion of 59, 80 and 39 which require linear probing to be inserted due to collisions." class="figure mx-auto d-block"><div class="figcaption">An visual explanation of linear probing, CPython
+uses an advanced form of this.</div>
+</figure><p>To retrieve or check for the existence of a key within a hashing data
 structure, the key is hashed again and a process equivalent to insertion
 is repeated. However, now the key at each index is checked for equality
 with the one provided. If any empty index is found before an equivalent
@@ -622,22 +622,22 @@ function.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MyKey:</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, _a, _b, _c):</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.a <span class="op">=</span> _a</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.b <span class="op">=</span> _b</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.c <span class="op">=</span> _c</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, other):</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> (<span class="bu">isinstance</span>(other, <span class="bu">type</span>(<span class="va">self</span>))</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                <span class="kw">and</span> (<span class="va">self</span>.a, <span class="va">self</span>.b, <span class="va">self</span>.c) <span class="op">==</span> (other.a, other.b, other.c))</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__hash__</span>(<span class="va">self</span>):</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">hash</span>((<span class="va">self</span>.a, <span class="va">self</span>.b, <span class="va">self</span>.c))</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="bu">dict</span> <span class="op">=</span> {}</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="bu">dict</span>[MyKey(<span class="st">"one"</span>, <span class="dv">2</span>, <span class="fl">3.0</span>)] <span class="op">=</span> <span class="dv">12</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="kw">class</span> MyKey:</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, _a, _b, _c):</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>        <span class="va">self</span>.a <span class="op">=</span> _a</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>        <span class="va">self</span>.b <span class="op">=</span> _b</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>        <span class="va">self</span>.c <span class="op">=</span> _c</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(<span class="va">self</span>, other):</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>        <span class="cf">return</span> (<span class="bu">isinstance</span>(other, <span class="bu">type</span>(<span class="va">self</span>))</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>                <span class="kw">and</span> (<span class="va">self</span>.a, <span class="va">self</span>.b, <span class="va">self</span>.c) <span class="op">==</span> (other.a, other.b, other.c))</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__hash__</span>(<span class="va">self</span>):</span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">hash</span>((<span class="va">self</span>.a, <span class="va">self</span>.b, <span class="va">self</span>.c))</span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="bu">dict</span> <span class="op">=</span> {}</span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="bu">dict</span>[MyKey(<span class="st">"one"</span>, <span class="dv">2</span>, <span class="fl">3.0</span>)] <span class="op">=</span> <span class="dv">12</span></span></code></pre>
 </div>
 <p>The only limitation is that two objects where two objects are equal
 they must have the same hash, hence all member variables which
@@ -674,44 +674,44 @@ duplicates <code>int(N/2)</code> affect performance?</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> timeit <span class="im">import</span> timeit</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generateInputs(N <span class="op">=</span> <span class="dv">25000</span>):</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    random.seed(<span class="dv">12</span>)  <span class="co"># Ensure every list is the same </span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [random.randint(<span class="dv">0</span>,<span class="bu">int</span>(N<span class="op">/</span><span class="dv">2</span>)) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N)]</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniqueSet():</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    ls_in <span class="op">=</span> generateInputs()</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    set_out <span class="op">=</span> <span class="bu">set</span>(ls_in)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniqueSetAdd():</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    ls_in <span class="op">=</span> generateInputs()</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    set_out <span class="op">=</span> <span class="bu">set</span>()</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> ls_in:</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        set_out.add(i)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniqueList():</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    ls_in <span class="op">=</span> generateInputs()</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    ls_out <span class="op">=</span> []</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> ls_in:</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> i <span class="kw">in</span> ls_out:</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>            ls_out.append(i)</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniqueListSort():</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    ls_in <span class="op">=</span> generateInputs()</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    ls_in.sort()</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    ls_out <span class="op">=</span> [ls_in[<span class="dv">0</span>]]</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> ls_in:</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> ls_out[<span class="op">-</span><span class="dv">1</span>] <span class="op">!=</span> i:</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>            ls_out.append(i)</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>gen_time <span class="op">=</span> timeit(generateInputs, number<span class="op">=</span>repeats)</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"uniqueSet: </span><span class="sc">{</span>timeit(uniqueSet, number<span class="op">=</span>repeats)<span class="op">-</span>gen_time<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"uniqueSetAdd: </span><span class="sc">{</span>timeit(uniqueSetAdd, number<span class="op">=</span>repeats)<span class="op">-</span>gen_time<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"uniqueList: </span><span class="sc">{</span>timeit(uniqueList, number<span class="op">=</span>repeats)<span class="op">-</span>gen_time<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"uniqueListSort: </span><span class="sc">{</span>timeit(uniqueListSort, number<span class="op">=</span>repeats)<span class="op">-</span>gen_time<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="im">from</span> timeit <span class="im">import</span> timeit</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="kw">def</span> generateInputs(N <span class="op">=</span> <span class="dv">25000</span>):</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>    random.seed(<span class="dv">12</span>)  <span class="co"># Ensure every list is the same </span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>    <span class="cf">return</span> [random.randint(<span class="dv">0</span>,<span class="bu">int</span>(N<span class="op">/</span><span class="dv">2</span>)) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N)]</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>    </span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="kw">def</span> uniqueSet():</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>    ls_in <span class="op">=</span> generateInputs()</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>    set_out <span class="op">=</span> <span class="bu">set</span>(ls_in)</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>    </span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="kw">def</span> uniqueSetAdd():</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>    ls_in <span class="op">=</span> generateInputs()</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>    set_out <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> ls_in:</span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>        set_out.add(i)</span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>    </span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="kw">def</span> uniqueList():</span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>    ls_in <span class="op">=</span> generateInputs()</span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>    ls_out <span class="op">=</span> []</span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> ls_in:</span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> i <span class="kw">in</span> ls_out:</span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a>            ls_out.append(i)</span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a><span class="kw">def</span> uniqueListSort():</span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a>    ls_in <span class="op">=</span> generateInputs()</span>
+<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a>    ls_in.sort()</span>
+<span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a>    ls_out <span class="op">=</span> [ls_in[<span class="dv">0</span>]]</span>
+<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> ls_in:</span>
+<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a>        <span class="cf">if</span> ls_out[<span class="op">-</span><span class="dv">1</span>] <span class="op">!=</span> i:</span>
+<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a>            ls_out.append(i)</span>
+<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a>            </span>
+<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a>gen_time <span class="op">=</span> timeit(generateInputs, number<span class="op">=</span>repeats)</span>
+<span id="cb7-35"><a href="#cb7-35" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"uniqueSet: </span><span class="sc">{</span>timeit(uniqueSet, number<span class="op">=</span>repeats)<span class="op">-</span>gen_time<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
+<span id="cb7-36"><a href="#cb7-36" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"uniqueSetAdd: </span><span class="sc">{</span>timeit(uniqueSetAdd, number<span class="op">=</span>repeats)<span class="op">-</span>gen_time<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
+<span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"uniqueList: </span><span class="sc">{</span>timeit(uniqueList, number<span class="op">=</span>repeats)<span class="op">-</span>gen_time<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
+<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"uniqueListSort: </span><span class="sc">{</span>timeit(uniqueListSort, number<span class="op">=</span>repeats)<span class="op">-</span>gen_time<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
 </div>
 </div>
 </div>
@@ -807,48 +807,48 @@ performance.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> timeit <span class="im">import</span> timeit</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bisect <span class="im">import</span> bisect_left</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">25000</span>  <span class="co"># Number of elements in list</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> <span class="dv">2</span>  <span class="co"># N*M == Range over which the elements span</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generateInputs():</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    random.seed(<span class="dv">12</span>)  <span class="co"># Ensure every list is the same</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    st <span class="op">=</span> <span class="bu">set</span>([random.randint(<span class="dv">0</span>, <span class="bu">int</span>(N<span class="op">*</span>M)) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N)])</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    ls <span class="op">=</span> <span class="bu">list</span>(st)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    ls.sort()  <span class="co"># Sort required for binary</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> st, ls  <span class="co"># Return both set and list</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> search_set():</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    st, _ <span class="op">=</span> generateInputs()</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">int</span>(N<span class="op">*</span>M), M):</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="kw">in</span> st:</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>            j <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> linear_search_list():</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    _, ls <span class="op">=</span> generateInputs()</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">int</span>(N<span class="op">*</span>M), M):</span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="kw">in</span> ls:</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>            j <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> binary_search_list():</span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    _, ls <span class="op">=</span> generateInputs()</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">int</span>(N<span class="op">*</span>M), M):</span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>        k <span class="op">=</span> bisect_left(ls, i)</span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> k <span class="op">!=</span> <span class="bu">len</span>(ls) <span class="kw">and</span> ls[k] <span class="op">==</span> i:</span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>            j <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>gen_time <span class="op">=</span> timeit(generateInputs, number<span class="op">=</span>repeats)</span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"search_set: </span><span class="sc">{</span>timeit(search_set, number<span class="op">=</span>repeats)<span class="op">-</span>gen_time<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"linear_search_list: </span><span class="sc">{</span>timeit(linear_search_list, number<span class="op">=</span>repeats)<span class="op">-</span>gen_time<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"binary_search_list: </span><span class="sc">{</span>timeit(binary_search_list, number<span class="op">=</span>repeats)<span class="op">-</span>gen_time<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="im">from</span> timeit <span class="im">import</span> timeit</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="im">from</span> bisect <span class="im">import</span> bisect_left</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">25000</span>  <span class="co"># Number of elements in list</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>M <span class="op">=</span> <span class="dv">2</span>  <span class="co"># N*M == Range over which the elements span</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="kw">def</span> generateInputs():</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>    random.seed(<span class="dv">12</span>)  <span class="co"># Ensure every list is the same</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>    st <span class="op">=</span> <span class="bu">set</span>([random.randint(<span class="dv">0</span>, <span class="bu">int</span>(N<span class="op">*</span>M)) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N)])</span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>    ls <span class="op">=</span> <span class="bu">list</span>(st)</span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>    ls.sort()  <span class="co"># Sort required for binary</span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>    <span class="cf">return</span> st, ls  <span class="co"># Return both set and list</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>    </span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="kw">def</span> search_set():</span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>    st, _ <span class="op">=</span> generateInputs()</span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a>    j <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">int</span>(N<span class="op">*</span>M), M):</span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a>        <span class="cf">if</span> i <span class="kw">in</span> st:</span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a>            j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a>    </span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="kw">def</span> linear_search_list():</span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a>    _, ls <span class="op">=</span> generateInputs()</span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a>    j <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">int</span>(N<span class="op">*</span>M), M):</span>
+<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a>        <span class="cf">if</span> i <span class="kw">in</span> ls:</span>
+<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a>            j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a>    </span>
+<span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a><span class="kw">def</span> binary_search_list():</span>
+<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a>    _, ls <span class="op">=</span> generateInputs()</span>
+<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a>    j <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">int</span>(N<span class="op">*</span>M), M):</span>
+<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a>        k <span class="op">=</span> bisect_left(ls, i)</span>
+<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a>        <span class="cf">if</span> k <span class="op">!=</span> <span class="bu">len</span>(ls) <span class="kw">and</span> ls[k] <span class="op">==</span> i:</span>
+<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a>            j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a></span>
+<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a>            </span>
+<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb9-39"><a href="#cb9-39" tabindex="-1"></a>gen_time <span class="op">=</span> timeit(generateInputs, number<span class="op">=</span>repeats)</span>
+<span id="cb9-40"><a href="#cb9-40" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"search_set: </span><span class="sc">{</span>timeit(search_set, number<span class="op">=</span>repeats)<span class="op">-</span>gen_time<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
+<span id="cb9-41"><a href="#cb9-41" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"linear_search_list: </span><span class="sc">{</span>timeit(linear_search_list, number<span class="op">=</span>repeats)<span class="op">-</span>gen_time<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
+<span id="cb9-42"><a href="#cb9-42" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"binary_search_list: </span><span class="sc">{</span>timeit(binary_search_list, number<span class="op">=</span>repeats)<span class="op">-</span>gen_time<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
 </div>
 <p>Searching the set is fastest performing 25,000 searches in 0.04ms.
 This is followed by the binary search of the (sorted) list which is 145x
@@ -961,7 +961,7 @@ any links that you are not going to use.
   "identifier": "rse.shef.ac.uk/pando-python/optimisation-data-structures-algorithms.html",
   "dateCreated": "2024-02-15",
   "dateModified": "2024-02-08",
-  "datePublished": "2024-02-27"
+  "datePublished": "2024-03-05"
 }
 
   </script><script>

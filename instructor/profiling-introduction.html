@@ -389,13 +389,12 @@ confident that your code is reasonably optimised. If you do identify a
 concerning bottleneck, further work to optimise your code and reduce the
 bottleneck could see significant improvements to the performance of your
 code and hence productivity.</p>
-<div id="all-programmers-can-benefit" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="all-programmers-can-benefit" class="callout-inner">
-<h3 class="callout-title">All Programmers Can Benefit<a class="anchor" aria-label="anchor" href="#all-programmers-can-benefit"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="all-programmers-can-benefit">All Programmers Can Benefit<a class="anchor" aria-label="anchor" href="#all-programmers-can-benefit"></a></h3>
 <div class="callout-content">
 <!-- Everyone benefits (why) -->
 <p>Even professional programmers make oversights that can lead to poor
@@ -415,7 +414,7 @@ loading screens?</em></p>
   <h3 class="accordion-header" id="headingInstructor1">
 <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div>Instructor Note</h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>The bottlenecked implementation was naively parsing a 10MB JSON file
 to create a list of unique items.</p>
@@ -450,20 +449,20 @@ sections of code can provide a rudimentary form of profiling.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>t_a <span class="op">=</span> time.monotonic()</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># A: Do something</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>t_b <span class="op">=</span> time.monotonic()</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># B: Do something else</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>t_c <span class="op">=</span> time.monotonic()</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># C: Do another thing</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>t_d <span class="op">=</span> time.monotonic()</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>mainTimer_stop <span class="op">=</span> time.monotonic()</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"A: </span><span class="sc">{</span>t_b <span class="op">-</span> t_a<span class="sc">}</span><span class="ss"> seconds"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"B: </span><span class="sc">{</span>t_c <span class="op">-</span> t_b<span class="sc">}</span><span class="ss"> seconds"</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"C: </span><span class="sc">{</span>t_d <span class="op">-</span> t_c<span class="sc">}</span><span class="ss"> seconds"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>t_a <span class="op">=</span> time.monotonic()</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># A: Do something</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>t_b <span class="op">=</span> time.monotonic()</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co"># B: Do something else</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>t_c <span class="op">=</span> time.monotonic()</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co"># C: Do another thing</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>t_d <span class="op">=</span> time.monotonic()</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>mainTimer_stop <span class="op">=</span> time.monotonic()</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"A: </span><span class="sc">{</span>t_b <span class="op">-</span> t_a<span class="sc">}</span><span class="ss"> seconds"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"B: </span><span class="sc">{</span>t_c <span class="op">-</span> t_b<span class="sc">}</span><span class="ss"> seconds"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"C: </span><span class="sc">{</span>t_d <span class="op">-</span> t_c<span class="sc">}</span><span class="ss"> seconds"</span>)</span></code></pre>
 </div>
 <p><em>Above is only one example of how you could manually profile your
 Python code, there are many similar techniques.</em></p>
@@ -472,13 +471,12 @@ it becomes increasingly impractical as a project grows in size and
 complexity. Furthermore, it’s also unproductive to be routinely adding
 and removing these small changes if they interfere with the required
 outputs of a project.</p>
-<div id="benchmarking" class="callout callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="benchmarking" class="callout-inner">
-<h3 class="callout-title">Benchmarking<a class="anchor" aria-label="anchor" href="#benchmarking"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="benchmarking">Benchmarking<a class="anchor" aria-label="anchor" href="#benchmarking"></a></h3>
 <div class="callout-content">
 <p>You may have previously used <a href="https://docs.python.org/3/library/timeit.html" class="external-link"><code>timeit</code></a>
 for timing Python code.</p>
@@ -527,13 +525,12 @@ disproportionate amount of the total runtime.</p>
 <!-- We will be covering -->
 <p>In this course we will cover the usage of the line-level profiler
 <code>line_profiler</code>.</p>
-<div id="deterministic-vs-sampling-profilers" class="callout callout">
+<div id="callout3" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="deterministic-vs-sampling-profilers" class="callout-inner">
-<h3 class="callout-title">Deterministic vs Sampling Profilers<a class="anchor" aria-label="anchor" href="#deterministic-vs-sampling-profilers"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="deterministic-vs-sampling-profilers">Deterministic vs Sampling Profilers<a class="anchor" aria-label="anchor" href="#deterministic-vs-sampling-profilers"></a></h3>
 <div class="callout-content">
 <p>Line-level profiling can be particularly expensive, a program can
 execute hundreds of thousands of lines of code per second. Therefore,
@@ -639,7 +636,7 @@ execution.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1">Give me a hint</h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <ul><li>What tools and techniques would be required?</li>
 <li>Is there a clear priority to these approaches?</li>
@@ -749,7 +746,7 @@ any links that you are not going to use.
   "identifier": "rse.shef.ac.uk/pando-python/instructor/profiling-introduction.html",
   "dateCreated": "2024-02-15",
   "dateModified": "2024-02-08",
-  "datePublished": "2024-02-27"
+  "datePublished": "2024-03-05"
 }
 
   </script><script>
