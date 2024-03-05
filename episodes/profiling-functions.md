@@ -215,19 +215,6 @@ Demonstrate this!
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::: callout
-
-## Follow Along
-
-Download the <a href="files/snakeviz-worked-example/example.py" download>Python source for the example</a> or <a href="files/snakeviz-worked-example/out.prof" download>`cProfile` output file</a> and follow along with the worked example on your own machine.
-
-```sh
-python -m cProfile -o out.prof example.py
-python -m snakeviz out.prof
-```
-
-:::::::::::::::::::::::::::::::::::::::::::::
-
 To more clearly demonstrate how an execution hierarchy maps to the icicle diagram, the below toy example Python script has been implemented.
 
 ```python
@@ -265,6 +252,19 @@ All of the methods except for `b_1()` call `time.sleep()`, this is used to provi
 * `a_1()` calls `b_1()` x3 and `b_2()` x1
 * `b_1()` calls `c_1()` x1 and `c_2()` x1
 * `c_2()` calls `d_1()`
+
+::::::::::::::::::::::::::::::::::::: callout
+
+## Follow Along
+
+Download the <a href="files/snakeviz-worked-example/example.py" download>Python source for the example</a> or <a href="files/snakeviz-worked-example/out.prof" download>`cProfile` output file</a> and follow along with the worked example on your own machine.
+
+```sh
+python -m cProfile -o out.prof example.py
+python -m snakeviz out.prof
+```
+
+:::::::::::::::::::::::::::::::::::::::::::::
 
 <!-- TODO: Alt text here is redundant? -->
 ![An icicle visualisation provided by `snakeviz` for the above Python code.](episodes/fig/snakeviz-worked-example-icicle.png){alt='The snakeviz icicle visualisation for the worked example Python code.'}
@@ -306,7 +306,7 @@ This provides the same information as "Icicle", however the rows are instead cir
 The sunburst visualisation displays less text on the boxes, so it can be harder to interpret. However, it increases the visibility of boxes further from the root call.
 
 <!-- TODO: Alt text here is redundant? -->
-![An sunburst visualisation provided by `snakeviz` for the worked example's Python code.](episodes/fig/snakeviz-worked-example-sunburst.png){alt="The snakeviz sunburst visualisation for the worked example Python code."}
+![An sunburst visualisation provided by `snakeviz` for the worked example's Python code.](episodes/fig/snakeviz-worked-example-sunburst.png){alt="The snakeviz sunburst visualisation for the worked example Python code." width=50%}
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
