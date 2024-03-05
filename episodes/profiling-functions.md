@@ -160,6 +160,21 @@ This output can often exceed the terminal's buffer length for large programs and
 
 ## snakeviz
 
+:::::::::::::::::::::::::::::::::: instructor
+
+It can help to run these examples by running `snakeviz` live.
+For the worked example you may wish to also show the code (e.g. in split screen).
+
+Demonstrate features such as moving up/down the call-stack by clicking the boxes and changing the depth and cutoff via the dropdown.
+
+Download pre-generated profile reports:
+
+* snakeviz example screenshot: <a href="files/schelling_out.prof" download>files/schelling_out.prof</a>
+
+* Worked example: <a href="files/snakeviz-worked-example/out.prof" download>files/snakeviz-worked-example/out.prof</a>
+
+:::::::::::::::::::::::::::::::::::::::::::::
+
 <!-- what is snakeviz/how is it installed-->
 [`snakeviz`](https://jiffyclub.github.io/snakeviz/) is a web browser based graphical viewer for `cProfile` output files.
 <!--TODO is covering pip here redundant as it's covered in the user setup file? -->
@@ -174,6 +189,7 @@ Once installed, you can visualise a `cProfile` output file such as `out.prof` vi
 ```sh
 python -m snakeviz out.prof
 ```
+
 This should open your web browser displaying a page similar to that below.
 
 ![An example of the default 'icicle' visualisation provided by `snakeviz`.](episodes/fig/snakeviz-home.png){alt='A web page, with a central diagram representing a call-stack, with the root at the top and the horizontal axis representing the duration of each call. Below this diagram is the top of a table detailing the statistics of individual methods.'}
@@ -193,6 +209,12 @@ As you hover each box, information to the left of the diagram updates specifying
 
 ## Worked Example
 
+:::::::::::::::::::::::::::::::::: instructor
+
+Demonstrate this!
+
+:::::::::::::::::::::::::::::::::::::::::::::
+
 ::::::::::::::::::::::::::::::::::::: callout
 
 ## Follow Along
@@ -203,12 +225,6 @@ Download the <a href="files/snakeviz-worked-example/example.py" download>Python 
 python -m cProfile -o out.prof example.py
 python -m snakeviz out.prof
 ```
-
-:::::::::::::::::::::::::::::::::: instructor
-
-It can help to run the worked example by executing `snakeviz` live and explaining the visualisation with the code visible in split screen.
-
-:::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
