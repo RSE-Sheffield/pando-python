@@ -105,7 +105,7 @@ You may see stack traces like this when an unhandled exception is thrown by your
 It can be called directly within your Python code as an imported package, however it's easier to use it's script interface:
 
 ```sh
-python -m cProfile -o <output file> <script name/arguments>
+python -m cProfile -o <output file> <script name> <arguments>
 ```
 
 For example if you normally run your program as:
@@ -357,7 +357,7 @@ The value of `cities` should be a positive integer, this algorithm has poor scal
 
 The hotspot only becomes visible when an argument of `5` or greater is passed.
 
-Here it `distance()` (from `travellingsales.py:11`) becomes the largest box (similarly it's parent in the call-stack `total_distance()`) showing that it scales poorly with the number of cities. With 5 cities, `distance()` has a cumulative time of `~35%` the runtime, this increases to `~60%` with 9 cities.
+You should see that `distance()` (from `travellingsales.py:11`) becomes the largest box (similarly it's parent in the call-stack `total_distance()`) showing that it scales poorly with the number of cities. With 5 cities, `distance()` has a cumulative time of `~35%` the runtime, this increases to `~60%` with 9 cities.
 
 Other boxes within the diagram correspond to the initialisation of imports, or initialisation of cities. These have constant or linear scaling, so their cost barely increases with the number of cities.
 
@@ -415,7 +415,7 @@ Maybe we could investigate this further with line profiling!
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
-- A python program can be function level profiled with `cProfile` via `python -m cProfile -o <output file> <script name/arguments>`.
+- A python program can be function level profiled with `cProfile` via `python -m cProfile -o <output file> <script name> <arguments>`.
 - The output file from `cProfile` can be visualised with `snakeviz` via `python -m snakeviz <output file>`.
 - Function level profiling output displays the nested call hierarchy, listing both the cumulative and total minus sub functions time.
 

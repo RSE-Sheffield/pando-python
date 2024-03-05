@@ -27,7 +27,7 @@ It's important to use the latest Python wherever feasible. In addition to new fe
 
 > [Python 3.11](https://docs.python.org/3/whatsnew/3.11.html) is between 10-60% faster than Python 3.10. On average, we measured a 1.25x speedup on the standard benchmark suite.
 
-Future proposals, such changes to the [JIT](https://tonybaloney.github.io/posts/python-gets-a-jit.html) and [GIL](https://peps.python.org/pep-0703/) will provide further improvements to performance.
+Future proposals, such as changes to the [JIT](https://tonybaloney.github.io/posts/python-gets-a-jit.html) and [GIL](https://peps.python.org/pep-0703/) will provide further improvements to performance.
 
 Similarly, major packages with a performance focus such as NumPy and Pandas, should be kept up to date for the same reasons.
 

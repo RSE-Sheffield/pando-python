@@ -25,7 +25,7 @@ Now that you're able to find the most expensive components of your code with pro
 In order to optimise code for performance, it is necessary to have an understanding of what a computer is doing to execute it.
 
 <!-- Goal is to give you a high level understanding of how your code executes. You don't need to be an expert, even a vague general understanding will leave you in a stronger position. -->
-Even a high-level understanding of a typical computer architecture; the most common data-structures and algorithms; and how Python executes your code, enable the identification of suboptimal approaches. If you have learned to write code informally out of necessity, to get something to work, it's not uncommon to have collected some bad habits along the way.
+Even a high-level understanding of how you code executes, such as how Python and the most common data-structures and algorithms are implemented, can help you to identify suboptimal approaches when programming. If you have learned to write code informally out of necessity, to get something to work, it's not uncommon to have collected some bad habits along the way.
 
 <!-- This is largely high-level/abstract knowledge applicable to the vast majority of programming languages, applies even more strongly if using compiled Python features like numba -->
 The remaining content is often abstract knowledge, that is transferable to the vast majority of programming languages. This is because the hardware architecture, data-structures and algorithms used are common to many languages and they hold some of the greatest influence over performance bottlenecks.
@@ -124,6 +124,7 @@ You may already have a different testing workflow in-place for validating the co
 
 <!-- todo callout FAIR: testing course (when it's ready) -->
 
+<!--
 ## Coming Up
 
 In the remainder of this course we will cover:
@@ -143,6 +144,7 @@ In the remainder of this course we will cover:
    - How variables are accessed & the performance implications
    - Latency in perspective
    - Memory allocation isn't free
+-->
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
