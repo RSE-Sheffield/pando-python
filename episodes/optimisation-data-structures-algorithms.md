@@ -22,7 +22,7 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::: Instructor
+::::::::::::::::::::::::::::::::::::: instructor
 
 The important information for students to learn within this episode are the patterns demonstrated via the benchmarks.
 
