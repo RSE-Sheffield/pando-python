@@ -238,7 +238,7 @@ Therefore it can be seen in this example, how the time spent executing each line
 
 The `-r` argument passed to `kernprof` (or `line_profiler`) enables rich output, if you run the profile locally it should look similar to this. *This requires the optional package `rich`, it will have been installed if `[all]` was specified when installing `line_profiler` with `pip`.*
 
-![Rich (highlighted) console output provided by `line_profiler` for the above FizzBuzz profile code.](episodes/fig/line_profiler-worked-example.png){alt='A screenshot of the `line_profiler` output from the previous code block, where the code within the line contents column has basic highlighting.'}
+![Rich (highlighted) console output provided by `line_profiler` for the above FizzBuzz profile code.](episodes/fig/line_profiler-worked-example.png){alt="A screenshot of the `line_profiler` output from the previous code block, where the code within the line contents column has basic highlighting."}
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
@@ -467,7 +467,7 @@ Remembering that this method is executed once per each of the 5000 `Grass` agent
 ::::::::::::::::::::::::::::::::::::: keypoints
 
 - Specific methods can be line-level profiled if decorated with `@profile` that is imported from `line_profiler`.
-- `kernprof` executes `line_profiler` via `python -m kernprof -lvr <script name/arguments>`.
+- `kernprof` executes `line_profiler` via `python -m kernprof -lvr <script name> <arguments>`.
 - Code in global scope must wrapped in a method if it is to be profiled with `line_profiler`.
 - The output from `line_profiler` lists the absolute and relative time spent per line for each targeted function.
 

@@ -25,7 +25,7 @@ Now that you're able to find the most expensive components of your code with pro
 In order to optimise code for performance, it is necessary to have an understanding of what a computer is doing to execute it.
 
 <!-- Goal is to give you a high level understanding of how your code executes. You don't need to be an expert, even a vague general understanding will leave you in a stronger position. -->
-Even a high-level understanding of a typical computer architecture; the most common data-structures and algorithms; and how Python executes your code, enable the identification of suboptimal approaches. If you have learned to write code informally out of necessity, to get something to work, it's not uncommon to have collected some bad habits along the way.
+Even a high-level understanding of how you code executes, such as how Python and the most common data-structures and algorithms are implemented, can help you to identify suboptimal approaches when programming. If you have learned to write code informally out of necessity, to get something to work, it's not uncommon to have collected some bad habits along the way.
 
 <!-- This is largely high-level/abstract knowledge applicable to the vast majority of programming languages, applies even more strongly if using compiled Python features like numba -->
 The remaining content is often abstract knowledge, that is transferable to the vast majority of programming languages. This is because the hardware architecture, data-structures and algorithms used are common to many languages and they hold some of the greatest influence over performance bottlenecks.
@@ -53,18 +53,16 @@ When optimising your code, you are making speculative changes. It's easy to make
 Testing is hopefully already a seamless part of your research software development process.
 Test can be used to clarify how your software should perform, ensuring that new features work as intended and protecting against unintended changes to old functionality.
 
-There are a plethora of methods for testing code. Most Python developers use the testing package [pytest](https://docs.pytest.org/en/latest/).
+There are a plethora of methods for testing code.
 
 ## pytest Overview
 
-Typically a developer will create a folder for their tests.
-Tests can be split across one of more Python files. As a codebase grows so will the number of tests, so it's important to organise them sensibly.
+Most Python developers use the testing package [pytest](https://docs.pytest.org/en/latest/), it's a great place to get started if you're new to testing code.
 
-![The python tests directory of FLAMEGPU2.](episodes/fig/testsuite-dir.png){alt='A partial screenshot of windows file explorer, showing seven folders (codegen, detail, io, model, runtime, simulation, util) and two files conftest.py and test_version.py.'}
+Here's a quick example of how a test can be used to check your function's output against an expected value.
 
-Visible in the above screenshot `conftest.py` is an optional configuration that pytest will parse, in this case it runs additional code before and after the tests to disable telemetry.
+Tests should be created within a project's testing directory, by creating files named with the form `test_*.py` or `*_test.py`.
 
-Tests should be created within your testing directory, by creating files named with the form `test_*.py` or `*_test.py`.
 pytest looks for these files, when running the test suite.
 
 Within the created test file, any functions named in the form `test*` are considered tests that will be executed by pytest.
@@ -123,10 +121,10 @@ You may already have a different testing workflow in-place for validating the co
 
 :::
 
-<!-- todo exercise, write a test (suite?) for a provided function, to catch people not handling edge-cases-->
 
 <!-- todo callout FAIR: testing course (when it's ready) -->
 
+<!--
 ## Coming Up
 
 In the remainder of this course we will cover:
@@ -146,6 +144,7 @@ In the remainder of this course we will cover:
    - How variables are accessed & the performance implications
    - Latency in perspective
    - Memory allocation isn't free
+-->
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 

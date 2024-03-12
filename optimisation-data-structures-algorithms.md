@@ -7,8 +7,7 @@ exercises: 0
 :::::::::::::::::::::::::::::::::::::: questions
 
 - What's the most efficient way to construct a list?
-- When should Tuples be used?
-- When should generator functions be used?
+- When should tuples be used?
 - When are sets appropriate?
 - What is the best way to search a list?
 
@@ -16,13 +15,34 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Able to summarise how Lists and Tuples work behind the scenes.
+- Able to summarise how lists and tuples work behind the scenes.
 - Able to identify appropriate use-cases for tuples.
-- Able to use generator functions in appropriate situations.
 - Able to utilise dictionaries and sets effectively
 - Able to use `bisect_left()` to perform a binary search of a list or array
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: Instructor
+
+The important information for students to learn within this episode are the patterns demonstrated via the benchmarks.
+
+This episode introduces many complex topics, these are used to ground the performant patterns in understanding to aid memorisation.
+
+It should not be a concern to students if they find the data-structure/algorithm internals challenging, if they are still able to recognise the demonstrated patterns.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: callout
+
+## This episode is challenging!
+
+Within this episode you will be introduced to how certain data-structures and algorithms work.
+
+This is used to explain why one approach is likely to execute faster than another.
+
+It matters that you are able to recognise the faster/slower approaches, not that you can describe or reimplement these data-structures and algorithms yourself.
+
+:::::::::::::::::::::::::::::::::::::::::::::
 
 ## Lists
 
@@ -30,13 +50,13 @@ Lists are a fundamental data structure within Python.
 
 It is implemented as a form of dynamic array found within many programming languages by different names (C++: `std::vector`, Java: `ArrayList`, R: `vector`, Julia: `Vector`).
 
-They allows direct and sequential element access, with the convenience to append items.
+They allow direct and sequential element access, with the convenience to append items.
 
 This is achieved by internally storing items in a static array.
-This array however can be longer than the `List`, so the current length of the list is stored alongside the array.
-When an item is appended, the `List` checks whether it has enough spare space to add the item to the end.
-If it doesn't, it will reallocate a larger array, copy across the elements, and deallocate the old array.
-Before copying the item to the end and incrementing the counter which tracks the list's length.
+This array however can be longer than the list, so the current length of the list is stored alongside the array.
+When an item is appended, the list checks whether it has enough spare space to add the item to the end.
+If it doesn't, it will re-allocate a larger array, copy across the elements, and deallocate the old array.
+The item to be appended is then copied to the end and the counter which tracks the list's length is increemnted.
 
 The amount the internal array grows by is dependent on the particular list implementation's growth factor.
 CPython for example uses [`newsize + (newsize >> 3) + 6`](https://github.com/python/cpython/blob/a571a2fd3fdaeafdfd71f3d80ed5a3b22b63d0f7/Objects/listobject.c#L74), which works out to an over allocation of roughly ~12.5%.
@@ -92,7 +112,7 @@ Results will vary between Python versions, hardware and list lengths. But in thi
 
 ## Tuples
 
-In contrast, Python's Tuples are immutable static arrays (similar to strings), their elements cannot be modified and they cannot be resized.
+In contrast, Python's tuples are immutable static arrays (similar to strings), their elements cannot be modified and they cannot be resized.
 
 Their potential use-cases are greatly reduced due to these two limitations, they are only suitable for groups of immutable properties.
 
@@ -113,92 +133,6 @@ This can be easily demonstrated with Python's `timeit` module in your console.
 It takes 3x as long to allocate a short list than a tuple of equal length. This gap only grows with the length, as the tuple cost remains roughly static whereas the cost of allocating the list grows slightly.
 
 
-## Generator Functions
-
-You may not even require your data be stored in a list or tuple if it is only accessed once and in sequence.
-
-Generators are special functions, that use `yield` rather than `return`. Each time the generator is called, it resumes computation until the next `yield` statement is hit to return the next value.
-
-This avoids needing to allocate a data structure, and can greatly reduce memory utilisation.
-
-Common examples for generators include:
-
-* Reading from a large file that may not fit in memory.
-* Any generated sequence where the required length is unknown.
-
-The below example demonstrates how a generator function (`fibonnaci_generator()`) differs from one that simply returns a constructed list (`fibonacci_list()`).
-
-```python
-from timeit import timeit
-
-N = 1000000
-repeats = 1000
-
-def fibonacci_generator():
-    a=0
-    b=1
-    while True:
-        yield b
-        a,b= b,a+b
-        
-def fibonacci_list(max_val):
-    rtn = []
-    a=0
-    b=1
-    while b < max_val:
-        rtn.append(b)
-        a,b= b,a+b
-    return rtn
-
-def test_generator():
-    t = 0
-    max_val = N
-    for i in fibonacci_generator():
-        if i > max_val:
-            break
-        t += i
-
-def test_list():
-    li = fibonacci_list(N)
-    t = 0
-    for i in li:
-        t += i
-        
-def test_list_long():
-    t = 0
-    max_val = N
-    li = fibonacci_list(max_val*10)
-    for i in li:
-        if i > max_val:
-            break
-        t += i
-
-print(f"Gen: {timeit(test_generator, number=repeats):.5f}ms")
-print(f"List: {timeit(test_list, number=repeats):.5f}ms")
-print(f"List_long: {timeit(test_list_long, number=repeats):.5f}ms")
-```
-
-The performance of `test_generator()` and `test_list()` are comparable, however `test_long_list()` which generates a list with 5 extra elements (35 vs 30) is consistently slower.
-
-```output
-Gen: 0.00251ms
-List: 0.00256ms
-List_long: 0.00332ms
-```
-
-Unlike list comprehension, a generator function will normally involve a Python loop. Therefore, their performance is typically slower than list comprehension where much of the computation can be offloaded to the CPython backend.
-
-::::::::::::::::::::::::::::::::::::: callout
-
-The use of `max_val` in the previous example moves the value of `N` from global to local scope.
-
-The Python interpreter checks local scope first when finding variables, therefore this makes accessing local scope variables slightly faster than global scope, this is most visible when a variable is being accessed regularly such as within a loop.
-
-Replacing the use of `max_val` with `N` inside `test_generator()` causes the function to consistently perform a little slower than `test_list()`, whereas before the change it would normally be a little faster.
-
-:::::::::::::::::::::::::::::::::::::::::::::
-
-
 ## Dictionaries
 
 Dictionaries are another fundamental Python data-structure.
@@ -206,7 +140,7 @@ They provide a key-value store, whereby unique keys with no intrinsic order map 
 
 ::::::::::::::::::::::::::::::::::::: callout
 
-> no intrinsic order
+## "no intrinsic order"
 
 Since Python 3.6, the items within a dictionary will iterate in the order that they were inserted. This does not apply to sets.
 
@@ -224,7 +158,7 @@ If that index doesn't already contain another key, the key (and any associated v
 When the index isn't free, a collision strategy is applied. CPython's [dictionary](https://github.com/python/cpython/blob/main/Objects/dictobject.c) and [set](https://github.com/python/cpython/blob/main/Objects/setobject.c) both use a form of open addressing whereby a hash is mutated and corresponding indices probed until a free one is located.
 When the hashing data structure exceeds a given load factor (e.g. 2/3 of indices have been assigned keys), the internal storage must grow. This process requires every item to be re-inserted which can be expensive, but reduces the average probes for a key to be found.
 
-![An visual explanation of linear probing, CPython uses an advanced form of this.](episodes/fig/hash_linear_probing.png){alt='A diagram demonstrating how the keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. This is followed by the insertion of 59, 80 and 39 which require linear probing to be inserted due to collisions.'}
+![An visual explanation of linear probing, CPython uses an advanced form of this.](episodes/fig/hash_linear_probing.png){alt="A diagram demonstrating how the keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. This is followed by the insertion of 59, 80 and 39 which require linear probing to be inserted due to collisions."}
 
 To retrieve or check for the existence of a key within a hashing data structure, the key is hashed again and a process equivalent to insertion is repeated. However, now the key at each index is checked for equality with the one provided. If any empty index is found before an equivalent key, then the key must not be present in the ata structure.
 
@@ -253,7 +187,7 @@ class MyKey:
 dict = {}
 dict[MyKey("one", 2, 3.0)] = 12
 ```
-The only limitation is that two objects where two objects are equal they must have the same hash, hence all member variables which contribute to `__eq__()` should also contribute to `__hash__()` and vice versa (it's fine to have irrelevant or redundant internal members contribute to neither).
+The only limitation is that where two objects are equal they must have the same hash, hence all member variables which contribute to `__eq__()` should also contribute to `__hash__()` and vice versa (it's fine to have irrelevant or redundant internal members contribute to neither).
 
 ## Sets
 
@@ -263,7 +197,7 @@ Sets are used for eliminating duplicates and checking for membership, and will n
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
-## Unique Collection
+## Exercise: Unique Collection
 
 There are four implementations in the below example code, each builds a collection of unique elements from 25,000 where 50% can be expected to be duplicates.
 
@@ -415,7 +349,7 @@ These results are subject to change based on the number of items and the proport
 ::::::::::::::::::::::::::::::::::::: keypoints
 
 - List comprehension should be preferred when constructing lists.
-- Where appropriate, Tuples and Generator functions should be preferred over Python lists.
+- Where appropriate, tuples should be preferred over Python lists.
 - Dictionaries and sets are appropriate for storing a collection of unique data with no intrinsic order for random access.
 - When used appropriately, dictionaries and sets are significantly faster than lists.
 - If searching a list or array is required, it should be sorted and searched using `bisect_left()` (binary search).

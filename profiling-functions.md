@@ -42,10 +42,12 @@ In this episode we will cover the usage of the function-level profiler `cProfile
 
 The call stack keeps track of the active hierarchy of function calls and their associated variables.
 
-As a stack it is last-in first-out (LIFO) data structure.
+As a stack it is a last-in first-out (LIFO) data structure.
+
+![A diagram of a call stack](fig/stack.png){alt="A greyscale diagram showing a (call)stack, containing 5 stack frame. Two additional stack frames are shown outside the stack, one is marked as entering the call stack with an arrow labelled push and the other is marked as exiting the call stack labelled pop."}
 
 When a function is called, a frame to track it's variables and metadata is pushed to the call stack.
-When that same function finishes and returns, it is popped from the stack and variables local the function are dropped.
+When that same function finishes and returns, it is popped from the stack and variables local to the function are dropped.
 
 If you've ever seen a stack overflow error, this refers to the call stack becoming too large.
 These are typically caused by recursive algorithms, whereby a function calls itself, that don't exit early enough.
@@ -71,7 +73,9 @@ def c():
 a()
 ```
 
-Prints the following call stack:
+Here we can see that the printing of the stack trace is called in `c()`, which is called by `b2()`, which is called by `a()`, which is called from global scope.
+
+Hence, this prints the following call stack:
 
 ```output
   File "C:\call_stack.py", line 13, in <module>
@@ -84,7 +88,11 @@ Prints the following call stack:
     traceback.print_stack()
 ```
 
-In this instance the base of the stack is printed first, other visualisations of call stacks may use the reverse ordering.
+The first line states the file and line number where `a()` was called from (the last line of code in the file shown). The second line states that it was the function `a()` that was called, this could include it's arguments. The third line then repeats this pattern, stating the line number where `b2()` was called inside `a()`. This continues until the call to `traceback.print_stack()` is reached.
+
+You may see stack traces like this when an unhandled exception is thrown by your code.
+
+*In this instance the base of the stack has been printed first, other visualisations of call stacks may use the reverse ordering.*
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
@@ -97,7 +105,7 @@ In this instance the base of the stack is printed first, other visualisations of
 It can be called directly within your Python code as an imported package, however it's easier to use it's script interface:
 
 ```sh
-python -m cProfile -o <output file> <script name/arguments>
+python -m cProfile -o <output file> <script name> <arguments>
 ```
 
 For example if you normally run your program as:
@@ -152,6 +160,21 @@ This output can often exceed the terminal's buffer length for large programs and
 
 ## snakeviz
 
+:::::::::::::::::::::::::::::::::: instructor
+
+It can help to run these examples by running `snakeviz` live.
+For the worked example you may wish to also show the code (e.g. in split screen).
+
+Demonstrate features such as moving up/down the call-stack by clicking the boxes and changing the depth and cutoff via the dropdown.
+
+Download pre-generated profile reports:
+
+* snakeviz example screenshot: <a href="files/schelling_out.prof" download>files/schelling_out.prof</a>
+
+* Worked example: <a href="files/snakeviz-worked-example/out.prof" download>files/snakeviz-worked-example/out.prof</a>
+
+:::::::::::::::::::::::::::::::::::::::::::::
+
 <!-- what is snakeviz/how is it installed-->
 [`snakeviz`](https://jiffyclub.github.io/snakeviz/) is a web browser based graphical viewer for `cProfile` output files.
 <!--TODO is covering pip here redundant as it's covered in the user setup file? -->
@@ -166,6 +189,7 @@ Once installed, you can visualise a `cProfile` output file such as `out.prof` vi
 ```sh
 python -m snakeviz out.prof
 ```
+
 This should open your web browser displaying a page similar to that below.
 
 ![An example of the default 'icicle' visualisation provided by `snakeviz`.](episodes/fig/snakeviz-home.png){alt='A web page, with a central diagram representing a call-stack, with the root at the top and the horizontal axis representing the duration of each call. Below this diagram is the top of a table detailing the statistics of individual methods.'}
@@ -185,22 +209,9 @@ As you hover each box, information to the left of the diagram updates specifying
 
 ## Worked Example
 
-::::::::::::::::::::::::::::::::::::: callout
-
-## Follow Along
-
-Download the <a href="files/snakeviz-worked-example/example.py" download>Python source for the example</a> or <a href="files/snakeviz-worked-example/out.prof" download>`cProfile` output file</a> and follow along with the worked example on your own machine.
-
-```sh
-python -m cProfile -o out.prof example.py
-python -m snakeviz out.prof
-```
-
 :::::::::::::::::::::::::::::::::: instructor
 
-It can help to run the worked example by executing `snakeviz` live and explaining the visualisation with the code visible in split screen.
-
-:::::::::::::::::::::::::::::::::::::::::::::
+Demonstrate this!
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
@@ -242,6 +253,19 @@ All of the methods except for `b_1()` call `time.sleep()`, this is used to provi
 * `b_1()` calls `c_1()` x1 and `c_2()` x1
 * `c_2()` calls `d_1()`
 
+::::::::::::::::::::::::::::::::::::: callout
+
+## Follow Along
+
+Download the <a href="files/snakeviz-worked-example/example.py" download>Python source for the example</a> or <a href="files/snakeviz-worked-example/out.prof" download>`cProfile` output file</a> and follow along with the worked example on your own machine.
+
+```sh
+python -m cProfile -o out.prof example.py
+python -m snakeviz out.prof
+```
+
+:::::::::::::::::::::::::::::::::::::::::::::
+
 <!-- TODO: Alt text here is redundant? -->
 ![An icicle visualisation provided by `snakeviz` for the above Python code.](episodes/fig/snakeviz-worked-example-icicle.png){alt='The snakeviz icicle visualisation for the worked example Python code.'}
 
@@ -282,7 +306,7 @@ This provides the same information as "Icicle", however the rows are instead cir
 The sunburst visualisation displays less text on the boxes, so it can be harder to interpret. However, it increases the visibility of boxes further from the root call.
 
 <!-- TODO: Alt text here is redundant? -->
-![An sunburst visualisation provided by `snakeviz` for the worked example's Python code.](episodes/fig/snakeviz-worked-example-sunburst.png){alt='The snakeviz sunburst visualisation for the worked example Python code.'}
+![An sunburst visualisation provided by `snakeviz` for the worked example's Python code.](episodes/fig/snakeviz-worked-example-sunburst.png){alt="The snakeviz sunburst visualisation for the worked example Python code." width=50%}
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
@@ -290,6 +314,24 @@ The sunburst visualisation displays less text on the boxes, so it can be harder 
 
 The following exercises allow you to review your understanding of what has been covered in this episode.
 
+:::::::::::::::::::::::::::::::::: instructor
+
+Arguments 1-9 passed to `travellingsales.py` should execute relatively fast (less than a minute)
+
+This will be slower via the profiler, and is likely to vary on different hardware.
+
+Larger values should be avoided.
+
+Download the set of profiles for arguments 1-10, these can be opened by passing the directory to `snakeviz`.
+
+
+* <a href="files/travelling-sales/profiles.zip" download>files/travelling-sales/profiles</a>
+
+```sh
+python -m snakeviz .
+```
+
+:::::::::::::::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::: challenge
 
 ## Exercise 1: Travelling Salesperson
@@ -315,7 +357,7 @@ The value of `cities` should be a positive integer, this algorithm has poor scal
 
 The hotspot only becomes visible when an argument of `5` or greater is passed.
 
-Here it `distance()` (from `travellingsales.py:11`) becomes the largest box (similarly it's parent in the call-stack `total_distance()`) showing that it scales poorly with the number of cities. With 5 cities, `distance()` has a cumulative time of `~35%` the runtime, this increases to `~60%` with 9 cities.
+You should see that `distance()` (from `travellingsales.py:11`) becomes the largest box (similarly it's parent in the call-stack `total_distance()`) showing that it scales poorly with the number of cities. With 5 cities, `distance()` has a cumulative time of `~35%` the runtime, this increases to `~60%` with 9 cities.
 
 Other boxes within the diagram correspond to the initialisation of imports, or initialisation of cities. These have constant or linear scaling, so their cost barely increases with the number of cities.
 
@@ -324,11 +366,18 @@ Other boxes within the diagram correspond to the initialisation of imports, or i
 :::::::::::::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::::::::::::
 
+:::::::::::::::::::::::::::::::::: instructor
+
+The default configuration of the Predator Prey model takes around 10 seconds to run, it may be slower on other hardware.
+
+:::::::::::::::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::: challenge
 
 ## Exercise 2: Predator Prey
 
-Download and profile <a href="files/pred-prey/predprey.py" download>the Python predator prey model</a>, try to locate the function call(s) where the majority of execution time is being spent. 
+Download and profile <a href="files/pred-prey/predprey.py" download>the Python predator prey model</a>, try to locate the function call(s) where the majority of execution time is being spent
+
+*This exercise uses the packages `numpy` and `matplotlib`, they can be installed via `pip install numpy matplotlib`.* 
 
 > The predator prey model is a simple agent-based model of population dynamics. Predators and prey co-exist in a common environment and compete over finite resources. 
 >
@@ -352,7 +401,7 @@ If the table is ordered by `ncalls`, it can be identified as the joint 4th most 
 
 If you checked `predprey_out.png` (shown below), you should notice that there are significantly more `Grass` agents than `Predators` or `Prey`.
 
-![`predprey_out.png` as produced by the default configuration of `predprey.py`.](episodes/fig/predprey_out.png){alt='A line graph plotting population over time through 250 steps of the pred prey model. Grass/20, shown in green, has a brief dip in the first 30 steps, but recovers holding steady at approximately 240 (4800 agents). Prey, shown in blue, starts at 200, quickly drops to around 185, before levelling off for steps and then slowly declining to a final value of 50. The data for predators, shown in red, has significantly more noise. There are 50 predators to begin, this rises briefly before falling to around 10, from here it noisily grows to around 70 by step 250 with several larger declines during the growth.'}
+![`predprey_out.png` as produced by the default configuration of `predprey.py`.](episodes/fig/predprey_out.png){alt="A line graph plotting population over time through 250 steps of the pred prey model. Grass/20, shown in green, has a brief dip in the first 30 steps, but recovers holding steady at approximately 240 (4800 agents). Prey, shown in blue, starts at 200, quickly drops to around 185, before levelling off for steps and then slowly declining to a final value of 50. The data for predators, shown in red, has significantly more noise. There are 50 predators to begin, this rises briefly before falling to around 10, from here it noisily grows to around 70 by step 250 with several larger declines during the growth."}
 
 Similarly, the `Grass::eaten()` has a `percall` time is inline with other agent functions such as `Prey::flock()` (from `predprey.py:67`).
 
@@ -366,7 +415,7 @@ Maybe we could investigate this further with line profiling!
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
-- A python program can be function level profiled with `cProfile` via `python -m cProfile -o <output file> <script name/arguments>`.
+- A python program can be function level profiled with `cProfile` via `python -m cProfile -o <output file> <script name> <arguments>`.
 - The output file from `cProfile` can be visualised with `snakeviz` via `python -m snakeviz <output file>`.
 - Function level profiling output displays the nested call hierarchy, listing both the cumulative and total minus sub functions time.
 
