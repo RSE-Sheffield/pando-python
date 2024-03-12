@@ -6,518 +6,502 @@
 <title>Performance Profiling &amp; Optimisation (Python): All Images</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="assets/styles.css">
-<script src="assets/scripts.js" type="text/javascript"></script><!-- mathjax --><script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      config: ["MMLorHTML.js"],
-      jax: ["input/TeX","input/MathML","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
-      extensions: ["tex2jax.js","mml2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
-      TeX: {
-        extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
-      },
-      tex2jax: {
-        inlineMath: [['\\(', '\\)']],
-        displayMath: [ ['$$','$$'], ['\\[', '\\]'] ],
-        processEscapes: true
-      }
-    });
+<script src="assets/scripts.js" type="text/javascript"></script><!-- mathjax --><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      config: ["MMLorHTML.js"],
+      jax: ["input/TeX","input/MathML","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
+      extensions: ["tex2jax.js","mml2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+      TeX: {
+        extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+      },
+      tex2jax: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [ ['$$','$$'], ['\\[', '\\]'] ],
+        processEscapes: true
+      }
+    });
     </script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><!-- Responsive Favicon for The Carpentries --><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" href="assets/images/UOSSheild_Primary_Violet_RGB.ico" sizes="any">
-<link rel="icon" href="assets/images/UOSSheild_Primary_Violet_RGB.svg" type="image/svg+xml">
 <link rel="manifest" href="site.webmanifest">
 <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
 </head>
-<body>
-    <header id="top" class="navbar navbar-expand-md navbar-light bg-white top-nav incubator"><a class="visually-hidden-focusable skip-link" href="#main-content">Skip to main content</a>
-  <div class="container-fluid top-nav-container">
-    <div class="col-md-6">
-      <div class="large-logo">      
-        <a href="https://www.sheffield.ac.uk" class="external-link">
-          <img alt="University of Sheffield" src="assets/images/UOSLogo_Primary_Violet_RGB.svg"></a>
-        
-        <abbr class="badge badge-light" title="This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught." style="background-color: #FF4955; border-radius: 5px">
-          <a href="https://cdh.carpentries.org/the-lesson-life-cycle.html#early-development-pre-alpha-through-alpha" class="external-link alert-link" style="color: #000">
-            <i aria-hidden="true" class="icon" data-feather="alert-octagon" style="border-radius: 5px"></i>
-            Pre-Alpha
-          </a>
-          <span class="visually-hidden">This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.</span>
-        </abbr>
-        
-      </div>
-    </div>
-    <div class="selector-container">
-      
-      
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle bordered-button" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
-          <i aria-hidden="true" class="icon" data-feather="eye"></i> Learner View <i data-feather="chevron-down"></i>
-        </button>
+<body>
+    <header id="top" class="navbar navbar-expand-md navbar-light bg-white top-nav incubator"><a class="visually-hidden-focusable skip-link" href="#main-content">Skip to main content</a>
+  <div class="container-fluid top-nav-container">
+    <div class="col-md-6">
+      <div class="large-logo">
+        <img alt="Carpentries Incubator" src="assets/images/incubator-logo.svg"><abbr class="badge badge-light" title="This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught." style="background-color: #FF4955; border-radius: 5px">
+          <a href="https://cdh.carpentries.org/the-lesson-life-cycle.html#early-development-pre-alpha-through-alpha" class="external-link alert-link" style="color: #000">
+            <i aria-hidden="true" class="icon" data-feather="alert-octagon" style="border-radius: 5px"></i>
+            Pre-Alpha
+          </a>
+          <span class="visually-hidden">This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.</span>
+        </abbr>
+        
+      </div>
+    </div>
+    <div class="selector-container">
+      
+      
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle bordered-button" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
+          <i aria-hidden="true" class="icon" data-feather="eye"></i> Learner View <i data-feather="chevron-down"></i>
+        </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-<li><button class="dropdown-item" type="button" onclick="window.location.href='instructor/images.html';">Instructor View</button></li>
+<li><button class="dropdown-item" type="button" onclick="window.location.href='instructor/images.html';">Instructor View</button></li>
         </ul>
-</div>
-    </div>
-  </div>
-  <hr></header><nav class="navbar navbar-expand-xl navbar-light bg-white bottom-nav incubator" aria-label="Main Navigation"><div class="container-fluid nav-container">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle Navigation">
-      <span class="navbar-toggler-icon"></span>
-      <span class="menu-title">Menu</span>
-    </button>
-    <div class="nav-logo">
-      <img class="small-logo" alt="University of Sheffield" src="assets/images/UOSSheild_Primary_Violet_RGB.svg">
-</div>
-    <div class="lesson-title-md">
-      Performance Profiling &amp; Optimisation (Python)
-    </div>
-    <div class="search-icon-sm">
-      <!-- TODO: do not show until we have search
-        <i role="img" aria-label="search button" data-feather="search"></i>
-      -->
-    </div>
-    <div class="desktop-nav">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-<li class="nav-item">
-          <span class="lesson-title">
-            Performance Profiling &amp; Optimisation (Python)
-          </span>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="key-points.html">Key Points</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="reference.html#glossary">Glossary</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="profiles.html">Learner Profiles</a>
-        </li>
-        <li class="nav-item dropdown">
-          <button class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            More <i data-feather="chevron-down"></i>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-<li><a class="dropdown-item" href="acknowledgements.html">Acknowledgements</a></li>
-          </ul>
-</li>
-      </ul>
-</div>
-    <form class="d-flex col-md-2 search-form">
-      <fieldset disabled>
-<input class="form-control me-2 searchbox" type="search" placeholder="Search" aria-label="Search"><button class="btn btn-outline-success tablet-search-button" type="submit">
-          <i class="search-icon" data-feather="search" role="img" aria-label="search button"></i>
-        </button>
-      </fieldset>
-</form>
+</div>
+    </div>
   </div>
-<!--/div.container-fluid -->
-</nav><div class="col-md-12 mobile-title">
-  Performance Profiling &amp; Optimisation (Python)
-</div>
-
-<aside class="col-md-12 lesson-progress"><div style="width: %" class="percentage">
-    %
-  </div>
-  <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: %" aria-valuenow="" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
-    </div>
-  </div>
-</aside><div class="container">
-      <div class="row">
-        <!-- START: inst/pkgdown/templates/navbar.html -->
-<div id="sidebar-col" class="col-lg-4">
-  <div id="sidebar" class="sidebar">
-      <nav aria-labelledby="flush-headingEleven"><button role="button" aria-label="close menu" alt="close menu" aria-expanded="true" aria-controls="sidebar" class="collapse-toggle" data-collapse="Collapse " data-episodes="Episodes ">
-          <i class="search-icon" data-feather="x" role="img"></i>
-        </button>
-        <div class="sidebar-inner">
-          <div class="row mobile-row">
-            <div class="col">
-              <div class="sidenav-view-selector">
-                <div class="accordion accordion-flush" id="accordionFlush9">
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingNine">
-                      <button class="accordion-button collapsed" id="instructor" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
-                        <i id="eye" aria-hidden="true" class="icon" data-feather="eye"></i> Learner View
-                      </button>
-                    </h2>
-                    <div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingNine" data-bs-parent="#accordionFlush2">
-                      <div class="accordion-body">
-                        <a href="instructor/images.html">Instructor View</a>
-                      </div>
-                    </div>
+  <hr></header><nav class="navbar navbar-expand-xl navbar-light bg-white bottom-nav incubator" aria-label="Main Navigation"><div class="container-fluid nav-container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle Navigation">
+      <span class="navbar-toggler-icon"></span>
+      <span class="menu-title">Menu</span>
+    </button>
+    <div class="nav-logo">
+      <img class="small-logo" alt="Carpentries Incubator" src="assets/images/incubator-logo-sm.svg">
+</div>
+    <div class="lesson-title-md">
+      Performance Profiling &amp; Optimisation (Python)
+    </div>
+    <div class="search-icon-sm">
+      <!-- TODO: do not show until we have search
+        <i role="img" aria-label="search button" data-feather="search"></i>
+      -->
+    </div>
+    <div class="desktop-nav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<li class="nav-item">
+          <span class="lesson-title">
+            Performance Profiling &amp; Optimisation (Python)
+          </span>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="key-points.html">Key Points</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="reference.html#glossary">Glossary</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="profiles.html">Learner Profiles</a>
+        </li>
+        <li class="nav-item dropdown">
+          <button class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            More <i data-feather="chevron-down"></i>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+<li><a class="dropdown-item" href="acknowledgements.html">Acknowledgements</a></li>
+          </ul>
+</li>
+      </ul>
+</div>
+    <form class="d-flex col-md-2 search-form">
+      <fieldset disabled>
+<input class="form-control me-2 searchbox" type="search" placeholder="Search" aria-label="Search"><button class="btn btn-outline-success tablet-search-button" type="submit">
+          <i class="search-icon" data-feather="search" role="img" aria-label="search button"></i>
+        </button>
+      </fieldset>
+</form>
+  </div>
+<!--/div.container-fluid -->
+</nav><div class="col-md-12 mobile-title">
+  Performance Profiling &amp; Optimisation (Python)
+</div>
+
+<aside class="col-md-12 lesson-progress"><div style="width: %" class="percentage">
+    %
+  </div>
+  <div class="progress incubator">
+    <div class="progress-bar incubator" role="progressbar" style="width: %" aria-valuenow="" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    </div>
+  </div>
+</aside><div class="container">
+      <div class="row">
+        <!-- START: inst/pkgdown/templates/navbar.html -->
+<div id="sidebar-col" class="col-lg-4">
+  <div id="sidebar" class="sidebar">
+      <nav aria-labelledby="flush-headingEleven"><button role="button" aria-label="close menu" alt="close menu" aria-expanded="true" aria-controls="sidebar" class="collapse-toggle" data-collapse="Collapse " data-episodes="Episodes ">
+          <i class="search-icon" data-feather="x" role="img"></i>
+        </button>
+        <div class="sidebar-inner">
+          <div class="row mobile-row">
+            <div class="col">
+              <div class="sidenav-view-selector">
+                <div class="accordion accordion-flush" id="accordionFlush9">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingNine">
+                      <button class="accordion-button collapsed" id="instructor" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
+                        <i id="eye" aria-hidden="true" class="icon" data-feather="eye"></i> Learner View
+                      </button>
+                    </h2>
+                    <div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingNine" data-bs-parent="#accordionFlush2">
+                      <div class="accordion-body">
+                        <a href="instructor/images.html">Instructor View</a>
+                      </div>
+                    </div>
                   </div>
-<!--/div.accordion-item-->
+<!--/div.accordion-item-->
                 </div>
-<!--/div.accordion-flush-->
+<!--/div.accordion-flush-->
               </div>
-<!--div.sidenav-view-selector -->
+<!--div.sidenav-view-selector -->
             </div>
-<!--/div.col -->
-      
+<!--/div.col -->
+      
             <hr>
 </div>
-<!--/div.mobile-row -->
-
-          <div class="accordion accordion-flush" id="accordionFlush11">
-            <div class="accordion-item">
-
-              <button id="chapters" class="accordion-button show" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEleven" aria-expanded="false" aria-controls="flush-collapseEleven">
-                <h2 class="accordion-header chapters" id="flush-headingEleven">
-                  EPISODES
-                </h2>
-              </button>
-              <div id="flush-collapseEleven" class="accordion-collapse show collapse" aria-labelledby="flush-headingEleven" data-bs-parent="#accordionFlush11">
-
-                <div class="accordion-body">
-                  <div class="accordion accordion-flush" id="accordionFlush1">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading1">
-        <a href="index.html">Summary and Setup</a>
+<!--/div.mobile-row -->
+
+          <div class="accordion accordion-flush" id="accordionFlush11">
+            <div class="accordion-item">
+
+              <button id="chapters" class="accordion-button show" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEleven" aria-expanded="false" aria-controls="flush-collapseEleven">
+                <h2 class="accordion-header chapters" id="flush-headingEleven">
+                  EPISODES
+                </h2>
+              </button>
+              <div id="flush-collapseEleven" class="accordion-collapse show collapse" aria-labelledby="flush-headingEleven" data-bs-parent="#accordionFlush11">
+
+                <div class="accordion-body">
+                  <div class="accordion accordion-flush" id="accordionFlush1">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading1">
+        <a href="index.html">Summary and Setup</a>
     </div>
-<!--/div.accordion-header-->
-        
+<!--/div.accordion-header-->
+        
   </div>
-<!--/div.accordion-item-->
+<!--/div.accordion-item-->
 </div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush2">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading2">
-        <a href="profiling-introduction.html">1. Introduction to Profiling</a>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush2">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading2">
+        <a href="profiling-introduction.html">1. Introduction to Profiling</a>
     </div>
-<!--/div.accordion-header-->
-        
+<!--/div.accordion-header-->
+        
   </div>
-<!--/div.accordion-item-->
+<!--/div.accordion-item-->
 </div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush3">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading3">
-        <a href="profiling-functions.html">2. Function Level Profiling</a>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading3">
+        <a href="profiling-functions.html">2. Function Level Profiling</a>
     </div>
-<!--/div.accordion-header-->
-        
+<!--/div.accordion-header-->
+        
   </div>
-<!--/div.accordion-item-->
+<!--/div.accordion-item-->
 </div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush4">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading4">
-        <a href="profiling-lines.html">3. Line Level Profiling</a>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush4">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading4">
+        <a href="profiling-lines.html">3. Line Level Profiling</a>
     </div>
-<!--/div.accordion-header-->
-        
+<!--/div.accordion-header-->
+        
   </div>
-<!--/div.accordion-item-->
+<!--/div.accordion-item-->
 </div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush5">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading5">
-        <a href="profiling-conclusion.html">4. Profiling Conclusion</a>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush5">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading5">
+        <a href="profiling-conclusion.html">4. Profiling Conclusion</a>
     </div>
-<!--/div.accordion-header-->
-        
+<!--/div.accordion-header-->
+        
   </div>
-<!--/div.accordion-item-->
+<!--/div.accordion-item-->
 </div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush6">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading6">
-        <a href="optimisation-introduction.html">5. Introduction to Optimisation</a>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush6">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading6">
+        <a href="optimisation-introduction.html">5. Introduction to Optimisation</a>
     </div>
-<!--/div.accordion-header-->
-        
+<!--/div.accordion-header-->
+        
   </div>
-<!--/div.accordion-item-->
+<!--/div.accordion-item-->
 </div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush7">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading7">
-        <a href="optimisation-data-structures-algorithms.html">6. Data Structures &amp; Algorithms</a>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush7">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading7">
+        <a href="optimisation-data-structures-algorithms.html">6. Data Structures &amp; Algorithms</a>
     </div>
-<!--/div.accordion-header-->
-        
+<!--/div.accordion-header-->
+        
   </div>
-<!--/div.accordion-item-->
+<!--/div.accordion-item-->
 </div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush8">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading8">
-        <a href="optimisation-minimise-python.html">7. Understanding Python (NumPy/Pandas)</a>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush8">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading8">
+        <a href="optimisation-minimise-python.html">7. Understanding Python (NumPy/Pandas)</a>
     </div>
-<!--/div.accordion-header-->
-        
+<!--/div.accordion-header-->
+        
   </div>
-<!--/div.accordion-item-->
+<!--/div.accordion-item-->
 </div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush9">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading9">
-        <a href="optimisation-use-latest.html">8. Keep Python &amp; Packages up to Date</a>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush9">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading9">
+        <a href="optimisation-use-latest.html">8. Keep Python &amp; Packages up to Date</a>
     </div>
-<!--/div.accordion-header-->
-        
+<!--/div.accordion-header-->
+        
   </div>
-<!--/div.accordion-item-->
+<!--/div.accordion-item-->
 </div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush10">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading10">
-        <a href="optimisation-memory.html">9. Understanding Memory</a>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush10">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading10">
+        <a href="optimisation-memory.html">9. Understanding Memory</a>
     </div>
-<!--/div.accordion-header-->
-        
+<!--/div.accordion-header-->
+        
   </div>
-<!--/div.accordion-item-->
+<!--/div.accordion-item-->
 </div>
-<!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush11">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading11">
-        <a href="optimisation-conclusion.html">10. Optimisation Conclusion</a>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush11">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading11">
+        <a href="optimisation-conclusion.html">10. Optimisation Conclusion</a>
     </div>
-<!--/div.accordion-header-->
-        
+<!--/div.accordion-header-->
+        
   </div>
-<!--/div.accordion-item-->
+<!--/div.accordion-item-->
 </div>
-<!--/div.accordion-flush-->
-
-                </div>
-              </div>
-            </div>
-
+<!--/div.accordion-flush-->
+
+                </div>
+              </div>
+            </div>
+
             <hr class="half-width">
-<div class="accordion accordion-flush resources" id="accordionFlush12">
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingTwelve">
-                  <button class="accordion-button collapsed" id="resources" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
-                    RESOURCES
-                  </button>
-                </h2>
-                <div id="flush-collapseTwelve" class="accordion-collapse collapse" aria-labelledby="flush-headingTwelve" data-bs-parent="#accordionFlush12">
-                  <div class="accordion-body">
+<div class="accordion accordion-flush resources" id="accordionFlush12">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwelve">
+                  <button class="accordion-button collapsed" id="resources" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
+                    RESOURCES
+                  </button>
+                </h2>
+                <div id="flush-collapseTwelve" class="accordion-collapse collapse" aria-labelledby="flush-headingTwelve" data-bs-parent="#accordionFlush12">
+                  <div class="accordion-body">
                     <ul>
-<li>
-                        <a href="key-points.html">Key Points</a>
-                      </li>
-                      <li>
-                        <a href="reference.html#glossary">Glossary</a>
-                      </li>
-                      <li>
-                        <a href="profiles.html">Learner Profiles</a>
-                      </li>
-                      <li><a href="acknowledgements.html">Acknowledgements</a></li>
+<li>
+                        <a href="key-points.html">Key Points</a>
+                      </li>
+                      <li>
+                        <a href="reference.html#glossary">Glossary</a>
+                      </li>
+                      <li>
+                        <a href="profiles.html">Learner Profiles</a>
+                      </li>
+                      <li><a href="acknowledgements.html">Acknowledgements</a></li>
                     </ul>
-</div>
-                </div>
-              </div>
-            </div>
+</div>
+                </div>
+              </div>
+            </div>
             <hr class="half-width resources">
-<a href="aio.html">See all in one page</a>
-            
-
+<a href="aio.html">See all in one page</a>
+            
+
             <hr class="d-none d-sm-block d-md-none">
-<div class="d-grid gap-1">
-            
-            </div>
+<div class="d-grid gap-1">
+            
+            </div>
           </div>
-<!-- /div.accordion -->
+<!-- /div.accordion -->
         </div>
-<!-- /div.sidebar-inner -->
+<!-- /div.sidebar-inner -->
       </nav>
 </div>
-<!-- /div.sidebar -->
+<!-- /div.sidebar -->
   </div>
-<!-- /div.sidebar-col -->
-<!-- END:   inst/pkgdown/templates/navbar.html-->
-
-        <!-- START: inst/pkgdown/templates/content-extra.html -->
-  <div class="col-xl-8 col-lg-12 primary-content">
-    <main id="main-content" class="main-content"><div class="container lesson-content">
-        
-        
+<!-- /div.sidebar-col -->
+<!-- END:   inst/pkgdown/templates/navbar.html-->
+
+        <!-- START: inst/pkgdown/templates/content-extra.html -->
+  <div class="col-xl-8 col-lg-12 primary-content">
+    <main id="main-content" class="main-content"><div class="container lesson-content">
+        
+        
 <section id="profiling-introduction"><h2 class="section-heading"><a href="profiling-introduction.html">Introduction to Profiling</a></h2>
 <hr class="half-width">
 <h3 id="profiling-introduction-figure-1">Figure 1</h3>
-<p aria-hidden="true">Image 1 of 1: 'A viztracer timeline of the execution of the Pred-Prey exercise from later in the course. There is a shallow repeating pattern on the left side which corresponds to model steps, the right side instead has a range of 'icicles' which correspond to the deep call hierarchies of matplotlib generating a graph.'</p>
-<figure><img src="fig/viztracer-example.png" alt="A viztracer timeline of the execution of the Pred-Prey exercise from later in the course. There is a shallow repeating pattern on the left side which corresponds to model steps, the right side instead has a range of 'icicles' which correspond to the deep call hierarchies of matplotlib generating a graph." class="figure mx-auto d-block"><div class="figcaption">An example timeline visualisation provided by
-<code>viztracer</code>/<code>vizviewer</code>.</div>
+<p aria-hidden="true">Image 1 of 1: ‘A viztracer timeline of the execution of the Pred-Prey exercise from later in the course. There is a shallow repeating pattern on the left side which corresponds to model steps, the right side instead has a range of 'icicles' which correspond to the deep call hierarchies of matplotlib generating a graph.’</p>
+<figure><img src="fig/viztracer-example.png" alt="A viztracer timeline of the execution of the Pred-Prey exercise from later in the course. There is a shallow repeating pattern on the left side which corresponds to model steps, the right side instead has a range of 'icicles' which correspond to the deep call hierarchies of matplotlib generating a graph." class="figure mx-auto d-block"><div class="figcaption">An example timeline visualisation provided by
+<code>viztracer</code>/<code>vizviewer</code>.</div>
 </figure><hr></section><section id="profiling-functions"><h2 class="section-heading"><a href="profiling-functions.html">Function Level Profiling</a></h2>
 <hr class="half-width">
 <h3 id="profiling-functions-figure-1">Figure 1</h3>
-<p aria-hidden="true">Image 1 of 1: 'A greyscale diagram showing a (call)stack, containing 5 stack frame. Two additional stack frames are shown outside the stack, one is marked as entering the call stack with an arrow labelled push and the other is marked as exiting the call stack labelled pop.'</p>
-<figure><img src="fig/stack.png" alt="A greyscale diagram showing a (call)stack, containing 5 stack frame. Two additional stack frames are shown outside the stack, one is marked as entering the call stack with an arrow labelled push and the other is marked as exiting the call stack labelled pop." class="figure mx-auto d-block"><div class="figcaption">A diagram of a call stack</div>
+<p aria-hidden="true">Image 1 of 1: ‘A greyscale diagram showing a (call)stack, containing 5 stack frame. Two additional stack frames are shown outside the stack, one is marked as entering the call stack with an arrow labelled push and the other is marked as exiting the call stack labelled pop.’</p>
+<figure><img src="fig/stack.png" alt="A greyscale diagram showing a (call)stack, containing 5 stack frame. Two additional stack frames are shown outside the stack, one is marked as entering the call stack with an arrow labelled push and the other is marked as exiting the call stack labelled pop." class="figure mx-auto d-block"><div class="figcaption">A diagram of a call stack</div>
 </figure><hr>
 <h3 id="profiling-functions-figure-2">Figure 2</h3>
-<p aria-hidden="true">Image 1 of 1: 'A web page, with a central diagram representing a call-stack, with the root at the top and the horizontal axis representing the duration of each call. Below this diagram is the top of a table detailing the statistics of individual methods.'</p>
-<figure><img src="fig/snakeviz-home.png" alt="A web page, with a central diagram representing a call-stack, with the root at the top and the horizontal axis representing the duration of each call. Below this diagram is the top of a table detailing the statistics of individual methods." class="figure mx-auto d-block"><div class="figcaption">An example of the default ‘icicle’ visualisation
-provided by <code>snakeviz</code>.</div>
+<p aria-hidden="true">Image 1 of 1: ‘A web page, with a central diagram representing a call-stack, with the root at the top and the horizontal axis representing the duration of each call. Below this diagram is the top of a table detailing the statistics of individual methods.’</p>
+<figure><img src="fig/snakeviz-home.png" alt="A web page, with a central diagram representing a call-stack, with the root at the top and the horizontal axis representing the duration of each call. Below this diagram is the top of a table detailing the statistics of individual methods." class="figure mx-auto d-block"><div class="figcaption">An example of the default ‘icicle’ visualisation
+provided by <code>snakeviz</code>.</div>
 </figure><hr>
 <h3 id="profiling-functions-figure-3">Figure 3</h3>
-<p aria-hidden="true">Image 1 of 1: 'The snakeviz icicle visualisation for the worked example Python code.'</p>
-<figure><img src="fig/snakeviz-worked-example-icicle.png" alt="The snakeviz icicle visualisation for the worked example Python code." class="figure mx-auto d-block"><div class="figcaption">An icicle visualisation provided by
-<code>snakeviz</code> for the above Python code.</div>
+<p aria-hidden="true">Image 1 of 1: ‘The snakeviz icicle visualisation for the worked example Python code.’</p>
+<figure><img src="fig/snakeviz-worked-example-icicle.png" alt="The snakeviz icicle visualisation for the worked example Python code." class="figure mx-auto d-block"><div class="figcaption">An icicle visualisation provided by
+<code>snakeviz</code> for the above Python code.</div>
 </figure><hr>
 <h3 id="profiling-functions-figure-4">Figure 4</h3>
-<p aria-hidden="true">Image 1 of 1: 'The snakeviz sunburst visualisation for the worked example Python code.'</p>
-<figure><img src="fig/snakeviz-worked-example-sunburst.png" style="width:50.0%" alt="The snakeviz sunburst visualisation for the worked example Python code." class="figure mx-auto d-block"><div class="figcaption">An sunburst visualisation provided by
-<code>snakeviz</code> for the worked example’s Python code.</div>
+<p aria-hidden="true">Image 1 of 1: ‘The snakeviz sunburst visualisation for the worked example Python code.’</p>
+<figure><img src="fig/snakeviz-worked-example-sunburst.png" style="width:50.0%" alt="The snakeviz sunburst visualisation for the worked example Python code." class="figure mx-auto d-block"><div class="figcaption">An sunburst visualisation provided by
+<code>snakeviz</code> for the worked example’s Python code.</div>
 </figure><hr>
 <h3 id="profiling-functions-figure-5">Figure 5</h3>
-<p aria-hidden="true">Image 1 of 1: 'The top 9 rows of the table shown by snakeviz when profiling predprey.py. The top row shows that predprey.py:278(eaten) was called 1,250,000 times, taking a total time of 8 seconds. The table is ordered in descending total time, with the next row taking a mere 0.74 seconds.'</p>
-<figure><img src="fig/snakeviz-predprey-table.png" alt="The top 9 rows of the table shown by snakeviz when profiling predprey.py. The top row shows that predprey.py:278(eaten) was called 1,250,000 times, taking a total time of 8 seconds. The table is ordered in descending total time, with the next row taking a mere 0.74 seconds." class="figure mx-auto d-block"><div class="figcaption">The top of the table shown by snakeviz.</div>
+<p aria-hidden="true">Image 1 of 1: ‘The top 9 rows of the table shown by snakeviz when profiling predprey.py. The top row shows that predprey.py:278(eaten) was called 1,250,000 times, taking a total time of 8 seconds. The table is ordered in descending total time, with the next row taking a mere 0.74 seconds.’</p>
+<figure><img src="fig/snakeviz-predprey-table.png" alt="The top 9 rows of the table shown by snakeviz when profiling predprey.py. The top row shows that predprey.py:278(eaten) was called 1,250,000 times, taking a total time of 8 seconds. The table is ordered in descending total time, with the next row taking a mere 0.74 seconds." class="figure mx-auto d-block"><div class="figcaption">The top of the table shown by snakeviz.</div>
 </figure><hr>
 <h3 id="profiling-functions-figure-6">Figure 6</h3>
-<p aria-hidden="true">Image 1 of 1: 'A line graph plotting population over time through 250 steps of the pred prey model. Grass/20, shown in green, has a brief dip in the first 30 steps, but recovers holding steady at approximately 240 (4800 agents). Prey, shown in blue, starts at 200, quickly drops to around 185, before levelling off for steps and then slowly declining to a final value of 50. The data for predators, shown in red, has significantly more noise. There are 50 predators to begin, this rises briefly before falling to around 10, from here it noisily grows to around 70 by step 250 with several larger declines during the growth.'</p>
-<figure><img src="fig/predprey_out.png" alt="A line graph plotting population over time through 250 steps of the pred prey model. Grass/20, shown in green, has a brief dip in the first 30 steps, but recovers holding steady at approximately 240 (4800 agents). Prey, shown in blue, starts at 200, quickly drops to around 185, before levelling off for steps and then slowly declining to a final value of 50. The data for predators, shown in red, has significantly more noise. There are 50 predators to begin, this rises briefly before falling to around 10, from here it noisily grows to around 70 by step 250 with several larger declines during the growth." class="figure mx-auto d-block"><div class="figcaption">
-<code>predprey_out.png</code> as produced by the
-default configuration of <code>predprey.py</code>.</div>
+<p aria-hidden="true">Image 1 of 1: ‘A line graph plotting population over time through 250 steps of the pred prey model. Grass/20, shown in green, has a brief dip in the first 30 steps, but recovers holding steady at approximately 240 (4800 agents). Prey, shown in blue, starts at 200, quickly drops to around 185, before levelling off for steps and then slowly declining to a final value of 50. The data for predators, shown in red, has significantly more noise. There are 50 predators to begin, this rises briefly before falling to around 10, from here it noisily grows to around 70 by step 250 with several larger declines during the growth.’</p>
+<figure><img src="fig/predprey_out.png" alt="A line graph plotting population over time through 250 steps of the pred prey model. Grass/20, shown in green, has a brief dip in the first 30 steps, but recovers holding steady at approximately 240 (4800 agents). Prey, shown in blue, starts at 200, quickly drops to around 185, before levelling off for steps and then slowly declining to a final value of 50. The data for predators, shown in red, has significantly more noise. There are 50 predators to begin, this rises briefly before falling to around 10, from here it noisily grows to around 70 by step 250 with several larger declines during the growth." class="figure mx-auto d-block"><div class="figcaption">
+<code>predprey_out.png</code> as produced by the
+default configuration of <code>predprey.py</code>.</div>
 </figure><hr></section><section id="profiling-lines"><h2 class="section-heading"><a href="profiling-lines.html">Line Level Profiling</a></h2>
 <hr class="half-width">
 <h3 id="profiling-lines-figure-1">Figure 1</h3>
-<p aria-hidden="true">Image 1 of 1: 'A screenshot of the `line_profiler` output from the previous code block, where the code within the line contents column has basic highlighting.'</p>
-<figure><img src="fig/line_profiler-worked-example.png" alt="A screenshot of the `line_profiler` output from the previous code block, where the code within the line contents column has basic highlighting." class="figure mx-auto d-block"><div class="figcaption">Rich (highlighted) console output provided by
-<code>line_profiler</code> for the above FizzBuzz profile code.</div>
+<p aria-hidden="true">Image 1 of 1: ‘A screenshot of the `line_profiler` output from the previous code block, where the code within the line contents column has basic highlighting.’</p>
+<figure><img src="fig/line_profiler-worked-example.png" alt="A screenshot of the `line_profiler` output from the previous code block, where the code within the line contents column has basic highlighting." class="figure mx-auto d-block"><div class="figcaption">Rich (highlighted) console output provided by
+<code>line_profiler</code> for the above FizzBuzz profile code.</div>
 </figure><hr></section><section id="profiling-conclusion"><h2 class="section-heading"><a href="profiling-conclusion.html">Profiling Conclusion</a></h2>
 <hr class="half-width"></section><section id="optimisation-introduction"><h2 class="section-heading"><a href="optimisation-introduction.html">Introduction to Optimisation</a></h2>
 <hr class="half-width"></section><section id="optimisation-data-structures-algorithms"><h2 class="section-heading"><a href="optimisation-data-structures-algorithms.html">Data Structures &amp; Algorithms</a></h2>
 <hr class="half-width">
 <h3 id="optimisation-data-structures-algorithms-figure-1">Figure 1</h3>
-<p aria-hidden="true">Image 1 of 1: 'A line graph displaying the relationship between the number of calls to append() and the number of internal resizes of a CPython list. It has a logarithmic relationship, at 1 million appends there have been 84 internal resizes.'</p>
-<figure><img src="fig/cpython_list_allocations.png" alt="A line graph displaying the relationship between the number of calls to append() and the number of internal resizes of a CPython list. It has a logarithmic relationship, at 1 million appends there have been 84 internal resizes." class="figure mx-auto d-block"><div class="figcaption">The relationship between the number of appends
-to an empty list, and the number of internal resizes in CPython.</div>
+<p aria-hidden="true">Image 1 of 1: ‘A line graph displaying the relationship between the number of calls to append() and the number of internal resizes of a CPython list. It has a logarithmic relationship, at 1 million appends there have been 84 internal resizes.’</p>
+<figure><img src="fig/cpython_list_allocations.png" alt="A line graph displaying the relationship between the number of calls to append() and the number of internal resizes of a CPython list. It has a logarithmic relationship, at 1 million appends there have been 84 internal resizes." class="figure mx-auto d-block"><div class="figcaption">The relationship between the number of appends
+to an empty list, and the number of internal resizes in CPython.</div>
 </figure><hr>
 <h3 id="optimisation-data-structures-algorithms-figure-2">Figure 2</h3>
-<p aria-hidden="true">Image 1 of 1: 'A diagram demonstrating how the keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. This is followed by the insertion of 59, 80 and 39 which require linear probing to be inserted due to collisions.'</p>
-<figure><img src="fig/hash_linear_probing.png" alt="A diagram demonstrating how the keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. This is followed by the insertion of 59, 80 and 39 which require linear probing to be inserted due to collisions." class="figure mx-auto d-block"><div class="figcaption">An visual explanation of linear probing, CPython
-uses an advanced form of this.</div>
+<p aria-hidden="true">Image 1 of 1: ‘A diagram demonstrating how the keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. This is followed by the insertion of 59, 80 and 39 which require linear probing to be inserted due to collisions.’</p>
+<figure><img src="fig/hash_linear_probing.png" alt="A diagram demonstrating how the keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. This is followed by the insertion of 59, 80 and 39 which require linear probing to be inserted due to collisions." class="figure mx-auto d-block"><div class="figcaption">An visual explanation of linear probing, CPython
+uses an advanced form of this.</div>
 </figure><hr></section><section id="optimisation-minimise-python"><h2 class="section-heading"><a href="optimisation-minimise-python.html">Understanding Python (NumPy/Pandas)</a></h2>
 <hr class="half-width"></section><section id="optimisation-use-latest"><h2 class="section-heading"><a href="optimisation-use-latest.html">Keep Python &amp; Packages up to Date</a></h2>
 <hr class="half-width"></section><section id="optimisation-memory"><h2 class="section-heading"><a href="optimisation-memory.html">Understanding Memory</a></h2>
 <hr class="half-width">
 <h3 id="optimisation-memory-figure-1">Figure 1</h3>
-<p aria-hidden="true">Image 1 of 1: 'An annotated photo of inside a desktop computer's case. The CPU, RAM, power supply, graphics cards (GPUs) and harddrive are labelled.'</p>
-<figure><img src="fig/annotated-motherboard.jpg" alt="An annotated photo of inside a desktop computer's case. The CPU, RAM, power supply, graphics cards (GPUs) and harddrive are labelled." class="figure mx-auto d-block"><div class="figcaption">An annotated photo of a computer’s
-hardware.</div>
+<p aria-hidden="true">Image 1 of 1: ‘An annotated photo of inside a desktop computer's case. The CPU, RAM, power supply, graphics cards (GPUs) and harddrive are labelled.’</p>
+<figure><img src="fig/annotated-motherboard.jpg" alt="An annotated photo of inside a desktop computer's case. The CPU, RAM, power supply, graphics cards (GPUs) and harddrive are labelled." class="figure mx-auto d-block"><div class="figcaption">An annotated photo of a computer’s
+hardware.</div>
 </figure><hr>
 <h3 id="optimisation-memory-figure-2">Figure 2</h3>
-<p aria-hidden="true">Image 1 of 1: 'An abstract representation of a CPU, RAM and Disk, showing their internal caches and the pathways data can pass.'</p>
-<figure><img src="fig/hardware.png" alt="An abstract representation of a CPU, RAM and Disk, showing their internal caches and the pathways data can pass." class="figure mx-auto d-block"><div class="figcaption">An abstract diagram showing the path data takes
-from disk or RAM to be used for computation.</div>
+<p aria-hidden="true">Image 1 of 1: ‘An abstract representation of a CPU, RAM and Disk, showing their internal caches and the pathways data can pass.’</p>
+<figure><img src="fig/hardware.png" alt="An abstract representation of a CPU, RAM and Disk, showing their internal caches and the pathways data can pass." class="figure mx-auto d-block"><div class="figcaption">An abstract diagram showing the path data takes
+from disk or RAM to be used for computation.</div>
 </figure><hr>
 <h3 id="optimisation-memory-figure-3">Figure 3</h3>
-<p aria-hidden="true">Image 1 of 1: 'A horizontal bar chart displaying the relative latencies for L1/L2/L3 cache, RAM, SSD, HDD and a packet being sent from London to California and back. These latencies range from 1 nanosecond to 140 milliseconds and are displayed with a log scale.'</p>
-<figure><img src="fig/latency.png" alt="A horizontal bar chart displaying the relative latencies for L1/L2/L3 cache, RAM, SSD, HDD and a packet being sent from London to California and back. These latencies range from 1 nanosecond to 140 milliseconds and are displayed with a log scale." class="figure mx-auto d-block"><div class="figcaption">A graph demonstrating the wide variety of
-latencies a programmer may experience when accessing data.</div>
+<p aria-hidden="true">Image 1 of 1: ‘A horizontal bar chart displaying the relative latencies for L1/L2/L3 cache, RAM, SSD, HDD and a packet being sent from London to California and back. These latencies range from 1 nanosecond to 140 milliseconds and are displayed with a log scale.’</p>
+<figure><img src="fig/latency.png" alt="A horizontal bar chart displaying the relative latencies for L1/L2/L3 cache, RAM, SSD, HDD and a packet being sent from London to California and back. These latencies range from 1 nanosecond to 140 milliseconds and are displayed with a log scale." class="figure mx-auto d-block"><div class="figcaption">A graph demonstrating the wide variety of
+latencies a programmer may experience when accessing data.</div>
 </figure><hr></section><section id="optimisation-conclusion"><h2 class="section-heading"><a href="optimisation-conclusion.html">Optimisation Conclusion</a></h2>
 <hr class="half-width"></section>
-</div>
+</div>
     </main>
-</div>
-<!-- END  : inst/pkgdown/templates/content-extra.html -->
-
+</div>
+<!-- END  : inst/pkgdown/templates/content-extra.html -->
+
       </div>
-<!--/div.row-->
+<!--/div.row-->
       		<footer class="row footer mx-md-3"><hr>
-<div class="col-md-2">
-        <a href="https://docs.hpc.shef.ac.uk/en/latest/stanage/index.html" class="external-link">
-          <img alt="Stanage HPC" src="https://docs.hpc.shef.ac.uk/en/latest/_images/Stanage_Black.png" style="width: 100%;"></a>
-        <p><a href="https://sites.google.com/sheffield.ac.uk/research-training/research-training" class="external-link">Research Computing Training Home</a></p>
-			</div>
-			<div class="col-md-5">
-        <p>Lesson developed by <a href="https://rse.shef.ac.uk" class="external-link">RSE</a> &amp; <a href="https://www.sheffield.ac.uk/it-services/research" class="external-link">RIT</a></p>
-        <p>
-        
-        <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/README.md" class="external-link">Edit on GitHub</a>
-        
-	
-        | <a href="https://github.com/RSE-Sheffield/pando-python/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a> 
-        | <a href="https://github.com/RSE-Sheffield/pando-python/" class="external-link">Source</a></p>
-				<p><a href="https://github.com/RSE-Sheffield/pando-python/blob/main/CITATION" class="external-link">Cite</a> | <a href="mailto:robert.chisholm@sheffield.ac.uk">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
-        <p>This lesson is subject to the <a href="CODE_OF_CONDUCT.html">Code of Conduct</a></p>
-      </div>
-			<div class="col-md-5">
-        
-        <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
-        
-
-        <!--<p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY 4.0</a> by <a href="https://carpentries.org/">The Carpentries</a></p>-->
-        <!--<p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0deb88aff2c8a917211d7915cacf56583a8807be">sandpaper (0.16.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/6a0023c1dbaf9f6936e161364a80c6971777ee46">pegboard (0.7.4.9000)</a>, and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/ba299f71ece30f8bc8e8ed191876f77af804ea88">varnish (1.0.1.9000)</a></p>-->
-        <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0deb88aff2c8a917211d7915cacf56583a8807be" class="external-link">sandpaper (0.16.2)</a>,
-        <a href="https://github.com/carpentries/pegboard/tree/6a0023c1dbaf9f6936e161364a80c6971777ee46" class="external-link">pegboard (0.7.4.9000)</a>,
-      and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/ba299f71ece30f8bc8e8ed191876f77af804ea88" class="external-link">varnish (1.0.1.9000) [UoS fork]</a>.</p>
-			</div>
+<div class="col-md-6">
+        <p>This lesson is subject to the <a href="CODE_OF_CONDUCT.html">Code of Conduct</a></p>
+        <p>
+        
+        <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/README.md" class="external-link">Edit on GitHub</a>
+        
+	
+        | <a href="https://github.com/RSE-Sheffield/pando-python/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
+        | <a href="https://github.com/RSE-Sheffield/pando-python/" class="external-link">Source</a></p>
+				<p><a href="https://github.com/RSE-Sheffield/pando-python/blob/main/CITATION" class="external-link">Cite</a> | <a href="mailto:robert.chisholm@sheffield.ac.uk">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
+			</div>
+			<div class="col-md-6">
+        
+        <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
+        
+        <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.2" class="external-link">sandpaper (0.16.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.4" class="external-link">pegboard (0.7.4)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.1" class="external-link">varnish (1.0.1)</a></p>
+			</div>
 		</footer>
-</div> <!-- / div.container -->
-	<div id="to-top">
-		<a href="#top">
-      <i class="search-icon" data-feather="arrow-up" role="img" aria-label="Back To Top"></i><br><!-- <span class="d-none d-sm-none d-md-none d-lg-none d-xl-block">Back</span> To Top --><span class="d-none d-sm-none d-md-none d-lg-none d-xl-block">Back</span> To Top
-		</a>
-	</div>
-  <script type="application/ld+json">
-    {
-  "@context": "https://schema.org",
-  "@type": "TrainingMaterial",
-  "@id": "rse.shef.ac.uk/pando-python/images.html",
-  "inLanguage": "en",
-  "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
-  "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",
-  "keywords": "python, profiling, optimisation, data structures, algorithms",
-  "name": "All Images",
-  "creativeWorkStatus": "active",
-  "url": "rse.shef.ac.uk/pando-python/images.html",
-  "identifier": "rse.shef.ac.uk/pando-python/images.html",
-  "dateCreated": "2023-12-07",
-  "dateModified": "2024-03-06",
-  "datePublished": "2024-03-06"
-}
-
-  </script><script>
-		feather.replace();
-	</script><!-- Matomo
-    2022-11-07: we have gotten a notification that we have an overage for our
-    tracking and I'm pretty sure this has to do with Workbench usage.
-    Considering that I am not _currently_ using this tracking because I do not
-    yet know how to access the data, I am turning this off for now.
-  <script>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
-    _paq.push(["setDomains", ["*.preview.carpentries.org","*.datacarpentry.github.io","*.datacarpentry.org","*.librarycarpentry.github.io","*.librarycarpentry.org","*.swcarpentry.github.io", "*.carpentries.github.io"]]);
-    _paq.push(["setDoNotTrack", true]);
-    _paq.push(["disableCookies"]);
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-          var u="https://carpentries.matomo.cloud/";
-          _paq.push(['setTrackerUrl', u+'matomo.php']);
-          _paq.push(['setSiteId', '1']);
-          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-          g.async=true; g.src='https://cdn.matomo.cloud/carpentries.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
-        })();
-  </script>
+</div> <!-- / div.container -->
+	<div id="to-top">
+		<a href="#top">
+      <i class="search-icon" data-feather="arrow-up" role="img" aria-label="Back To Top"></i><br><!-- <span class="d-none d-sm-none d-md-none d-lg-none d-xl-block">Back</span> To Top --><span class="d-none d-sm-none d-md-none d-lg-none d-xl-block">Back</span> To Top
+		</a>
+	</div>
+  <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "TrainingMaterial",
+  "@id": "rse.shef.ac.uk/pando-python/images.html",
+  "inLanguage": "en",
+  "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
+  "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",
+  "keywords": "python, profiling, optimisation, data structures, algorithms",
+  "name": "All Images",
+  "creativeWorkStatus": "active",
+  "url": "rse.shef.ac.uk/pando-python/images.html",
+  "identifier": "rse.shef.ac.uk/pando-python/images.html",
+  "dateCreated": "2024-03-06",
+  "dateModified": "2024-03-12",
+  "datePublished": "2024-03-12"
+}
+
+  </script><script>
+		feather.replace();
+	</script><!-- Matomo
+    2022-11-07: we have gotten a notification that we have an overage for our
+    tracking and I'm pretty sure this has to do with Workbench usage.
+    Considering that I am not _currently_ using this tracking because I do not
+    yet know how to access the data, I am turning this off for now.
+  <script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+    _paq.push(["setDomains", ["*.preview.carpentries.org","*.datacarpentry.github.io","*.datacarpentry.org","*.librarycarpentry.github.io","*.librarycarpentry.org","*.swcarpentry.github.io", "*.carpentries.github.io"]]);
+    _paq.push(["setDoNotTrack", true]);
+    _paq.push(["disableCookies"]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+          var u="https://carpentries.matomo.cloud/";
+          _paq.push(['setTrackerUrl', u+'matomo.php']);
+          _paq.push(['setSiteId', '1']);
+          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+          g.async=true; g.src='https://cdn.matomo.cloud/carpentries.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+  </script>
   End Matomo Code -->
 </body>
 </html><!-- END:   inst/pkgdown/templates/layout.html-->

@@ -4,13 +4,16 @@
     <loc>rse.shef.ac.uk/pando-python/404.html</loc>
   </url>
   <url>
+    <loc>rse.shef.ac.uk/pando-python/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/LICENSE.html</loc>
+  </url>
+  <url>
     <loc>rse.shef.ac.uk/pando-python/acknowledgements.html</loc>
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/aio.html</loc>
-  </url>
-  <url>
-    <loc>rse.shef.ac.uk/pando-python/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/images.html</loc>
@@ -22,13 +25,16 @@
     <loc>rse.shef.ac.uk/pando-python/instructor/404.html</loc>
   </url>
   <url>
+    <loc>rse.shef.ac.uk/pando-python/instructor/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/instructor/LICENSE.html</loc>
+  </url>
+  <url>
     <loc>rse.shef.ac.uk/pando-python/instructor/acknowledgements.html</loc>
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/instructor/aio.html</loc>
-  </url>
-  <url>
-    <loc>rse.shef.ac.uk/pando-python/instructor/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/instructor/images.html</loc>
@@ -46,16 +52,19 @@
     <loc>rse.shef.ac.uk/pando-python/instructor/key-points.html</loc>
   </url>
   <url>
-    <loc>rse.shef.ac.uk/pando-python/instructor/LICENSE.html</loc>
-  </url>
-  <url>
     <loc>rse.shef.ac.uk/pando-python/instructor/optimisation-conclusion.html</loc>
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/instructor/optimisation-data-structures-algorithms.html</loc>
   </url>
   <url>
+    <loc>rse.shef.ac.uk/pando-python/instructor/optimisation-dict-set.html</loc>
+  </url>
+  <url>
     <loc>rse.shef.ac.uk/pando-python/instructor/optimisation-introduction.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/instructor/optimisation-list-tuple.html</loc>
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/instructor/optimisation-memory.html</loc>
@@ -94,16 +103,19 @@
     <loc>rse.shef.ac.uk/pando-python/key-points.html</loc>
   </url>
   <url>
-    <loc>rse.shef.ac.uk/pando-python/LICENSE.html</loc>
-  </url>
-  <url>
     <loc>rse.shef.ac.uk/pando-python/optimisation-conclusion.html</loc>
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/optimisation-data-structures-algorithms.html</loc>
   </url>
   <url>
+    <loc>rse.shef.ac.uk/pando-python/optimisation-dict-set.html</loc>
+  </url>
+  <url>
     <loc>rse.shef.ac.uk/pando-python/optimisation-introduction.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/optimisation-list-tuple.html</loc>
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/optimisation-memory.html</loc>
@@ -131,5 +143,137 @@
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/reference.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/404.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/acknowledgements.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/aio.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/images.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/index.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/404.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/acknowledgements.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/aio.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/images.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/index.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/instructor-notes.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/introduction.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/key-points.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/optimisation-conclusion.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/optimisation-data-structures-algorithms.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/optimisation-introduction.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/optimisation-memory.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/optimisation-minimise-python.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/optimisation-use-latest.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/profiles.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/profiling-conclusion.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/profiling-functions.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/profiling-introduction.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/profiling-lines.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor/reference.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/instructor-notes.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/introduction.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/key-points.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/optimisation-conclusion.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/optimisation-data-structures-algorithms.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/optimisation-introduction.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/optimisation-memory.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/optimisation-minimise-python.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/optimisation-use-latest.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/profiles.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/profiling-conclusion.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/profiling-functions.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/profiling-introduction.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/profiling-lines.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/site/docs/reference.html</loc>
   </url>
 </urlset>
