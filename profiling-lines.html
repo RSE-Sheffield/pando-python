@@ -484,12 +484,13 @@ which will then display the same table as above.</p>
 <!-- TODO line_profiling significantly slows down the profiled methods. Is it possible to dynamically disable/enable profiling with `line_profiler`? kernprof -h implies so, but trial/error and docs is failing me -->
 </section><section id="worked-example"><h2 class="section-heading">Worked Example<a class="anchor" aria-label="anchor" href="#worked-example"></a>
 </h2>
-<hr class="half-width"><div id="callout1" class="callout">
+<hr class="half-width"><div id="follow-along" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="follow-along">Follow Along<a class="anchor" aria-label="anchor" href="#follow-along"></a></h3>
+<div id="follow-along" class="callout-inner">
+<h3 class="callout-title">Follow Along<a class="anchor" aria-label="anchor" href="#follow-along"></a>
+</h3>
 <div class="callout-content">
 <p>Download the
 <a href="files/line_profiler-worked-example/fizzbuzz.py" download>Python
@@ -596,12 +597,13 @@ Similarly, “Fizz” is printed 27 times and occupies 25.1%, likewise
 a similar “Per Hit” time of 20-21 micro seconds.</p>
 <p>Therefore it can be seen in this example, how the time spent
 executing each line matches expectations.</p>
-<div id="callout2" class="callout">
+<div id="rich-output" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="section level3 callout-title callout-inner">
-<h3 class="callout-title" id="rich-output">Rich Output<a class="anchor" aria-label="anchor" href="#rich-output"></a></h3>
+<div id="rich-output" class="callout-inner">
+<h3 class="callout-title">Rich Output<a class="anchor" aria-label="anchor" href="#rich-output"></a>
+</h3>
 <div class="callout-content">
 <p>The <code>-r</code> argument passed to <code>kernprof</code> (or
 <code>line_profiler</code>) enables rich output, if you run the profile
@@ -652,7 +654,7 @@ number of elements to be sorted.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1">Give me a hint</h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <ul><li>Remember that the code needs to be moved into a method decorated
 with <code>@profile</code>
@@ -670,7 +672,7 @@ with <code>@profile</code>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>If you chose to profile the whole code, it may look like this:</p>
 <div class="codewrapper sourceCode" id="cb12">
@@ -790,7 +792,7 @@ how it might be optimised.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
   <h4 class="accordion-header" id="headingHint2">Give me a hint</h4>
 </button>
-<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
+<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
 <div class="accordion-body">
 <ul><li>Remember that the function needs to be decorated with
 <code>@profile</code>
@@ -810,7 +812,7 @@ number of steps <code>predprey.py:305</code>.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>First the function must be decorated</p>
 <div class="codewrapper sourceCode" id="cb15">
@@ -966,7 +968,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.2" class="external-link">sandpaper (0.16.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.4" class="external-link">pegboard (0.7.4)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.1" class="external-link">varnish (1.0.1)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.3" class="external-link">sandpaper (0.16.3)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.4" class="external-link">pegboard (0.7.4)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.1" class="external-link">varnish (1.0.1)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -989,7 +991,7 @@ any links that you are not going to use.
   "identifier": "rse.shef.ac.uk/pando-python/profiling-lines.html",
   "dateCreated": "2024-03-06",
   "dateModified": "2024-03-12",
-  "datePublished": "2024-03-12"
+  "datePublished": "2024-03-19"
 }
 
   </script><script>
