@@ -425,7 +425,7 @@ NumPy can sometimes take advantage of auto parallelisation, particularly on HPC 
 
 A small number of functions are backed by BLAS and LAPACK, enabling even greater speedup.
 
-The full list of supported functions can be found [here](https://numpy.org/doc/stable/reference/routines.linalg.html), they mostly correspond to linear algebra operations.
+The [supported functions](https://numpy.org/doc/stable/reference/routines.linalg.html) mostly correspond to linear algebra operations.
 
 The auto-parallelisation of these functions is hardware dependant, so you won't always automatically get the additional benefit of parallelisation.
 However, HPC systems should be primed to take advantage, so try increasing the number of cores you request when submitting your jobs and see if it improves the performance.
