@@ -211,7 +211,7 @@ As you hover each box, information to the left of the diagram updates specifying
 
 ## snakeviz Inside Notebooks
 
-If you're more familiar with writing Python inside Jupyter notebooks, you might not feel comfortable using the command line for profiling. Instead, `snakeviz` can be called directly from inside notebooks, and it will automatically call `cProfile` for you.
+If you're more familiar with writing Python inside Jupyter notebooks you can still use  `snakeviz` directly from inside notebooks using the notebooks "magic" prefix (`%`) and it will automatically call `cProfile` for you.
 
 First `snakeviz` must be installed and it's extension loaded.
 
