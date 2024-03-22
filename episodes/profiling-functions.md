@@ -207,6 +207,42 @@ By clicking a box within the diagram, it will "zoom" making the selected box the
 
 As you hover each box, information to the left of the diagram updates specifying the location of the method and for how long it ran.
 
+::::::::::::::::::::::::::::::::::::: callout
+
+## snakeviz Inside Notebooks
+
+If you're more familiar with writing Python inside Jupyter notebooks, you might not feel comfortable using the command line for profiling. Instead, `snakeviz` can be called directly from inside notebooks, and it will automatically call `cProfile` for you.
+
+First `snakeviz` must be installed and it's extension loaded.
+
+```py
+!pip install snakeviz
+%load_ext snakeviz
+```
+
+Following this, you can either call `%snakeviz` to profile a function defined earlier in the notebook.
+
+```py
+%snakeviz my_function()
+```
+
+Or, you can create a `%%snakeviz` cell, to profile the python executed within it.
+
+```py
+%%snakeviz
+
+def my_function():
+    print("Hello World!")
+
+my_function()
+```
+
+In both cases, the full `snakeviz` profile visualisation will appear as an output within the notebook!
+
+*You may wish to right click the top of the output, and select "Disable Scrolling for Outputs" to expand it's box if it begins too small.*
+
+:::::::::::::::::::::::::::::::::::::::::::::
+
 ## Worked Example
 
 :::::::::::::::::::::::::::::::::: instructor
@@ -309,6 +345,13 @@ The sunburst visualisation displays less text on the boxes, so it can be harder 
 ![An sunburst visualisation provided by `snakeviz` for the worked example's Python code.](episodes/fig/snakeviz-worked-example-sunburst.png){alt="The snakeviz sunburst visualisation for the worked example Python code." width=50%}
 
 :::::::::::::::::::::::::::::::::::::::::::::
+
+If you followed along inside a notebook it might look like this:
+
+![The worked example inside a notebook.](episodes/fig/snakeviz-worked-example-notebook.png){alt="A Jupyter notebook showing the worked example profiled with snakeviz." width=80%}
+
+Because notebooks operate by creating temporary Python files, the filename (shown `1378276351.py` above) and line numbers are not too useful, but function names should still be helpful.
+
 
 ## Exercises
 
