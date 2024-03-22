@@ -337,7 +337,7 @@ If you followed along inside a notebook it might look like this:
 
 ![The worked example inside a notebook.](episodes/fig/snakeviz-worked-example-notebook.png){alt="A Jupyter notebook showing the worked example profiled with snakeviz." width=80%}
 
-Because notebooks operate by creating temporary Python files, the filename (shown `1378276351.py` above) and line numbers are not too useful should still be helpful. The function names follow the temporary file name in parentheses, e.g. `1378276351.py:3(a_1)`, `1378276351.py:9(b_1)` and so forth.
+Because notebooks operate by creating temporary Python files, the filename (shown `1378276351.py` above) and line numbers displayed are not too useful. However, the function names match those defined in the code and follow the temporary file name in parentheses, e.g. `1378276351.py:3(a_1)`, `1378276351.py:9(b_1)` refer to the functions `a_1()` and `b_1()` respectively.
 
 ::::::::::::::::::::::::::::::::::::: callout
 
