@@ -246,7 +246,7 @@ The `-r` argument passed to `kernprof` (or `line_profiler`) enables rich output,
 
 ## line_profiler Inside Notebooks
 
-If you're more familiar with writing Python inside Jupyter notebooks, you might not feel comfortable using the command line for profiling. Instead, `line_profiler` can be called directly from inside notebooks. It is still necessary for the code to be profiled to be placed within a function.
+If you're more familiar with writing Python inside Jupyter notebooks you can, as with `snakeviz`, use `line_profiler` directly from inside notebooks. However it is still necessary for the code you wish to profile to be placed within a function.
 
 First `line_profiler` must be installed and it's extension loaded.
 
