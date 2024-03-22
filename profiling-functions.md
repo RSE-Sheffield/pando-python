@@ -207,6 +207,42 @@ By clicking a box within the diagram, it will "zoom" making the selected box the
 
 As you hover each box, information to the left of the diagram updates specifying the location of the method and for how long it ran.
 
+::::::::::::::::::::::::::::::::::::: callout
+
+## snakeviz Inside Notebooks
+
+If you're more familiar with writing Python inside Jupyter notebooks you can still use  `snakeviz` directly from inside notebooks using the notebooks "magic" prefix (`%`) and it will automatically call `cProfile` for you.
+
+First `snakeviz` must be installed and it's extension loaded.
+
+```py
+!pip install snakeviz
+%load_ext snakeviz
+```
+
+Following this, you can either call `%snakeviz` to profile a function defined earlier in the notebook.
+
+```py
+%snakeviz my_function()
+```
+
+Or, you can create a `%%snakeviz` cell, to profile the python executed within it.
+
+```py
+%%snakeviz
+
+def my_function():
+    print("Hello World!")
+
+my_function()
+```
+
+In both cases, the full `snakeviz` profile visualisation will appear as an output within the notebook!
+
+*You may wish to right click the top of the output, and select "Disable Scrolling for Outputs" to expand it's box if it begins too small.*
+
+:::::::::::::::::::::::::::::::::::::::::::::
+
 ## Worked Example
 
 :::::::::::::::::::::::::::::::::: instructor
@@ -295,6 +331,14 @@ In this simple example the execution is fairly evenly balanced between all of th
 
 Below the icicle diagram, there is a table similar to the default output from `cProfile`. However, in this case you can sort the columns by clicking their headers and filter the rows shown by entering a filename in the search box. This allows built-in methods to be hidden, which can make it easier to highlight optimisation priorities.
 
+**Notebooks**
+
+If you followed along inside a notebook it might look like this:
+
+![The worked example inside a notebook.](episodes/fig/snakeviz-worked-example-notebook.png){alt="A Jupyter notebook showing the worked example profiled with snakeviz." width=80%}
+
+Because notebooks operate by creating temporary Python files, the filename (shown `1378276351.py` above) and line numbers are not too useful should still be helpful. The function names follow the temporary file name in parentheses, e.g. `1378276351.py:3(a_1)`, `1378276351.py:9(b_1)` and so forth.
+
 ::::::::::::::::::::::::::::::::::::: callout
 
 ## Sunburst
@@ -306,9 +350,10 @@ This provides the same information as "Icicle", however the rows are instead cir
 The sunburst visualisation displays less text on the boxes, so it can be harder to interpret. However, it increases the visibility of boxes further from the root call.
 
 <!-- TODO: Alt text here is redundant? -->
-![An sunburst visualisation provided by `snakeviz` for the worked example's Python code.](episodes/fig/snakeviz-worked-example-sunburst.png){alt="The snakeviz sunburst visualisation for the worked example Python code." width=50%}
+![An sunburst visualisation provided by `snakeviz` for the worked example's Python code.](episodes/fig/snakeviz-worked-example-sunburst.png){alt="A sunburst visualisation for the worked example Python code." width=50%}
 
 :::::::::::::::::::::::::::::::::::::::::::::
+
 
 ## Exercises
 

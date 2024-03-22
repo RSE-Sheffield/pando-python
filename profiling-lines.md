@@ -238,7 +238,42 @@ Therefore it can be seen in this example, how the time spent executing each line
 
 The `-r` argument passed to `kernprof` (or `line_profiler`) enables rich output, if you run the profile locally it should look similar to this. *This requires the optional package `rich`, it will have been installed if `[all]` was specified when installing `line_profiler` with `pip`.*
 
-![Rich (highlighted) console output provided by `line_profiler` for the above FizzBuzz profile code.](episodes/fig/line_profiler-worked-example.png){alt="A screenshot of the `line_profiler` output from the previous code block, where the code within the line contents column has basic highlighting."}
+![Rich (highlighted) console output provided by `line_profiler` for the above FizzBuzz profile code.](episodes/fig/line_profiler-worked-example-rich.png){alt="A screenshot of the `line_profiler` output from the previous code block, where the code within the line contents column has basic highlighting."}
+
+:::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: callout
+
+## line_profiler Inside Notebooks
+
+If you're more familiar with writing Python inside Jupyter notebooks you can, as with `snakeviz`, use `line_profiler` directly from inside notebooks. However it is still necessary for the code you wish to profile to be placed within a function.
+
+First `line_profiler` must be installed and it's extension loaded.
+
+```py
+!pip install line_profiler
+%load_ext line_profiler
+```
+
+Following this, you call `line_profiler` with `%lprun`.
+
+```py
+%lprun -f profiled_function_name entry_function_call()
+```
+
+The functions to be line profiled are specified with `-f <function name>`, this is repeated for each individual function that you would otherwise apply the `@profile` decorator to.
+
+This is followed by calling the function which runs the full code to be profiled.
+
+For the above fizzbuzz example it would be:
+
+```py
+%lprun -f fizzbuzz fizzbuzz(100)
+```
+
+This will then create an output cell with any output from the profiled code, followed by the standard output from `line_profiler`. *It is not currently possible to get the rich/coloured output from `line_profiler` within notebooks.*
+
+![Output provided by `line_profiler` inside a Juypter notebook for the above FizzBuzz profile code.](episodes/fig/line_profiler-worked-example-notebook.png){alt="A screenshot of the line_profiler output from the previous code block inside a Jupyter notebook."}
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
