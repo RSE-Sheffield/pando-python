@@ -415,6 +415,15 @@ Other boxes within the diagram correspond to the initialisation of imports, or i
 
 The default configuration of the Predator Prey model takes around 10 seconds to run, it may be slower on other hardware.
 
+Download the pre-generated `cProfile` output, this can be opened with `snakeviz` to save waiting for the profiler.
+
+
+* <a href="files/pred-prey/predprey_out.prof" download>files/pred-prey/predprey_out.prof</a>
+
+```sh
+python -m snakeviz predprey_out.prof
+```
+
 :::::::::::::::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::: challenge
 
