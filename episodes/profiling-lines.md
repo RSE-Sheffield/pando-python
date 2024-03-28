@@ -400,6 +400,18 @@ As this is a reference implementation of a classic sorting algorithm we are unli
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+:::::::::::::::::::::::::::::::::: instructor
+
+Download the pre-generated `line_profiler` output, this can be opened be to save waiting for the profiler.
+
+
+* <a href="files/pred-prey/predprey.py.lprof" download>files/pred-prey/predprey.py.lprof</a>
+
+```sh
+python -m line_profiler -rm predprey.py.lprof
+```
+
+:::::::::::::::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Exercise 2: Predator Prey
