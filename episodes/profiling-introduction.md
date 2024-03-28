@@ -1,7 +1,7 @@
 ---
 title: "Introduction to Profiling"
-teaching: 0
-exercises: 0
+teaching: 15
+exercises: 10
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions
