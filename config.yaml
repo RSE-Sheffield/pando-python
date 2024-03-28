@@ -61,10 +61,12 @@ contact: 'robert.chisholm@sheffield.ac.uk'
 episodes: 
 - profiling-introduction.md
 - profiling-functions.md
+- short-break1.md
 - profiling-lines.md
 - profiling-conclusion.md
 - optimisation-introduction.md
 - optimisation-data-structures-algorithms.md
+- long-break1.md
 - optimisation-minimise-python.md
 - optimisation-use-latest.md
 - optimisation-memory.md

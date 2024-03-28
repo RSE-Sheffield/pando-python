@@ -210,7 +210,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="profiling-lines.html">3. Line Level Profiling</a>
+        <a href="short-break1.html">3. Break</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -222,7 +222,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="profiling-conclusion.html">4. Profiling Conclusion</a>
+        <a href="profiling-lines.html">4. Line Level Profiling</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -234,7 +234,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="optimisation-introduction.html">5. Introduction to Optimisation</a>
+        <a href="profiling-conclusion.html">5. Profiling Conclusion</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -246,7 +246,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="optimisation-data-structures-algorithms.html">6. Data Structures &amp; Algorithms</a>
+        <a href="optimisation-introduction.html">6. Introduction to Optimisation</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -258,7 +258,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="optimisation-minimise-python.html">7. Understanding Python (NumPy/Pandas)</a>
+        <a href="optimisation-data-structures-algorithms.html">7. Data Structures &amp; Algorithms</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -270,7 +270,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="optimisation-use-latest.html">8. Keep Python &amp; Packages up to Date</a>
+        <a href="long-break1.html">8. Break</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -282,7 +282,7 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="optimisation-memory.html">9. Understanding Memory</a>
+        <a href="optimisation-minimise-python.html">9. Understanding Python (NumPy/Pandas)</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -294,7 +294,31 @@
 <div class="accordion accordion-flush" id="accordionFlush11">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading11">
-        <a href="optimisation-conclusion.html">10. Optimisation Conclusion</a>
+        <a href="optimisation-use-latest.html">10. Keep Python &amp; Packages up to Date</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush12">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading12">
+        <a href="optimisation-memory.html">11. Understanding Memory</a>
+    </div>
+<!--/div.accordion-header-->
+        
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush13">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading13">
+        <a href="optimisation-conclusion.html">12. Optimisation Conclusion</a>
     </div>
 <!--/div.accordion-header-->
         
@@ -397,7 +421,8 @@ provided by <code>snakeviz</code>.</div>
 <figure><img src="fig/predprey_out.png" alt="A line graph plotting population over time through 250 steps of the pred prey model. Grass/20, shown in green, has a brief dip in the first 30 steps, but recovers holding steady at approximately 240 (4800 agents). Prey, shown in blue, starts at 200, quickly drops to around 185, before levelling off for steps and then slowly declining to a final value of 50. The data for predators, shown in red, has significantly more noise. There are 50 predators to begin, this rises briefly before falling to around 10, from here it noisily grows to around 70 by step 250 with several larger declines during the growth." class="figure mx-auto d-block"><div class="figcaption">
 <code>predprey_out.png</code> as produced by the
 default configuration of <code>predprey.py</code>.</div>
-</figure><hr></section><section id="profiling-lines"><h2 class="section-heading"><a href="profiling-lines.html">Line Level Profiling</a></h2>
+</figure><hr></section><section id="short-break1"><h2 class="section-heading"><a href="short-break1.html">Break</a></h2>
+<hr class="half-width"></section><section id="profiling-lines"><h2 class="section-heading"><a href="profiling-lines.html">Line Level Profiling</a></h2>
 <hr class="half-width">
 <h3 id="profiling-lines-figure-1">Figure 1</h3>
 <p aria-hidden="true">Image 1 of 1: ‘A screenshot of the `line_profiler` output from the previous code block, where the code within the line contents column has basic highlighting.’</p>
@@ -421,7 +446,8 @@ to an empty list, and the number of internal resizes in CPython.</div>
 <p aria-hidden="true">Image 1 of 1: ‘A diagram demonstrating how the keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. This is followed by the insertion of 59, 80 and 39 which require linear probing to be inserted due to collisions.’</p>
 <figure><img src="fig/hash_linear_probing.png" alt="A diagram demonstrating how the keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. This is followed by the insertion of 59, 80 and 39 which require linear probing to be inserted due to collisions." class="figure mx-auto d-block"><div class="figcaption">An visual explanation of linear probing, CPython
 uses an advanced form of this.</div>
-</figure><hr></section><section id="optimisation-minimise-python"><h2 class="section-heading"><a href="optimisation-minimise-python.html">Understanding Python (NumPy/Pandas)</a></h2>
+</figure><hr></section><section id="long-break1"><h2 class="section-heading"><a href="long-break1.html">Break</a></h2>
+<hr class="half-width"></section><section id="optimisation-minimise-python"><h2 class="section-heading"><a href="optimisation-minimise-python.html">Understanding Python (NumPy/Pandas)</a></h2>
 <hr class="half-width"></section><section id="optimisation-use-latest"><h2 class="section-heading"><a href="optimisation-use-latest.html">Keep Python &amp; Packages up to Date</a></h2>
 <hr class="half-width"></section><section id="optimisation-memory"><h2 class="section-heading"><a href="optimisation-memory.html">Understanding Memory</a></h2>
 <hr class="half-width">
@@ -457,26 +483,28 @@ latencies a programmer may experience when accessing data.</div>
 			<div class="col-md-5">
         <p>Lesson developed by <a href="https://rse.shef.ac.uk" class="external-link">RSE</a> &amp; <a href="https://www.sheffield.ac.uk/it-services/research" class="external-link">RIT</a></p>
         <p>
-        
-        <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/README.md" class="external-link">Edit on GitHub</a>
-        
-	
-        | <a href="https://github.com/RSE-Sheffield/pando-python/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a> 
-        | <a href="https://github.com/RSE-Sheffield/pando-python/" class="external-link">Source</a></p>
-				<p><a href="https://github.com/RSE-Sheffield/pando-python/blob/main/CITATION" class="external-link">Cite</a> | <a href="mailto:robert.chisholm@sheffield.ac.uk">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
-        <p>This lesson is subject to the <a href="CODE_OF_CONDUCT.html">Code of Conduct</a></p>
-      </div>
-			<div class="col-md-5">
+          
+          <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/README.md" class="external-link">Edit on GitHub</a>
+          
+          
+        | <a href="https://github.com/RSE-Sheffield/pando-python/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
+        | <a href="https://github.com/RSE-Sheffield/pando-python/" class="external-link">Source</a>
+        </p>
+		<p>
+          <a href="https://github.com/RSE-Sheffield/pando-python/blob/main/" class="external-link">Cite</a> | <a href="mailto:robert.chisholm@sheffield.ac.uk">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a> | <a href="CODE_OF_CONDUCT.html">Code of Conduct</a>
+        </p>
+		</div>
+		<div class="col-md-5">
         
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
         
 
         <!--<p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY 4.0</a> by <a href="https://carpentries.org/">The Carpentries</a></p>-->
-        <!--<p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.3">sandpaper (0.16.3)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.4">pegboard (0.7.4)</a>, and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/main">varnish (1.0.1.9000)</a></p>-->
+        <!--<p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.3">sandpaper (0.16.3)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.4">pegboard (0.7.4)</a>, and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/main">varnish (1.0.2.9000)</a></p>-->
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
         <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.3" class="external-link">sandpaper (0.16.3)</a>,
         <a href="https://github.com/carpentries/pegboard/tree/0.7.4" class="external-link">pegboard (0.7.4)</a>,
-      and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/main" class="external-link">varnish (1.0.1.9000) [UoS fork]</a>.</p>
+      and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/main" class="external-link">varnish (1.0.2.9000) [UoS fork]</a>.</p>
 			</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -498,9 +526,9 @@ latencies a programmer may experience when accessing data.</div>
   "creativeWorkStatus": "active",
   "url": "rse.shef.ac.uk/pando-python/images.html",
   "identifier": "rse.shef.ac.uk/pando-python/images.html",
-  "dateCreated": "2024-03-22",
-  "dateModified": "2024-03-26",
-  "datePublished": "2024-03-26"
+  "dateCreated": "2024-03-28",
+  "dateModified": "2024-03-28",
+  "datePublished": "2024-03-28"
 }
 
   </script><script>

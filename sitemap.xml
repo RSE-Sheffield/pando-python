@@ -49,6 +49,9 @@
     <loc>rse.shef.ac.uk/pando-python/instructor/key-points.html</loc>
   </url>
   <url>
+    <loc>rse.shef.ac.uk/pando-python/instructor/long-break1.html</loc>
+  </url>
+  <url>
     <loc>rse.shef.ac.uk/pando-python/instructor/optimisation-conclusion.html</loc>
   </url>
   <url>
@@ -82,10 +85,16 @@
     <loc>rse.shef.ac.uk/pando-python/instructor/profiling-lines.html</loc>
   </url>
   <url>
+    <loc>rse.shef.ac.uk/pando-python/instructor/short-break1.html</loc>
+  </url>
+  <url>
     <loc>rse.shef.ac.uk/pando-python/instructor-notes.html</loc>
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/key-points.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/long-break1.html</loc>
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/optimisation-conclusion.html</loc>
@@ -119,5 +128,8 @@
   </url>
   <url>
     <loc>rse.shef.ac.uk/pando-python/profiling-lines.html</loc>
+  </url>
+  <url>
+    <loc>rse.shef.ac.uk/pando-python/short-break1.html</loc>
   </url>
 </urlset>
