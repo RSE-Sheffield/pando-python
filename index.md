@@ -15,6 +15,9 @@ The training curriculum for this course is designed for researchers that are wri
 
 If you are now comfortable using Python, this course may be of interest to supplement and advance your programming knowledge. This course is particularly relevant if you are writing research code and desire greater confidence that your code is both performant and suitable for publication.
 
+This is an all-day course, however it normally finishes by early afternoon.
+
+If you would like to register to take the course, check the [registration information](learners/registration.md).
 <!-- TODO: course duration? -->
 <!-- TODO: confident code syllabus? -->
 
