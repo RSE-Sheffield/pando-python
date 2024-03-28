@@ -584,26 +584,31 @@ import pandas as pandas
 
 N = 100000  # Number of rows in DataFrame
 
+def genInput():
+    s = pandas.Series({'a' : 1, 'b' : 2})
+    d = {'a' : 1, 'b' : 2}
+    return s, d
+
 def series():
-    x = pandas.Series({'a' : 1, 'b' : 2})
+    s, _ = genInput()
     for i in range(N):
-        y = x['a'] * x['b']
+        y = s['a'] * s['b']
 
 def dictionary():
-    x = {'a' : 1, 'b' : 2}
+    _, d = genInput()
     for i in range(N):
-        y = x['a'] * x['b']
+        y = d['a'] * d['b']
 
 repeats = 1000
 print(f"series: {timeit(series, number=repeats):.2f}ms")
 print(f"dictionary: {timeit(dictionary, number=repeats):.2f}ms")
 ```
 
-69x slower!
+65x slower!
 
 ```output
-series: 236.16ms
-dictionary: 3.42ms
+series: 237.25ms
+dictionary: 3.63ms
 ```
 
 ## Filter Early
