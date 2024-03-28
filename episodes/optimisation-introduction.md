@@ -1,6 +1,6 @@
 ---
 title: "Introduction to Optimisation"
-teaching: 0
+teaching: 10
 exercises: 0
 ---
 

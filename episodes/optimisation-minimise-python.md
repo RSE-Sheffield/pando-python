@@ -1,6 +1,6 @@
 ---
 title: "Understanding Python (NumPy/Pandas)"
-teaching: 0
+teaching: 30
 exercises: 0
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "Profiling Conclusion"
-teaching: 0
+teaching: 5
 exercises: 0
 ---
 

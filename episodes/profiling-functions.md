@@ -1,7 +1,7 @@
 ---
 title: "Function Level Profiling"
-teaching: 0
-exercises: 0
+teaching: 20
+exercises: 20
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions
