@@ -1,7 +1,7 @@
 ---
 title: "Function Level Profiling"
-teaching: 0
-exercises: 0
+teaching: 20
+exercises: 20
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions
@@ -150,9 +150,9 @@ The columns have the following definitions:
 |---------|---------------------------------------------------|
 | `ncalls`  | The number of times the given function was called. |
 | `tottime` | The total time spent in the given function, excluding child function calls. |
-| `percall` | The average tottime per function call (`tottime`/`percall`). |
+| `percall` | The average tottime per function call (`tottime`/`ncalls`). |
 | `cumtime` | The total time spent in the given function, including child function calls. |
-| `percall` | The average cumtime per function call (`cumtime`/`percall`). |
+| `percall` | The average cumtime per function call (`cumtime`/`ncalls`). |
 | `filename:lineno(function)` | The location of the given function's definition and it's name. |
 
 This output can often exceed the terminal's buffer length for large programs and can be unwieldy to parse, so the package `snakeviz` is often utilised to provide an interactive visualisation of the data when exported to file.
@@ -394,7 +394,7 @@ The value of `cities` should be a positive integer, this algorithm has poor scal
 :::::::::::::::::::::::: hint
 
 - If a hotspot isn't visible with the argument `1`, try increasing the value.
-- If you think you identified the hotspot with your first profile, try investigating how the value of `int` affects the hotspot within the profile.
+- If you think you identified the hotspot with your first profile, try investigating how the value of `cities` affects the hotspot within the profile.
 
 :::::::::::::::::::::::::::::::::
 
@@ -414,6 +414,15 @@ Other boxes within the diagram correspond to the initialisation of imports, or i
 :::::::::::::::::::::::::::::::::: instructor
 
 The default configuration of the Predator Prey model takes around 10 seconds to run, it may be slower on other hardware.
+
+Download the pre-generated `cProfile` output, this can be opened with `snakeviz` to save waiting for the profiler.
+
+
+* <a href="files/pred-prey/predprey_out.prof" download>files/pred-prey/predprey_out.prof</a>
+
+```sh
+python -m snakeviz predprey_out.prof
+```
 
 :::::::::::::::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::: challenge

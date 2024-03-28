@@ -1,6 +1,6 @@
 ---
 title: "Understanding Python (NumPy/Pandas)"
-teaching: 0
+teaching: 30
 exercises: 0
 ---
 
@@ -202,18 +202,18 @@ dis.dis(searchListC)
 
 ## Scope
 
-When Python executes your code, it has to find the variables that you're using.
+When Python executes your code, it has to find the variables and functions that you're using.
 
-This adds an additional cost to accessing variables in Python, which isn't typically seen in compiled languages.
+This adds an additional cost to accessing variables and calling functions in Python, which isn't typically seen in compiled languages.
 
-In particular, it will first check whether the variable has been declared within the current function (local scope), if it can't find it there it will check whether it has been declared in the file (global scope) after which it may even check whether it's from an imported package.
+In particular, it will first check whether the variable or functions has been declared within the current function (local scope), if it can't find it there it will check whether it has been declared in the file (global scope) after which it may even check whether it's from an imported package.
 
-Repeated accesses to variables, will repeat these checks.
+These are not implicitly cached, therefore repeated accesses to variables and functions, will repeat these checks.
 
-The implication, is that as local scope variables are checked first, they will be faster to access.
+The implication, is that as local scope variables and functions are checked first, they will be faster to use.
 
 If you're only accessing a variable once or twice that's nothing to worry about, this is a relatively small cost.
-But if a variable is being accessed regularly, such as within a loop, the impact may become visible.
+But if a variable or functions is being accessed regularly, such as within a loop, the impact may become visible.
 
 The below example provides a small demonstration of this in practice.
 
@@ -242,7 +242,7 @@ print(f"Global Scope: {timeit(test_list_global, number=repeats):.5f}ms")
 print(f"Local Scope: {timeit(test_list_local, number=repeats):.5f}ms")
 ```
 
-This is only a trivial example, but local scope is about 20% faster than global scope!
+This is only a trivial example, whereby `N` has been copied to the local scope `N_local`, but local scope is about 20% faster than global scope!
 
 ```output
 Global Scope: 0.06416ms
@@ -250,6 +250,18 @@ Local Scope: 0.05391ms
 ```
 
 Consider copying highly accessed variables into local scope, you can always copy them back to global scope before you return from a function.
+
+Copying functions to local scope works much the same as variables, e.g.
+
+```py
+import numpy as np
+
+def my_function():
+    uniform_local = np.random.uniform
+    
+    for i in range(10000):
+        t = uniform_local()
+```
 
 ## Built-in Functions Operators
 
@@ -584,26 +596,31 @@ import pandas as pandas
 
 N = 100000  # Number of rows in DataFrame
 
+def genInput():
+    s = pandas.Series({'a' : 1, 'b' : 2})
+    d = {'a' : 1, 'b' : 2}
+    return s, d
+
 def series():
-    x = pandas.Series({'a' : 1, 'b' : 2})
+    s, _ = genInput()
     for i in range(N):
-        y = x['a'] * x['b']
+        y = s['a'] * s['b']
 
 def dictionary():
-    x = {'a' : 1, 'b' : 2}
+    _, d = genInput()
     for i in range(N):
-        y = x['a'] * x['b']
+        y = d['a'] * d['b']
 
 repeats = 1000
 print(f"series: {timeit(series, number=repeats):.2f}ms")
 print(f"dictionary: {timeit(dictionary, number=repeats):.2f}ms")
 ```
 
-69x slower!
+65x slower!
 
 ```output
-series: 236.16ms
-dictionary: 3.42ms
+series: 237.25ms
+dictionary: 3.63ms
 ```
 
 ## Filter Early

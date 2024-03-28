@@ -1,6 +1,6 @@
 ---
 title: "Keep Python & Packages up to Date"
-teaching: 0
+teaching: 10
 exercises: 0
 ---
 
