@@ -25,7 +25,15 @@ Hopefully with the information from this course you will be in a better position
 
 This course's website can be used as a reference manual when profiling your own code.
 
-[Let us know](https://github.com/RSE-Sheffield/pando-python) what you think we've missed, so we can improve it too!
+::::::::::::::::::::::::::::::::::::: callout
+
+## Your Feedback is Required!
+
+Please complete [this Google form](https://forms.gle/C82uWBEou3FMrQs99) to let us know what you think we've missed.
+
+Your feedback enables us to improve the course for future attendees!
+
+:::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
