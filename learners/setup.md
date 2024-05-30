@@ -25,10 +25,10 @@ You may want to create a new Python virtual environment for the course, this can
 <!-- conda create -n pando python
      conda activate pando -->
 
-The non-core Python packages required by the course are `pytest`, `snakeviz`, `line_profiler`, `numpy` and `matplotlib` which can be installed via `pip`.
+The non-core Python packages required by the course are `pytest`, `snakeviz`, `line_profiler`, `numpy`, `pandas` and `matplotlib` which can be installed via `pip`.
  
 ```sh
-pip install pytest snakeviz line_profiler[all] numpy matplotlib
+pip install pytest snakeviz line_profiler[all] numpy pandas matplotlib
 ```
 
 To complete some of the exercises you will need to use a text-editor or Python IDE, so make sure you have your favourite available.
