@@ -403,7 +403,8 @@ class Model:
         plt.legend()
         plt.savefig('predprey_out.png')
     
-    def run(self):
+    def run(self, random_seed=12):
+        np.random.seed(random_seed)
         # init
         self._init_population()
         self._init_log()
