@@ -33,4 +33,23 @@ pip install pytest snakeviz line_profiler[all] numpy pandas matplotlib
 
 To complete some of the exercises you will need to use a text-editor or Python IDE, so make sure you have your favourite available.
 
+
+
+:::::::::::::::: spoiler
+
+### Mac OS (line_profiler)
+
+If you are unable to install `line_profiler` via `pip` on MacOS. Instead it can be installed via `conda`.
+
+```sh
+conda install line_profiler
+```
+
+It may first be necessary to enable conda-forge.
+
+```sh
+conda config --add channels conda-forge
+```
+::::::::::::::::::::::::
+
 :::::::::::::::::::::::::::::::::::::::::::::::::::
