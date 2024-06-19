@@ -84,7 +84,7 @@ class Prey:
                 group_centre_count += 1
 
                 # Avoidance behaviour
-                if separation < SAME_SPECIES_AVOIDANCE_RADIUS:
+                if separation < SAME_SPECIES_AVOIDANCE_RADIUS and separation > 0:
                     # Was a check for separation > 0 in original - redundant?
                     avoid_velocity_x += SAME_SPECIES_AVOIDANCE_RADIUS / separation * dx
                     avoid_velocity_y += SAME_SPECIES_AVOIDANCE_RADIUS / separation * dy
