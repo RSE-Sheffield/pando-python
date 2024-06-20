@@ -84,7 +84,7 @@ class Prey:
                 group_centre_count += 1
 
                 # Avoidance behaviour
-                if separation < SAME_SPECIES_AVOIDANCE_RADIUS:
+                if separation < SAME_SPECIES_AVOIDANCE_RADIUS and separation > 0:
                     # Was a check for separation > 0 in original - redundant?
                     avoid_velocity_x += SAME_SPECIES_AVOIDANCE_RADIUS / separation * dx
                     avoid_velocity_y += SAME_SPECIES_AVOIDANCE_RADIUS / separation * dy
@@ -403,7 +403,8 @@ class Model:
         plt.legend()
         plt.savefig('predprey_out.png')
     
-    def run(self):
+    def run(self, random_seed=12):
+        np.random.seed(random_seed)
         # init
         self._init_population()
         self._init_log()
