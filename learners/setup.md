@@ -22,8 +22,12 @@ This course uses Python and was developed using Python 3.11, therefore it is rec
 
 You may want to create a new Python virtual environment for the course, this can be done with your preferred Python environment manager (e.g. `conda`, `pipenv`), the required packages can all be installed via `pip`.
 
-<!-- conda create -n pando python
-     conda activate pando -->
+To create a new Anaconda environment named `py311_env` with Python 3.11, use the following command for conda:
+
+```bash
+     conda create --name py311_env python=3.11
+     conda activate py311_env
+```
 
 The non-core Python packages required by the course are `pytest`, `snakeviz`, `line_profiler`, `numpy`, `pandas` and `matplotlib` which can be installed via `pip`.
  

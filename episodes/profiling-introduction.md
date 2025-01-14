@@ -22,6 +22,9 @@ exercises: 10
 
 ## Introduction
 
+<!-- what if my code is not performnant -->
+But what if, despite your best efforts, performance still isn’t up to par? This is where profiling comes into play — and it’s a game-changer. You can’t always guess what’s slow. Profiling helps you see hidden inefficiencies that might be buried deep within the code.
+
 <!-- Profiling is (what) -->
 Performance profiling is the process of analysing and measuring the performance of a program or script, to understand where time is being spent during execution.
 
