@@ -3,12 +3,12 @@
 #------------------------------------------------------------
 
 # Which carpentry is this (swc, dc, lc, or cp)?
-# swc: Software Carpentry
+# swc: Software Carpentry - 
 # dc: Data Carpentry
 # lc: Library Carpentry
 # cp: Carpentries (to use for instructor training for instance)
 # incubator: The Carpentries Incubator
-carpentry: 'incubator'
+carpentry: 'swc'
 
 # Overall title for pages.
 title: 'Python Optimisation and Performance Profiling'
