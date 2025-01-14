@@ -3,18 +3,17 @@ site: sandpaper::sandpaper_site
 ---
 
 <!--
-![Welcome to Performance Profiling & Optimisation (Python) Training!
+![Welcome to Python Optimisation and Performance Profiling Training!
 ](episodes/fig/pando-python-hex-sticker.png){
-alt='Performance Profiling & Optimisation (Python) Training'
+alt='Python Optimisation and Performance Profiling Training'
 style='padding: 2%'}
 -->
 
-**Welcome to Performance Profiling & Optimisation (Python) Training!**
+**Welcome to Python Optimisation and Performance Profiling Training!**
 
 The training curriculum for this course is designed for researchers that are writing Python and lack formal computer science training. The curriculum covers how to assess where time is being spent during execution of a Python program, it also provides a high level understanding of how code executes and how this maps to the limiting factors of performance and good practice.
 
-If you are now comfortable using Python, this course may be of interest to supplement and advance your programming knowledge. This course is particularly relevant if you are writing research code and desire greater confidence that your code is both performant and suitable for publication.
-
+If you are now comfortable using Python, this course may be of interest to supplement and advance your programming knowledge. This course is particularly relevant if you are writing from scratch or re-using and existing research code and would desire a greater confidence that your code is both performant and suitable for publication. 
 This is an all-day course, however it normally finishes by early afternoon.
 
 If you would like to register to take the course, check the [registration information](learners/registration.md).
@@ -34,20 +33,20 @@ If you would like to register to take the course, check the [registration inform
 <!-- Evaluation tool: https://web.cs.manchester.ac.uk/iloadvisor/ -->
 After attending this training, participants will be able to:
 
-- identify the most expensive functions and lines of code using `cprofile` and `line_profiler`.
-- evaluate code to determine the limiting factors of it's performance.
 - recognise and implement optimisations for common limiting factors of performance.
+- identify the most expensive functions and lines of code using `cprofile` and `line_profiler`.
+- evaluate code to determine the limiting factors of its performance.
 
 ::::::::::::::::::::::::::::::::::::::::::  prereq
 
 ## Prerequisites
 
-Before joining Performance Profiling & Optimisation (Python) Training, participants should be able to:
+Before joining Python Optimisation and Performance Profiling Training, participants should be able to:
 
 - implement basic algorithms in Python.
 - follow the control flow of Python code, and dry run the execution in their head or on paper.
 
-See the [Research Computing Training Hub](https://sites.google.com/sheffield.ac.uk/research-training/research-training) for other courses to help with learning these skills.
+See the [Python novice carpentry ](https://icr-rse-group.github.io/carpentry-python-novice/instructor/index.html) for another course to help with learning these skills.
 <!-- TODO: could make a dedicated page (like https://carpentries.github.io/lesson-development-training/markdown-github-primer.html) that highlights specific courses/resources. -->
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
