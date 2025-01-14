@@ -93,3 +93,6 @@ profiles:
 
 varnish: RSE-Sheffield/uos-varnish@main
 url: 'https://rse.shef.ac.uk/pando-python'
+
+analytics: |
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="95b3ca57-3bd9-47b0-b1ca-fe819ef65c80"></script>
