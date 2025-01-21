@@ -65,7 +65,7 @@ CPython for example uses [`newsize + (newsize >> 3) + 6`](https://github.com/pyt
 
 This has two implications:
 
-* If you are creating large static lists, they will use upto 12.5% excess memory.
+* If you are creating large static lists, they will use up to 12.5% excess memory.
 * If you are growing a list with `append()`, there will be large amounts of redundant allocations and copies as the list grows.
 
 ### List Comprehension
@@ -165,7 +165,7 @@ To retrieve or check for the existence of a key within a hashing data structure,
 
 ### Keys
 
-Keys will typically be a core Python type such as a number or string. However multiple of these can be combined as a Tuple to form a compound key, or a custom class can be used if the methods `__hash__()` and `__eq__()` have been implemented.
+Keys will typically be a core Python type such as a number or string. However, multiple of these can be combined as a Tuple to form a compound key, or a custom class can be used if the methods `__hash__()` and `__eq__()` have been implemented.
 
 You can implement `__hash__()` by utilising the ability for Python to hash tuples, avoiding the need to implement a bespoke hash function.
 
@@ -265,7 +265,7 @@ Constructing a set with a loop and `add()` (equivalent to a list's `append()`) c
 
 The naive list approach is 2200x times slower than the fastest approach, because of how many times the list is searched. This gap will only grow as the number of items increases.
 
-Sorting the input list reduces the cost of searching the output list significantly, however it is still 8x slower than the fastest approach. In part because around half of it's runtime is now spent sorting the list.
+Sorting the input list reduces the cost of searching the output list significantly, however it is still 8x slower than the fastest approach. In part because around half of its runtime is now spent sorting the list.
 
 ```output
 uniqueSet: 0.30ms
@@ -280,9 +280,9 @@ uniqueListSort: 2.67ms
 
 Independent of the performance to construct a unique set (as covered in the previous section), it's worth identifying the performance to search the data-structure to retrieve an item or check whether it exists.
 
-The performance of a hashing data structure is subject to the load factor and number of collisions. An item that hashes with no collision can be checked almost directly, whereas one with collisions will probe until it finds the correct item or an empty slot. In the worst possible case, whereby all insert items have collided this would mean checking every single item. In practice, hashing data-structures are designed to minimise the chances of this happening and most items should be found or identified as missing with a single access.
+The performance of a hashing data structure is subject to the load factor and number of collisions. An item that hashes with no collision can be checked almost directly, whereas one with collisions will probe until it finds the correct item or an empty slot. In the worst possible case, whereby all insert items have collided this would mean checking every single item. In practice, hashing data-structures are designed to minimise the chances of this happening and most items should be found or identified as missing with single access.
 
-In contrast if searching a list or array, the default approach is to start at the first item and check all subsequent items until the correct item has been found. If the correct item is not present, this will require the entire list to be checked. Therefore the worst-case is similar to that of the hashing data-structure, however it is guaranteed in cases where the item is missing. Similarly, on-average we would expect an item to be found half way through the list, meaning that an average search will require checking half of the items.
+In contrast, if searching a list or array, the default approach is to start at the first item and check all subsequent items until the correct item has been found. If the correct item is not present, this will require the entire list to be checked. Therefore, the worst-case is similar to that of the hashing data-structure, however it is guaranteed in cases where the item is missing. Similarly, on-average we would expect an item to be found halfway through the list, meaning that an average search will require checking half of the items.
 
 If however the list or array is sorted, a binary search can be used. A binary search divides the list in half and checks which half the target item would be found in, this continues recursively until the search is exhausted whereby the item should be found or dismissed. This is significantly faster than performing a linear search of the list, checking a total of `log N` items every time.
 
@@ -333,9 +333,7 @@ print(f"linear_search_list: {timeit(linear_search_list, number=repeats)-gen_time
 print(f"binary_search_list: {timeit(binary_search_list, number=repeats)-gen_time:.2f}ms")
 ```
 
-Searching the set is fastest performing 25,000 searches in 0.04ms.
-This is  followed by the binary search of the (sorted) list which is 145x slower, although the list has been filtered for duplicates. A list still containing duplicates would be longer, leading to a more expensive search.
-The linear search of the list is more than 56,600x slower than the fastest, it really shouldn't be used!
+Searching the set is the fastest, performing 25,000 searches in 0.04ms. This is followed by the binary search of the (sorted) list which is 145x slower, although the list has been filtered for duplicates. A list still containing duplicates would be longer, leading to a more expensive search. The linear search of the list is more than 56,600x slower than searching the set, it really shouldn't be used!
 
 ```output
 search_set: 0.04ms
