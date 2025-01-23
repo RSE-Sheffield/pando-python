@@ -20,7 +20,7 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Python is an interpreted programming language. When you execute your `.py` file, the (default) CPython back-end compiles your Python source code to an intermediate bytecode. This bytecode is then interpreted in software at runtime generating instructions for the processor as necessary. This interpretation stage, and other features of the language, harm the performance of Python (whilst improving it's usability).<!-- https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/ -->
+Python is an interpreted programming language. When you execute your `.py` file, the (default) CPython back-end compiles your Python source code to an intermediate bytecode. This bytecode is then interpreted in software at runtime generating instructions for the processor as necessary. This interpretation stage, and other features of the language, harm the performance of Python (whilst improving its usability).<!-- https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/ -->
 
 In comparison, many languages such as C/C++ compile directly to machine code. This allows the compiler to perform low-level optimisations that better exploit hardware nuance to achieve fast performance. This however comes at the cost of compiled software not being cross-platform.
 
@@ -28,7 +28,7 @@ Whilst Python will rarely be as fast as compiled languages like C/C++, it is pos
 
 A simple example of this would be to perform a linear search of a list (in the previous episode we did say this is not recommended).
 The below example creates a list of 2500 integers in the inclusive-exclusive range `[0, 5000)`.
-It then searches for all of the even numbers in that range.
+It then searches for all the even numbers in that range.
 `searchlistPython()` is implemented manually, iterating `ls` checking each individual item in Python code.
 `searchListC()` in contrast uses the `in` operator to perform each search, which allows CPython to implement the inner loop in it's C back-end.
 
@@ -281,7 +281,7 @@ In particular, those which are passed an `iterable` (e.g. lists) are likely to p
 
 ::::::::::::::::::::::::::::::::::::: callout
 
-The built-in functions [`filter()`](https://docs.python.org/3/library/functions.html#filter) and [`map()`](https://docs.python.org/3/library/functions.html#map) can be used for processing iterables However list-comprehension is likely to be more performant.
+The built-in functions [`filter()`](https://docs.python.org/3/library/functions.html#filter) and [`map()`](https://docs.python.org/3/library/functions.html#map) can be used for processing iterables. However, list-comprehension is likely to be more performant.
 
 <!-- Would this benefit from an example? -->
 
@@ -292,11 +292,11 @@ The built-in functions [`filter()`](https://docs.python.org/3/library/functions.
 
 [NumPy](https://numpy.org/) is a commonly used package for scientific computing, which provides a wide variety of methods.
 
-It adds restriction via it's own [basic numeric types](https://numpy.org/doc/stable/user/basics.types.html), and static arrays to enable even greater performance than that of core Python. However if these restrictions are ignored, the performance can become significantly worse.
+It adds restriction via its own [basic numeric types](https://numpy.org/doc/stable/user/basics.types.html), and static arrays to enable even greater performance than that of core Python. However, if these restrictions are ignored, the performance can become significantly worse.
 
 ### Arrays
 
-NumPy's arrays (not to be confused with the core Python `array` package) are static arrays. Unlike core Python's lists, they do not dynamically resize. Therefore if you wish to append to a NumPy array, you must call `resize()` first. If you treat this like `append()` for a Python list, resizing for each individual append you will be performing significantly more copies and memory allocations than a Python list.
+NumPy's arrays (not to be confused with the core Python `array` package) are static arrays. Unlike core Python's lists, they do not dynamically resize. Therefore, if you wish to append to a NumPy array, you must call `resize()` first. If you treat this like `append()` for a Python list, resizing for each individual append you will be performing significantly more copies and memory allocations than a Python list.
 
 The below example sees lists and arrays constructed from `range(100000)`.
 
@@ -390,7 +390,7 @@ There is however a trade-off, using `numpy.random.choice()` can be clearer to so
 
 ### Vectorisation
 
-The manner by which NumPy stores data in arrays enables it's functions to utilise vectorisation, whereby the processor executes one instruction across multiple variables simultaneously, for every mathematical operation between arrays.
+The manner by which NumPy stores data in arrays enables its functions to utilise vectorisation, whereby the processor executes one instruction across multiple variables simultaneously, for every mathematical operation between arrays.
 
 Earlier in this episode it was demonstrated that using core Python methods over a list, will outperform a loop performing the same calculation faster. The below example takes this a step further by demonstrating the calculation of dot product.
 
@@ -416,17 +416,17 @@ print(f"numpy_sum_array: {timeit(np_sum_ar, setup=gen_array, number=repeats):.2f
 print(f"numpy_dot_array: {timeit(np_dot_ar, setup=gen_array, number=repeats):.2f}ms")
 ```
 
-* `python_sum_list` uses list comprehension to perform the multiplication, followed by the Python core `sum()`. This comes out at 46.93ms
-* `python_sum_array` instead directly multiplies the two arrays, taking advantage of NumPy's vectorisation. But uses the core Python `sum()`, this comes in slightly faster at 33.26ms.
-* `numpy_sum_array` again takes advantage of NumPy's vectorisation for the multiplication, and additionally uses NumPy's `sum()` implementation. These two rounds of vectorisation provide a much faster 1.44ms completion.
-* `numpy_dot_array` instead uses NumPy's `dot()` to calculate the dot product in a single operation. This comes out the fastest at 0.29ms, 162x faster than `python_sum_list`. 
-
 ```output
 python_sum_list: 46.93ms
 python_sum_array: 33.26ms
 numpy_sum_array: 1.44ms
 numpy_dot_array: 0.29ms
 ```
+
+* `python_sum_list` uses list comprehension to perform the multiplication, followed by the Python core `sum()`. This comes out at 46.93ms
+* `python_sum_array` instead directly multiplies the two arrays, taking advantage of NumPy's vectorisation. But uses the core Python `sum()`, this comes in slightly faster at 33.26ms.
+* `numpy_sum_array` again takes advantage of NumPy's vectorisation for the multiplication, and additionally uses NumPy's `sum()` implementation. These two rounds of vectorisation provide a much faster 1.44ms completion.
+* `numpy_dot_array` instead uses NumPy's `dot()` to calculate the dot product in a single operation. This comes out the fastest at 0.29ms, 162x faster than `python_sum_list`. 
 
 ::::::::::::::::::::::::::::::::::::: callout
 
@@ -439,7 +439,7 @@ A small number of functions are backed by BLAS and LAPACK, enabling even greater
 
 The [supported functions](https://numpy.org/doc/stable/reference/routines.linalg.html) mostly correspond to linear algebra operations.
 
-The auto-parallelisation of these functions is hardware dependant, so you won't always automatically get the additional benefit of parallelisation.
+The auto-parallelisation of these functions is hardware-dependent, so you won't always automatically get the additional benefit of parallelisation.
 However, HPC systems should be primed to take advantage, so try increasing the number of cores you request when submitting your jobs and see if it improves the performance.
 
 *This might be why `numpy_dot_array` is that much faster than `numpy_sum_array` in the previous example!*
@@ -449,7 +449,7 @@ However, HPC systems should be primed to take advantage, so try increasing the n
 ### `vectorize()`
 
 Python's `map()` was introduced earlier, for applying a function to all elements within a list.
-NumPy provides `vectorize()` an equivalent for operating over it's arrays.
+NumPy provides `vectorize()` an equivalent for operating over its arrays.
 
 This doesn't actually make use of processor-level vectorisation, from the [documentation](https://numpy.org/doc/stable/reference/generated/numpy.vectorize.html):
 
@@ -497,7 +497,7 @@ Pandas' methods by default operate on columns. Each column or series can be thou
 
 Following the theme of this episode, iterating over the rows of a data frame using a `for` loop is not advised. The pythonic iteration will be slower than other approaches.
 
-Pandas allows it's own methods to be applied to rows in many cases by passing `axis=1`, where available these functions should be preferred over manual loops. Where you can't find a suitable method, `apply()` can be used, which is similar to `map()`/`vectorize()`, to apply your own function to rows.
+Pandas allows its own methods to be applied to rows in many cases by passing `axis=1`, where available these functions should be preferred over manual loops. Where you can't find a suitable method, `apply()` can be used, which is similar to `map()`/`vectorize()`, to apply your own function to rows.
 
 ```python
 from timeit import timeit
@@ -571,7 +571,7 @@ vectorize: 1.48ms
 
 It won't always be possible to take full advantage of vectorisation, for example you may have conditional logic.
 
-An alternate approach is converting your dataframe to a Python dictionary using `to_dict(orient='index')`. This creates a nested dictionary, where each row of the outer dictionary is an internal dictionary. This can then be processed via list-comprehension:
+An alternate approach is converting your DataFrame to a Python dictionary using `to_dict(orient='index')`. This creates a nested dictionary, where each row of the outer dictionary is an internal dictionary. This can then be processed via list-comprehension:
 
 ```python
 def to_dict():
@@ -588,7 +588,7 @@ Whilst still nearly 100x slower than pure vectorisation, it's twice as fast as `
 to_dict: 131.15ms
 ```
 
-This is because indexing into Pandas' `Series` (rows) is significantly slower than a Python dictionary. There is a slight overhead to creating the dictionary (40ms in this example), however the stark difference in access speed is more than enough to overcome that cost for any large dataframe.
+This is because indexing into Pandas' `Series` (rows) is significantly slower than a Python dictionary. There is a slight overhead to creating the dictionary (40ms in this example), however the stark difference in access speed is more than enough to overcome that cost for any large DataFrame.
 
 ```python
 from timeit import timeit
