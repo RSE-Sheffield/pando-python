@@ -20,17 +20,16 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Python is an interpreted programming language. When you execute your `.py` file, the (default) CPython back-end compiles your Python source code to an intermediate bytecode. This bytecode is then interpreted in software at runtime generating instructions for the processor as necessary. This interpretation stage, and other features of the language, harm the performance of Python (whilst improving its usability).<!-- https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/ -->
+Python is an interpreted language. When you run a .py file, the CPython interpreter first converts the Python code into bytecode. CPython is the default implementation of Python, written in C. This bytecode is then processed at runtime to generate instructions for the CPU. While this makes Python easier to use, it can slow down performance.<!-- https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/ -->
 
-In comparison, many languages such as C/C++ compile directly to machine code. This allows the compiler to perform low-level optimisations that better exploit hardware nuance to achieve fast performance. This however comes at the cost of compiled software not being cross-platform.
+In contrast, languages like C/C++ are compiled directly into machine code, allowing the compiler to optimize for better performance. However, this means C/C++ programs aren't as easily portable across different platforms.
 
-Whilst Python will rarely be as fast as compiled languages like C/C++, it is possible to take advantage of the CPython back-end and packages such as NumPy and Pandas that have been written in compiled languages to expose this performance.
+Although Python isn’t as fast as languages like C/C++, it can still be efficient by using tools like NumPy and Pandas, which are written in faster compiled languages.
 
-A simple example of this would be to perform a linear search of a list (in the previous episode we did say this is not recommended).
-The below example creates a list of 2500 integers in the inclusive-exclusive range `[0, 5000)`.
-It then searches for all the even numbers in that range.
-`searchlistPython()` is implemented manually, iterating `ls` checking each individual item in Python code.
-`searchListC()` in contrast uses the `in` operator to perform each search, which allows CPython to implement the inner loop in it's C back-end.
+
+A simple example of this is performing a linear search on a list (though we mentioned in the previous episode that this isn’t the most efficient approach). In the following example, we create a list of 2500 integers in the range `[0, 5000)`. The goal is to search for all even numbers within that range.
+
+The function `searchlistPython()` manually iterates through the list (`ls`) and checks each item using Python code. On the other hand, `searchListC()` uses the `in` operator, which lets CPython handle the search more efficiently by running the inner loop in its C back-end.
 
 ```python
 import random
