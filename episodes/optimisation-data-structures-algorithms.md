@@ -63,6 +63,9 @@ CPython for example uses [`newsize + (newsize >> 3) + 6`](https://github.com/pyt
 
 ![The relationship between the number of appends to an empty list, and the number of internal resizes in CPython.](episodes/fig/cpython_list_allocations.png){alt='A line graph displaying the relationship between the number of calls to append() and the number of internal resizes of a CPython list. It has a logarithmic relationship, at 1 million appends there have been 84 internal resizes.'}
 
+![Visual note on resizing behaviour of Python lists.](episodes/fig/python_lists.png){alt='Small cheat note for better visualization of Python lists.'}
+
+
 This has two implications:
 
 * If you are creating large static lists, they will use up to 12.5% excess memory.
