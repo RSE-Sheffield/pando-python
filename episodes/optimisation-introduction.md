@@ -36,16 +36,16 @@ The remaining content is often abstract knowledge, that is transferable to the v
 
 > Programmers waste enormous amounts of time thinking about, or worrying about, the speed of noncritical parts of their programs, and these attempts at efficiency actually have a strong negative impact when debugging and maintenance are considered. We should forget about small efficiencies, say about 97% of the time: **premature optimisation is the root of all evil**. Yet we should not pass up our opportunities in that critical 3%. - Donald Knuth
 
-This classic quote among computer scientists states; when considering optimisation it is important to focus on the potential impact, both to the performance and maintainability of the code. Advanced optimisations, mostly outside the scope of this course, can increase the cost of maintenance by obfuscating what code is doing. Even if you are a solo-developer working on private code, your future self should be able to easily comprehend your implementation. Therefore, the balance between the impact to both performance and maintainability should be considered when optimising code.
+This classic quote among computer scientists emphasizes the importance of considering both performance and maintainability when optimizing code. While advanced optimizations may boost performance, they often come at the cost of making the code harder to understand and maintain. Even if you're working alone on private code, your future self should be able to easily understand the implementation. Hence, when optimizing, always weigh the potential impact on both performance and maintainability.
 
-This is not to say, don't consider performance when first writing code. The selection of appropriate algorithms and data-structures covered in this course form a good practice, simply don't fret over a need to micro-optimise every small component of the code that you write.
+This doesn't mean you should ignore performance when initially writing code. Choosing the right algorithms and data structures, as we’ve discussed in this course, is essential. However, there's no need to obsess over micro-optimizing every tiny component of your code—focus on the bigger picture.
 
 ## Ensuring Reproducible Results when optimising an existing code
 
 <!-- This is also good practice when optimising your code, to ensure mistakes aren't made -->
-When optimising an existing code, you are making speculative changes. It's easy to make mistakes, many of which can be subtle. Therefore, it's important to have a strategy in place to check that the outputs remain correct.
+When optimizing existing code, you're often making speculative changes, which can lead to subtle mistakes. To ensure that your optimizations are actually improving the code without introducing errors, it's crucial to have a solid strategy for checking that the results remain correct.
 
-Testing is hopefully already a seamless part of your research software development process. Test can be used to clarify how your software should perform, ensuring that new features work as intended and protecting against unintended changes to old functionality.
+Testing should already be an integral part of your development process. It helps clarify expected behavior, ensures new features are working as intended, and protects against unintended regressions in previously working functionality. Always verify your changes through testing to ensure that the optimizations don’t compromise the correctness of your code.
 
 ## pytest Overview
 

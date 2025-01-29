@@ -74,7 +74,6 @@ episodes:
 # Information for Learners
 learners: 
 - setup.md
-- registration.md
 - acknowledgements.md
 - ppp.md
 - reference.md

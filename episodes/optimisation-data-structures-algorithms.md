@@ -151,16 +151,20 @@ Since Python 3.6, the items within a dictionary will iterate in the order that t
 ### Hashing Data Structures
 
 <!-- simple explanation of how a hash-based data structure works -->
-Python's dictionaries are implemented as hashing data structures.
-Within a hashing data structure each inserted key is hashed to produce a (hopefully unique) integer key.
-The dictionary is pre-allocated to a default size, and the key is assigned the index within the dictionary equivalent to the hash modulo the length of the dictionary.
-If that index doesn't already contain another key, the key (and any associated values) can be inserted.
-When the index isn't free, a collision strategy is applied. CPython's [dictionary](https://github.com/python/cpython/blob/main/Objects/dictobject.c) and [set](https://github.com/python/cpython/blob/main/Objects/setobject.c) both use a form of open addressing whereby a hash is mutated and corresponding indices probed until a free one is located.
-When the hashing data structure exceeds a given load factor (e.g. 2/3 of indices have been assigned keys), the internal storage must grow. This process requires every item to be re-inserted which can be expensive, but reduces the average probes for a key to be found.
+Python's dictionaries are implemented using hashing as their underlying data structure. In this structure, each key is hashed to generate a (preferably unique) integer, which serves as the basis for indexing. Dictionaries are initialized with a default size, and the hash value of a key, modulo the dictionary's length, determines its initial index. If this index is available, the key and its associated value are stored there. If the index is already occupied, a collision occurs, and a resolution strategy is applied to find an alternate index.
 
-![An visual explanation of linear probing, CPython uses an advanced form of this.](episodes/fig/hash_linear_probing.png){alt="A diagram demonstrating how the keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. This is followed by the insertion of 59, 80 and 39 which require linear probing to be inserted due to collisions."}
+In CPython's [dictionary](https://github.com/python/cpython/blob/main/Objects/dictobject.c) and [set](https://github.com/python/cpython/blob/main/Objects/setobject.c)implementations, a technique called open addressing is employed. This approach modifies the hash and probes subsequent indices until an empty one is found.
 
-To retrieve or check for the existence of a key within a hashing data structure, the key is hashed again and a process equivalent to insertion is repeated. However, now the key at each index is checked for equality with the one provided. If any empty index is found before an equivalent key, then the key must not be present in the ata structure.
+
+When a dictionary or hash table in Python grows, the underlying storage is resized, which necessitates re-inserting every existing item into the new structure. This process can be computationally expensive but is essential for maintaining efficient average probe times when searching for keys.
+![A visual explanation of linear probing, CPython uses an advanced form of this.](episodes/fig/hash_linear_probing.png){alt="A diagram showing how keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. The insertion of 59, 80, and 39 demonstrates linear probing to resolve collisions."}
+To look up or verify the existence of a key in a hashing data structure, the key is re-hashed, and the process mirrors that of insertion. The corresponding index is probed to see if it contains the provided key. If the key at the index matches, the operation succeeds. If an empty index is reached before finding the key, it indicates that the key does not exist in the structure.
+
+The above diagrams shows a hash table of 5 elements within a block of 11 slots:
+1. We try to add element k=59. Based on its hash, the intended position is p=4. However, slot 4 is already occupied by the element k=37. This results in a collision.
+2. To resolve the collision, the linear probing mechanism is employed. The algorithm checks the next available slot, starting from position p=4. The first available slot is found at position 5.
+3. The number of jumps (or steps) it took to find the available slot are represented by i=1 (since we moved from position 4 to 5).
+In this case, the number of jumps i=1 indicates that the algorithm had to probe one slot to find an empty position at index 5.
 
 
 ### Keys
