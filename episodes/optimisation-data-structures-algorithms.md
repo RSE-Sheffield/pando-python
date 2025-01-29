@@ -155,7 +155,6 @@ Python's dictionaries are implemented using hashing as their underlying data str
 
 In CPython's [dictionary](https://github.com/python/cpython/blob/main/Objects/dictobject.c) and [set](https://github.com/python/cpython/blob/main/Objects/setobject.c)implementations, a technique called open addressing is employed. This approach modifies the hash and probes subsequent indices until an empty one is found.
 
-
 When a dictionary or hash table in Python grows, the underlying storage is resized, which necessitates re-inserting every existing item into the new structure. This process can be computationally expensive but is essential for maintaining efficient average probe times when searching for keys.
 ![A visual explanation of linear probing, CPython uses an advanced form of this.](episodes/fig/hash_linear_probing.png){alt="A diagram showing how keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. The insertion of 59, 80, and 39 demonstrates linear probing to resolve collisions."}
 To look up or verify the existence of a key in a hashing data structure, the key is re-hashed, and the process mirrors that of insertion. The corresponding index is probed to see if it contains the provided key. If the key at the index matches, the operation succeeds. If an empty index is reached before finding the key, it indicates that the key does not exist in the structure.
@@ -284,7 +283,7 @@ uniqueListSort: 2.67ms
 
 Independent of the performance to construct a unique set (as covered in the previous section), it's worth identifying the performance to search the data-structure to retrieve an item or check whether it exists.
 
-The performance of a hashing data structure is subject to the load factor and number of collisions. An item that hashes with no collision can be checked almost directly, whereas one with collisions will probe until it finds the correct item or an empty slot. In the worst possible case, whereby all insert items have collided this would mean checking every single item. In practice, hashing data-structures are designed to minimise the chances of this happening and most items should be found or identified as missing with single access.
+The performance of a hashing data structure is subject to the load factor and number of collisions. An item that hashes with no collision can be checked almost directly, whereas one with collisions will probe until it finds the correct item or an empty slot. In the worst possible case, whereby all insert items have collided this would mean checking every single item. In practice, hashing data-structures are designed to minimise the chances of this happening and most items should be found or identified as missing with single access, result in an average time complexity of a constant (which is very good!).
 
 In contrast, if searching a list or array, the default approach is to start at the first item and check all subsequent items until the correct item has been found. If the correct item is not present, this will require the entire list to be checked. Therefore, the worst-case is similar to that of the hashing data-structure, however it is guaranteed in cases where the item is missing. Similarly, on-average we would expect an item to be found halfway through the list, meaning that an average search will require checking half of the items.
 
