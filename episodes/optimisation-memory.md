@@ -173,7 +173,6 @@ Within Python memory is not explicitly allocated and deallocated, instead it is 
 The below implementation of the [heat-equation](https://en.wikipedia.org/wiki/Heat_equation), reallocates `out_grid`, a large 2 dimensional (500x500) list each time `update()` is called which progresses the model.
 
 ```python
-import time
 grid_shape = (512, 512)
 
 def update(grid, a_dt):
@@ -222,7 +221,6 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 If instead `out_grid` is double buffered, such that two buffers are allocated outside the function, which are swapped after each call to update().
 
 ```python
-import time
 grid_shape = (512, 512)
 
 def update(grid, a_dt, out_grid):

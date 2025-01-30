@@ -63,6 +63,9 @@ CPython for example uses [`newsize + (newsize >> 3) + 6`](https://github.com/pyt
 
 ![The relationship between the number of appends to an empty list, and the number of internal resizes in CPython.](episodes/fig/cpython_list_allocations.png){alt='A line graph displaying the relationship between the number of calls to append() and the number of internal resizes of a CPython list. It has a logarithmic relationship, at 1 million appends there have been 84 internal resizes.'}
 
+![Visual note on resizing behaviour of Python lists.](episodes/fig/python_lists.png){alt='Small cheat note for better visualization of Python lists.'}
+
+
 This has two implications:
 
 * If you are creating large static lists, they will use up to 12.5% excess memory.
@@ -155,7 +158,6 @@ Python's dictionaries are implemented using hashing as their underlying data str
 
 In CPython's [dictionary](https://github.com/python/cpython/blob/main/Objects/dictobject.c) and [set](https://github.com/python/cpython/blob/main/Objects/setobject.c)implementations, a technique called open addressing is employed. This approach modifies the hash and probes subsequent indices until an empty one is found.
 
-
 When a dictionary or hash table in Python grows, the underlying storage is resized, which necessitates re-inserting every existing item into the new structure. This process can be computationally expensive but is essential for maintaining efficient average probe times when searching for keys.
 ![A visual explanation of linear probing, CPython uses an advanced form of this.](episodes/fig/hash_linear_probing.png){alt="A diagram showing how keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. The insertion of 59, 80, and 39 demonstrates linear probing to resolve collisions."}
 To look up or verify the existence of a key in a hashing data structure, the key is re-hashed, and the process mirrors that of insertion. The corresponding index is probed to see if it contains the provided key. If the key at the index matches, the operation succeeds. If an empty index is reached before finding the key, it indicates that the key does not exist in the structure.
@@ -165,7 +167,6 @@ The above diagrams shows a hash table of 5 elements within a block of 11 slots:
 2. To resolve the collision, the linear probing mechanism is employed. The algorithm checks the next available slot, starting from position p=4. The first available slot is found at position 5.
 3. The number of jumps (or steps) it took to find the available slot are represented by i=1 (since we moved from position 4 to 5).
 In this case, the number of jumps i=1 indicates that the algorithm had to probe one slot to find an empty position at index 5.
-
 
 ### Keys
 
@@ -284,7 +285,7 @@ uniqueListSort: 2.67ms
 
 Independent of the performance to construct a unique set (as covered in the previous section), it's worth identifying the performance to search the data-structure to retrieve an item or check whether it exists.
 
-The performance of a hashing data structure is subject to the load factor and number of collisions. An item that hashes with no collision can be checked almost directly, whereas one with collisions will probe until it finds the correct item or an empty slot. In the worst possible case, whereby all insert items have collided this would mean checking every single item. In practice, hashing data-structures are designed to minimise the chances of this happening and most items should be found or identified as missing with single access.
+The performance of a hashing data structure is subject to the load factor and number of collisions. An item that hashes with no collision can be checked almost directly, whereas one with collisions will probe until it finds the correct item or an empty slot. In the worst possible case, whereby all insert items have collided this would mean checking every single item. In practice, hashing data-structures are designed to minimise the chances of this happening and most items should be found or identified as missing with single access, result in an average time complexity of a constant (which is very good!).
 
 In contrast, if searching a list or array, the default approach is to start at the first item and check all subsequent items until the correct item has been found. If the correct item is not present, this will require the entire list to be checked. Therefore, the worst-case is similar to that of the hashing data-structure, however it is guaranteed in cases where the item is missing. Similarly, on-average we would expect an item to be found halfway through the list, meaning that an average search will require checking half of the items.
 
@@ -347,6 +348,20 @@ binary_search_list: 5.79ms
 
 These results are subject to change based on the number of items and the proportion of searched items that exist within the list. However, the pattern is likely to remain the same. Linear searches should be avoided!
 
+::::::::::::::::::::::::::::::::::::: callout
+
+Dictionaries are designed to handle insertions efficiently, with average-case O(1) time complexity per insertion for a small size dict, but it is clearly problematic for large size dict. In this case, it is better to find an alternative Data Structure for example List, NumPy Array or Pandas DataFrame. The table below summarizes the best uses and performance characteristics of each data structure:
+
+| Data Structure   | Small Size Insertion (O(1))       | Large Size Insertion                     | Search Performance (O(1)) | Best For                                                                 |
+|------------------|-----------------------------------|------------------------------------------|---------------------------|--------------------------------------------------------------------------|
+| Dictionary       | ✅                                | ⚠️ Occasional O(n) (due to resizing)     | ✅ O(1) (Hashing)          | Fast insertions and lookups, key-value storage, small to medium data |
+| List             | ✅ Amortized (O(1) Append)        | ✅ Efficient (Amortized O(1))            | ❌ O(n) (Linear Search)    | Dynamic appends, ordered data storage, general-purpose use           |
+| Set              | ✅ Average O(1)                   | ⚠️ Occasional O(n) (due to resizing)     | ✅ O(1) (Hashing)          | Membership testing, unique elements, small to medium datasets        |
+| NumPy Array      | ❌ (Fixed Size)                   | ⚠️ Costly (O(n) when resizing)           | ❌ O(n) (Linear Search)    | Numerical computations, fixed-size data, vectorized operations       |
+| Pandas DataFrame | ❌ (if adding rows)               | ⚠️ Efficient (Column-wise)               | ❌ O(n) (Linear Search)    | Column-wise analytics, tabular data, large datasets                  |
+NumPy and Pandas, which we have not yet covered, are powerful libraries designed for handling large matrices and arrays. They are implemented in C to optimize performance, making them ideal for numerical computations and data analysis tasks.
+
+:::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
