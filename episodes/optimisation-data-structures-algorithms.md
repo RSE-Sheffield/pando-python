@@ -168,7 +168,6 @@ The above diagrams shows a hash table of 5 elements within a block of 11 slots:
 3. The number of jumps (or steps) it took to find the available slot are represented by i=1 (since we moved from position 4 to 5).
 In this case, the number of jumps i=1 indicates that the algorithm had to probe one slot to find an empty position at index 5.
 
-
 ### Keys
 
 Keys will typically be a core Python type such as a number or string. However, multiple of these can be combined as a Tuple to form a compound key, or a custom class can be used if the methods `__hash__()` and `__eq__()` have been implemented.
@@ -349,6 +348,21 @@ binary_search_list: 5.79ms
 
 These results are subject to change based on the number of items and the proportion of searched items that exist within the list. However, the pattern is likely to remain the same. Linear searches should be avoided!
 
+::::::::::::::::::::::::::::::::::::: callout
+
+Dictionaries are designed to handle insertions efficiently, with average-case O(1) time complexity per insertion for a small size dict, but it is clearly problematic for large size dict. In this case, it is better to find an alternative Data Structure for example List, NumPy Array or Pandas DataFrame. The table below summarizes the best uses and performance characteristics of each data structure:
+
+| Data Structure   | Small Size Insertion (O(1)) | Large Size Insertion                     | Search Performance (O(1)) | Best For                                                                 |
+|------------------|-----------------------------|------------------------------------------|---------------------------|--------------------------------------------------------------------------|
+| Dictionary       | Yes                         | Problematic (O(n) resizing)              | Yes                       | Fast insertions and lookups, key-value storage, small to medium data  |
+| List             | Yes (Amortized)             | Efficient (Amortized O(1))               | No (O(n))                 | Dynamic appends, ordered data storage, general-purpose use          |
+| Set              | Yes                         | Problematic (O(n) resizing)              | Yes                       | Membership testing, unique elements, small to medium data           |
+| NumPy Array      | No                          | Efficient (Fixed Size)                   | No (O(n))                 | Numerical computations, fixed-size data, vectorized operations      |
+| Pandas DataFrame | No                          | Efficient (Column-wise)                  | No (O(n))                 | Column-wise analytics, tabular data, large datasets                 |
+
+NumPy and Pandas, which we have not yet covered, are powerful libraries designed for handling large matrices and arrays. They are implemented in C to optimize performance, making them ideal for numerical computations and data analysis tasks.
+
+:::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
