@@ -352,14 +352,13 @@ These results are subject to change based on the number of items and the proport
 
 Dictionaries are designed to handle insertions efficiently, with average-case O(1) time complexity per insertion for a small size dict, but it is clearly problematic for large size dict. In this case, it is better to find an alternative Data Structure for example List, NumPy Array or Pandas DataFrame. The table below summarizes the best uses and performance characteristics of each data structure:
 
-| Data Structure   | Small Size Insertion (O(1)) | Large Size Insertion                     | Search Performance (O(1)) | Best For                                                                 |
-|------------------|-----------------------------|------------------------------------------|---------------------------|--------------------------------------------------------------------------|
-| Dictionary       | Yes                         | Problematic (O(n) resizing)              | Yes                       | Fast insertions and lookups, key-value storage, small to medium data  |
-| List             | Yes (Amortized)             | Efficient (Amortized O(1))               | No (O(n))                 | Dynamic appends, ordered data storage, general-purpose use          |
-| Set              | Yes                         | Problematic (O(n) resizing)              | Yes                       | Membership testing, unique elements, small to medium data           |
-| NumPy Array      | No                          | Efficient (Fixed Size)                   | No (O(n))                 | Numerical computations, fixed-size data, vectorized operations      |
-| Pandas DataFrame | No                          | Efficient (Column-wise)                  | No (O(n))                 | Column-wise analytics, tabular data, large datasets                 |
-
+| Data Structure   | Small Size Insertion (O(1))       | Large Size Insertion                     | Search Performance (O(1)) | Best For                                                                 |
+|------------------|-----------------------------------|------------------------------------------|---------------------------|--------------------------------------------------------------------------|
+| Dictionary       | ✅                                | ⚠️ Occasional O(n) (due to resizing)     | ✅ O(1) (Hashing)          | Fast insertions and lookups, key-value storage, small to medium data |
+| List             | ✅ Amortized (O(1) Append)        | ✅ Efficient (Amortized O(1))            | ❌ O(n) (Linear Search)    | Dynamic appends, ordered data storage, general-purpose use           |
+| Set              | ✅ Average O(1)                   | ⚠️ Occasional O(n) (due to resizing)     | ✅ O(1) (Hashing)          | Membership testing, unique elements, small to medium datasets        |
+| NumPy Array      | ❌ (Fixed Size)                   | ⚠️ Costly (O(n) when resizing)           | ❌ O(n) (Linear Search)    | Numerical computations, fixed-size data, vectorized operations       |
+| Pandas DataFrame | ❌ (if adding rows)               | ⚠️ Efficient (Column-wise)               | ❌ O(n) (Linear Search)    | Column-wise analytics, tabular data, large datasets                  |
 NumPy and Pandas, which we have not yet covered, are powerful libraries designed for handling large matrices and arrays. They are implemented in C to optimize performance, making them ideal for numerical computations and data analysis tasks.
 
 :::::::::::::::::::::::::::::::::::::::::::::
