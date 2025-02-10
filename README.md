@@ -34,8 +34,6 @@ options(repos = c(
 # Setup install from github
 install.packages("devtools")
 library(devtools)
-# Install Uni of Shef Varnish theme
-install_github("RSE-Sheffield/uos-varnish")
 # Install remaining official carpentries packages
 install.packages(c("sandpaper", "tinkr", "pegboard"))
 ```
