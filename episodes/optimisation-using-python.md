@@ -46,7 +46,7 @@ random.seed(12)
 my_data = [random.random() for i in range(N)]
 
 
-def manualSumC():  # bad habits
+def manualSumC():  # my first attempt
     n = 0
     for i in range(len(my_data)):
         n += my_data[i]
@@ -68,7 +68,7 @@ print(f"manualSumPy: {timeit(manualSumPy, globals=globals(), number=repeats):.3f
 print(f"builtinSum: {timeit(builtinSum, globals=globals(), number=repeats):.3f}ms")
 ```
 
-Even just replacing the C-style iteration over indices with a more pythonic iteration over the elements themselves speeds up the code by about 2×.
+Even just replacing the iteration over indices (which may be a habit you’ve picked up if you first learned to program in C) with a more pythonic iteration over the elements themselves speeds up the code by about 2×.
 But even better, by switching to the builtin `sum` function our code becomes about 8× faster, doing the exact same operation!
 
 ```output
@@ -113,9 +113,9 @@ f = [
 ]
 ```
 
-A colleague who learned programming in C wrote the following code to parse the data into a dictionary:
+A colleague (who learned to program in C before he started using Python) wrote the following code to parse the data into a dictionary:
 ```python
-def manualSplit():  # bad habits
+def manualSplit():
     data = {}
     for line in f:
         first_char = line.find("0")
