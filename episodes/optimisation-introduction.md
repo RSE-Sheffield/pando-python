@@ -80,6 +80,8 @@ Objects store both their raw data (like an integer or string) and some internal 
 We can see that additional storage space with `sys.getsizeof()`, which shows how many bytes an object takes up:
 
 ```Python
+import sys
+
 sys.getsizeof("")  # 41
 sys.getsizeof("a")  # 42
 sys.getsizeof("ab")  # 43
@@ -100,7 +102,7 @@ However, there are the few other cases where code performance really matters. To
 Some performance-sensitive libraries therefore perform a lot of the work in such low-level code, before returning a nice Python object back to you.
 (We’ll discuss NumPy in a later section; but many parts of the Python standard library also use this pattern.)
 
-Therefore, it is often best to tell the interpreter/library at a high level *what you want*, and let it figure out *how to do it*.
+Therefore, **it is often best to tell the interpreter/library at a high level *what you want*, and let it figure out *how to do it*.**
 
 That way, the interpreter/library is free to do all its work in the low-level code, and adds overhead only once, when it creates and returns a Python object in the end.
 This usually makes your code more readable, too: When I read you code, I can see exactly *what you want to do*, without getting overwhelmed by overly detailed step-by-step instructions.

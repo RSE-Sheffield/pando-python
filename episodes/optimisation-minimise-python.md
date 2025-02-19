@@ -1,5 +1,5 @@
 ---
-title: "Understanding Python (NumPy/Pandas)"
+title: "Using Scientific Python Libraries (NumPy, Pandas and more)"
 teaching: 30
 exercises: 0
 ---
@@ -18,11 +18,9 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Python is an interpreted programming language. When you execute your `.py` file, the (default) CPython back-end compiles your Python source code to an intermediate bytecode. This bytecode is then interpreted in software at runtime generating instructions for the processor as necessary. This interpretation stage, and other features of the language, harm the performance of Python (whilst improving it's usability).<!-- https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/ -->
+Earlier, we saw that builtin functions in Python, like `sum()`, are often faster than manually looping over a list. This is because those high-level functions are able to do most of the work in the C backend
 
-In comparison, many languages such as C/C++ compile directly to machine code. This allows the compiler to perform low-level optimisations that better exploit hardware nuance to achieve fast performance. This however comes at the cost of compiled software not being cross-platform.
-
-Whilst Python will rarely be as fast as compiled languages like C/C++, it is possible to take advantage of the CPython back-end and packages such as NumPy and Pandas that have been written in compiled languages to expose this performance.
+Packages like NumPy and Pandas work similarly: They have been written in compiled languages to expose this performance across a wide range of scientific workloads.
 
 
 
@@ -31,6 +29,8 @@ Whilst Python will rarely be as fast as compiled languages like C/C++, it is pos
 [NumPy](https://numpy.org/) is a commonly used package for scientific computing, which provides a wide variety of methods.
 
 It adds restriction via it's own [basic numeric types](https://numpy.org/doc/stable/user/basics.types.html), and static arrays to enable even greater performance than that of core Python. However if these restrictions are ignored, the performance can become significantly worse.
+
+![Illustration of a NumPy array and a Python list.](episodes/fig/numpyarray_vs_pylist.png){alt="A diagram illustrating the difference between a NumPy array and a Python list. The NumPy array is a raw block of memory containing numerical values. A Python list contains a header with metadata and multiple items, each of which is a reference to another Python object with its own header and value."}
 
 ### NumPy arrays and Python lists live in two separate worlds
 
@@ -519,6 +519,7 @@ If you can filter your rows before processing, rather than after, you may signif
 
 - Python is an interpreted language, this adds an additional overhead at runtime to the execution of Python code. Many core Python and NumPy functions are implemented in faster C/C++, free from this overhead.
 - NumPy can take advantage of vectorisation to process arrays, which can greatly improve performance.
-- Pandas' data tables store columns as arrays, therefore operations applied to columns can take advantage of NumPys vectorisation.
+- Many domain-specific packages are built on top of NumPy and can offer similar performance boosts.
+- Pandas' data tables store columns as arrays, therefore operations applied to columns can take advantage of NumPy’s vectorisation.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

@@ -65,6 +65,7 @@ This could cause your code to crash, or worse subtly change your results.
 If you have been working with an existing Python installation, the upgrade process for Python itself depends on how you installed your current version. (E.g. via conda, official installer from python.org, package manager like Homebrew/apt/yum/…)
 
 For packages you’re using, you can update those in the same way you installed them:
+
 * via `pip`, e.g. `pip install --upgrade numpy`
 * via `conda`, e.g. `conda update <PACKAGE>`
 

@@ -8,7 +8,7 @@ exercises: 0
 
 - How does a CPU look for a variable it requires?
 - What impact do cache lines have on memory accesses?
-- Why is it faster to read/write a single 100mb file, than 100 1mb files?
+- Why is it faster to read/write a single 100 MB file, than 100 files of 1 MB each?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

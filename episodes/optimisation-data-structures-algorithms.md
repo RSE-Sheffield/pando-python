@@ -113,7 +113,7 @@ Results will vary between Python versions, hardware and list lengths. But in thi
 
 ## Tuples
 
-In contrast, Python's tuples are immutable static arrays (similar to strings): Their elements cannot be modified and they cannot be resized.
+In contrast to lists, Python's tuples are immutable static arrays (similar to strings): Their elements cannot be modified and they cannot be resized.
 
 Their potential use-cases are greatly reduced due to these two limitations, they are only suitable for groups of immutable properties.
 
