@@ -151,8 +151,41 @@ Since Python 3.6, the items within a dictionary will iterate in the order that t
 
 ### Hashing Data Structures
 
-<!-- simple explanation of how a hash-based data structure works -->
 Python's dictionaries are implemented as hashing data structures.
+Explaining how these work will get a bit technical, so let’s start with an analogy:
+
+A Python list is like having a single long bookshelf. When you buy a new book (append a new element to the list), you place it at the far end of the shelf, right after all the previous books.
+
+![A bookshelf corresponding to a Python list.](episodes/fig/bookshelf_list.jpg){alt="An image of a single long bookshelf, with a large number of books."}
+
+A hashing data structure is more like a bookcase with several shelves, labeled by genre (sci-fi, romance, children’s books, non-fiction, …) and author surname. When you buy a new book by Jules Verne, you might place it on the shelf labeled “Sci-Fi, V–Z”.
+And if you keep adding more books, at some point you’ll move to a larger bookcase with more shelves (and thus more fine-grained sorting), to make sure you don’t have too many books on a single shelf.
+
+![A bookshelf corresponding to a Python dictionary.](episodes/fig/bookshelf_dict.jpg){alt="An image of two bookcases, labelled “Sci-Fi” and “Romance”. Each bookcase contains shelves labelled in alphabetical order, with zero or few books on each shelf."}
+
+Now, let's say a friend wanted to borrow the book "'—All You Zombies—'" by Robert Heinlein.
+If I had my books arranged on a single bookshelf (in a list), I would have to look through every book I own in order to find it.
+However, if I had a bookcase with several shelves (a hashing data structure), I know immediately that I need to check the shelf “Sci-Fi, G—J”, so I’d be able to find it much more quickly!
+
+::::::::::::::::::::::::::::::::::::: instructor
+
+The large bookcases in the second illustration, with many shelves almost empty, take up a lot more space than the single shelf in the first illustration.
+This may also be interpreted as the dictionary using more memory than a list.
+
+In principle, this is correct. However:
+
+* The actual difference is much less pronounced than in the illustration. (A list requires about 8 bytes to keep track of each item, while a dictionary requires about 30 bytes.)
+* In most cases this net size of the list/dictionary itself is negligibly small compared to the size of the objects stored in the list or dictionary (e.g. 41 bytes for an empty string or 112 bytes for an empty NumPy array).
+
+In practice, therefore, this trade-off between memory usage and speed is usually worth it.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+::::::::::::::::::::::::::::::::::::: callout
+
+### Technical explanation
+
 Within a hashing data structure each inserted key is hashed to produce a (hopefully unique) integer key.
 The dictionary is pre-allocated to a default size, and the key is assigned the index within the dictionary equivalent to the hash modulo the length of the dictionary.
 If that index doesn't already contain another key, the key (and any associated values) can be inserted.
@@ -189,6 +222,8 @@ dict = {}
 dict[MyKey("one", 2, 3.0)] = 12
 ```
 The only limitation is that where two objects are equal they must have the same hash, hence all member variables which contribute to `__eq__()` should also contribute to `__hash__()` and vice versa (it's fine to have irrelevant or redundant internal members contribute to neither).
+
+:::::::::::::::::::::::::::::::::::::
 
 ## Sets
 
