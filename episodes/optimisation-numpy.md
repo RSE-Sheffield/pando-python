@@ -124,9 +124,68 @@ There is however a trade-off, using `numpy.random.choice()` can be clearer to so
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
-### Vectorisation
+### Array broadcasting
 
-The manner by which NumPy stores data in arrays enables it's functions to utilise vectorisation, whereby the processor executes one instruction across multiple variables simultaneously, for every mathematical operation between arrays.
+NumPy arrays support “[broadcasting](https://numpy.org/doc/stable/user/basics.broadcasting.html)” many mathematical operations or functions.
+This is a shorthand notation, where the operation/function is applied element-wise without having to loop over the array explicitly:
+
+```Python
+>>> import numpy as np
+>>> ar = np.arange(6)
+>>> ar
+array([0, 1, 2, 3, 4, 5])
+>>> ar + 10
+array([10, 11, 12, 13, 14, 15])
+>>> ar * 2
+array([ 0,  2,  4,  6,  8, 10])
+>>> ar**2
+array([ 0,  1,  4,  9, 16, 25])
+>>> np.exp(ar)
+array([  1.        ,   2.71828183,   7.3890561 ,  20.08553692,
+        54.59815003, 148.4131591 ])
+```
+
+::::::::::::::::::::::::::::::::::::: callout
+
+If you try the same with Python lists, it will usually fail with an error or give an unexpected result:
+
+```Python
+>>> ls = list(range(6))
+>>> ls + 10
+Traceback (most recent call last):
+  File "<python-input-8>", line 1, in <module>
+    ls + 10
+    ~~~^~~~
+TypeError: can only concatenate list (not "int") to list
+>>> ls * 2
+[0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5]
+>>> ls ** 2
+Traceback (most recent call last):
+  File "<python-input-10>", line 1, in <module>
+    ls ** 2
+    ~~~^^~~
+TypeError: unsupported operand type(s) for ** or pow(): 'list' and 'int'
+>>> np.exp(ls)  # works but is slower, because NumPy converts the list into an array first
+array([  1.        ,   2.71828183,   7.3890561 ,  20.08553692,
+        54.59815003, 148.4131591 ])
+```
+:::::::::::::::::::::::::::::::::::::::::::::
+
+However, broadcasting is not just a nicer way to write mathematical expressions—it can also give a significant performance boost:
+Most modern processors are able to apply one instruction across multiple variables simultaneously, instead of sequentially. (In computer science, this is also referred to as “vectorisation”.) The manner by which NumPy stores data in arrays enables it to vectorise mathematical operations that are broadcast across arrays.
+
+<!-- Analogy: If you’re baking cookies, the oven (CPU register) is big enough to operate on multiple cookies (numbers) simultaneously. So whether you bake 1 cookie or 10, it’ll take exactly the same amount of time. -->
+
+```sh
+> python -m timeit -s "import numpy; ar = numpy.arange(1)" "ar + 10"
+1000000 loops, best of 5: 359 nsec per loop
+> python -m timeit -s "import numpy; ar = numpy.arange(10)" "ar + 10"
+1000000 loops, best of 5: 362 nsec per loop
+> python -m timeit -s "import numpy; ar = numpy.arange(100)" "ar + 10"
+1000000 loops, best of 5: 364 nsec per loop
+```
+If we were to use a regular `for` loop, the time to perform this operation would increase with the length of the array.
+However, using NumPy broadcasting we can apply the addition to 1, 10 or 100 elements, all in the same amount of time!
 
 Earlier in this episode it was demonstrated that using core Python methods over a list, will outperform a loop performing the same calculation faster. The below example takes this a step further by demonstrating the calculation of dot product.
 
