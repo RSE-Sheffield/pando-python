@@ -30,7 +30,13 @@ Packages like NumPy and Pandas work similarly: They have been written in compile
 
 It adds restriction via it's own [basic numeric types](https://numpy.org/doc/stable/user/basics.types.html), and static arrays to enable even greater performance than that of core Python. However if these restrictions are ignored, the performance can become significantly worse.
 
-### Arrays
+<!--
+TODO: It might be nice to use the figure from https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/#3.-Python's-object-model-can-lead-to-inefficient-memory-access here for illustration?
+
+![Illustration of a NumPy array and a Python list.](episodes/fig/numpyarray_vs_pylist.png){alt="A diagram illustrating the difference between a NumPy array and a Python list. The NumPy array is a raw block of memory containing numerical values. A Python list contains a header with metadata and multiple items, each of which is a reference to another Python object with its own header and value."}
+-->
+
+### NumPy arrays and Python lists live in two separate worlds
 
 NumPy's arrays (not to be confused with the core Python `array` package) are static arrays. Unlike core Python's lists, they do not dynamically resize. Therefore if you wish to append to a NumPy array, you must call `resize()` first. If you treat this like `append()` for a Python list, resizing for each individual append you will be performing significantly more copies and memory allocations than a Python list.
 
@@ -58,7 +64,7 @@ print(f"list_append: {timeit(list_append, number=repeats):.2f}ms")
 print(f"array_resize: {timeit(array_resize, number=repeats):.2f}ms")
 ```
 
-Resizing a NumPy array is 5.2x slower than a list, probably 10x slower than list comprehension.
+For Python lists, we’ve seen earlier that list comprehensions are more efficient, so we prefer to avoid using a large number of `append` operations if possible. Similarly, we should try to avoid resizing NumPy arrays, where the overhead is even higher (5.2x slower than a list, probably 10x slower than list comprehension).
 
 ```output
 list_append: 3.50ms
@@ -190,14 +196,14 @@ However, using NumPy broadcasting we can apply the addition to 1, 10 or 100 elem
 Earlier in this episode it was demonstrated that using core Python methods over a list, will outperform a loop performing the same calculation faster. The below example takes this a step further by demonstrating the calculation of dot product.
 
 <!-- Inspired by High Performance Python Chapter 6 example 
-Added python sum array, skipped a couple of others--> 
+Added Python sum array, skipped a couple of others--> 
 ```python
 from timeit import timeit
 
-N = 1000000  # Number of elements in list
+N = 1_000_000  # Number of elements in list
 
 gen_list = f"ls = list(range({N}))"
-gen_array = f"import numpy;ar = numpy.arange({N}, dtype=numpy.int64)"
+gen_array = f"import numpy; ar = numpy.arange({N}, dtype=numpy.int64)"
 
 py_sum_ls = "sum([i*i for i in ls])"
 py_sum_ar = "sum(ar*ar)"
@@ -232,7 +238,7 @@ NumPy can sometimes take advantage of auto parallelisation, particularly on HPC 
 
 A small number of functions are backed by BLAS and LAPACK, enabling even greater speedup.
 
-The [supported functions](https://numpy.org/doc/stable/reference/routines.linalg.html) mostly correspond to linear algebra operations.
+The [supported functions](https://numpy.org/doc/stable/reference/routines.linalg.html) mostly correspond to linear algebra operations like `numpy.dot()`.
 
 The auto-parallelisation of these functions is hardware dependant, so you won't always automatically get the additional benefit of parallelisation.
 However, HPC systems should be primed to take advantage, so try increasing the number of cores you request when submitting your jobs and see if it improves the performance.
@@ -244,7 +250,7 @@ However, HPC systems should be primed to take advantage, so try increasing the n
 ### `vectorize()`
 
 Python's `map()` was introduced earlier, for applying a function to all elements within a list.
-NumPy provides `vectorize()` an equivalent for operating over it's arrays.
+NumPy provides `vectorize()` an equivalent for operating over its arrays.
 
 This doesn't actually make use of processor-level vectorisation, from the [documentation](https://numpy.org/doc/stable/reference/generated/numpy.vectorize.html):
 
@@ -367,7 +373,7 @@ Code diff: https://github.com/SNEWS2/snewpy/pull/310/commits/0320b384ff22233818d
 
 Similar to NumPy, Pandas enables greater performance than pure Python implementations when used correctly, however incorrect usage can actively harm performance.
 
-## Operating on Rows
+### Operating on Rows
 
 Pandas' methods by default operate on columns. Each column or series can be thought of as a NumPy array, highly suitable for vectorisation.
 
@@ -499,7 +505,7 @@ series: 237.25ms
 dictionary: 3.63ms
 ```
 
-## Filter Early
+### Filter Early
 
 If you can filter your rows before processing, rather than after, you may significantly reduce the amount of processing and memory used.
 
@@ -508,5 +514,6 @@ If you can filter your rows before processing, rather than after, you may signif
 - Python is an interpreted language, this adds an additional overhead at runtime to the execution of Python code. Many core Python and NumPy functions are implemented in faster C/C++, free from this overhead.
 - NumPy can take advantage of vectorisation to process arrays, which can greatly improve performance.
 - Many domain-specific packages are built on top of NumPy and can offer similar performance boosts.
+- Pandas' data tables store columns as arrays, therefore operations applied to columns can take advantage of NumPy’s vectorisation.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
