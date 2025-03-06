@@ -65,8 +65,9 @@ CPython for example uses [`newsize + (newsize >> 3) + 6`](https://github.com/pyt
 
 This has two implications:
 
-* If you are creating large static lists, they will use upto 12.5% excess memory.
 * If you are growing a list with `append()`, there will be large amounts of redundant allocations and copies as the list grows.
+* The resized list may use up to 12.5% excess memory.
+<!-- This only applies when resizing a list. When creating a list of a particular size from scratch, CPython will not overallocate as much memory: https://github.com/python/cpython/blob/a571a2fd3fdaeafdfd71f3d80ed5a3b22b63d0f7/Objects/listobject.c#L101 -->
 
 ### List Comprehension
 
@@ -74,7 +75,7 @@ If creating a list via `append()` is undesirable, the natural alternative is to 
 
 List comprehension can be twice as fast at building lists than using `append()`.
 This is primarily because list-comprehension allows Python to offload much of the computation into faster C code.
-General python loops in contrast can be used for much more, so they remain in Python bytecode during computation which has additional overheads.
+General Python loops in contrast can be used for much more, so they remain in Python bytecode during computation which has additional overheads.
 
 This can be demonstrated with the below benchmark:
 
@@ -112,7 +113,7 @@ Results will vary between Python versions, hardware and list lengths. But in thi
 
 ## Tuples
 
-In contrast, Python's tuples are immutable static arrays (similar to strings), their elements cannot be modified and they cannot be resized.
+In contrast to lists, Python's tuples are immutable static arrays (similar to strings): Their elements cannot be modified and they cannot be resized.
 
 Their potential use-cases are greatly reduced due to these two limitations, they are only suitable for groups of immutable properties.
 
@@ -160,7 +161,7 @@ When the hashing data structure exceeds a given load factor (e.g. 2/3 of indices
 
 ![An visual explanation of linear probing, CPython uses an advanced form of this.](episodes/fig/hash_linear_probing.png){alt="A diagram demonstrating how the keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. This is followed by the insertion of 59, 80 and 39 which require linear probing to be inserted due to collisions."}
 
-To retrieve or check for the existence of a key within a hashing data structure, the key is hashed again and a process equivalent to insertion is repeated. However, now the key at each index is checked for equality with the one provided. If any empty index is found before an equivalent key, then the key must not be present in the ata structure.
+To retrieve or check for the existence of a key within a hashing data structure, the key is hashed again and a process equivalent to insertion is repeated. However, now the key at each index is checked for equality with the one provided. If any empty index is found before an equivalent key, then the key must not be present in the data structure.
 
 
 ### Keys
@@ -334,7 +335,7 @@ print(f"binary_search_list: {timeit(binary_search_list, number=repeats)-gen_time
 ```
 
 Searching the set is fastest performing 25,000 searches in 0.04ms.
-This is  followed by the binary search of the (sorted) list which is 145x slower, although the list has been filtered for duplicates. A list still containing duplicates would be longer, leading to a more expensive search.
+This is followed by the binary search of the (sorted) list which is 145x slower, although the list has been filtered for duplicates. A list still containing duplicates would be longer, leading to a more expensive search.
 The linear search of the list is more than 56,600x slower than the fastest, it really shouldn't be used!
 
 ```output
