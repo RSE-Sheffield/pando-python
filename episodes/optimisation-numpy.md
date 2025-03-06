@@ -247,44 +247,6 @@ However, HPC systems should be primed to take advantage, so try increasing the n
 
 :::::::::::::::::::::::::::::::::::::
 
-### `vectorize()`
-
-Python's `map()` was introduced earlier, for applying a function to all elements within a list.
-NumPy provides `vectorize()` an equivalent for operating over its arrays.
-
-This doesn't actually make use of processor-level vectorisation, from the [documentation](https://numpy.org/doc/stable/reference/generated/numpy.vectorize.html):
-
-> The `vectorize` function is provided primarily for convenience, not for performance. The implementation is essentially a for loop.
-
-The below example demonstrates how the performance of `vectorize()` is only marginally faster than `map()`.
-
-```python
-N = 100000  # Number of elements in list/array
-
-def genArray():
-    return numpy.arange(N)
-
-def plus_one(x):
-    return x + 1
-    
-def python_map():
-    ar = genArray()
-    return list(map(plus_one, ar))
-
-def numpy_vectorize():
-    ar = genArray()
-    return numpy.vectorize(plus_one)(ar)
-
-repeats = 1000
-gentime = timeit(genArray, number=repeats)
-print(f"python_map: {timeit(python_map, number=repeats)-gentime:.2f}ms")
-print(f"numpy_vectorize: {timeit(numpy_vectorize, number=repeats)-gentime:.2f}ms")
-```
-
-```output
-python_map: 7.94ms
-numpy_vectorize: 7.80ms
-```
 
 ## Other libraries that use NumPy
 
@@ -379,7 +341,7 @@ Pandas' methods by default operate on columns. Each column or series can be thou
 
 Following the theme of this episode, iterating over the rows of a data frame using a `for` loop is not advised. The pythonic iteration will be slower than other approaches.
 
-Pandas allows it's own methods to be applied to rows in many cases by passing `axis=1`, where available these functions should be preferred over manual loops. Where you can't find a suitable method, `apply()` can be used, which is similar to `map()`/`vectorize()`, to apply your own function to rows.
+Pandas allows it's own methods to be applied to rows in many cases by passing `axis=1`, where available these functions should be preferred over manual loops. Where you can't find a suitable method, `apply()` can be used, which is similar to `map()`, to apply your own function to rows.
 
 ```python
 from timeit import timeit
