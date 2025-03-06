@@ -280,6 +280,87 @@ python_map: 7.94ms
 numpy_vectorize: 7.80ms
 ```
 
+## Other libraries that use NumPy
+
+Across the scientific Python software ecosystem, [many domain-specific packages](https://numpy.org/#:~:text=ECOSYSTEM) are built on top of NumPy arrays.
+Similar to the demos above, we can often gain significant performance boosts by using these libraries well.
+
+::::::::::::::::::::::::::::::::::::: challenge
+
+Take a look at the [list of libraries on the NumPy website](https://numpy.org/#:~:text=ECOSYSTEM). Are you using any of them already?
+
+If you’ve brought a project you want to work on: Are there areas of the project where you might benefit from adapting one of these libraries instead of writing your own code from scratch?
+
+:::::::::::::::::::::::: hint
+
+These libraries could be specific to your area of research; but they could also include packages from other fields that provide tools you need (e.g. statistics or machine learning)!
+
+:::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::
+
+
+Which libraries you may use will depend on your research domain; here, we’ll show two examples from our own experience.
+
+### Example: Image analysis with Shapely
+
+A colleague had a large data set of images of cells. She had already reconstructed the locations of cell walls and various points of interest and needed to identify which points were located in each cell.
+To do this, she used the [Shapely](https://github.com/shapely/shapely) geometry library.
+
+```Python
+points_per_polygon = {}
+for polygon_idx in range(n_polygons):
+    current_polygon = polygons.iloc[polygon_idx,:]["geometry"]
+
+    # manually loop over all points, check if polygon contains that point
+    out_points = []
+    for i in range(n_points):
+        current_point = points.iloc[i, :]
+        if current_polygon.contains(current_point["geometry"]):
+            out_points.append(current_point.name)
+
+    points_per_polygon[polygon_idx] = out_points
+```
+
+For about 500k points and 1000 polygons, the initial version of the code took about 20 hours to run.
+
+Luckily, Shapely is built on top of NumPy, so she was able to apply functions to an array of points instead and wrote an improved version, which took just 20 minutes:
+
+```Python
+points_per_polygon = {}
+for polygon_idx in range(n_polygons):
+    current_polygon = polygons.iloc[polygon_idx,:]["geometry"]
+
+    # vectorized: apply `contains` to an array of points at once
+    points_in_polygon_idx = current_polygon.contains(points_list)
+    points_in_polygon = point_names_list[points_in_polygon_idx]
+    
+    points_per_polygon[polygon_idx] = points_in_polygon.tolist()
+```
+::::::::::::::::::::::::::::::::::::: instructor
+
+TODO: add a bit more explanation for instructors here
+
+Maybe also add an example image for illustration?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+<!--
+TODO: The following example needs more work to be used by instructors other than me.
+And since it’s not a very clean example (mixes np arrays and list comprehensions) and hard to extract a nice before/after snippet, maybe it’s better not to include this example in the general course materials? Or only in a callout or instructor note?
+-->
+<!--
+### Example: Interpolating astrophysical spectra with AstroPy
+
+This is from an open-source package I’m working on, so we can look at the actual pull request where I made this change: https://github.com/SNEWS2/snewpy/pull/310
+
+&rightarrow; See the first table of benchmark results. Note that using a Python `for` loop to calculate the spectrum in 100 different time bins takes 100 times as long as for a single time bin. In the vectorized version, the computing time increases much more slowly.
+
+(Note that energies were already vectorized—that’s another factor of 100 we got “for free”!)
+
+Code diff: https://github.com/SNEWS2/snewpy/pull/310/commits/0320b384ff22233818d07913c55c30f5968ae330
+ -->
+
 ## Using Pandas (Effectively)
 
 [Pandas](https://pandas.pydata.org/) is the most common Python package used for scientific computing when working with tabular data akin to spreadsheets (DataFrames).
@@ -426,6 +507,6 @@ If you can filter your rows before processing, rather than after, you may signif
 
 - Python is an interpreted language, this adds an additional overhead at runtime to the execution of Python code. Many core Python and NumPy functions are implemented in faster C/C++, free from this overhead.
 - NumPy can take advantage of vectorisation to process arrays, which can greatly improve performance.
-- Pandas' data tables store columns as arrays, therefore operations applied to columns can take advantage of NumPys vectorisation.
+- Many domain-specific packages are built on top of NumPy and can offer similar performance boosts.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
