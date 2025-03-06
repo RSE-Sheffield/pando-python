@@ -1,5 +1,5 @@
 ---
-title: "Understanding Python (NumPy/Pandas)"
+title: "Using Scientific Python Libraries (NumPy, Pandas and more)"
 teaching: 30
 exercises: 0
 ---
