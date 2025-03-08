@@ -33,7 +33,7 @@ If you're familiar with other programming languages, like C or Delphi, you might
 
 ## Built-in Functions
 
-For example, back when I was in undergrad, if you’d asked me to sum up a bunch of data points, I would have written something like the first function in this code sample:
+For example, you might think to sum a list of numbers by using a for loop, as would be typical in C, as shown in the function `manualSumC()` and `manualSumPy()` below. 
 
 ```Python
 import random
