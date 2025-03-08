@@ -384,7 +384,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Keep Python &amp; Packages up to Date</h1>
-        <p>Last updated on 2024-03-28 |
+        <p>Last updated on 2025-03-08 |
 
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/optimisation-use-latest.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -443,6 +443,23 @@ Pandas, should be kept up to date for the same reasons.</p>
 code (unlike the jump from Python 2 to Python 3).</p>
 <p>Performance regressions within major packages should be considered
 rare, they often track performance alongside their test suites.</p>
+<div id="support-for-older-python-versions-in-the-scientific-python-ecosystem" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div id="support-for-older-python-versions-in-the-scientific-python-ecosystem" class="callout-inner">
+<h3 class="callout-title">Support for older Python versions in the Scientific Python ecosystem</h3>
+<div class="callout-content">
+<p>In the last few years, many important packages in the Scientific
+Python ecosystem have agreed <a href="https://scientific-python.org/specs/spec-0000/" class="external-link">a common
+policy</a> to support previous versions of Python for 3 years. For
+example, since October 2024, these packages stopped supporting Python
+3.10; so if you are still using Python 3.10 (or even older versions),
+you’re now losing access to new features and performance improvements in
+NumPy, SciPy, Matplotlib and many other libraries. Time to update!</p>
+</div>
+</div>
+</div>
 <!-- Not always possible due to incompatibilities -->
 <p>However, the more packages and language features your code touches,
 and the older the Python it currently uses, the greater chance of
@@ -457,8 +474,19 @@ results.</p>
 <hr class="half-width"><!-- Not as relevant if you are starting from scratch --><p><em>This isn’t as relevant if you’re starting from scratch. Simply
 make sure you’ve installed the latest Python before you start.</em></p>
 <!-- todo recommended way, because Python is incredibly bad at this -->
-<!-- Worth also mentioning for same reason, to have requirements.txt? -->
-<div id="keypoints1" class="callout keypoints">
+<p>If you have been working with an existing Python installation, the
+upgrade process for Python itself depends on how you installed your
+current version. (E.g. via conda, official installer from python.org,
+package manager like Homebrew/apt/yum/…)</p>
+<p>For packages you’re using, you can update those with the same package
+manager you used to installed them:</p>
+<ul><li>via <code>pip</code>,
+e.g. <code>pip install --upgrade numpy</code>
+</li>
+<li>via <code>conda</code>,
+e.g. <code>conda update &lt;PACKAGE&gt;</code>
+</li>
+</ul><!-- Worth also mentioning for same reason, to have requirements.txt? --><div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
@@ -551,7 +579,7 @@ any links that you are not going to use.
   "url": "https://rse.shef.ac.uk/pando-python/optimisation-use-latest.html",
   "identifier": "https://rse.shef.ac.uk/pando-python/optimisation-use-latest.html",
   "dateCreated": "2024-02-01",
-  "dateModified": "2024-03-28",
+  "dateModified": "2025-03-08",
   "datePublished": "2025-03-08"
 }
 
