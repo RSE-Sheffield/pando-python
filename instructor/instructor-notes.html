@@ -592,6 +592,26 @@ the performant patterns in understanding to aid memorisation.</p>
 data-structure/algorithm internals challenging, if they are still able
 to recognise the demonstrated patterns.</p>
 <hr>
+<br><h3 id="optimisation-data-structures-algorithms-headingInstructor2">
+<a href="optimisation-data-structures-algorithms.html#headingInstructor2">Instructor Note</a><a class="anchor" aria-label="anchor" href="#optimisation-data-structures-algorithms-headingInstructor2"></a>
+</h3>
+<p>The large bookcases in the second illustration, with many shelves
+almost empty, take up a lot more space than the single shelf in the
+first illustration. This may also be interpreted as the dictionary using
+more memory than a list.</p>
+<p>In principle, this is correct. However:</p>
+<ul>
+<li>The actual difference is much less pronounced than in the
+illustration. (A list requires about 8 bytes to keep track of each item,
+while a dictionary requires about 30 bytes.)</li>
+<li>In most cases this net size of the list/dictionary itself is
+negligibly small compared to the size of the objects stored in the list
+or dictionary (e.g. 41 bytes for an empty string or 112 bytes for an
+empty NumPy array).</li>
+</ul>
+<p>In practice, therefore, this trade-off between memory usage and speed
+is usually worth it.</p>
+<hr>
 <br></section><section id="long-break1"><h2 class="section-heading"><a href="long-break1.html">Break</a></h2>
 <hr class="half-width"></section><section id="optimisation-minimise-python"><h2 class="section-heading"><a href="optimisation-minimise-python.html">Understanding Python (NumPy/Pandas)</a></h2>
 <hr class="half-width"></section><section id="optimisation-use-latest"><h2 class="section-heading"><a href="optimisation-use-latest.html">Keep Python &amp; Packages up to Date</a></h2>
@@ -658,8 +678,8 @@ to recognise the demonstrated patterns.</p>
   "url": "https://rse.shef.ac.uk/pando-python/instructor/instructor-notes.html",
   "identifier": "https://rse.shef.ac.uk/pando-python/instructor/instructor-notes.html",
   "dateCreated": "2024-02-01",
-  "dateModified": "2025-03-04",
-  "datePublished": "2025-03-04"
+  "dateModified": "2025-03-08",
+  "datePublished": "2025-03-08"
 }
 
   </script><script>
