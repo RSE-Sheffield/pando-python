@@ -46,19 +46,19 @@ random.seed(12)
 my_data = [random.random() for i in range(N)]
 
 
-def manualSumC():  # my first attempt
+def manualSumC():
     n = 0
     for i in range(len(my_data)):
         n += my_data[i]
     return n
 
-def manualSumPy():  # slightly improved
+def manualSumPy(): 
     n = 0
     for evt_count in my_data:
         n += evt_count
     return n
 
-def builtinSum():  # fastest and most readable
+def builtinSum(): 
     return sum(my_data)
 
 
