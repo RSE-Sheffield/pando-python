@@ -299,7 +299,7 @@ f = [
 ]
 ```
 
-A colleague (who learned to program in C before he started using Python) wrote the following code to parse the data into a dictionary:
+If you've a C programming background, you may write the following code to parse the data into a dictionary:
 ```python
 def manualSplit():
     data = {}
