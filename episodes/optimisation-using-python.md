@@ -326,7 +326,7 @@ Can you find a shorter, more easily understandable way to write this in Python?
 
 :::::::::::::::::::::::: hint
 
-Python strings have a lot of methods to perform common operations, like removing suffixes, replacing substrings, joining or splitting, stripping whitespaces, and much more. See the documentation at https://docs.python.org/3/library/stdtypes.html#string-methods for a full list.
+Python strings have a lot of methods to perform common operations, like removing suffixes, replacing substrings, joining or splitting, stripping whitespaces, and much more. See Python's [string methods documentation](https://docs.python.org/3/library/stdtypes.html#string-methods) for a full list.
 
 :::::::::::::::::::::::::::::::::
 
