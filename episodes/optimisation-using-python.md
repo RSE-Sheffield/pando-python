@@ -27,10 +27,8 @@ For students experienced with writing Python, many of these points may be unnece
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Before we look at data structures, algorithms and third-party libraries, we should take a few minutes to make sure we’re familiar with the fundamentals of Python.
-If you’ve learned to program in another language, chances are you’ve picked up some habits from that language that don’t work well in Python.
-
-Most of the bad habits that took me a while to unlearn—and that I’ve observed in others, too—come from learning to program in a lower-level language (like C or Delphi), with a less powerful standard library.
+Before we look at data structures, algorithms and third-party libraries, it's worth reviewing the fundamentals of Python.
+If you're familiar with other programming languages, like C or Delphi, you might not know the Pythonic approaches. Whilst you can write Python in a way similar to other languages, it is often more effective to take advantage of Python's principles and idioms.
 
 
 ## Built-in Functions
