@@ -309,7 +309,7 @@ def manualSplit():
 
         energy_found = line.find(".", end_time, -1)
         begin_energy = line.rfind(" ", end_time, energy_found)
-        end_energy = line.find(" ", energy_found, -1)
+        end_energy = line.find(" ", energy_found)
         if end_energy == -1:
             end_energy = len(line)
         
@@ -321,8 +321,6 @@ def manualSplit():
 ```
 
 Can you find a shorter, more easily understandable way to write this in Python?
-
-<!-- Did you spot the bug in the manual implementation? ;) -->
 
 :::::::::::::::::::::::: hint
 
@@ -342,8 +340,10 @@ def builtinSplit():
     return data
 ```
 
-This is much more readable.
-The code that’s executed by CPython may use similar indexing steps as in `manualSplit`; however, since this is all happening “under the hood” in C code, it is once again faster. 
+This code is not just much more readable; it is also more flexible, since it does not rely on the precise formatting of the input strings.
+(For example, the line `first_char = line.find("0")` in the original code assumes that the time bin starts with the digit 0. That code would likely malfunction if the input file had more than 1000 time bins.)
+
+The code that’s executed by CPython may use a similar approach as in `manualSplit()`; however, since this is all happening “under the hood” in C code, it is once again faster.
 
 ```python
 
