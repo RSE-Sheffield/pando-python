@@ -1550,7 +1550,7 @@ installed via pip.</p>
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
   <h3 class="accordion-header" id="headingSpoiler1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div> Mac OS </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <p>If you are unable to install <code>line_profiler</code> via
 <code>pip</code> on MacOS. Instead it can be installed via
@@ -1913,7 +1913,7 @@ number of elements to be sorted.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <ul>
 <li>Remember that the code needs to be moved into a method decorated
@@ -1933,7 +1933,7 @@ with <code>@profile</code>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>If you chose to profile the whole code, it may look like this:</p>
 <div class="codewrapper sourceCode" id="cb17">
@@ -2053,7 +2053,7 @@ how it might be optimised.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
   <h4 class="accordion-header" id="headingHint2"> Give me a hint </h4>
 </button>
-<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
+<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
 <div class="accordion-body">
 <ul>
 <li>Remember that the function needs to be decorated with
@@ -2075,7 +2075,7 @@ number of steps <code>predprey.py:305</code>.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>First the function must be decorated</p>
 <div class="codewrapper sourceCode" id="cb21">
@@ -2287,7 +2287,7 @@ representative of a realistic run.</li>
 </div>
 </div></section><section id="aio-optimisation-introduction"><p>Content from <a href="optimisation-introduction.html">Introduction to Optimisation</a></p>
 <hr>
-<p>Last updated on 2024-03-28 |
+<p>Last updated on 2025-03-09 |
 
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/optimisation-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2323,8 +2323,14 @@ optimisation</li>
 </h2>
 <hr class="half-width">
 <!-- Enable you to look at hotspots identified by compiler, identify whether it's efficient --><p>Now that you’re able to find the most expensive components of your
-code with profiling, it becomes time to learn how to identify whether
-that expense is reasonable.</p>
+code with profiling, we can think about ways to improve it. However, the
+best way to do this will depend a lot on your specific code! For
+example, if your code is spending 60 seconds waiting to download data
+files and then 1 second to analyse that data, then optimizing your data
+analysis code won’t make much of a difference. We’ll talk briefly about
+some of these external bottlenecks at the end. For now, we’ll assume
+that you’re not waiting for anything else and we’ll look at the
+performance of your code.</p>
 <!-- Necessary to understand how code executes (to a degree) -->
 <p>In order to optimise code for performance, it is necessary to have an
 understanding of what a computer is doing to execute it.</p>
@@ -2334,7 +2340,8 @@ Python and the most common data-structures and algorithms are
 implemented, can help you to identify suboptimal approaches when
 programming. If you have learned to write code informally out of
 necessity, to get something to work, it’s not uncommon to have collected
-some bad habits along the way.</p>
+some “unpythonic” habits along the way that may harm your code’s
+performance.</p>
 <!-- This is largely high-level/abstract knowledge applicable to the vast majority of programming languages, applies even more strongly if using compiled Python features like numba -->
 <p>The remaining content is often abstract knowledge, that is
 transferable to the vast majority of programming languages. This is
@@ -2369,6 +2376,100 @@ maintainability should be considered when optimising code.</p>
 code. The selection of appropriate algorithms and data-structures
 covered in this course form good practice, simply don’t fret over a need
 to micro-optimise every small component of the code that you write.</p>
+<div class="section level3">
+<h3 id="performance-of-python">Performance of Python<a class="anchor" aria-label="anchor" href="#performance-of-python"></a>
+</h3>
+<p>If you’ve read about different programming languages, you may have
+heard that there’s a difference between “interpreted” languages (like
+Python) and “compiled” languages (like C). You may have heard that
+Python is slow <em>because</em> it is an interpreted language. To
+understand where this comes from (and how to get around it), let’s talk
+a little bit about how Python works.</p>
+<!--
+TODO: It might be nice to use the figure from https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/#1.-Python-is-Dynamically-Typed-rather-than-Statically-Typed. here for illustration?
+
+![Illustration of integers in C and Python.](episodes/fig/cint_vs_pyint.png){alt="A diagram illustrating the difference between integers in C and Python. In C, the integer is a raw number in memory. In Python, it additionally contains a header with metadata."}
+-->
+<p>In C, integers (or other basic types) are raw data in memory. It is
+up to the programmer to keep track of the data type. The compiler can
+then turn the source code directly into machine code. This allows the
+compiler to perform low-level optimisations that better exploit hardware
+nuance to achieve fast performance. This however comes at the cost of
+compiled software not being cross-platform.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">C<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode c" tabindex="0"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">/* C code */</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="dt">int</span> a <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="dt">int</span> b <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="dt">int</span> c <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span></code></pre>
+</div>
+<p>In Python, everything is a complex object. The interpreter uses extra
+fields in the header to keep track of data types at runtime or take care
+of memory management. This adds a lot more flexibility and makes life
+easier for programmers. However, it comes at the cost of some overhead
+in both time and memory usage.</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Python code</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>c <span class="op">=</span> a <span class="op">+</span> b</span></code></pre>
+</div>
+<div id="callout1" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Callout</h3>
+<div class="callout-content">
+<p>Objects store both their raw data (like an integer or string) and
+some internal information used by the interpreter. We can see that
+additional storage space with <code>sys.getsizeof()</code>, which shows
+how many bytes an object takes up:</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>sys.getsizeof(<span class="st">""</span>)  <span class="co"># 41</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>sys.getsizeof(<span class="st">"a"</span>)  <span class="co"># 42</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>sys.getsizeof(<span class="st">"ab"</span>)  <span class="co"># 43</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>sys.getsizeof([])  <span class="co"># 56</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>sys.getsizeof([<span class="st">"a"</span>])  <span class="co"># 64</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>sys.getsizeof(<span class="dv">1</span>)  <span class="co"># 28</span></span></code></pre>
+</div>
+<p>(Note: For container objects (like lists and dictionaries) or custom
+classes, values returned by <code>getsizeof()</code> are
+implementation-dependent and may not reflect the actual memory
+usage.)</p>
+</div>
+</div>
+</div>
+<p>We effectively gain programmer performance by sacrificing some code
+performance. Most of the time, computers are “fast enough” so this is
+the right trade-off, as Donald Knuth said.</p>
+<p>However, there are the few other cases where code performance really
+matters. To handle these cases, Python has the capability to integrate
+with code written in lower-level programming language (like C, Fortran
+or Rust) under the hood. Some performance-sensitive libraries therefore
+perform a lot of the work in such low-level code, before returning a
+nice Python object back to you. (We’ll discuss NumPy in a later section;
+but many parts of the Python standard library also use this
+pattern.)</p>
+<p>Therefore, <strong>it is often best to tell the interpreter/library
+at a high level <em>what you want</em>, and let it figure out <em>how to
+do it</em>.</strong></p>
+<p>That way, the interpreter/library is free to do all its work in the
+low-level code, and adds overhead only once, when it creates and returns
+a Python object in the end. This usually makes your code more readable,
+too: When someone else reads your code, they can see exactly <em>what
+you want to do</em>, without getting overwhelmed by overly detailed
+step-by-step instructions.</p>
+</div>
 </section><section><h2 class="section-heading" id="ensuring-reproducible-results">Ensuring Reproducible Results<a class="anchor" aria-label="anchor" href="#ensuring-reproducible-results"></a>
 </h2>
 <hr class="half-width">
@@ -2397,45 +2498,45 @@ creating files named with the form <code>test_*.py</code> or
 pytest.</p>
 <p>The <code>assert</code> keyword is used, to test whether a condition
 evaluates to <code>True</code>.</p>
-<div class="codewrapper sourceCode" id="cb1">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># file: test_demonstration.py</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co"># A simple function to be tested, this could instead be an imported package</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="kw">def</span> squared(x):</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co"># A simple test case</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="kw">def</span> test_example():</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>    <span class="cf">assert</span> squared(<span class="dv">5</span>) <span class="op">==</span> <span class="dv">24</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># file: test_demonstration.py</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co"># A simple function to be tested, this could instead be an imported package</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="kw">def</span> squared(x):</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co"># A simple test case</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="kw">def</span> test_example():</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    <span class="cf">assert</span> squared(<span class="dv">5</span>) <span class="op">==</span> <span class="dv">24</span></span></code></pre>
 </div>
 <p>When <code>py.test</code> is called inside a working directory, it
 will then recursively find and execute all the available tests.</p>
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="op">&gt;</span>py.test</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">=================================================</span> test session starts =================================================</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="ex">platform</span> win32 <span class="at">--</span> Python 3.10.12, pytest-7.3.1, pluggy-1.3.0</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="ex">rootdir:</span> C:<span class="dt">\d</span>emo</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="ex">plugins:</span> anyio-4.0.0, cov-4.1.0, xdoctest-1.1.2</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="ex">collected</span> 1 item</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="ex">test_demonstration.py</span> F                                                                                          <span class="pp">[</span><span class="ss">100%</span><span class="pp">]</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="ex">======================================================</span> FAILURES =======================================================</span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="ex">____________________________________________________</span> test_example _____________________________________________________</span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>    <span class="ex">def</span> test_example<span class="er">(</span><span class="kw">)</span><span class="bu">:</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="op">&gt;</span>       assert <span class="ex">squared</span><span class="er">(</span><span class="ex">5</span><span class="kw">)</span> <span class="ex">==</span> 24</span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="ex">E</span>       assert 25 == 24</span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="ex">E</span>        +  where 25 = squared<span class="er">(</span><span class="ex">5</span><span class="kw">)</span></span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="ex">test_demonstration.py:9:</span> AssertionError</span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="ex">===============================================</span> short test summary info ===============================================</span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="ex">FAILED</span> test_demonstration.py::test_example <span class="at">-</span> assert 25 == 24</span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="ex">==================================================</span> 1 failed in 0.07s ==================================================</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="op">&gt;</span>py.test</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="ex">=================================================</span> test session starts =================================================</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="ex">platform</span> win32 <span class="at">--</span> Python 3.10.12, pytest-7.3.1, pluggy-1.3.0</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="ex">rootdir:</span> C:<span class="dt">\d</span>emo</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="ex">plugins:</span> anyio-4.0.0, cov-4.1.0, xdoctest-1.1.2</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="ex">collected</span> 1 item</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="ex">test_demonstration.py</span> F                                                                                          <span class="pp">[</span><span class="ss">100%</span><span class="pp">]</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="ex">======================================================</span> FAILURES =======================================================</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="ex">____________________________________________________</span> test_example _____________________________________________________</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>    <span class="ex">def</span> test_example<span class="er">(</span><span class="kw">)</span><span class="bu">:</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="op">&gt;</span>       assert <span class="ex">squared</span><span class="er">(</span><span class="ex">5</span><span class="kw">)</span> <span class="ex">==</span> 24</span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="ex">E</span>       assert 25 == 24</span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="ex">E</span>        +  where 25 = squared<span class="er">(</span><span class="ex">5</span><span class="kw">)</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="ex">test_demonstration.py:9:</span> AssertionError</span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="ex">===============================================</span> short test summary info ===============================================</span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="ex">FAILED</span> test_demonstration.py::test_example <span class="at">-</span> assert 25 == 24</span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="ex">==================================================</span> 1 failed in 0.07s ==================================================</span></code></pre>
 </div>
 <p>Whilst not designed for benchmarking, it does provide the total time
 the test suite took to execute. In some cases this may help identify
