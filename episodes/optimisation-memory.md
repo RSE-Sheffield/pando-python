@@ -156,7 +156,7 @@ Repeated runs show some noise to the timing, however the slowdown is consistentl
 You might not even be reading 1000 different files. You could be reading the same file multiple times, rather than reading it once and retaining it in memory during execution.
 An even greater overhead would apply.
 
-## Accessing the network
+## Accessing the Network
 
 When transfering files over a network, similar effects apply. There is a fixed overhead for every file transfer (no matter how big the file), so downloading many small files will be slower than downloading a single large file of the same total size.
 
@@ -183,13 +183,16 @@ def sequentialDownload():
         downloaded_files.append(f)
 
 def parallelDownload():
+    # Initialise a pool of 6 threads to share the workload
     pool = ThreadPoolExecutor(max_workers=6)
     jobs = []
+    # Submit each download to be executed by the thread pool
     for mass in range(10, 20):
         url = f"https://github.com/SNEWS2/snewpy-models-ccsn/raw/refs/heads/main/models/Warren_2020/stir_a1.23/stir_multimessenger_a1.23_m{mass}.0.h5"
         local_filename = f"par_{mass}.h5"
         jobs.append(pool.submit(download_file, url, local_filename))
 
+    # Collect the results (and errors) as the jobs are completed
     for result in as_completed(jobs):        
         if result.exception() is None:
             # handle return values of the parallelised function
