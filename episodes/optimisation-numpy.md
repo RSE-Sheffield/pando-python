@@ -295,7 +295,7 @@ For about 500k points and 1000 polygons, the initial version of the code took ab
 Luckily, Shapely is built on top of NumPy, so she was able to apply functions to an array of points instead and wrote an improved version, which took just 20 minutes:
 
 ```Python
-# Extract points and corresponding names as two separate NumPy arrays from a larger data frame
+# 1) Extract points and corresponding names as two separate NumPy arrays from a larger data frame
 # This will make it easier to apply vectorised functions below
 points_array = np.array(points.loc[:,"geometry"])
 point_names_array = np.array(points.loc[:,"name"])
@@ -304,21 +304,25 @@ points_per_polygon = {}
 for polygon_idx in range(n_polygons):
     current_polygon = polygons.iloc[polygon_idx,:]["geometry"]
 
-    # vectorised: apply `contains` to an array of points, rather than an individual point
+    # 2) apply `contains` to an array of points, rather than an individual point
     points_in_polygon_idx = current_polygon.contains(points_array)
+    # 3) Filter `point_names_array` to get just the names of points contained in the polygon
     points_in_polygon = point_names_array[points_in_polygon_idx]
-    
+    # 4) Turn this array into a Python list and store it in output data
     points_per_polygon[polygon_idx] = points_in_polygon.tolist()
 ```
+
+To vectorise this efficiently, the logic of the code had to be changed slightly:
+
+1. The improved code starts by extracting the `shapely.Point`s and corresponding point names as two separate NumPy arrays from a larger data frame.
+2. It then passes that array of points to `current_polygon.contains()`, which uses vectorisation to speed up the calculation. It returns a NumPy array of booleans (`True` or `False`), describing for each `Point` in the input array whether it is contained in `current_polygon`.
+3. This boolean array is then [passed as an index](https://numpy.org/doc/stable/user/basics.indexing.html#boolean-array-indexing) to the `point_names_list` array. This returns a new array with the names of all points that are contained in the polygon (i.e. where the boolean array had the value `True`).
+4. Finally, the contained points are stored as a Python list. (In this particular case, later parts of the data analysis code expected a list instead of a NumPy array. Since those parts of the code were "fast enough"—remember Donald Knuth’s quote in the earlier episode?—the researcher decided not to spend more time to rewrite them.)
+
 ::::::::::::::::::::::::::::::::::::: instructor
 
-To vectorise this efficiently, the logic of the code had to be changed slightly.
-
-The improved code starts by extracting the `shapely.Point`s and corresponding point names as two separate NumPy arrays from a larger data frame.
-We then pass that array of points to `current_polygon.contains()`, which uses vectorisation to speed up the calculation and returns a NumPy array of booleans, describing for each `Point` in the input array whether it is contained in `current_polygon`.
-This boolean array is then [passed as an index](https://numpy.org/doc/stable/user/basics.indexing.html#boolean-array-indexing) to the `point_names_list` array. This returns a new array with the names of all points that are contained in the polygon (i.e. where the boolean array had the value `True`).
-
-The following code snippet demonstrates how this works for a simplified example:
+The following code snippet demonstrates how this works for a simplified example.
+If you want to run this as a live demo, you need to `pip install shapely` first.
 
 ```Python
 >>> from shapely import Point, Polygon
