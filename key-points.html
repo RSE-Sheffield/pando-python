@@ -323,7 +323,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="optimisation-data-structures-algorithms.html">7. Data Structures &amp; Algorithms</a>
+        <a href="optimisation-using-python.html">7. Using Python Language Features and the Standard Library</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -335,7 +335,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="long-break1.html">8. Break</a>
+        <a href="optimisation-data-structures-algorithms.html">8. Data Structures &amp; Algorithms</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -347,7 +347,7 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="optimisation-minimise-python.html">9. Understanding Python (NumPy/Pandas)</a>
+        <a href="long-break1.html">9. Break</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -359,7 +359,7 @@
 <div class="accordion accordion-flush" id="accordionFlush11">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading11">
-        <a href="optimisation-use-latest.html">10. Keep Python &amp; Packages up to Date</a>
+        <a href="optimisation-minimise-python.html">10. Understanding Python (NumPy/Pandas)</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -371,7 +371,7 @@
 <div class="accordion accordion-flush" id="accordionFlush12">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading12">
-        <a href="optimisation-memory.html">11. Understanding Memory</a>
+        <a href="optimisation-use-latest.html">11. Keep Python &amp; Packages up to Date</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -383,7 +383,19 @@
 <div class="accordion accordion-flush" id="accordionFlush13">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading13">
-        <a href="optimisation-conclusion.html">12. Optimisation Conclusion</a>
+        <a href="optimisation-memory.html">12. Understanding Memory</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush14">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading14">
+        <a href="optimisation-conclusion.html">13. Optimisation Conclusion</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -546,7 +558,8 @@ potential impact, both to the performance and maintainability of the
 code.</li>
 <li>Many high-level optimisations should be considered
 good-practice.</li>
-</ul></section><section id="optimisation-data-structures-algorithms"><h2 class="section-heading"><a href="optimisation-data-structures-algorithms.html">Data Structures &amp; Algorithms</a></h2>
+</ul></section><section id="optimisation-using-python"><h2 class="section-heading"><a href="optimisation-using-python.html">Using Python Language Features and the Standard Library</a></h2>
+<hr class="half-width"></section><section id="optimisation-data-structures-algorithms"><h2 class="section-heading"><a href="optimisation-data-structures-algorithms.html">Data Structures &amp; Algorithms</a></h2>
 <hr class="half-width">
 <ul>
 <li>List comprehension should be preferred when constructing lists.</li>
@@ -596,6 +609,18 @@ objects can improve performance.</li>
 </ul></section><section id="optimisation-conclusion"><h2 class="section-heading"><a href="optimisation-conclusion.html">Optimisation Conclusion</a></h2>
 <hr class="half-width">
 <ul>
+<li>Using Python Language Features and the Standard Library
+<ul>
+<li>Python is an interpreted language. This adds an additional overhead
+at runtime to the execution of Python code. Many core Python functions
+are implemented in faster C/C++, free from this overhead.</li>
+<li>Where possible, use built-in functions (like <code>sum()</code>,
+<code>min()</code> or <code>max()</code>), language features (like list
+comprehensions) and standard library functionality (like
+<code>str.split()</code>) instead of re-inventing the wheel. This makes
+your code more readable and is often more performant.</li>
+</ul>
+</li>
 <li>Data Structures &amp; Algorithms
 <ul>
 <li>List comprehension should be preferred when constructing lists.</li>
@@ -611,11 +636,10 @@ searched using <code>bisect_left()</code> (binary search).</li>
 </li>
 <li>Minimise Python Written
 <ul>
-<li>Python is an interpreted language, this adds an additional overhead
-at runtime to the execution of Python code. Many core Python and NumPy
-functions are implemented in faster C/C++, free from this overhead.</li>
-<li>NumPy can take advantage of vectorisation to process arrays, which
-can greatly improve performance.</li>
+<li>Like many core Python functions, NumPy functions are implemented in
+faster C/C++.</li>
+<li>Additionally, NumPy can take advantage of vectorisation to process
+arrays, which can greatly improve performance.</li>
 <li>Pandas’ data tables store columns as arrays, therefore operations
 applied to columns can take advantage of NumPys vectorisation.</li>
 </ul>
@@ -707,8 +731,8 @@ objects can improve performance.</li>
   "url": "https://rse.shef.ac.uk/pando-python/key-points.html",
   "identifier": "https://rse.shef.ac.uk/pando-python/key-points.html",
   "dateCreated": "2024-02-01",
-  "dateModified": "2025-03-09",
-  "datePublished": "2025-03-09"
+  "dateModified": "2025-03-10",
+  "datePublished": "2025-03-10"
 }
 
   </script><script>
