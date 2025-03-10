@@ -1,5 +1,5 @@
 ---
-title: "Using Scientific Python Libraries (NumPy, Pandas and more)"
+title: "Using Scientific Python Packages (NumPy, Pandas and more)"
 teaching: 30
 exercises: 0
 ---
@@ -193,7 +193,7 @@ Most modern processors are able to apply one instruction across multiple variabl
 If we were to use a regular `for` loop, the time to perform this operation would increase with the length of the array.
 However, using NumPy broadcasting we can apply the addition to 1, 10 or 100 elements, all in the same amount of time!
 
-Earlier in this episode it was demonstrated that using core Python methods over a list will outperform a loop, performing the same calculation faster. The below example takes this a step further by demonstrating the calculation of a dot product.
+Earlier it was demonstrated that using core Python methods over a list will outperform a loop, performing the same calculation faster. The below example takes this a step further by demonstrating the calculation of a dot product.
 
 <!-- Inspired by High Performance Python Chapter 6 example 
 Added Python sum array, skipped a couple of others--> 
@@ -268,7 +268,7 @@ These libraries could be specific to your area of research; but they could also 
 :::::::::::::::::::::::::::::::::::::::::::::::
 
 
-Which libraries you may use will depend on your research domain; here, we'll show two examples from our own experience.
+Which libraries you may use will depend on your research domain; here, we'll show an example from bioinformatics.
 
 ### Example: Image Analysis with Shapely
 
@@ -304,7 +304,7 @@ points_per_polygon = {}
 for polygon_idx in range(n_polygons):
     current_polygon = polygons.iloc[polygon_idx,:]["geometry"]
 
-    # vectorised: apply `contains` to an array of points at once
+    # vectorised: apply `contains` to an array of points, rather than an individual point
     points_in_polygon_idx = current_polygon.contains(points_array)
     points_in_polygon = point_names_array[points_in_polygon_idx]
     
