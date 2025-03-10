@@ -255,6 +255,8 @@ Similar to the demos above, we can often gain significant performance boosts by 
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
+### Challenge: Which Libraries Are You Using Already?
+
 Take a look at the [list of libraries on the NumPy website](https://numpy.org/#:~:text=ECOSYSTEM). Are you using any of them already?
 
 If you've brought a project you want to work on: Are there areas of the project where you might benefit from adapting one of these libraries instead of writing your own code from scratch?
