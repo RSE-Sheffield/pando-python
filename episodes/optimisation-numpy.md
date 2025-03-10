@@ -295,21 +295,46 @@ For about 500k points and 1000 polygons, the initial version of the code took ab
 Luckily, Shapely is built on top of NumPy, so she was able to apply functions to an array of points instead and wrote an improved version, which took just 20 minutes:
 
 ```Python
+# Extract points and corresponding names as two separate NumPy arrays from a larger data frame
+# This will make it easier to apply vectorised functions below
+points_array = np.array(points.loc[:,"geometry"])
+point_names_array = np.array(points.loc[:,"name"])
+
 points_per_polygon = {}
 for polygon_idx in range(n_polygons):
     current_polygon = polygons.iloc[polygon_idx,:]["geometry"]
 
-    # vectorized: apply `contains` to an array of points at once
-    points_in_polygon_idx = current_polygon.contains(points_list)
-    points_in_polygon = point_names_list[points_in_polygon_idx]
+    # vectorised: apply `contains` to an array of points at once
+    points_in_polygon_idx = current_polygon.contains(points_array)
+    points_in_polygon = point_names_array[points_in_polygon_idx]
     
     points_per_polygon[polygon_idx] = points_in_polygon.tolist()
 ```
 ::::::::::::::::::::::::::::::::::::: instructor
 
-TODO: add a bit more explanation for instructors here
+To vectorise this efficiently, the logic of the code had to be changed slightly.
 
-Maybe also add an example image for illustration?
+The improved code starts by extracting the `shapely.Point`s and corresponding point names as two separate NumPy arrays from a larger data frame.
+We then pass that array of points to `current_polygon.contains()`, which uses vectorisation to speed up the calculation and returns a NumPy array of booleans, describing for each `Point` in the input array whether it is contained in `current_polygon`.
+This boolean array is then [passed as an index](https://numpy.org/doc/stable/user/basics.indexing.html#boolean-array-indexing) to the `point_names_list` array. This returns a new array with the names of all points that are contained in the polygon (i.e. where the boolean array had the value `True`).
+
+The following code snippet demonstrates how this works for a simplified example:
+
+```Python
+>>> from shapely import Point, Polygon
+>>> import numpy as np
+>>> polygon = Polygon([(0,0), (1,0), (1,1), (0,1), (0,0)])
+>>> points_array = np.array((Point(0.1, 0.1), Point(0.5, 0.5), Point(2, 2)))
+>>> point_names_array = np.array(("P1: Periphery", "P2: Centre", "P3: Outside"))
+>>> points_in_polygon_idx = polygon.contains(points_array)
+>>> points_in_polygon_idx
+array([ True,  True, False])
+>>> points_in_polygon = point_names_array[points_in_polygon_idx]
+>>> points_in_polygon
+array(['P1: Periphery', 'P2: Centre'], dtype='<U13')
+>>> points_in_polygon.tolist()
+['P1: Periphery', 'P2: Centre']
+```
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
