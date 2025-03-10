@@ -23,7 +23,7 @@ exercises: 5
 
 This episode discusses relatively fundamental features of Python.
 
-For students experienced with writing Python, many of these points may be unnecessary. However, self-taught students—especially if they have previously studied lower-level languages with a less powerful standard library—may have adopted “unpythonic” habits and will particularly benefit from this section.
+For students experienced with writing Python, many of these points may be unnecessary. However, self-taught students—especially if they have previously studied lower-level languages with a less powerful standard library—may have adopted "unpythonic" habits and will particularly benefit from this section.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -39,7 +39,7 @@ For example, you might think to sum a list of numbers by using a for loop, as wo
 import random
 from timeit import timeit
 
-N = 100_000  # Number of elements in the list
+N = 100000  # Number of elements in the list
 
 # Ensure every list is the same
 random.seed(12)
@@ -68,8 +68,8 @@ print(f"manualSumPy: {timeit(manualSumPy, globals=globals(), number=repeats):.3f
 print(f"builtinSum: {timeit(builtinSum, globals=globals(), number=repeats):.3f}ms")
 ```
 
-Even just replacing the iteration over indices (which may be a habit you’ve picked up if you first learned to program in C) with a more pythonic iteration over the elements themselves speeds up the code by about 2×.
-But even better, by switching to the builtin `sum` function our code becomes about 8× faster, doing the exact same operation!
+Even just replacing the iteration over indices (which may be a habit you’ve picked up if you first learned to program in C) with a more pythonic iteration over the elements themselves speeds up the code by about 2x.
+But even better, by switching to the built-in `sum()` function our code becomes about 8x faster and much easier to read while doing the exact same operation!
 
 ```output
 manualSumC: 1.624ms
@@ -343,7 +343,7 @@ def builtinSplit():
 This code is not just much more readable; it is also more flexible, since it does not rely on the precise formatting of the input strings.
 (For example, the line `first_char = line.find("0")` in the original code assumes that the time bin starts with the digit 0. That code would likely malfunction if the input file had more than 1000 time bins.)
 
-The code that’s executed by CPython may use a similar approach as in `manualSplit()`; however, since this is all happening “under the hood” in C code, it is once again faster.
+The code that’s executed by CPython may use a similar approach as in `manualSplit()`; however, since this is all happening "under the hood" in C code, it is once again faster.
 
 ```python
 
