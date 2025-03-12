@@ -180,7 +180,6 @@ array([  1.        ,   2.71828183,   7.3890561 ,  20.08553692,
 However, broadcasting is not just a nicer way to write mathematical expressions—it can also give a significant performance boost:
 Most modern processors are able to apply one instruction across multiple variables simultaneously, instead of sequentially. (In computer science, this is also referred to as "vectorisation".) The manner by which NumPy stores data in arrays enables it to vectorise mathematical operations that are broadcast across arrays.
 
-<!-- Analogy: If you're baking cookies, the oven (CPU register) is big enough to operate on multiple cookies (numbers) simultaneously. So whether you bake 1 cookie or 10, it'll take exactly the same amount of time. -->
 
 ```sh
 > python -m timeit -s "import numpy; ar = numpy.arange(1)" "ar + 10"
@@ -192,6 +191,18 @@ Most modern processors are able to apply one instruction across multiple variabl
 ```
 If we were to use a regular `for` loop, the time to perform this operation would increase with the length of the array.
 However, using NumPy broadcasting we can apply the addition to 1, 10 or 100 elements, all in the same amount of time!
+
+::::::::::::::::::::::::::::::::::::: instructor
+
+A simple analogy:
+
+If you're baking cookies, the oven (CPU register) is big enough to operate on multiple cookies (numbers) simultaneously. So whether you bake 1 cookie or 10, it'll take exactly the same amount of time.
+However, this requires that the cookies are neatly arranged on a baking tray (in a contiguous chunk of memory).
+
+Basic ints/floats in NumPy arrays are arranged like that, so this works great.
+In contrast, numbers in a Python list [are spread across memory in a fairly complex arrangement](https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/#3.-Python's-object-model-can-lead-to-inefficient-memory-access), so cannot benefit from this unless you convert them to a NumPy array first.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 Earlier it was demonstrated that using core Python methods over a list will outperform a loop, performing the same calculation faster. The below example takes this a step further by demonstrating the calculation of a dot product.
 
@@ -324,7 +335,6 @@ To vectorise this efficiently, the logic of the code had to be changed slightly:
 ::::::::::::::::::::::::::::::::::::: instructor
 
 The following code snippet demonstrates how this works for a simplified example.
-If you want to run this as a live demo, you need to `pip install shapely` first.
 
 ```Python
 >>> from shapely import Point, Polygon
