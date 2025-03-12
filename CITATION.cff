@@ -1,0 +1,36 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Performance Profiling & Optimisation (Python)
+message: Please cite this course using these metadata.
+type: software
+authors:
+  - given-names: Robert
+    family-names: Chisholm
+    email: robert.chisholm@sheffield.ac.uk
+    affiliation: University of Sheffield
+    orcid: 'https://orcid.org/0000-0003-3379-9042'
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.15010977
+    description: This doi cites all versions of the code
+repository-code: 'https://github.com/RSE-Sheffield/pando-python'
+url: 'https://rse.shef.ac.uk/pando-python/'
+repository: 'https://github.com/carpentries-incubator/pando-python'
+abstract: >-
+  This lesson introduces the basics of profiling and
+  optimising Python code. The course is designed to be
+  accessible to Python users of all skill levels (beyond
+  total beginner). The optimisations presented should be
+  considered performance best practices, they are
+  demonstrated with small programming patterns that
+  demonstrate multiple approaches in code to achieve the
+  same result with differing performance.
+keywords:
+  - open-educational-resources
+  - python
+  - profiling
+  - optimisation
+  - programming
+license: CC-BY-4.0
