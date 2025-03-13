@@ -30,11 +30,8 @@ Packages like NumPy and Pandas work similarly: They have been written in compile
 
 It adds restriction via its own [basic numeric types](https://numpy.org/doc/stable/user/basics.types.html) and static arrays to enable even greater performance than that of core Python. However if these restrictions are ignored, the performance can become significantly worse.
 
-<!--
-TODO: It might be nice to use the figure from https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/#3.-Python's-object-model-can-lead-to-inefficient-memory-access here for illustration?
-
-![Illustration of a NumPy array and a Python list.](episodes/fig/numpyarray_vs_pylist.png){alt="A diagram illustrating the difference between a NumPy array and a Python list. The NumPy array is a raw block of memory containing numerical values. A Python list contains a header with metadata and multiple items, each of which is a reference to another Python object with its own header and value."}
--->
+![Illustration of a NumPy array and a Python list.](episodes/fig/numpy-array-vs-list.png){alt="A diagram illustrating the difference between a NumPy array and a Python list. The NumPy array is a raw block of memory containing numerical values. A Python list contains a header with metadata and multiple items, each of which is a reference to another Python object with its own header and value."}
+<!-- Figure inspired by https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/#3.-Python's-object-model-can-lead-to-inefficient-memory-access -->
 
 ### NumPy Arrays and Python Lists Live in Two Separate Worlds
 

@@ -51,11 +51,8 @@ This is not to say, don't consider performance when first writing code. The sele
 If you've read about different programming languages, you may have heard that there’s a difference between “interpreted” languages (like Python) and "compiled" languages (like C). You may have heard that Python is slow *because* it is an interpreted language.
 To understand where this comes from (and how to get around it), let's talk a little bit about how Python works.
 
-<!--
-TODO: It might be nice to use the figure from https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/#1.-Python-is-Dynamically-Typed-rather-than-Statically-Typed. here for illustration?
-
-![Illustration of integers in C and Python.](episodes/fig/cint_vs_pyint.png){alt="A diagram illustrating the difference between integers in C and Python. In C, the integer is a raw number in memory. In Python, it additionally contains a header with metadata."}
--->
+![Illustration of integers in C and Python.](episodes/fig/int-c-vs-py.png){alt="A diagram illustrating the difference between integers in C and Python. In C, the integer is a raw number in memory. In Python, it additionally contains a header with metadata."}
+<!-- Figure inspired by https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/#1.-Python-is-Dynamically-Typed-rather-than-Statically-Typed. -->
 
 In C, integers (or other basic types) are raw data in memory. It is up to the programmer to keep track of the data type.
 The compiler can then turn the source code directly into machine code. This allows the compiler to perform low-level optimisations that better exploit hardware nuance to achieve fast performance. This however comes at the cost of compiled software not being cross-platform.
