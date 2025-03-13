@@ -767,7 +767,7 @@ execution.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <ul>
 <li>What tools and techniques would be required?</li>
@@ -1338,7 +1338,7 @@ poor scaling so larger numbers take significantly longer to run.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
 <div class="accordion-body">
 <ul>
 <li>If a hotspot isn’t visible with the argument <code>1</code>, try
@@ -1356,7 +1356,7 @@ within the profile.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>The hotspot only becomes visible when an argument of <code>5</code>
 or greater is passed.</p>
@@ -1414,7 +1414,7 @@ finishes it outputs a graph of the three populations
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>It should be clear from the profile that the method
 <code>Grass::eaten()</code> (from <code>predprey.py:278</code>) occupies
@@ -2299,7 +2299,7 @@ representative of a realistic run.</li>
 </div>
 </div></section><section id="aio-optimisation-introduction"><p>Content from <a href="optimisation-introduction.html">Introduction to Optimisation</a></p>
 <hr>
-<p>Last updated on 2025-03-09 |
+<p>Last updated on 2025-03-13 |
 
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/optimisation-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2397,12 +2397,7 @@ Python) and “compiled” languages (like C). You may have heard that
 Python is slow <em>because</em> it is an interpreted language. To
 understand where this comes from (and how to get around it), let’s talk
 a little bit about how Python works.</p>
-<!--
-TODO: It might be nice to use the figure from https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/#1.-Python-is-Dynamically-Typed-rather-than-Statically-Typed. here for illustration?
-
-![Illustration of integers in C and Python.](episodes/fig/cint_vs_pyint.png){alt="A diagram illustrating the difference between integers in C and Python. In C, the integer is a raw number in memory. In Python, it additionally contains a header with metadata."}
--->
-<p>In C, integers (or other basic types) are raw data in memory. It is
+<figure><img src="fig/int-c-vs-py.png" alt="A diagram illustrating the difference between integers in C and Python. In C, the integer is a raw number in memory. In Python, it additionally contains a header with metadata." class="figure mx-auto d-block"><!-- Figure inspired by https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/#1.-Python-is-Dynamically-Typed-rather-than-Statically-Typed. --></figure><p>In C, integers (or other basic types) are raw data in memory. It is
 up to the programmer to keep track of the data type. The compiler can
 then turn the source code directly into machine code. This allows the
 compiler to perform low-level optimisations that better exploit hardware
@@ -3645,7 +3640,7 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  --></p></section><section id="aio-optimisation-numpy"><p>Content from <a href="optimisation-numpy.html">Using Scientific Python Packages (NumPy, Pandas and more)</a></p>
 <hr>
-<p>Last updated on 2025-03-12 |
+<p>Last updated on 2025-03-13 |
 
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/optimisation-numpy.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -3695,12 +3690,7 @@ scientific computing, which provides a wide variety of methods.</p>
 types</a> and static arrays to enable even greater performance than that
 of core Python. However if these restrictions are ignored, the
 performance can become significantly worse.</p>
-<!--
-TODO: It might be nice to use the figure from https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/#3.-Python's-object-model-can-lead-to-inefficient-memory-access here for illustration?
-
-![Illustration of a NumPy array and a Python list.](episodes/fig/numpyarray_vs_pylist.png){alt="A diagram illustrating the difference between a NumPy array and a Python list. The NumPy array is a raw block of memory containing numerical values. A Python list contains a header with metadata and multiple items, each of which is a reference to another Python object with its own header and value."}
--->
-<div class="section level3">
+<figure><img src="fig/numpy-array-vs-list.png" alt="A diagram illustrating the difference between a NumPy array and a Python list. The NumPy array is a raw block of memory containing numerical values. A Python list contains a header with metadata and multiple items, each of which is a reference to another Python object with its own header and value." class="figure mx-auto d-block"><!-- Figure inspired by https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/#3.-Python's-object-model-can-lead-to-inefficient-memory-access --></figure><div class="section level3">
 <h3 id="numpy-arrays-and-python-lists-live-in-two-separate-worlds">NumPy Arrays and Python Lists Live in Two Separate Worlds<a class="anchor" aria-label="anchor" href="#numpy-arrays-and-python-lists-live-in-two-separate-worlds"></a>
 </h3>
 <p>NumPy’s arrays (not to be confused with the core Python
@@ -4027,7 +4017,7 @@ instead of writing your own code from scratch?</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
 <div class="accordion-body">
 <p>These libraries could be specific to your area of research; but they
 could also include packages from other fields that provide tools you
@@ -5072,8 +5062,8 @@ objects can improve performance.</li>
   "url": "https://rse.shef.ac.uk/pando-python/aio.html",
   "identifier": "https://rse.shef.ac.uk/pando-python/aio.html",
   "dateCreated": "2024-02-01",
-  "dateModified": "2025-03-12",
-  "datePublished": "2025-03-12"
+  "dateModified": "2025-03-13",
+  "datePublished": "2025-03-13"
 }
 
   </script><script>

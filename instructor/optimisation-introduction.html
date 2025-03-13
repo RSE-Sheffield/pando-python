@@ -395,7 +395,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction to Optimisation</h1>
-        <p>Last updated on 2025-03-09 |
+        <p>Last updated on 2025-03-13 |
 
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/optimisation-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -492,12 +492,7 @@ Python) and “compiled” languages (like C). You may have heard that
 Python is slow <em>because</em> it is an interpreted language. To
 understand where this comes from (and how to get around it), let’s talk
 a little bit about how Python works.</p>
-<!--
-TODO: It might be nice to use the figure from https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/#1.-Python-is-Dynamically-Typed-rather-than-Statically-Typed. here for illustration?
-
-![Illustration of integers in C and Python.](episodes/fig/cint_vs_pyint.png){alt="A diagram illustrating the difference between integers in C and Python. In C, the integer is a raw number in memory. In Python, it additionally contains a header with metadata."}
--->
-<p>In C, integers (or other basic types) are raw data in memory. It is
+<figure><img src="../fig/int-c-vs-py.png" alt="A diagram illustrating the difference between integers in C and Python. In C, the integer is a raw number in memory. In Python, it additionally contains a header with metadata." class="figure mx-auto d-block"><!-- Figure inspired by https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/#1.-Python-is-Dynamically-Typed-rather-than-Statically-Typed. --></figure><p>In C, integers (or other basic types) are raw data in memory. It is
 up to the programmer to keep track of the data type. The compiler can
 then turn the source code directly into machine code. This allows the
 compiler to perform low-level optimisations that better exploit hardware
@@ -788,8 +783,8 @@ any links that you are not going to use.
   "url": "https://rse.shef.ac.uk/pando-python/instructor/optimisation-introduction.html",
   "identifier": "https://rse.shef.ac.uk/pando-python/instructor/optimisation-introduction.html",
   "dateCreated": "2024-02-01",
-  "dateModified": "2025-03-09",
-  "datePublished": "2025-03-12"
+  "dateModified": "2025-03-13",
+  "datePublished": "2025-03-13"
 }
 
   </script><script>
