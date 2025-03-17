@@ -46,6 +46,30 @@ Therefore, the balance between the impact to both performance and maintainabilit
 
 This is not to say, don't consider performance when first writing code. The selection of appropriate algorithms and data-structures covered in this course form good practice, simply don't fret over a need to micro-optimise every small component of the code that you write.
 
+::::::::::::::::::::::::::::::::::::: callout
+
+### Amdahl's Law
+
+> the overall performance improvement gained by optimising a single part of a system is limited by the fraction of time that the improved part is actually used - Gene Amdahl
+
+The maximum possible speedup to a system can be calculated with the equation
+
+$S_{overall} = \frac{1}{(1-P) + \frac{P}{S}}$
+
+where:
+
+* $P$ is the original proportion of execution time spent in the optimisable section.
+* $S$ is the speedup to the optimisable section.
+* $S_{overall}$ is the total system speedup.
+
+This is demonstrated in the below graph.
+
+![A graph demonstrating the impact of Amdahl's Law.](episodes/fig/amdahls_law.png){alt="A graph containing 5 plots. The x-axis is labelled 'S' with ticks on a log scale from 1 to 65536. The y-axis is labelled 'T' with ticks from 2 to 20. The 5 plots are labelled 'P' marked 1%, 50%, 75%, 90% and 95%. The 1% plot is a flat line with overall speedup close to 1x, The 50% plot quickly plateaus at 2x overall speedup. 75% plateaus at 4x, 90% plateaus at 10x and 95% at 20x."}
+
+It's clear that the maximum possible speedup to a system, quickly plateaus according to the proportion of execution time taken up by the section of code to be optimised. If the section of code to be optimised only occupies 50% of the system runtime, even if it's sped up 65,000x, the impact to the overall system performance is only a 2x speedup. In contrast, if the section to be optimised occupies 95% of the runtime the maximum impact is a 20x speedup!
+
+:::::::::::::::::::::::::::::::::::::::::::::
+
 ### Performance of Python
 
 If you've read about different programming languages, you may have heard that there’s a difference between “interpreted” languages (like Python) and "compiled" languages (like C). You may have heard that Python is slow *because* it is an interpreted language.
