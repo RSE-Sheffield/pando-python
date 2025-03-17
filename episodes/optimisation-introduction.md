@@ -70,7 +70,7 @@ It's clear that the maximum possible speedup to a system, quickly plateaus accor
 
 :::::::::::::::::::::::::::::::::::::::::::::
 
-### Performance of Python
+## Performance of Python
 
 If you've read about different programming languages, you may have heard that there’s a difference between “interpreted” languages (like Python) and "compiled" languages (like C). You may have heard that Python is slow *because* it is an interpreted language.
 To understand where this comes from (and how to get around it), let's talk a little bit about how Python works.
