@@ -91,7 +91,7 @@ In particular, those which are passed an `iterable` (e.g. lists) are likely to p
 
 ::::::::::::::::::::::::::::::::::::: callout
 
-The built-in functions [`filter()`](https://docs.python.org/3/library/functions.html#filter) and [`map()`](https://docs.python.org/3/library/functions.html#map) can be used for processing iterables. However list-comprehension is likely to be more performant.
+The built-in functions [`filter()`](https://docs.python.org/3/library/functions.html#filter) and [`map()`](https://docs.python.org/3/library/functions.html#map) can be used for processing iterables. However, list-comprehension is likely to be more performant.
 
 <!-- Would this benefit from an example? -->
 
@@ -103,11 +103,11 @@ It is often best to tell the interpreter/library at a high level *what you want*
 
 ## Example: Searching an element in a list
 
-A simple example of this would be to perform a linear search of a list. (Though as we’ll see in the next section, there’s a much more effective way to do this!)
-The below example creates a list of 2500 integers in the inclusive-exclusive range `[0, 5000)`.
-It then searches for all of the even numbers in that range.
-`manualSearch()` is implemented manually, iterating `ls` checking each individual item in Python code.
-`operatorSearch()` in contrast uses the `in` keyword to perform each search, which allows CPython to implement the inner loop in its C back-end.
+A simple example of this is performing a linear search on a list. (Though as we’ll see in the next section, this isn't the most efficient approach!)
+In the following example, we create a list of 2500 integers in the (inclusive-exclusive) range `[0, 5000)`.
+The goal is to search for all even numbers within that range.
+
+The function `manualSearch()` manually iterates through the list (`ls`) and checks each individual item using Python code. On the other hand, `operatorSearch()` uses the `in` operator to perform each search, which allows CPython to implement the inner loop in its C back-end.
 
 ```python
 import random
