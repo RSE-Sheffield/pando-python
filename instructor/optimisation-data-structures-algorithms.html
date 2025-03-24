@@ -396,7 +396,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Data Structures &amp; Algorithms</h1>
-        <p>Last updated on 2025-03-08 |
+        <p>Last updated on 2025-03-24 |
 
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/optimisation-data-structures-algorithms.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -489,7 +489,9 @@ it doesn’t, it will re-allocate a larger array, copy across the
 elements, and deallocate the old array. The item to be appended is then
 copied to the end and the counter which tracks the list’s length is
 incremented.</p>
-<p>The amount the internal array grows by is dependent on the particular
+<!-- Based on ICR-RSE's visual note: https://icr-rse-group.github.io/carpentry-pando-python/optimisation-data-structures-algorithms.html#lists -->
+<figure><img src="../fig/list-append.png" alt="A list uses a contiguous block of memory, similar to an array, for storing the pointers to its elements. It is depicted as a series of five adjacent boxes, labelled 'P1' to 'P5', representing pointers to the list's elements. It can have additional storage beyond its length to make appends faster. An illustration shows the previous list with two extra empty boxes marked with question marks, indicating spare elements. Below, Python code `len(my_list) == 5` and `my_list.append(6)` is shown. After appending, the first of the previously empty boxes contains 'P6', and the last one remains empty. The length is now `len(my_list) == 6`. Appending to a full list causes it to grow. This makes some appends slower. An illustration depicts a full list with 'P1' through 'P7' in adjacent boxes and a label &quot;No spare elements!&quot;. Below, Python code `len(my_list) == 7` and `my_list.append(8)` is shown. The result is a new, larger continuous block of memory with 'P1' through 'P8' followed by a question mark in an additional box, indicating one spare element. The label &quot;2 new elements&quot; with curved arrows suggests that when the list grows, it typically allocates more memory than just the space for the new element. A concluding note states that a list will typically grow by 12.5%, hence shorter lists will grow more frequently when appending." class="figure mx-auto d-block"><div class="figcaption">A visual diagram of list storage.</div>
+</figure><p>The amount the internal array grows by is dependent on the particular
 list implementation’s growth factor. CPython for example uses <a href="https://github.com/python/cpython/blob/a571a2fd3fdaeafdfd71f3d80ed5a3b22b63d0f7/Objects/listobject.c#L74" class="external-link"><code>newsize + (newsize &gt;&gt; 3) + 6</code></a>,
 which works out to an over allocation of roughly ~12.5%.</p>
 <figure><img src="../fig/cpython_list_allocations.png" alt="A line graph displaying the relationship between the number of calls to append() and the number of internal resizes of a CPython list. It has a logarithmic relationship, at 1 million appends there have been 84 internal resizes." class="figure mx-auto d-block"><div class="figcaption">The relationship between the number of appends
@@ -607,20 +609,20 @@ of the shelf, right after all the previous books.</p>
 <figure><img src="../fig/bookshelf_list.jpg" alt="An image of a single long bookshelf, with a large number of books." class="figure mx-auto d-block"><div class="figcaption">A bookshelf corresponding to a Python
 list.</div>
 </figure><p>A hashing data structure is more like a bookcase with several
-shelves, labeled by genre (sci-fi, romance, children’s books,
+shelves, labelled by genre (sci-fi, romance, children’s books,
 non-fiction, …) and author surname. When you buy a new book by Jules
-Verne, you might place it on the shelf labeled “Sci-Fi, V–Z”. And if you
-keep adding more books, at some point you’ll move to a larger bookcase
-with more shelves (and thus more fine-grained sorting), to make sure you
-don’t have too many books on a single shelf.</p>
-<figure><img src="../fig/bookshelf_dict.jpg" alt="An image of two bookcases, labelled “Sci-Fi” and “Romance”. Each bookcase contains shelves labelled in alphabetical order, with zero or few books on each shelf." class="figure mx-auto d-block"><div class="figcaption">A bookshelf corresponding to a Python
+Verne, you might place it on the shelf labelled "Sci-Fi, V–Z". And if
+you keep adding more books, at some point you’ll move to a larger
+bookcase with more shelves (and thus more fine-grained sorting), to make
+sure you don’t have too many books on a single shelf.</p>
+<figure><img src="../fig/bookshelf_dict.jpg" alt='An image of two bookcases, labelled "Sci-Fi" and "Romance". Each bookcase contains shelves labelled in alphabetical order, with zero or few books on each shelf.' class="figure mx-auto d-block"><div class="figcaption">A bookshelf corresponding to a Python
 dictionary.</div>
-</figure><p>Now, let’s say a friend wanted to borrow the book “‘—All You
-Zombies—’” by Robert Heinlein. If I had my books arranged on a single
+</figure><p>Now, let’s say a friend wanted to borrow the book "‘—All You
+Zombies—’" by Robert Heinlein. If I had my books arranged on a single
 bookshelf (in a list), I would have to look through every book I own in
 order to find it. However, if I had a bookcase with several shelves (a
 hashing data structure), I know immediately that I need to check the
-shelf “Sci-Fi, G—J”, so I’d be able to find it much more quickly!</p>
+shelf "Sci-Fi, G—J", so I’d be able to find it much more quickly!</p>
 <div id="accordionInstructor2" class="accordion instructor-note accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor2" aria-expanded="false" aria-controls="collapseInstructor2">
@@ -677,7 +679,7 @@ key, then the key must not be present in the data structure.</p>
 <div class="section level3">
 <h3 id="keys">Keys<a class="anchor" aria-label="anchor" href="#keys"></a></h3>
 <p>Keys will typically be a core Python type such as a number or string.
-However multiple of these can be combined as a Tuple to form a compound
+However, multiple of these can be combined as a Tuple to form a compound
 key, or a custom class can be used if the methods
 <code>__hash__()</code> and <code>__eq__()</code> have been
 implemented.</p>
@@ -827,7 +829,7 @@ approach, because of how many times the list is searched. This gap will
 only grow as the number of items increases.</p>
 <p>Sorting the input list reduces the cost of searching the output list
 significantly, however it is still 8x slower than the fastest approach.
-In part because around half of it’s runtime is now spent sorting the
+In part because around half of its runtime is now spent sorting the
 list.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -848,19 +850,20 @@ search the data-structure to retrieve an item or check whether it
 exists.</p>
 <p>The performance of a hashing data structure is subject to the load
 factor and number of collisions. An item that hashes with no collision
-can be checked almost directly, whereas one with collisions will probe
+can be accessed almost directly, whereas one with collisions will probe
 until it finds the correct item or an empty slot. In the worst possible
 case, whereby all insert items have collided this would mean checking
 every single item. In practice, hashing data-structures are designed to
 minimise the chances of this happening and most items should be found or
-identified as missing with a single access.</p>
-<p>In contrast if searching a list or array, the default approach is to
+identified as missing on the first attempt (without probing beyond the
+original hash).</p>
+<p>In contrast, if searching a list or array, the default approach is to
 start at the first item and check all subsequent items until the correct
 item has been found. If the correct item is not present, this will
 require the entire list to be checked. Therefore the worst-case is
 similar to that of the hashing data-structure, however it is guaranteed
 in cases where the item is missing. Similarly, on-average we would
-expect an item to be found half way through the list, meaning that an
+expect an item to be found halfway through the list, meaning that an
 average search will require checking half of the items.</p>
 <p>If however the list or array is sorted, a binary search can be used.
 A binary search divides the list in half and checks which half the
@@ -1027,8 +1030,8 @@ any links that you are not going to use.
   "url": "https://rse.shef.ac.uk/pando-python/instructor/optimisation-data-structures-algorithms.html",
   "identifier": "https://rse.shef.ac.uk/pando-python/instructor/optimisation-data-structures-algorithms.html",
   "dateCreated": "2024-02-01",
-  "dateModified": "2025-03-08",
-  "datePublished": "2025-03-18"
+  "dateModified": "2025-03-24",
+  "datePublished": "2025-03-24"
 }
 
   </script><script>

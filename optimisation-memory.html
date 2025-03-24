@@ -396,7 +396,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Understanding Memory</h1>
-        <p>Last updated on 2025-03-09 |
+        <p>Last updated on 2025-03-24 |
 
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/optimisation-memory.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -702,29 +702,28 @@ model.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>grid_shape <span class="op">=</span> (<span class="dv">512</span>, <span class="dv">512</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="kw">def</span> update(grid, a_dt):</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    x_max, y_max <span class="op">=</span> grid_shape</span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>    out_grid <span class="op">=</span> [[<span class="fl">0.0</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(y_max)] <span class="op">*</span> y_max <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(x_max)]</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(x_max):</span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(y_max):</span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>            out_xx <span class="op">=</span> grid[(i<span class="op">-</span><span class="dv">1</span>)<span class="op">%</span>x_max][j] <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> grid[i][j] <span class="op">+</span> grid[(i<span class="op">+</span><span class="dv">1</span>)<span class="op">%</span>x_max][j]</span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>            out_yy <span class="op">=</span> grid[i][(j<span class="op">-</span><span class="dv">1</span>)<span class="op">%</span>y_max] <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> grid[i][j] <span class="op">+</span> grid[i][(j<span class="op">+</span><span class="dv">1</span>)<span class="op">%</span>y_max]</span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>            out_grid[i][j] <span class="op">=</span> grid[i][j] <span class="op">+</span> (out_xx <span class="op">+</span> out_yy) <span class="op">*</span> a_dt </span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>    <span class="cf">return</span> out_grid</span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>    </span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="kw">def</span> heat_equation(steps):</span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>    x_max, y_max <span class="op">=</span> grid_shape</span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>    grid <span class="op">=</span> [[<span class="fl">0.0</span>] <span class="op">*</span> y_max <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(x_max)]</span>
-<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>    <span class="co"># Init central point to diffuse</span></span>
-<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>    grid[<span class="bu">int</span>(x_max<span class="op">/</span><span class="dv">2</span>)][<span class="bu">int</span>(y_max<span class="op">/</span><span class="dv">2</span>)] <span class="op">=</span> <span class="fl">1.0</span></span>
-<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>    <span class="co"># Run steps</span></span>
-<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(steps):</span>
-<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>        grid <span class="op">=</span> update(grid, <span class="fl">0.1</span>)</span>
-<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a></span>
-<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a>heat_equation(<span class="dv">100</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>grid_shape <span class="op">=</span> (<span class="dv">512</span>, <span class="dv">512</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="kw">def</span> update(grid, a_dt):</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    x_max, y_max <span class="op">=</span> grid_shape</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    out_grid <span class="op">=</span> [[<span class="fl">0.0</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(y_max)] <span class="op">*</span> y_max <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(x_max)]</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(x_max):</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(y_max):</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>            out_xx <span class="op">=</span> grid[(i<span class="op">-</span><span class="dv">1</span>)<span class="op">%</span>x_max][j] <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> grid[i][j] <span class="op">+</span> grid[(i<span class="op">+</span><span class="dv">1</span>)<span class="op">%</span>x_max][j]</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>            out_yy <span class="op">=</span> grid[i][(j<span class="op">-</span><span class="dv">1</span>)<span class="op">%</span>y_max] <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> grid[i][j] <span class="op">+</span> grid[i][(j<span class="op">+</span><span class="dv">1</span>)<span class="op">%</span>y_max]</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>            out_grid[i][j] <span class="op">=</span> grid[i][j] <span class="op">+</span> (out_xx <span class="op">+</span> out_yy) <span class="op">*</span> a_dt </span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>    <span class="cf">return</span> out_grid</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>    </span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="kw">def</span> heat_equation(steps):</span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>    x_max, y_max <span class="op">=</span> grid_shape</span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>    grid <span class="op">=</span> [[<span class="fl">0.0</span>] <span class="op">*</span> y_max <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(x_max)]</span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>    <span class="co"># Init central point to diffuse</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>    grid[<span class="bu">int</span>(x_max<span class="op">/</span><span class="dv">2</span>)][<span class="bu">int</span>(y_max<span class="op">/</span><span class="dv">2</span>)] <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>    <span class="co"># Run steps</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(steps):</span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>        grid <span class="op">=</span> update(grid, <span class="fl">0.1</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a>heat_equation(<span class="dv">100</span>)</span></code></pre>
 </div>
 <p>Line profiling demonstrates that function takes up over 55 seconds of
 the total runtime, with the cost of allocating the temporary
@@ -756,29 +755,28 @@ call to update().</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>grid_shape <span class="op">=</span> (<span class="dv">512</span>, <span class="dv">512</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="kw">def</span> update(grid, a_dt, out_grid):</span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>    x_max, y_max <span class="op">=</span> grid_shape</span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(x_max):</span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(y_max):</span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>            out_xx <span class="op">=</span> grid[(i<span class="op">-</span><span class="dv">1</span>)<span class="op">%</span>x_max][j] <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> grid[i][j] <span class="op">+</span> grid[(i<span class="op">+</span><span class="dv">1</span>)<span class="op">%</span>x_max][j]</span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>            out_yy <span class="op">=</span> grid[i][(j<span class="op">-</span><span class="dv">1</span>)<span class="op">%</span>y_max] <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> grid[i][j] <span class="op">+</span> grid[i][(j<span class="op">+</span><span class="dv">1</span>)<span class="op">%</span>y_max]</span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>            out_grid[i][j] <span class="op">=</span> grid[i][j] <span class="op">+</span> (out_xx <span class="op">+</span> out_yy) <span class="op">*</span> a_dt </span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>    </span>
-<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="kw">def</span> heat_equation(steps):</span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>    x_max, y_max <span class="op">=</span> grid_shape</span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>    grid <span class="op">=</span> [[<span class="fl">0.0</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(y_max)] <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(x_max)]</span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>    out_grid <span class="op">=</span> [[<span class="fl">0.0</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(y_max)] <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(x_max)]  <span class="co"># Allocate a second buffer once</span></span>
-<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>    <span class="co"># Init central point to diffuse</span></span>
-<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>    grid[<span class="bu">int</span>(x_max<span class="op">/</span><span class="dv">2</span>)][<span class="bu">int</span>(y_max<span class="op">/</span><span class="dv">2</span>)] <span class="op">=</span> <span class="fl">1.0</span></span>
-<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>    <span class="co"># Run steps</span></span>
-<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(steps):</span>
-<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>        update(grid, <span class="fl">0.1</span>, out_grid)  <span class="co"># Pass the output buffer</span></span>
-<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a>        grid, out_grid <span class="op">=</span> out_grid, grid  <span class="co"># Swap buffers</span></span>
-<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a></span>
-<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a>heat_equation(<span class="dv">100</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>grid_shape <span class="op">=</span> (<span class="dv">512</span>, <span class="dv">512</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="kw">def</span> update(grid, a_dt, out_grid):</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>    x_max, y_max <span class="op">=</span> grid_shape</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(x_max):</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(y_max):</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>            out_xx <span class="op">=</span> grid[(i<span class="op">-</span><span class="dv">1</span>)<span class="op">%</span>x_max][j] <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> grid[i][j] <span class="op">+</span> grid[(i<span class="op">+</span><span class="dv">1</span>)<span class="op">%</span>x_max][j]</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>            out_yy <span class="op">=</span> grid[i][(j<span class="op">-</span><span class="dv">1</span>)<span class="op">%</span>y_max] <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> grid[i][j] <span class="op">+</span> grid[i][(j<span class="op">+</span><span class="dv">1</span>)<span class="op">%</span>y_max]</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>            out_grid[i][j] <span class="op">=</span> grid[i][j] <span class="op">+</span> (out_xx <span class="op">+</span> out_yy) <span class="op">*</span> a_dt </span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>    </span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="kw">def</span> heat_equation(steps):</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>    x_max, y_max <span class="op">=</span> grid_shape</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>    grid <span class="op">=</span> [[<span class="fl">0.0</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(y_max)] <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(x_max)]</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>    out_grid <span class="op">=</span> [[<span class="fl">0.0</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(y_max)] <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(x_max)]  <span class="co"># Allocate a second buffer once</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>    <span class="co"># Init central point to diffuse</span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>    grid[<span class="bu">int</span>(x_max<span class="op">/</span><span class="dv">2</span>)][<span class="bu">int</span>(y_max<span class="op">/</span><span class="dv">2</span>)] <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>    <span class="co"># Run steps</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(steps):</span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>        update(grid, <span class="fl">0.1</span>, out_grid)  <span class="co"># Pass the output buffer</span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>        grid, out_grid <span class="op">=</span> out_grid, grid  <span class="co"># Swap buffers</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a>heat_equation(<span class="dv">100</span>)</span></code></pre>
 </div>
 <p>The total time reduces to 34 seconds, reducing the runtime by 39%
 inline with the removed allocation.</p>
@@ -893,8 +891,8 @@ any links that you are not going to use.
   "url": "https://rse.shef.ac.uk/pando-python/optimisation-memory.html",
   "identifier": "https://rse.shef.ac.uk/pando-python/optimisation-memory.html",
   "dateCreated": "2024-02-01",
-  "dateModified": "2025-03-09",
-  "datePublished": "2025-03-18"
+  "dateModified": "2025-03-24",
+  "datePublished": "2025-03-24"
 }
 
   </script><script>

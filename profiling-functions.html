@@ -396,7 +396,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Function Level Profiling</h1>
-        <p>Last updated on 2024-03-28 |
+        <p>Last updated on 2025-03-24 |
 
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/profiling-functions.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -468,7 +468,7 @@ profiler <code>cProfile</code>, how it’s output can be visualised with
 and their associated variables.</p>
 <p>As a stack it is a last-in first-out (LIFO) data structure.</p>
 <figure><img src="fig/stack.png" alt="A greyscale diagram showing a (call)stack, containing 5 stack frame. Two additional stack frames are shown outside the stack, one is marked as entering the call stack with an arrow labelled push and the other is marked as exiting the call stack labelled pop." class="figure mx-auto d-block"><div class="figcaption">A diagram of a call stack</div>
-</figure><p>When a function is called, a frame to track it’s variables and
+</figure><p>When a function is called, a frame to track its variables and
 metadata is pushed to the call stack. When that same function finishes
 and returns, it is popped from the stack and variables local to the
 function are dropped.</p>
@@ -516,7 +516,7 @@ by <code>a()</code>, which is called from global scope.</p>
 <p>The first line states the file and line number where <code>a()</code>
 was called from (the last line of code in the file shown). The second
 line states that it was the function <code>a()</code> that was called,
-this could include it’s arguments. The third line then repeats this
+this could include its arguments. The third line then repeats this
 pattern, stating the line number where <code>b2()</code> was called
 inside <code>a()</code>. This continues until the call to
 <code>traceback.print_stack()</code> is reached.</p>
@@ -534,7 +534,7 @@ is a function-level profiler provided as part of the Python standard
 library.</p>
 <!-- How is it used? -->
 <p>It can be called directly within your Python code as an imported
-package, however it’s easier to use it’s script interface:</p>
+package, however it’s easier to use its script interface:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -629,14 +629,14 @@ provided by <code>snakeviz</code>.</div>
 In the icicle visualization style functions are represented by rectangles. A root function is the top-most rectangle, with functions it calls below it, then the functions those call below them, and so on. The amount of time spent inside a function is represented by the width of the rectangle. A rectangle that stretches across most of the visualization represents a function that is taking up most of the time of its calling function, while a skinny rectangle represents a function that is using hardly any time at all.
 --><p>The icicle diagram displayed by <code>snakeviz</code> represents an
 aggregate of the call stack during the execution of the profiled code.
-The box which fills the top row represents the the root call, filling
-the row shows that it occupied 100% of the runtime. The second row holds
-the child methods called from the root, with their widths relative to
-the proportion of runtime they occupied. This continues with each
-subsequent row, however where a method only occupies 50% of the runtime,
-it’s children can only occupy a maximum of that runtime hence the
-appearance of “icicles” as each row gets narrower when the overhead of
-methods with no further children is accounted for.</p>
+The box which fills the top row represents the root call, filling the
+row shows that it occupied 100% of the runtime. The second row holds the
+child methods called from the root, with their widths relative to the
+proportion of runtime they occupied. This continues with each subsequent
+row, however where a method only occupies 50% of the runtime, its
+children can only occupy a maximum of that runtime hence the appearance
+of “icicles” as each row gets narrower when the overhead of methods with
+no further children is accounted for.</p>
 <p>By clicking a box within the diagram, it will “zoom” making the
 selected box the root allowing more detail to be explored. The diagram
 is limited to 10 rows by default (“Depth”) and methods with a relatively
@@ -654,7 +654,7 @@ specifying the location of the method and for how long it ran.</p>
 you can still use <code>snakeviz</code> directly from inside notebooks
 using the notebooks “magic” prefix (<code>%</code>) and it will
 automatically call <code>cProfile</code> for you.</p>
-<p>First <code>snakeviz</code> must be installed and it’s extension
+<p>First <code>snakeviz</code> must be installed and its extension
 loaded.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PY<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -684,7 +684,7 @@ python executed within it.</p>
 <p>In both cases, the full <code>snakeviz</code> profile visualisation
 will appear as an output within the notebook!</p>
 <p><em>You may wish to right click the top of the output, and select
-“Disable Scrolling for Outputs” to expand it’s box if it begins too
+“Disable Scrolling for Outputs” to expand its box if it begins too
 small.</em></p>
 </div>
 </div>
@@ -806,7 +806,7 @@ remains empty as the profiled code was in the root of the working
 directory. A profile of a large project with many files across multiple
 directories will see this filled.</p>
 <p>Find the box representing <code>c_2()</code> on the icicle diagram,
-it’s children are unlabelled because they are not wide enough (but they
+its children are unlabelled because they are not wide enough (but they
 can still be hovered). Clicking <code>c_2()</code> zooms in the diagram,
 showing the children to be <code>time.sleep()</code> and
 <code>d_1()</code>.</p>
@@ -1080,8 +1080,8 @@ any links that you are not going to use.
   "url": "https://rse.shef.ac.uk/pando-python/profiling-functions.html",
   "identifier": "https://rse.shef.ac.uk/pando-python/profiling-functions.html",
   "dateCreated": "2024-02-01",
-  "dateModified": "2024-03-28",
-  "datePublished": "2025-03-18"
+  "dateModified": "2025-03-24",
+  "datePublished": "2025-03-24"
 }
 
   </script><script>

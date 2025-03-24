@@ -394,7 +394,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Using Python Language Features and the Standard Library</h1>
-        <p>Last updated on 2025-03-10 |
+        <p>Last updated on 2025-03-24 |
 
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/optimisation-using-python.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -522,7 +522,7 @@ Return the sum of all items</li>
 <div class="callout-content">
 <p>The built-in functions <a href="https://docs.python.org/3/library/functions.html#filter" class="external-link"><code>filter()</code></a>
 and <a href="https://docs.python.org/3/library/functions.html#map" class="external-link"><code>map()</code></a>
-can be used for processing iterables. However list-comprehension is
+can be used for processing iterables. However, list-comprehension is
 likely to be more performant.</p>
 <!-- Would this benefit from an example? -->
 </div>
@@ -532,16 +532,16 @@ likely to be more performant.</p>
 is often best to tell the interpreter/library at a high level <em>what
 you want</em>, and let it figure out <em>how to do it</em>.</p>
 </section><section><h2 class="section-heading" id="example-searching-an-element-in-a-list">Example: Searching an element in a list<a class="anchor" aria-label="anchor" href="#example-searching-an-element-in-a-list"></a></h2>
-<hr class="half-width"><p>A simple example of this would be to perform a linear search of a
-list. (Though as we’ll see in the next section, there’s a much more
-effective way to do this!) The below example creates a list of 2500
-integers in the inclusive-exclusive range <code>[0, 5000)</code>. It
-then searches for all of the even numbers in that range.
-<code>manualSearch()</code> is implemented manually, iterating
-<code>ls</code> checking each individual item in Python code.
-<code>operatorSearch()</code> in contrast uses the <code>in</code>
-keyword to perform each search, which allows CPython to implement the
-inner loop in its C back-end.</p>
+<hr class="half-width"><p>A simple example of this is performing a linear search on a list.
+(Though as we’ll see in the next section, this isn’t the most efficient
+approach!) In the following example, we create a list of 2500 integers
+in the (inclusive-exclusive) range <code>[0, 5000)</code>. The goal is
+to search for all even numbers within that range.</p>
+<p>The function <code>manualSearch()</code> manually iterates through
+the list (<code>ls</code>) and checks each individual item using Python
+code. On the other hand, <code>operatorSearch()</code> uses the
+<code>in</code> operator to perform each search, which allows CPython to
+implement the inner loop in its C back-end.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -784,7 +784,7 @@ in Python?</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
 <div class="accordion-body">
 <p>Python strings have a lot of methods to perform common operations,
 like removing suffixes, replacing substrings, joining or splitting,
@@ -799,7 +799,7 @@ methods documentation</a> for a full list.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -863,7 +863,7 @@ lot of low-level step-by-step instructions?</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
   <h4 class="accordion-header" id="headingHint2"> Give me a hint </h4>
 </button>
-<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
+<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
 <div class="accordion-body">
 <!-- Typical cases might include reading data from a file, …, … TODO: more examples? -->
 <p>(Before you try to rewrite those parts of your code, use a profiler
@@ -948,8 +948,8 @@ any links that you are not going to use.
   "url": "https://rse.shef.ac.uk/pando-python/optimisation-using-python.html",
   "identifier": "https://rse.shef.ac.uk/pando-python/optimisation-using-python.html",
   "dateCreated": "2024-02-01",
-  "dateModified": "2025-03-10",
-  "datePublished": "2025-03-18"
+  "dateModified": "2025-03-24",
+  "datePublished": "2025-03-24"
 }
 
   </script><script>
