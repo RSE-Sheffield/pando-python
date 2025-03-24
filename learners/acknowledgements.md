@@ -12,6 +12,8 @@ The initial materials were authored by [Robert Chisholm](https://www.sheffield.a
 
 Additional consulting was provided by James Kilbane a close friend (and general rubber duck).
 
+Anastasiia Shcherbakova and Mira Sarkis of [ICR-RSE](https://github.com/ICR-RSE-Group) contributed inspiration for the list append figure and a large number of typographic corrections and simplifications during the alpha phase of the course's development lifecycle.
+
 **Resources**
 
 Most of the content was drawn from the education and experience of the author, however the below resources provided inspiration:
