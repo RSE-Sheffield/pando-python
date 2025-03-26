@@ -266,6 +266,7 @@
       <div class="accordion-body">
         <ul><li><a href="#introduction">Introduction</a></li>
 <li><a href="#performance-vs-maintainability">Performance vs Maintainability</a></li>
+<li><a href="#performance-of-python">Performance of Python</a></li>
 <li><a href="#ensuring-reproducible-results">Ensuring Reproducible Results</a></li>
 <li><a href="#pytest-overview">pytest Overview</a></li>
         </ul></div><!--/div.accordion-body-->
@@ -395,7 +396,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction to Optimisation</h1>
-        <p>Last updated on 2025-03-24 |
+        <p>Last updated on 2025-03-26 |
 
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/optimisation-introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -491,9 +492,8 @@ writing code. Choosing the right algorithms and data structures, as we
 will discuss in this course, is good practice. However, there’s no need
 to obsess over micro-optimising every tiny component of your code—focus
 on the bigger picture.</p>
-<div class="section level3">
-<h3 id="performance-of-python">Performance of Python<a class="anchor" aria-label="anchor" href="#performance-of-python"></a></h3>
-<p>If you’ve read about different programming languages, you may have
+</section><section><h2 class="section-heading" id="performance-of-python">Performance of Python<a class="anchor" aria-label="anchor" href="#performance-of-python"></a></h2>
+<hr class="half-width"><p>If you’ve read about different programming languages, you may have
 heard that there’s a difference between “interpreted” languages (like
 Python) and “compiled” languages (like C). You may have heard that
 Python is slow <em>because</em> it is an interpreted language. To
@@ -578,7 +578,6 @@ a Python object in the end. This usually makes your code more readable,
 too: When someone else reads your code, they can see exactly <em>what
 you want to do</em>, without getting overwhelmed by overly detailed
 step-by-step instructions.</p>
-</div>
 </section><section><h2 class="section-heading" id="ensuring-reproducible-results">Ensuring Reproducible Results<a class="anchor" aria-label="anchor" href="#ensuring-reproducible-results"></a></h2>
 <hr class="half-width"><!-- This is also good practice when optimising your code, to ensure mistakes aren't made --><p>When optimising existing code, you’re often making speculative
 changes, which can lead to subtle mistakes. To ensure that your
@@ -660,7 +659,7 @@ the outputs from your code.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <ul><li>Fixtures: A test fixture is a common class which multiple tests can
 inherit from. This class will typically include methods that perform
@@ -792,8 +791,8 @@ any links that you are not going to use.
   "url": "https://rse.shef.ac.uk/pando-python/instructor/optimisation-introduction.html",
   "identifier": "https://rse.shef.ac.uk/pando-python/instructor/optimisation-introduction.html",
   "dateCreated": "2024-02-01",
-  "dateModified": "2025-03-24",
-  "datePublished": "2025-03-25"
+  "dateModified": "2025-03-26",
+  "datePublished": "2025-03-26"
 }
 
   </script><script>
