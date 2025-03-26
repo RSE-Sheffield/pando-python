@@ -3,8 +3,17 @@
 
 cff-version: 1.2.0
 title: Performance Profiling & Optimisation (Python)
-message: Please cite this course using these metadata.
-type: software
+message: >-
+  Please cite this lesson using the information in this file
+  when you refer to it in publications, and/or if you
+  re-use, adapt, or expand on the content in your own
+  training material. To cite the Workbench software itself,
+  please refer to the websites for the individual
+  components:
+  https://carpentries.github.io/sandpaper/authors.html#citation,
+  https://carpentries.github.io/pegboard/authors.html#citation,
+  https://carpentries.github.io/varnish/authors.html#citation
+type: dataset
 authors:
   - given-names: Robert
     family-names: Chisholm
