@@ -14,4 +14,4 @@ The 25 minute talk, which introduces many of the Python patterns from the Optimi
 
 The talk has an accompanying Jupyter notebook, allowing people to benchmark the patterns on their own hardware.
 
-The notebook can be downloaded [here](https://drive.google.com/file/d/1YTEXJlDaaZBAGo-Aodukuw0ArVJakdBB/view?usp=sharing). 
+[Download the notebook here!](https://drive.google.com/file/d/1YTEXJlDaaZBAGo-Aodukuw0ArVJakdBB/view?usp=sharing). 
