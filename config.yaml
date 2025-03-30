@@ -77,6 +77,7 @@ episodes:
 learners: 
 - setup.md
 - registration.md
+- technical-appendix.md
 - acknowledgements.md
 - ppp.md
 - reference.md
