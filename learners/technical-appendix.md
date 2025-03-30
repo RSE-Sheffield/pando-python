@@ -6,8 +6,8 @@ The topics covered here exceed the level of knowledge required to benefit from t
 
 **Contents**
 
-- [Viewing Python's ByteCode](#viewing-pythons-bytecode)
-- []()
+- [Viewing Python's ByteCode](#viewing-pythons-bytecode): What the Python code you write compiles to and executes as.
+- [Hardware Level Memory Accesses](#hardware-level-memory-accesses): A look at how memory accesses pass through a processor's caches.
 - []()
 
 ## Viewing Python's ByteCode
@@ -133,6 +133,50 @@ dis.dis(operatorSearch)
              54 RETURN_VALUE
 ```
 
-## 
+## Hardware Level Memory Accesses
+
+The storage and movement of data plays a large role in the performance of executing software.
+
+<!-- Brief summary of hardware -->
+Modern computers typically have a single processor (CPU), within this processor there are multiple processing cores each capable of executing different code in parallel.
+
+Data held in memory by running software is exists in RAM, this memory is faster to access than hard drives (and solid-state drives).
+But the CPU has much smaller caches on-board, to make accessing the most recent variables even faster.
+
+![An annotated photo of a computer's hardware.](learners/fig/annotated-motherboard.jpg){alt="An annotated photo of inside a desktop computer's case. The CPU, RAM, power supply, graphics cards (GPUs) and harddrive are labelled."}
+
+<!-- Read/operate on variable ram->cpu cache->registers->cpu -->
+When reading a variable, to perform an operation with it, the CPU will first look in its registers. These exist per core, they are the location that computation is actually performed. Accessing them is incredibly fast, but there only exists enough storage for around 32 variables (typical number, e.g. 4 bytes).
+As the register file is so small, most variables won't be found and the CPU's caches will be searched.
+It will first check the current processing core's L1 (Level 1) cache, this small cache (typically 64 KB per physical core) is the smallest and fastest to access cache on a CPU.
+If the variable is not found in the L1 cache, the L2 cache that is shared between multiple cores will be checked. This shared cache, is slower to access but larger than L1 (typically 1-3MB per core).
+This process then repeats for the L3 cache which may be shared among all cores of the CPU. This cache again has higher latency to access, but increased size (typically slightly larger than the total L2 cache size).
+If the variable has not been found in any of the CPU's cache, the CPU will look to the computer's RAM. This is an order of magnitude slower to access, with several orders of magnitude greater capacity (tens to hundreds of GB are now standard).
+
+Correspondingly, the earlier the CPU finds the variable the faster it will be to access.
+However, to fully understand the cache's it's necessary to explain what happens once a variable has been found.
+
+If a variable is not found in the caches, it must be fetched from RAM.
+The full 64 byte cache line containing the variable, will be copied first into the CPU's L3, then L2 and then L1.
+Most variables are only 4 or 8 bytes, so many neighbouring variables are also pulled into the caches.
+Similarly, adding new data to a cache evicts old data.
+This means that reading 16 integers contiguously stored in memory, should be faster than 16 scattered integers
+
+Therefore, to **optimally** access variables they should be stored contiguously in memory with related data and worked on whilst they remain in caches.
+If you add to a variable, perform large amount of unrelated processing, then add to the variable again it will likely have been evicted from caches and need to be reloaded from slower RAM again.
+
+<!-- Latency/Throughput typically inversely proportional to capacity -->
+It's not necessary to remember this full detail of how memory access work within a computer, but the context perhaps helps understand why memory locality is important.
+
+![An abstract diagram showing the path data takes from disk or RAM to be used for computation.](learners/fig/hardware.png){alt='An abstract representation of a CPU, RAM and Disk, showing their internal caches and the pathways data can pass.'}
+
+::::::::::::::::::::::::::::::::::::: callout
+
+Python as a programming language, does not give you enough control to carefully pack your variables in this manner (every variable is an object, so it's stored as a pointer that redirects to the actual data stored elsewhere).
+
+However all is not lost, packages such as `numpy` and `pandas` implemented in C/C++ enable Python users to take advantage of efficient memory accesses (when they are used correctly).
+
+:::::::::::::::::::::::::::::::::::::::::::::
+
 
 ## 
