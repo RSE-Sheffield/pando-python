@@ -70,7 +70,7 @@ episodes:
 - long-break1.md
 - optimisation-numpy.md
 - optimisation-use-latest.md
-- optimisation-memory.md
+- optimisation-latency.md
 - optimisation-conclusion.md
 
 # Information for Learners
