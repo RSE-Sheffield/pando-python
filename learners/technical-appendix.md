@@ -133,6 +133,9 @@ dis.dis(operatorSearch)
              54 RETURN_VALUE
 ```
 
+A naive assessment of how expensive two functions are can be carried out with this comparison.
+However this method of displaying bytecode only shows bytecode for the requested function, so it is not clear how expensive called function's will be or higher level changes to an algorithm which could reduce the number of iterations or similar.
+
 ## Hardware Level Memory Accesses
 
 The storage and movement of data plays a large role in the performance of executing software.
