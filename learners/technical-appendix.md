@@ -8,7 +8,7 @@ The topics covered here exceed the level of knowledge required to benefit from t
 
 - [Viewing Python's ByteCode](#viewing-pythons-bytecode): What the Python code you write compiles to and executes as.
 - [Hardware Level Memory Accesses](#hardware-level-memory-accesses): A look at how memory accesses pass through a processor's caches.
-- []()
+- [Hashing Data-Structures](#hashing-data-structures): A deeper look at how data structures such as Dictionaries operate.
 
 ## Viewing Python's ByteCode
 
@@ -143,7 +143,7 @@ Modern computers typically have a single processor (CPU), within this processor 
 Data held in memory by running software is exists in RAM, this memory is faster to access than hard drives (and solid-state drives).
 But the CPU has much smaller caches on-board, to make accessing the most recent variables even faster.
 
-![An annotated photo of a computer's hardware.](learners/fig/annotated-motherboard.jpg){alt="An annotated photo of inside a desktop computer's case. The CPU, RAM, power supply, graphics cards (GPUs) and harddrive are labelled."}
+![An annotated photo of a computer's hardware.](learners/fig/annotated-motherboard.jpg){alt="An annotated photo of inside a desktop computer's case. The CPU, RAM, power supply, graphics cards (GPUs) and hard-drive are labelled."}
 
 <!-- Read/operate on variable ram->cpu cache->registers->cpu -->
 When reading a variable, to perform an operation with it, the CPU will first look in its registers. These exist per core, they are the location that computation is actually performed. Accessing them is incredibly fast, but there only exists enough storage for around 32 variables (typical number, e.g. 4 bytes).
@@ -179,4 +179,21 @@ However all is not lost, packages such as `numpy` and `pandas` implemented in C/
 :::::::::::::::::::::::::::::::::::::::::::::
 
 
-## 
+## Hashing Data-Structures
+
+Within a hashing data structure (such as a Dictionary or Set) each inserted key is hashed to produce a (preferably unique) integer key, which serves as the basis for indexing. Dictionaries are initialized with a default size, and the hash value of a key, modulo the dictionary's length, determines its initial index. If this index is available, the key and its associated value are stored there. If the index is already occupied, a collision occurs, and a resolution strategy is applied to find an alternate index.
+
+In CPython's [dictionary](https://github.com/python/cpython/blob/main/Objects/dictobject.c) and [set](https://github.com/python/cpython/blob/main/Objects/setobject.c)implementations, a technique called open addressing is employed. This approach modifies the hash and probes subsequent indices until an empty one is found.
+
+When a dictionary or hash table in Python grows, the underlying storage is resized, which necessitates re-inserting every existing item into the new structure. This process can be computationally expensive but is essential for maintaining efficient average probe times when searching for keys.
+
+![A visual explanation of linear probing, CPython uses an advanced form of this.](learners/fig/hash_linear_probing.png){alt="A diagram showing how keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. The insertion of 59, 80, and 39 demonstrates linear probing to resolve collisions."}
+
+To look up or verify the existence of a key in a hashing data structure, the key is re-hashed, and the process mirrors that of insertion. The corresponding index is probed to see if it contains the provided key. If the key at the index matches, the operation succeeds. If an empty index is reached before finding the key, it indicates that the key does not exist in the structure.
+
+The above diagrams shows a hash table of 5 elements within a block of 11 slots:
+
+1. We try to add element k=59. Based on its hash, the intended position is p=4. However, slot 4 is already occupied by the element k=37. This results in a collision.
+2. To resolve the collision, the linear probing mechanism is employed. The algorithm checks the next available slot, starting from position p=4. The first available slot is found at position 5.
+3. The number of jumps (or steps) it took to find the available slot are represented by i=1 (since we moved from position 4 to 5).
+In this case, the number of jumps i=1 indicates that the algorithm had to probe one slot to find an empty position at index 5.

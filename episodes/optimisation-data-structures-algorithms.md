@@ -156,14 +156,13 @@ Since Python 3.6, the items within a dictionary will iterate in the order that t
 
 ### Hashing Data Structures
 
-Python's dictionaries are implemented as hashing data structures.
-Explaining how these work will get a bit technical, so let's start with an analogy:
+Python's dictionaries are implemented as hashing data structures, we can understand where these at a high-level with an analogy:
 
 A Python list is like having a single long bookshelf. When you buy a new book (append a new element to the list), you place it at the far end of the shelf, right after all the previous books.
 
 ![A bookshelf corresponding to a Python list.](episodes/fig/bookshelf_list.jpg){alt="An image of a single long bookshelf, with a large number of books."}
 
-A hashing data structure is more like a bookcase with several shelves, labelled by genre (sci-fi, romance, children's books, non-fiction,&nbsp;…) and author surname. When you buy a new book by Jules Verne, you might place it on the shelf labelled &quot;Sci-Fi, V–Z&quot;.
+A dictionary is more like a bookcase with several shelves, labelled by genre (sci-fi, romance, children's books, non-fiction,&nbsp;…) and author surname. When you buy a new book by Jules Verne, you might place it on the shelf labelled &quot;Sci-Fi, V–Z&quot;.
 And if you keep adding more books, at some point you'll move to a larger bookcase with more shelves (and thus more fine-grained sorting), to make sure you don't have too many books on a single shelf.
 
 ![A bookshelf corresponding to a Python dictionary.](episodes/fig/bookshelf_dict.jpg){alt="An image of two bookcases, labelled &quot;Sci-Fi&quot; and &quot;Romance&quot;. Each bookcase contains shelves labelled in alphabetical order, with zero or few books on each shelf."}
@@ -186,25 +185,14 @@ In practice, therefore, this trade-off between memory usage and speed is usually
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+When a value is inserted into a dictionary, its key is hashed to decide on which "shelf" it should be stored. Most items will have a unique shelf, allowing them to be accessed directly. This is typically much faster for locating a specific item than searching a list.
+
 
 ::::::::::::::::::::::::::::::::::::: callout
 
-### Technical explanation
-
-Within a hashing data structure each inserted key is hashed to produce a (hopefully unique) integer key.
-The dictionary is pre-allocated to a default size, and the key is assigned the index within the dictionary equivalent to the hash modulo the length of the dictionary.
-If that index doesn't already contain another key, the key (and any associated values) can be inserted.
-When the index isn't free, a collision strategy is applied. CPython's [dictionary](https://github.com/python/cpython/blob/main/Objects/dictobject.c) and [set](https://github.com/python/cpython/blob/main/Objects/setobject.c) both use a form of open addressing whereby a hash is mutated and corresponding indices probed until a free one is located.
-When the hashing data structure exceeds a given load factor (e.g. 2/3 of indices have been assigned keys), the internal storage must grow. This process requires every item to be re-inserted which can be expensive, but reduces the average probes for a key to be found.
-
-![An visual explanation of linear probing, CPython uses an advanced form of this.](episodes/fig/hash_linear_probing.png){alt="A diagram demonstrating how the keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. This is followed by the insertion of 59, 80 and 39 which require linear probing to be inserted due to collisions."}
-
-To retrieve or check for the existence of a key within a hashing data structure, the key is hashed again and a process equivalent to insertion is repeated. However, now the key at each index is checked for equality with the one provided. If any empty index is found before an equivalent key, then the key must not be present in the data structure.
-
-
 ### Keys
 
-Keys will typically be a core Python type such as a number or string. However, multiple of these can be combined as a Tuple to form a compound key, or a custom class can be used if the methods `__hash__()` and `__eq__()` have been implemented.
+A dictionary's keys will typically be a core Python type such as a number or string. However, multiple of these can be combined as a Tuple to form a compound key, or a custom class can be used if the methods `__hash__()` and `__eq__()` have been implemented.
 
 You can implement `__hash__()` by utilising the ability for Python to hash tuples, avoiding the need to implement a bespoke hash function.
 
