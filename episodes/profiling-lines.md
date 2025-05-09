@@ -106,16 +106,47 @@ print(is_prime(1087))
 This tells `line_profiler` to collect metrics for the lines within the method `is_prime()`.
 You can still execute your code as normal, and these changes will have no effect.
 
-Similar to the earlier tools, `line_profiler` can then be triggered via `kernprof`.
+The use of `line_profiler` is triggered by an environment variable.
+The command below sets the `LINE_PROFILE` variable to `1` immediately before the script is run as usual, and unsets the variable afterwards.
 
 ```sh
-python -m kernprof -lvr my_script.py
+LINE_PROFILE=1 python my_script.py
 ```
+
+This will print the following output to console:
+
+```output
+True
+Timer unit: 1e-09 s
+
+  0.00 seconds - /Users/k2472505/Projects/2025-02-19-p-o-python-jcmb/myscript.py:3 - is_prime
+Wrote profile results to profile_output.txt
+Wrote profile results to profile_output_2025-05-09T113346.txt
+Wrote profile results to profile_output.lprof
+To view details run:
+python -m line_profiler -rtmz profile_output.lprof
+```
+
+The profiler has written three output files, all with the same content:
+
+- `profile_output.txt`
+- `profile_output_2025-05-09T113346.txt`
+- `profile_output.lprof`
+The first two are text files, which can be opened in your preferred text editor or terminal.
+The second includes a timestamp in the filename to prevent it being overwritten by subsequent uses of the profiler.
+The third file contains the same information as the other two, but uses `lprof` format.
+`lprof` files are not human-readable, but provide additional helpful formatting when the file is opened with `line_profiler`:
+
+```sh
+python -m line_profiler -rtmz profile_output.lprof
+```
+
+where `-rtmz` are flags for rich formatting, sorting by ascending total time, printing a summary of total function time, and hiding functions which were not called.
+These options, and more, can be listed with `python -m line_profiler --help`.
 
 This will output a table per profiled method to console:
 
 ```output
-Wrote profile results to my_script.py.lprof
 Timer unit: 1e-06 s
 
 Total time: 1.65e-05 s
@@ -148,13 +179,33 @@ The columns have the following definitions:
 As `line_profiler` must be attached to specific methods and cannot attach to a full Python file or project,
 if your Python file has significant code in the global scope it will be necessary to move it into a new method which can then instead be called from global scope.
 
-The profile is also output to file, in this case `my_script.py.lprof`.
-This file is not human-readable, but can be printed to console by passing it to `line_profiler`, which will then display the same table as above.
+To run the code again without the profiler enabled, simply leave out the `LINE_PROFILE` variable from the command:
 
 ```sh
-python -m line_profiler -rm my_script.py.lprof
+python my_script.py
 ```
-<!-- TODO line_profiling significantly slows down the profiled methods. Is it possible to dynamically disable/enable profiling with `line_profiler`? kernprof -h implies so, but trial/error and docs is failing me -->
+
+:::::::::::::::: spoiler
+
+### Earlier versions of line_profiler
+
+If you have an older version of `line_profiler`, the option of running the profiler with `LINE_PROFILE` may not be available to you.
+This was introduced in version 4.1.0 (August 2023).
+
+You can check your current version of `line_profiler` using
+
+```sh
+pip list | grep profiler
+```
+<!-- We only grep for "profiler" here as the package name changed from "line-profiler" to "line_profiler" around this time -->
+
+and upgrade to the latest available with
+
+```sh
+pip install --upgrade line_profiler
+```
+
+::::::::::::::::::::::::
 
 ## Worked Example
 
