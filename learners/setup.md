@@ -50,9 +50,17 @@ pip install shapely
 
 :::::::::::::::: spoiler
 
-### Mac OS (line_profiler)
+### Issues installing line_profiler
 
-If you are unable to install `line_profiler` via `pip` on MacOS. Instead it can be installed via `conda`.
+If you use Zsh as your shell (which is the default on Mac OS), you may come across the error `zsh: no matches found: line_profiler[all]` when installing `line_profiler[all]`.
+In Zsh, we need to ensure that the square brackets are treated as standard characters; wrapping them in quotation marks resolves the issue.
+
+```sh
+pip install 'line_profiler[all]'
+pip install pytest snakeviz numpy pandas matplotlib
+```
+
+Alternatively, you can install `line_profiler` via `conda`.
 
 ```sh
 conda install -c conda-forge line_profiler

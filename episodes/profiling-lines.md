@@ -49,9 +49,15 @@ pip install line_profiler[all]
 
 :::::::::::::::: spoiler
 
-### Mac OS
+### Installation issues
 
-If you are unable to install `line_profiler` via `pip` on MacOS. Instead it can be installed via `conda`.
+If you come across the error message `zsh: no matches found: line_profiler[all]`, try wrapping the package name in quotation marks:
+
+```sh
+pip install 'line_profiler[all]'
+```
+
+Alternatively, the package can be installed via `conda`.
 
 ```sh
 conda install line_profiler
