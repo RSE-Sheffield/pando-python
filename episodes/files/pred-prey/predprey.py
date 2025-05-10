@@ -418,11 +418,11 @@ class Model:
 # Argument parsing
 if len(sys.argv) != 2:
     print("Script expects 1 positive integer argument (number of steps), %u found."%(len(sys.argv) - 1))
-    sys.exit()
+    sys.exit(1)
 steps = int(sys.argv[1])
 if steps < 1:
     print("Script expects 1 positive integer argument (number of steps), %s converts < 1."%(sys.argv[1]))
-    sys.exit()
+    sys.exit(1)
         
 model = Model(steps=steps)
 model.run()
