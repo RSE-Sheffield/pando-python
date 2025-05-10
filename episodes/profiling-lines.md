@@ -463,7 +463,7 @@ from line_profiler import profile
 
 `line_profiler` can then be executed via `python -m kernprof -lvr predprey.py <steps>`.
 
-This will take much longer to run due to `line_profiler`, you may wish profile less steps than you did in the function-level profiling exercise (250 was suggested for a full run).
+Since this will take much longer to run due to `line_profiler`, you may wish to profile fewer `steps` than you did in the function-level profiling exercise (250 was suggested for a full run).
 In this instance it may change the profiling output slightly, as the number of `Prey` and their member variables evaluated by this method both change as the model progresses, but the overall pattern is likely to remain similar.
 
 ```python
