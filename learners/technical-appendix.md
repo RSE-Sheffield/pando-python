@@ -143,7 +143,7 @@ The storage and movement of data plays a large role in the performance of execut
 <!-- Brief summary of hardware -->
 Modern computers typically have a single processor (CPU), within this processor there are multiple processing cores each capable of executing different code in parallel.
 
-Data held in memory by running software is exists in RAM, this memory is faster to access than hard drives (and solid-state drives).
+Data held in memory by running software exists in RAM, this memory is faster to access than hard drives (and solid-state drives).
 But the CPU has much smaller caches on-board, to make accessing the most recent variables even faster.
 
 ![An annotated photo of a computer's hardware.](learners/fig/annotated-motherboard.jpg){alt="An annotated photo of inside a desktop computer's case. The CPU, RAM, power supply, graphics cards (GPUs) and hard-drive are labelled."}
