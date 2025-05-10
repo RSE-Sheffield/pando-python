@@ -184,7 +184,7 @@ However all is not lost, packages such as `numpy` and `pandas` implemented in C/
 
 ## Hashing Data-Structures
 
-Within a hashing data structure (such as a Dictionary or Set) each inserted key is hashed to produce a (preferably unique) integer key, which serves as the basis for indexing. Dictionaries are initialized with a default size, and the hash value of a key, modulo the dictionary's length, determines its initial index. If this index is available, the key and its associated value are stored there. If the index is already occupied, a collision occurs, and a resolution strategy is applied to find an alternate index.
+Within a hashing data structure (such as a dictionary or set) each inserted key is hashed to produce a (preferably unique) integer key, which serves as the basis for indexing. Dictionaries are initialized with a default size, and the initial index of a key is determined by its hash value, modulo the dictionary's length. If this index is available, the key and its associated value are stored there. If the index is already occupied, a collision occurs, and a resolution strategy is applied to find an alternate index.
 
 In CPython's [dictionary](https://github.com/python/cpython/blob/main/Objects/dictobject.c) and [set](https://github.com/python/cpython/blob/main/Objects/setobject.c)implementations, a technique called open addressing is employed. This approach modifies the hash and probes subsequent indices until an empty one is found.
 
