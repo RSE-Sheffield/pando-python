@@ -163,8 +163,7 @@ If a variable is not found in the caches, it must be fetched from RAM.
 The full 64 byte cache line containing the variable, will be copied first into the CPU's L3, then L2 and then L1.
 Most variables are only 4 or 8 bytes, so many neighbouring variables are also pulled into the caches.
 Similarly, adding new data to a cache evicts old data.
-This means that reading 16 integers contiguously stored in memory, should be faster than 16 scattered integers
-
+This means that reading 16 integers contiguously stored in memory should be faster than 16 scattered integers.
 Therefore, to **optimally** access variables they should be stored contiguously in memory with related data and worked on whilst they remain in caches.
 If you add to a variable, perform large amount of unrelated processing, then add to the variable again it will likely have been evicted from caches and need to be reloaded from slower RAM again.
 
