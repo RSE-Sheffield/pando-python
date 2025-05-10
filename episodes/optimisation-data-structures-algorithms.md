@@ -192,7 +192,7 @@ When a value is inserted into a dictionary, its key is hashed to decide on which
 
 ### Keys
 
-A dictionary's keys will typically be a core Python type such as a number or string. However, multiple of these can be combined as a Tuple to form a compound key, or a custom class can be used if the methods `__hash__()` and `__eq__()` have been implemented.
+A dictionary's keys will typically be a core Python type such as a number or string. However, multiple of these can be combined as a tuple to form a compound key, or a custom class can be used if the methods `__hash__()` and `__eq__()` have been implemented.
 
 You can implement `__hash__()` by utilising the ability for Python to hash tuples, avoiding the need to implement a bespoke hash function.
 
