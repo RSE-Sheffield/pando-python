@@ -157,7 +157,7 @@ This process then repeats for the L3 cache which may be shared among all cores o
 If the variable has not been found in any of the CPU's cache, the CPU will look to the computer's RAM. This is an order of magnitude slower to access, with several orders of magnitude greater capacity (tens to hundreds of GB are now standard).
 
 Correspondingly, the earlier the CPU finds the variable the faster it will be to access.
-However, to fully understand the cache's it's necessary to explain what happens once a variable has been found.
+However, to fully understand the caches it's necessary to explain what happens once a variable has been found.
 
 If a variable is not found in the caches, it must be fetched from RAM.
 The full 64 byte cache line containing the variable, will be copied first into the CPU's L3, then L2 and then L1.
