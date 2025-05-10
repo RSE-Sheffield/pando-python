@@ -24,7 +24,7 @@ exercises: 0
 ## Accessing Disk
 
 <!-- Read data from a file it goes disk->disk cache->ram->cpu cache/s->cpu -->
-When reading data from a file, it is first transferred from the disk, to the disk cache, to the RAM (the computer's main memory, where variables are stored).
+When reading data from a file, it is first transferred from the disk to the disk cache and then to the RAM (the computer's main memory, where variables are stored).
 The latency to access files on disk is another order of magnitude higher than accessing normal variables.
 
 As such, disk accesses benefit from sequential accesses and reading larger blocks together rather than single variables.
