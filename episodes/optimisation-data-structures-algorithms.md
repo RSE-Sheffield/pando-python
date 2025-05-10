@@ -156,7 +156,7 @@ Since Python 3.6, the items within a dictionary will iterate in the order that t
 
 ### Hashing Data Structures
 
-Python's dictionaries are implemented as hashing data structures, we can understand where these at a high-level with an analogy:
+Python's dictionaries are implemented as hashing data structures, we can understand these at a high-level with an analogy:
 
 A Python list is like having a single long bookshelf. When you buy a new book (append a new element to the list), you place it at the far end of the shelf, right after all the previous books.
 
