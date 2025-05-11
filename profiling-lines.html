@@ -395,7 +395,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Line Level Profiling</h1>
-        <p>Last updated on 2025-03-24 |
+        <p>Last updated on 2025-05-11 |
 
         <a href="https://github.com/RSE-Sheffield/pando-python/edit/main/episodes/profiling-lines.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -474,7 +474,7 @@ installed via pip.</p>
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
   <h3 class="accordion-header" id="headingSpoiler1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div> Mac OS </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <p>If you are unable to install <code>line_profiler</code> via
 <code>pip</code> on MacOS. Instead it can be installed via
@@ -809,7 +809,7 @@ number of elements to be sorted.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <ul><li>Remember that the code needs to be moved into a method decorated
 with <code>@profile</code>
@@ -827,7 +827,7 @@ with <code>@profile</code>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>If you chose to profile the whole code, it may look like this:</p>
 <div class="codewrapper sourceCode" id="cb17">
@@ -947,7 +947,7 @@ how it might be optimised.</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
   <h4 class="accordion-header" id="headingHint2"> Give me a hint </h4>
 </button>
-<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
+<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
 <div class="accordion-body">
 <ul><li>Remember that the function needs to be decorated with
 <code>@profile</code>
@@ -967,7 +967,7 @@ number of steps <code>predprey.py:305</code>.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>First the function must be decorated</p>
 <div class="codewrapper sourceCode" id="cb21">
@@ -984,19 +984,14 @@ number of steps <code>predprey.py:305</code>.</li>
 <span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>    <span class="kw">def</span> eaten(<span class="va">self</span>, prey_list):</span></code></pre>
 </div>
 <p><code>line_profiler</code> can then be executed via
-<code>python -m kernprof -lvr predprey.py</code>.</p>
-<p>This will take much longer to run due to <code>line_profiler</code>,
-you may wish to reduce the number of steps. In this instance it may
-change the profiling output slightly, as the number of <code>Prey</code>
-and their member variables evaluated by this method both change as the
-model progresses, but the overall pattern is likely to remain
-similar.</p>
-<div class="codewrapper sourceCode" id="cb23">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co"># line ~420</span></span>
-<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>model <span class="op">=</span> Model(<span class="dv">50</span>) <span class="co"># 50 steps (originally defaulted to 250)</span></span></code></pre>
-</div>
+<code>python -m kernprof -lvr predprey.py &lt;steps&gt;</code>.</p>
+<p>Since this will take much longer to run due to
+<code>line_profiler</code>, you may wish to profile fewer
+<code>steps</code> than you did in the function-level profiling exercise
+(250 was suggested for a full run). In this instance it may change the
+profiling output slightly, as the number of <code>Prey</code> and their
+member variables evaluated by this method both change as the model
+progresses, but the overall pattern is likely to remain similar.</p>
 <p>Alternatively, you can kill the profiling process
 (e.g. <code>ctrl + c</code>) after a minute and the currently collected
 partial profiling information will be output.</p>
@@ -1042,12 +1037,12 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 </div>
 <p>From the profiling output it can be seen that lines 285-287 occupy
 over 90% of the method’s runtime!</p>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(prey_list)):</span>
-<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>                prey <span class="op">=</span> prey_list[i]</span>
-<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>                <span class="cf">if</span> prey.life <span class="op">&lt;</span> PREY_HUNGER_THRESH:</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(prey_list)):</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>                prey <span class="op">=</span> prey_list[i]</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>                <span class="cf">if</span> prey.life <span class="op">&lt;</span> PREY_HUNGER_THRESH:</span></code></pre>
 </div>
 <p>Given that the following line 289 only has a relative 0.6% time, it
 can be understood that the vast majority of times the condition
@@ -1132,9 +1127,9 @@ any links that you are not going to use.
 
 
         <!--<p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY 4.0</a> by <a href="https://carpentries.org/">The Carpentries</a></p>-->
-        <!--<p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.11">sandpaper (0.16.11)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9">pegboard (0.7.9)</a>, and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/main">varnish (1.0.4)</a></p>-->
+        <!--<p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.12">sandpaper (0.16.12)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9">pegboard (0.7.9)</a>, and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/main">varnish (1.0.4)</a></p>-->
         <p><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">Template licensed under CC-BY 4.0</a> by <a href="https://carpentries.org" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.11" class="external-link">sandpaper (0.16.11)</a>,
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.12" class="external-link">sandpaper (0.16.12)</a>,
         <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>,
       and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/main" class="external-link">varnish (1.0.4) [UoS fork]</a>.</p>
 			</div>
@@ -1147,10 +1142,10 @@ any links that you are not going to use.
   <script type="application/ld+json">
     {
   "@context": "https://schema.org",
-  "@type": "TrainingMaterial",
+  "@type": "LearningResource",
   "@id": "https://rse.shef.ac.uk/pando-python/profiling-lines.html",
   "inLanguage": "en",
-  "dct:conformsTo": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
+  "dct:conformsTo": "https://bioschemas.org/profiles/LearningResource/1.0-RELEASE",
   "description": "A Carpentries Lesson teaching foundational data and coding skills to researchers worldwide",
   "keywords": "python, profiling, optimisation, data structures, algorithms",
   "name": "Line Level Profiling",
@@ -1158,8 +1153,8 @@ any links that you are not going to use.
   "url": "https://rse.shef.ac.uk/pando-python/profiling-lines.html",
   "identifier": "https://rse.shef.ac.uk/pando-python/profiling-lines.html",
   "dateCreated": "2024-02-01",
-  "dateModified": "2025-03-24",
-  "datePublished": "2025-05-06"
+  "dateModified": "2025-05-11",
+  "datePublished": "2025-05-11"
 }
 
   </script><script>
