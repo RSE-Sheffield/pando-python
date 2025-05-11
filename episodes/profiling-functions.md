@@ -437,11 +437,10 @@ Download and profile <a href="files/pred-prey/predprey.py" download>the Python p
 >
 > The three agents; predators, prey and grass exist in a two dimensional grid. Predators eat prey, prey eat grass. The size of each population changes over time. Depending on the parameters of the model, the populations may oscillate, grow or collapse due to the availability of their food source.
 
-The program can be executed via `python predprey.py`.
+The program can be executed via `python predprey.py <steps>`.
+The value of `steps` for a full run is 250, however a full run may not be necessary to find the bottlenecks.
 
-It takes no arguments, but contains various environment properties which can be modified to change the model's behaviour.
 When the model finishes it outputs a graph of the three populations `predprey_out.png`.
-
 
 :::::::::::::::::::::::: solution 
 
