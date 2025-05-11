@@ -128,6 +128,7 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 <li><a class="dropdown-item" href="registration.html">Registration Information</a></li>
+<li><a class="dropdown-item" href="technical-appendix.html">Technical Appendix</a></li>
 <li><a class="dropdown-item" href="acknowledgements.html">Acknowledgements</a></li>
 <li><a class="dropdown-item" href="ppp.html">Performant Python Patterns (Talk)</a></li>
 <li><a class="dropdown-item" href="reference.html">Reference</a></li>
@@ -383,7 +384,7 @@
 <div class="accordion accordion-flush" id="accordionFlush13">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading13">
-        <a href="optimisation-memory.html">12. Understanding Memory</a>
+        <a href="optimisation-latency.html">12. Understanding Latency</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -429,6 +430,7 @@
                         <a href="profiles.html">Learner Profiles</a>
                       </li>
                       <li><a href="registration.html">Registration Information</a></li>
+<li><a href="technical-appendix.html">Technical Appendix</a></li>
 <li><a href="acknowledgements.html">Acknowledgements</a></li>
 <li><a href="ppp.html">Performant Python Patterns (Talk)</a></li>
 <li><a href="reference.html">Reference</a></li>
@@ -539,30 +541,15 @@ list.</div>
 <p aria-hidden="true">Image 1 of 1: ‘An image of two bookcases, labelled "Sci-Fi" and "Romance". Each bookcase contains shelves labelled in alphabetical order, with zero or few books on each shelf.’</p>
 <figure><img src="fig/bookshelf_dict.jpg" alt='An image of two bookcases, labelled "Sci-Fi" and "Romance". Each bookcase contains shelves labelled in alphabetical order, with zero or few books on each shelf.' class="figure mx-auto d-block"><div class="figcaption">A bookshelf corresponding to a Python
 dictionary.</div>
-</figure><hr>
-<h3 id="optimisation-data-structures-algorithms-figure-5">Figure 5</h3>
-<p aria-hidden="true">Image 1 of 1: ‘A diagram demonstrating how the keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. This is followed by the insertion of 59, 80 and 39 which require linear probing to be inserted due to collisions.’</p>
-<figure><img src="fig/hash_linear_probing.png" alt="A diagram demonstrating how the keys (hashes) 37, 64, 14, 94, 67 are inserted into a hash table with 11 indices. This is followed by the insertion of 59, 80 and 39 which require linear probing to be inserted due to collisions." class="figure mx-auto d-block"><div class="figcaption">An visual explanation of linear probing, CPython
-uses an advanced form of this.</div>
 </figure><hr></section><section id="long-break1"><h2 class="section-heading"><a href="long-break1.html">Break</a></h2>
 <hr class="half-width"></section><section id="optimisation-numpy"><h2 class="section-heading"><a href="optimisation-numpy.html">Using Scientific Python Packages (NumPy, Pandas and more)</a></h2>
 <hr class="half-width">
 <h3 id="optimisation-numpy-figure-1">Figure 1</h3>
 <p aria-hidden="true">Image 1 of 1: ‘A diagram illustrating the difference between a NumPy array and a Python list. The NumPy array is a raw block of memory containing numerical values. A Python list contains a header with metadata and multiple items, each of which is a reference to another Python object with its own header and value.’</p>
 <figure><img src="fig/numpy-array-vs-list.png" alt="A diagram illustrating the difference between a NumPy array and a Python list. The NumPy array is a raw block of memory containing numerical values. A Python list contains a header with metadata and multiple items, each of which is a reference to another Python object with its own header and value." class="figure mx-auto d-block"><!-- Figure inspired by https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/#3.-Python's-object-model-can-lead-to-inefficient-memory-access --></figure><hr></section><section id="optimisation-use-latest"><h2 class="section-heading"><a href="optimisation-use-latest.html">Keep Python &amp; Packages up to Date</a></h2>
-<hr class="half-width"></section><section id="optimisation-memory"><h2 class="section-heading"><a href="optimisation-memory.html">Understanding Memory</a></h2>
+<hr class="half-width"></section><section id="optimisation-latency"><h2 class="section-heading"><a href="optimisation-latency.html">Understanding Latency</a></h2>
 <hr class="half-width">
-<h3 id="optimisation-memory-figure-1">Figure 1</h3>
-<p aria-hidden="true">Image 1 of 1: ‘An annotated photo of inside a desktop computer's case. The CPU, RAM, power supply, graphics cards (GPUs) and harddrive are labelled.’</p>
-<figure><img src="fig/annotated-motherboard.jpg" alt="An annotated photo of inside a desktop computer's case. The CPU, RAM, power supply, graphics cards (GPUs) and harddrive are labelled." class="figure mx-auto d-block"><div class="figcaption">An annotated photo of a computer’s
-hardware.</div>
-</figure><hr>
-<h3 id="optimisation-memory-figure-2">Figure 2</h3>
-<p aria-hidden="true">Image 1 of 1: ‘An abstract representation of a CPU, RAM and Disk, showing their internal caches and the pathways data can pass.’</p>
-<figure><img src="fig/hardware.png" alt="An abstract representation of a CPU, RAM and Disk, showing their internal caches and the pathways data can pass." class="figure mx-auto d-block"><div class="figcaption">An abstract diagram showing the path data takes
-from disk or RAM to be used for computation.</div>
-</figure><hr>
-<h3 id="optimisation-memory-figure-3">Figure 3</h3>
+<h3 id="optimisation-latency-figure-1">Figure 1</h3>
 <p aria-hidden="true">Image 1 of 1: ‘A horizontal bar chart displaying the relative latencies for L1/L2/L3 cache, RAM, SSD, HDD and a packet being sent from London to California and back. These latencies range from 1 nanosecond to 140 milliseconds and are displayed with a log scale.’</p>
 <figure><img src="fig/latency.png" alt="A horizontal bar chart displaying the relative latencies for L1/L2/L3 cache, RAM, SSD, HDD and a packet being sent from London to California and back. These latencies range from 1 nanosecond to 140 milliseconds and are displayed with a log scale." class="figure mx-auto d-block"><div class="figcaption">A graph demonstrating the wide variety of
 latencies a programmer may experience when accessing data.</div>
