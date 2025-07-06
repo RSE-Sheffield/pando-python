@@ -8,9 +8,10 @@ The development of this course was funded by the [University of Sheffield](https
 
 **Authorship**
 
-The initial materials were authored by [Robert Chisholm](https://www.sheffield.ac.uk/dcs/people/research-staff/robert-chisholm), with support from various colleagues within the university of Sheffield's [Research Software Engineering](https://rse.shef.ac.uk) and [Research IT](https://www.sheffield.ac.uk/it-services/research) teams.
+The initial materials were authored by [Robert Chisholm](https://www.sheffield.ac.uk/dcs/people/research-staff/robert-chisholm), with support from various colleagues within the University of Sheffield's [Research Software Engineering](https://rse.shef.ac.uk) and [Research IT](https://www.sheffield.ac.uk/it-services/research) teams.
+Additional consulting was provided by James Kilbane, a close friend (and general rubber duck).
 
-Additional consulting was provided by James Kilbane a close friend (and general rubber duck).
+[Jost Migenda](https://www.kcl.ac.uk/people/jost-migenda) from the [KCL e-Research department](https://www.kcl.ac.uk/research/facilities/e-research) contributed significant improvements and additions to the optimization episodes. They have also become a co-maintainer of the course.
 
 Anastasiia Shcherbakova and Mira Sarkis of [ICR-RSE](https://github.com/ICR-RSE-Group) contributed inspiration for the list append figure and a large number of typographic corrections and simplifications during the alpha phase of the course's development lifecycle.
 

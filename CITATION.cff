@@ -20,6 +20,11 @@ authors:
     email: robert.chisholm@sheffield.ac.uk
     affiliation: University of Sheffield
     orcid: 'https://orcid.org/0000-0003-3379-9042'
+  - given-names: Jost
+    family-names: Migenda
+    email: jost.migenda@kcl.ac.uk
+    affiliation: King’s College London
+    orcid: 'https://orcid.org/0000-0002-5350-8049'
 identifiers:
   - type: doi
     value: 10.5281/zenodo.15010977
