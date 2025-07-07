@@ -238,41 +238,36 @@ If you reduce the value of `repeats` it will run faster, how does changing the n
 import random
 from timeit import timeit
 
-def generateInputs(N = 25000):
-    random.seed(12)  # Ensure every list is the same 
-    return [random.randint(0,int(N/2)) for i in range(N)]
-    
+N = 25000  # Number of elements in the list
+random.seed(12)  # Ensure every list is the same 
+data = [random.randint(0, int(N/2)) for i in range(N)]
+
 def uniqueSet():
-    ls_in = generateInputs()
-    set_out = set(ls_in)
+    set_out = set(data)
     
 def uniqueSetAdd():
-    ls_in = generateInputs()
     set_out = set()
-    for i in ls_in:
+    for i in data:
         set_out.add(i)
     
 def uniqueList():
-    ls_in = generateInputs()
     ls_out = []
-    for i in ls_in:
+    for i in data:
         if not i in ls_out:
             ls_out.append(i)
 
 def uniqueListSort():
-    ls_in = generateInputs()
-    ls_in.sort()
+    ls_in = sorted(data)
     ls_out = [ls_in[0]]
     for i in ls_in:
         if ls_out[-1] != i:
             ls_out.append(i)
-            
+
 repeats = 1000
-gen_time = timeit(generateInputs, number=repeats)
-print(f"uniqueSet: {timeit(uniqueSet, number=repeats)-gen_time:.2f}ms")
-print(f"uniqueSetAdd: {timeit(uniqueSetAdd, number=repeats)-gen_time:.2f}ms")
-print(f"uniqueList: {timeit(uniqueList, number=repeats)-gen_time:.2f}ms")
-print(f"uniqueListSort: {timeit(uniqueListSort, number=repeats)-gen_time:.2f}ms")
+print(f"uniqueSet: {timeit(uniqueSet, number=repeats):.2f}ms")
+print(f"uniqueSetAdd: {timeit(uniqueSetAdd, number=repeats):.2f}ms")
+print(f"uniqueList: {timeit(uniqueList, number=repeats):.2f}ms")
+print(f"uniqueListSort: {timeit(uniqueListSort, number=repeats):.2f}ms")
 ```
 
 :::::::::::::::::::::::: hint
@@ -325,41 +320,34 @@ from bisect import bisect_left
 N = 25000  # Number of elements in list
 M = 2  # N*M == Range over which the elements span
 
-def generateInputs():
-    random.seed(12)  # Ensure every list is the same
-    st = set([random.randint(0, int(N*M)) for i in range(N)])
-    ls = list(st)
-    ls.sort()  # Sort required for binary
-    return st, ls  # Return both set and list
+random.seed(12)  # Ensure every list is the same
+st = set([random.randint(0, int(N*M)) for i in range(N)])
+ls = list(st)
+ls.sort()  # Sort required for binary search
     
 def search_set():
-    st, _ = generateInputs()
     j = 0
     for i in range(0, int(N*M), M):
         if i in st:
             j += 1
     
 def linear_search_list():
-    _, ls = generateInputs()
     j = 0
     for i in range(0, int(N*M), M):
         if i in ls:
             j += 1
     
 def binary_search_list():
-    _, ls = generateInputs()
     j = 0
     for i in range(0, int(N*M), M):
         k = bisect_left(ls, i)
         if k != len(ls) and ls[k] == i:
             j += 1
 
-            
 repeats = 1000
-gen_time = timeit(generateInputs, number=repeats)
-print(f"search_set: {timeit(search_set, number=repeats)-gen_time:.2f}ms")
-print(f"linear_search_list: {timeit(linear_search_list, number=repeats)-gen_time:.2f}ms")
-print(f"binary_search_list: {timeit(binary_search_list, number=repeats)-gen_time:.2f}ms")
+print(f"search_set: {timeit(search_set, number=repeats):.2f}ms")
+print(f"linear_search_list: {timeit(linear_search_list, number=repeats):.2f}ms")
+print(f"binary_search_list: {timeit(binary_search_list, number=repeats):.2f}ms")
 ```
 
 Searching the set is fastest performing 25,000 searches in 0.04ms.
