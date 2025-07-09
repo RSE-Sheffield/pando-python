@@ -239,7 +239,6 @@ import random
 from timeit import timeit
 
 N = 25000  # Number of elements in the list
-random.seed(12)  # Ensure every list is the same 
 data = [random.randint(0, int(N/2)) for i in range(N)]
 
 def uniqueSet():
@@ -320,7 +319,6 @@ from bisect import bisect_left
 N = 25000  # Number of elements in list
 M = 2  # N*M == Range over which the elements span
 
-random.seed(12)  # Ensure every list is the same
 st = set([random.randint(0, int(N*M)) for i in range(N)])
 ls = list(st)
 ls.sort()  # Sort required for binary search

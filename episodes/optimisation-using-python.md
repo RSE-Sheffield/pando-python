@@ -115,7 +115,6 @@ from timeit import timeit
 
 N = 2500  # Number of elements in list
 M = 2  # N*M == Range over which the elements span
-random.seed(12)  # Ensure every list is the same
 ls = [random.randint(0, int(N*M)) for i in range(N)]
     
 def manualSearch():
