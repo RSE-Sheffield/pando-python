@@ -6,7 +6,9 @@ This lesson introduces the basics of profiling and optimising Python code. The c
 
 ## Contact Us
 
-This course was originally authored by and is currently maintained by [@Robadob](https://github.com/Robadob), it is a fork of the University of Sheffield branded course. Both repositories are maintained, so issues will be monitored .
+This course was originally authored by [@Robadob](https://github.com/Robadob) and is now also maintained by [@JostMigenda](https://github.com/Robadob).
+
+Releases prior to Beta, exist in the original [University of Sheffield repository](https://github.com/RSE-Sheffield/pando-python), which includes custom branding. Please direct issues with course content to the [Carpentries Incubator repository](https://github.com/carpentries-incubator/pando-python).
 
 ## Contributing
 
