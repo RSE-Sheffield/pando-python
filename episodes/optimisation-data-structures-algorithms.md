@@ -348,14 +348,14 @@ print(f"linear_search_list: {timeit(linear_search_list, number=repeats):.2f}ms")
 print(f"binary_search_list: {timeit(binary_search_list, number=repeats):.2f}ms")
 ```
 
-Searching the set is fastest performing 25,000 searches in 0.04ms.
-This is followed by the binary search of the (sorted) list which is 145x slower, although the list has been filtered for duplicates. A list still containing duplicates would be longer, leading to a more expensive search.
-The linear search of the list is more than 56,600x slower than the fastest, it really shouldn't be used!
+Searching the set is fastest performing 25,000 searches in 0.57ms.
+This is followed by the binary search of the (sorted) list which is 6x slower, although the list has been filtered for duplicates. A list still containing duplicates would be longer, leading to a more expensive search.
+The linear search of the list is about 2700x slower than the fastest, it really shouldn't be used!
 
 ```output
-search_set: 0.04ms
-linear_search_list: 2264.91ms
-binary_search_list: 5.79ms
+search_set: 0.57ms
+linear_search_list: 1531.61ms
+binary_search_list: 3.43ms
 ```
 
 These results are subject to change based on the number of items and the proportion of searched items that exist within the list. However, the pattern is likely to remain the same. Linear searches should be avoided!
