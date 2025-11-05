@@ -18,15 +18,15 @@ Download the [data zip file](https://example.com/FIXME) and unzip it to your Des
 
 ### Details
 
-This course uses Python and was developed using Python 3.11, therefore it is recommended that you have a Python 3.11 or newer environment.
+This course was originally developed using Python 3.11 and last tested with Python 3.13. We recommend that you have a Python 3.13 environment.
 
 You may want to create a new Python virtual environment for the course, this can be done with your preferred Python environment manager (e.g. `conda`, `pipenv`), the required packages can all be installed via `pip`.
 
-If you have `conda` available, you can create and activate a new environment named `py311_env` with Python 3.11 using the following command:
+If you have `conda` available, you can create and activate a new environment using the following command:
 
 ```sh
-conda create --name py311_env python=3.11
-conda activate py311_env
+conda create --name prof_opt python=3.13
+conda activate prof_opt
 ```
 
 The non-core Python packages required by the course are `pytest`, `snakeviz`, `line_profiler`, `numpy`, `pandas` and `matplotlib` which can be installed via `pip`.
