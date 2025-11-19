@@ -32,7 +32,7 @@ conda activate prof_opt
 The non-core Python packages required by the course are `pytest`, `snakeviz`, `line_profiler`, `numpy`, `pandas` and `matplotlib` which can be installed via `pip`.
  
 ```sh
-pip install pytest snakeviz line_profiler[all] numpy pandas matplotlib
+pip install pytest snakeviz "line_profiler[all]" numpy pandas matplotlib
 ```
 
 To complete some of the exercises you will need to use a text-editor or Python IDE, so make sure you have your favourite available.
@@ -47,16 +47,5 @@ pip install shapely
 
 :::::::::::::::::::::::::
 
-
-:::::::::::::::: spoiler
-
-### Mac OS (line_profiler)
-
-If you are unable to install `line_profiler` via `pip` on MacOS. Instead it can be installed via `conda`.
-
-```sh
-conda install -c conda-forge line_profiler
-```
-::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::
