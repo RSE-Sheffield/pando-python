@@ -105,7 +105,7 @@ It is often best to tell the interpreter/library at a high level *what you want*
 
 A simple example of this is performing a linear search on a list. (Though as we’ll see in the next section, this isn't the most efficient approach!)
 In the following example, we create a list of 2500 random integers in the (inclusive-exclusive) range `[0, 5000)`.
-The goal is to count how many even numbers are in the list.
+The goal is to count how many unique even numbers are in the list.
 
 The function `manualSearch()` manually iterates through the list (`ls`) and checks each individual item using Python code. On the other hand, `operatorSearch()` uses the `in` operator to perform each search, which allows CPython to implement the inner loop in its C back-end.
 
