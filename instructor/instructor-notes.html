@@ -535,7 +535,7 @@ by passing the directory to <code>snakeviz</code>.</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> snakeviz .</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1" aria-label="code-block-14-1"></a><span class="ex">python</span> <span class="at">-m</span> snakeviz .</span></code></pre>
 </div>
 <hr>
 <br><h3 id="profiling-functions-headingInstructor4">
@@ -551,7 +551,7 @@ opened with <code>snakeviz</code> to save waiting for the profiler.</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> snakeviz predprey_out.prof</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1" aria-label="code-block-15-1"></a><span class="ex">python</span> <span class="at">-m</span> snakeviz predprey_out.prof</span></code></pre>
 </div>
 <hr>
 <br></section><section id="short-break1"><h2 class="section-heading"><a href="short-break1.html">Break</a></h2>
@@ -568,7 +568,7 @@ can be opened be to save waiting for the profiler.</p>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> line_profiler <span class="at">-rm</span> predprey.py.lprof</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" tabindex="-1" aria-label="code-block-20-1"></a><span class="ex">python</span> <span class="at">-m</span> line_profiler <span class="at">-rm</span> predprey.py.lprof</span></code></pre>
 </div>
 <hr>
 <br></section><section id="profiling-conclusion"><h2 class="section-heading"><a href="profiling-conclusion.html">Profiling Conclusion</a></h2>
@@ -662,19 +662,19 @@ simplified example.</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> shapely <span class="im">import</span> Point, Polygon</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> polygon <span class="op">=</span> Polygon([(<span class="dv">0</span>,<span class="dv">0</span>), (<span class="dv">1</span>,<span class="dv">0</span>), (<span class="dv">1</span>,<span class="dv">1</span>), (<span class="dv">0</span>,<span class="dv">1</span>), (<span class="dv">0</span>,<span class="dv">0</span>)])</span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> points_array <span class="op">=</span> np.array((Point(<span class="fl">0.1</span>, <span class="fl">0.1</span>), Point(<span class="fl">0.5</span>, <span class="fl">0.5</span>), Point(<span class="dv">2</span>, <span class="dv">2</span>)))</span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> point_names_array <span class="op">=</span> np.array((<span class="st">"P1: Periphery"</span>, <span class="st">"P2: Centre"</span>, <span class="st">"P3: Outside"</span>))</span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> points_in_polygon_idx <span class="op">=</span> polygon.contains(points_array)</span>
-<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> points_in_polygon_idx</span>
-<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>array([ <span class="va">True</span>,  <span class="va">True</span>, <span class="va">False</span>])</span>
-<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> points_in_polygon <span class="op">=</span> point_names_array[points_in_polygon_idx]</span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> points_in_polygon</span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>array([<span class="st">'P1: Periphery'</span>, <span class="st">'P2: Centre'</span>], dtype<span class="op">=</span><span class="st">'&lt;U13'</span>)</span>
-<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> points_in_polygon.tolist()</span>
-<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>[<span class="st">'P1: Periphery'</span>, <span class="st">'P2: Centre'</span>]</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1" aria-label="code-block-13-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> shapely <span class="im">import</span> Point, Polygon</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1" aria-label="code-block-13-2"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1" aria-label="code-block-13-3"></a><span class="op">&gt;&gt;&gt;</span> polygon <span class="op">=</span> Polygon([(<span class="dv">0</span>,<span class="dv">0</span>), (<span class="dv">1</span>,<span class="dv">0</span>), (<span class="dv">1</span>,<span class="dv">1</span>), (<span class="dv">0</span>,<span class="dv">1</span>), (<span class="dv">0</span>,<span class="dv">0</span>)])</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1" aria-label="code-block-13-4"></a><span class="op">&gt;&gt;&gt;</span> points_array <span class="op">=</span> np.array((Point(<span class="fl">0.1</span>, <span class="fl">0.1</span>), Point(<span class="fl">0.5</span>, <span class="fl">0.5</span>), Point(<span class="dv">2</span>, <span class="dv">2</span>)))</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1" aria-label="code-block-13-5"></a><span class="op">&gt;&gt;&gt;</span> point_names_array <span class="op">=</span> np.array((<span class="st">"P1: Periphery"</span>, <span class="st">"P2: Centre"</span>, <span class="st">"P3: Outside"</span>))</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1" aria-label="code-block-13-6"></a><span class="op">&gt;&gt;&gt;</span> points_in_polygon_idx <span class="op">=</span> polygon.contains(points_array)</span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1" aria-label="code-block-13-7"></a><span class="op">&gt;&gt;&gt;</span> points_in_polygon_idx</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1" aria-label="code-block-13-8"></a>array([ <span class="va">True</span>,  <span class="va">True</span>, <span class="va">False</span>])</span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1" aria-label="code-block-13-9"></a><span class="op">&gt;&gt;&gt;</span> points_in_polygon <span class="op">=</span> point_names_array[points_in_polygon_idx]</span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1" aria-label="code-block-13-10"></a><span class="op">&gt;&gt;&gt;</span> points_in_polygon</span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1" aria-label="code-block-13-11"></a>array([<span class="st">'P1: Periphery'</span>, <span class="st">'P2: Centre'</span>], dtype<span class="op">=</span><span class="st">'&lt;U13'</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1" aria-label="code-block-13-12"></a><span class="op">&gt;&gt;&gt;</span> points_in_polygon.tolist()</span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1" aria-label="code-block-13-13"></a>[<span class="st">'P1: Periphery'</span>, <span class="st">'P2: Centre'</span>]</span></code></pre>
 </div>
 <hr>
 <br></section><section id="optimisation-use-latest"><h2 class="section-heading"><a href="optimisation-use-latest.html">Keep Python &amp; Packages up to Date</a></h2>
@@ -712,7 +712,7 @@ simplified example.</p>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/main" class="external-link">varnish (1.0.7)</a> [UoS fork]</p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/main" class="external-link">varnish (1.0.7)</a> [UoS fork]</p>
 		</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -735,8 +735,8 @@ simplified example.</p>
   "url": "https://rse.shef.ac.uk/pando-python/instructor/instructor-notes.html",
   "identifier": "https://rse.shef.ac.uk/pando-python/instructor/instructor-notes.html",
   "dateCreated": "2024-02-01",
-  "dateModified": "2026-04-14",
-  "datePublished": "2026-04-14"
+  "dateModified": "2026-04-21",
+  "datePublished": "2026-04-21"
 }
 
   </script><script>

@@ -227,7 +227,7 @@
       </button>
     </div><!--/div.accordion-header-->
 
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#introduction">Introduction</a></li>
 <li><a href="#cprofile">cProfile</a></li>
@@ -485,19 +485,19 @@ will print the current call stack.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> traceback</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="kw">def</span> a():</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>    b1()</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>    b2()</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="kw">def</span> b1():</span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>    <span class="cf">pass</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="kw">def</span> b2():</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>    c()</span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="kw">def</span> c():</span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>    traceback.print_stack()</span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>a()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="im">import</span> traceback</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a><span class="kw">def</span> a():</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1" aria-label="code-block-1-4"></a>    b1()</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1" aria-label="code-block-1-5"></a>    b2()</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1" aria-label="code-block-1-6"></a><span class="kw">def</span> b1():</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1" aria-label="code-block-1-7"></a>    <span class="cf">pass</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1" aria-label="code-block-1-8"></a><span class="kw">def</span> b2():</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1" aria-label="code-block-1-9"></a>    c()</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1" aria-label="code-block-1-10"></a><span class="kw">def</span> c():</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1" aria-label="code-block-1-11"></a>    traceback.print_stack()</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1" aria-label="code-block-1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1" aria-label="code-block-1-13"></a>a()</span></code></pre>
 </div>
 <p>Here we can see that the printing of the stack trace is called in
 <code>c()</code>, which is called by <code>b2()</code>, which is called
@@ -540,20 +540,20 @@ package, however it’s easier to use its script interface:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> cProfile <span class="at">-o</span> <span class="op">&lt;</span>output file<span class="op">&gt;</span> <span class="op">&lt;</span>script name<span class="op">&gt;</span> <span class="op">&lt;</span>arguments<span class="op">&gt;</span></span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="ex">python</span> <span class="at">-m</span> cProfile <span class="at">-o</span> <span class="op">&lt;</span>output file<span class="op">&gt;</span> <span class="op">&lt;</span>script name<span class="op">&gt;</span> <span class="op">&lt;</span>arguments<span class="op">&gt;</span></span></code></pre>
 </div>
 <p>For example if you normally run your program as:</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">python</span> my_script.py input.csv</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="ex">python</span> my_script.py input.csv</span></code></pre>
 </div>
 <p>You would call <code>cProfile</code> to produce profiling output
 <code>out.prof</code> with:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> cProfile <span class="at">-o</span> out.prof my_script.py input.csv</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="ex">python</span> <span class="at">-m</span> cProfile <span class="at">-o</span> out.prof my_script.py input.csv</span></code></pre>
 </div>
 <!-- yes it's that simple -->
 <p><em>No additional changes to your code are required, it’s really that
@@ -614,14 +614,14 @@ installed via pip.</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">pip</span> install snakeviz</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a><span class="ex">pip</span> install snakeviz</span></code></pre>
 </div>
 <p>Once installed, you can visualise a <code>cProfile</code> output file
 such as <code>out.prof</code> via:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> snakeviz out.prof</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a><span class="ex">python</span> <span class="at">-m</span> snakeviz out.prof</span></code></pre>
 </div>
 <p>This should open your web browser displaying a page similar to that
 below.</p>
@@ -662,27 +662,27 @@ loaded.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PY<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode py" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="op">!</span>pip install snakeviz</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="op">%</span>load_ext snakeviz</span></code></pre>
+<pre class="sourceCode py" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a><span class="op">!</span>pip install snakeviz</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1" aria-label="code-block-9-2"></a><span class="op">%</span>load_ext snakeviz</span></code></pre>
 </div>
 <p>Following this, you can either call <code>%snakeviz</code> to profile
 a function defined earlier in the notebook.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PY<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode py" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="op">%</span>snakeviz my_function()</span></code></pre>
+<pre class="sourceCode py" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1" aria-label="code-block-10-1"></a><span class="op">%</span>snakeviz my_function()</span></code></pre>
 </div>
 <p>Or, you can create a <code>%%snakeviz</code> cell, to profile the
 python executed within it.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PY<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode py" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="op">%%</span>snakeviz</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="kw">def</span> my_function():</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Hello World!"</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>my_function()</span></code></pre>
+<pre class="sourceCode py" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1" aria-label="code-block-11-1"></a><span class="op">%%</span>snakeviz</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1" aria-label="code-block-11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1" aria-label="code-block-11-3"></a><span class="kw">def</span> my_function():</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1" aria-label="code-block-11-4"></a>    <span class="bu">print</span>(<span class="st">"Hello World!"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1" aria-label="code-block-11-5"></a></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1" aria-label="code-block-11-6"></a>my_function()</span></code></pre>
 </div>
 <p>In both cases, the full <code>snakeviz</code> profile visualisation
 will appear as an output within the notebook!</p>
@@ -699,33 +699,33 @@ implemented.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="kw">def</span> a_1():</span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>        b_1()</span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
-<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>    b_2()</span>
-<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>    </span>
-<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="kw">def</span> b_1():</span>
-<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>    c_1()</span>
-<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>    c_2()</span>
-<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a></span>
-<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="kw">def</span> b_2():</span>
-<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>    time.sleep(<span class="dv">1</span>)</span>
-<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>    </span>
-<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a><span class="kw">def</span> c_1():</span>
-<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a>    time.sleep(<span class="fl">0.5</span>)</span>
-<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a></span>
-<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a><span class="kw">def</span> c_2():</span>
-<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a>    time.sleep(<span class="fl">0.3</span>)</span>
-<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a>    d_1()</span>
-<span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a></span>
-<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a><span class="kw">def</span> d_1():</span>
-<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a>    time.sleep(<span class="fl">0.1</span>)</span>
-<span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a></span>
-<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a><span class="co"># Entry Point</span></span>
-<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a>a_1()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1" aria-label="code-block-12-1"></a><span class="im">import</span> time</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1" aria-label="code-block-12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1" aria-label="code-block-12-3"></a><span class="kw">def</span> a_1():</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1" aria-label="code-block-12-4"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1" aria-label="code-block-12-5"></a>        b_1()</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1" aria-label="code-block-12-6"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1" aria-label="code-block-12-7"></a>    b_2()</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1" aria-label="code-block-12-8"></a>    </span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1" aria-label="code-block-12-9"></a><span class="kw">def</span> b_1():</span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1" aria-label="code-block-12-10"></a>    c_1()</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1" aria-label="code-block-12-11"></a>    c_2()</span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1" aria-label="code-block-12-12"></a></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1" aria-label="code-block-12-13"></a><span class="kw">def</span> b_2():</span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1" aria-label="code-block-12-14"></a>    time.sleep(<span class="dv">1</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1" aria-label="code-block-12-15"></a>    </span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1" aria-label="code-block-12-16"></a><span class="kw">def</span> c_1():</span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1" aria-label="code-block-12-17"></a>    time.sleep(<span class="fl">0.5</span>)</span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1" aria-label="code-block-12-18"></a></span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1" aria-label="code-block-12-19"></a><span class="kw">def</span> c_2():</span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1" aria-label="code-block-12-20"></a>    time.sleep(<span class="fl">0.3</span>)</span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1" aria-label="code-block-12-21"></a>    d_1()</span>
+<span id="cb12-22"><a href="#cb12-22" tabindex="-1" aria-label="code-block-12-22"></a></span>
+<span id="cb12-23"><a href="#cb12-23" tabindex="-1" aria-label="code-block-12-23"></a><span class="kw">def</span> d_1():</span>
+<span id="cb12-24"><a href="#cb12-24" tabindex="-1" aria-label="code-block-12-24"></a>    time.sleep(<span class="fl">0.1</span>)</span>
+<span id="cb12-25"><a href="#cb12-25" tabindex="-1" aria-label="code-block-12-25"></a></span>
+<span id="cb12-26"><a href="#cb12-26" tabindex="-1" aria-label="code-block-12-26"></a><span class="co"># Entry Point</span></span>
+<span id="cb12-27"><a href="#cb12-27" tabindex="-1" aria-label="code-block-12-27"></a>a_1()</span></code></pre>
 </div>
 <p>All of the methods except for <code>b_1()</code> call
 <code>time.sleep()</code>, this is used to provide synthetic bottlenecks
@@ -756,8 +756,8 @@ machine.</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> cProfile <span class="at">-o</span> out.prof example.py</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> snakeviz out.prof</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1" aria-label="code-block-13-1"></a><span class="ex">python</span> <span class="at">-m</span> cProfile <span class="at">-o</span> out.prof example.py</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1" aria-label="code-block-13-2"></a><span class="ex">python</span> <span class="at">-m</span> snakeviz out.prof</span></code></pre>
 </div>
 </div>
 </div>
@@ -1060,7 +1060,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/main" class="external-link">varnish (1.0.7)</a> [UoS fork]</p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/main" class="external-link">varnish (1.0.7)</a> [UoS fork]</p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1083,7 +1083,7 @@ any links that you are not going to use.
   "identifier": "https://rse.shef.ac.uk/pando-python/profiling-functions.html",
   "dateCreated": "2024-02-01",
   "dateModified": "2025-05-11",
-  "datePublished": "2026-04-14"
+  "datePublished": "2026-04-21"
 }
 
   </script><script>

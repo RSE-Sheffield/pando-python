@@ -299,7 +299,7 @@
       </button>
     </div><!--/div.accordion-header-->
 
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#using-numpy-effectively">Using NumPy (Effectively)</a></li>
 <li><a href="#other-libraries-that-use-numpy">Other Libraries That Use NumPy</a></li>
@@ -459,25 +459,25 @@ and memory allocations than a Python list.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">from</span> timeit <span class="im">import</span> timeit</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="im">import</span> numpy</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">100000</span>  <span class="co"># Number of elements in list/array</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="kw">def</span> list_append():</span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>    ls <span class="op">=</span> []</span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N):</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>        ls.append(i)</span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="kw">def</span> array_resize():</span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>    ar <span class="op">=</span> numpy.zeros(<span class="dv">1</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, N):</span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>        ar.resize(i<span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>        ar[i] <span class="op">=</span> i</span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>        </span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"list_append: </span><span class="sc">{</span>timeit(list_append, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"array_resize: </span><span class="sc">{</span>timeit(array_resize, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="im">from</span> timeit <span class="im">import</span> timeit</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a><span class="im">import</span> numpy</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1" aria-label="code-block-1-4"></a>N <span class="op">=</span> <span class="dv">100000</span>  <span class="co"># Number of elements in list/array</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1" aria-label="code-block-1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1" aria-label="code-block-1-6"></a><span class="kw">def</span> list_append():</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1" aria-label="code-block-1-7"></a>    ls <span class="op">=</span> []</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1" aria-label="code-block-1-8"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N):</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1" aria-label="code-block-1-9"></a>        ls.append(i)</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1" aria-label="code-block-1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1" aria-label="code-block-1-11"></a><span class="kw">def</span> array_resize():</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1" aria-label="code-block-1-12"></a>    ar <span class="op">=</span> numpy.zeros(<span class="dv">1</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1" aria-label="code-block-1-13"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, N):</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1" aria-label="code-block-1-14"></a>        ar.resize(i<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1" aria-label="code-block-1-15"></a>        ar[i] <span class="op">=</span> i</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1" aria-label="code-block-1-16"></a>        </span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1" aria-label="code-block-1-17"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1" aria-label="code-block-1-18"></a><span class="bu">print</span>(<span class="ss">f"list_append: </span><span class="sc">{</span>timeit(list_append, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1" aria-label="code-block-1-19"></a><span class="bu">print</span>(<span class="ss">f"array_resize: </span><span class="sc">{</span>timeit(array_resize, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
 </div>
 <p>For Python lists, we’ve seen earlier that list comprehensions are
 more efficient, so we prefer to avoid using a large number of
@@ -512,20 +512,20 @@ take advantage of NumPy’s optimisations.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="op">&gt;</span>python</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> import <span class="ex">numpy</span> as np</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="ex">=</span> np.array<span class="er">(</span><span class="ex">[0.5,</span> 5]<span class="kw">)</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> type<span class="kw">(</span><span class="va">a</span><span class="op">[</span><span class="dv">0</span><span class="op">]</span><span class="kw">)</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="op">&lt;</span>class <span class="st">'numpy.float64'</span><span class="op">&gt;</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> type<span class="kw">(</span><span class="va">a</span><span class="op">[</span><span class="dv">1</span><span class="op">]</span><span class="kw">)</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="op">&lt;</span>class <span class="st">'numpy.float64'</span><span class="op">&gt;</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b <span class="ex">=</span> np.array<span class="er">(</span><span class="ex">[0.5,</span> 5,{<span class="st">"foo"</span>:5}]<span class="kw">)</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> type<span class="kw">(</span><span class="va">b</span><span class="op">[</span><span class="dv">0</span><span class="op">]</span><span class="kw">)</span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="op">&lt;</span>class <span class="st">'float'</span><span class="op">&gt;</span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> type<span class="kw">(</span><span class="va">b</span><span class="op">[</span><span class="dv">1</span><span class="op">]</span><span class="kw">)</span></span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="op">&lt;</span>class <span class="st">'int'</span><span class="op">&gt;</span></span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> type<span class="kw">(</span><span class="va">b</span><span class="op">[</span><span class="dv">2</span><span class="op">]</span><span class="kw">)</span></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="op">&lt;</span>class <span class="st">'dict'</span><span class="op">&gt;</span></span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="op">&gt;</span>python</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a><span class="op">&gt;&gt;&gt;</span> import <span class="ex">numpy</span> as np</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a><span class="op">&gt;&gt;&gt;</span> a <span class="ex">=</span> np.array<span class="er">(</span><span class="ex">[0.5,</span> 5]<span class="kw">)</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a><span class="op">&gt;&gt;&gt;</span> type<span class="kw">(</span><span class="va">a</span><span class="op">[</span><span class="dv">0</span><span class="op">]</span><span class="kw">)</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a><span class="op">&lt;</span>class <span class="st">'numpy.float64'</span><span class="op">&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1" aria-label="code-block-3-6"></a><span class="op">&gt;&gt;&gt;</span> type<span class="kw">(</span><span class="va">a</span><span class="op">[</span><span class="dv">1</span><span class="op">]</span><span class="kw">)</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1" aria-label="code-block-3-7"></a><span class="op">&lt;</span>class <span class="st">'numpy.float64'</span><span class="op">&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1" aria-label="code-block-3-8"></a><span class="op">&gt;&gt;&gt;</span> b <span class="ex">=</span> np.array<span class="er">(</span><span class="ex">[0.5,</span> 5,{<span class="st">"foo"</span>:5}]<span class="kw">)</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1" aria-label="code-block-3-9"></a><span class="op">&gt;&gt;&gt;</span> type<span class="kw">(</span><span class="va">b</span><span class="op">[</span><span class="dv">0</span><span class="op">]</span><span class="kw">)</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1" aria-label="code-block-3-10"></a><span class="op">&lt;</span>class <span class="st">'float'</span><span class="op">&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1" aria-label="code-block-3-11"></a><span class="op">&gt;&gt;&gt;</span> type<span class="kw">(</span><span class="va">b</span><span class="op">[</span><span class="dv">1</span><span class="op">]</span><span class="kw">)</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1" aria-label="code-block-3-12"></a><span class="op">&lt;</span>class <span class="st">'int'</span><span class="op">&gt;</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1" aria-label="code-block-3-13"></a><span class="op">&gt;&gt;&gt;</span> type<span class="kw">(</span><span class="va">b</span><span class="op">[</span><span class="dv">2</span><span class="op">]</span><span class="kw">)</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1" aria-label="code-block-3-14"></a><span class="op">&lt;</span>class <span class="st">'dict'</span><span class="op">&gt;</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -535,13 +535,13 @@ and NumPy functions.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Python list, numpy.random.choice()</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="op">&gt;</span>python <span class="ex">-m</span> timeit <span class="at">-s</span> <span class="st">"import numpy; ls = list(range(10000))"</span> <span class="st">"numpy.random.choice(ls)"</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="ex">1000</span> loops, best of 5: 267 usec per loop</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co"># NumPy array, numpy.random.choice()</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="op">&gt;</span>python <span class="ex">-m</span> timeit <span class="at">-s</span> <span class="st">"import numpy; ar = numpy.arange(10000)"</span> <span class="st">"numpy.random.choice(ar)"</span></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="ex">50000</span> loops, best of 5: 4.06 usec per loop</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="co"># Python list, numpy.random.choice()</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a><span class="op">&gt;</span>python <span class="ex">-m</span> timeit <span class="at">-s</span> <span class="st">"import numpy; ls = list(range(10000))"</span> <span class="st">"numpy.random.choice(ls)"</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a><span class="ex">1000</span> loops, best of 5: 267 usec per loop</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a><span class="co"># NumPy array, numpy.random.choice()</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a><span class="op">&gt;</span>python <span class="ex">-m</span> timeit <span class="at">-s</span> <span class="st">"import numpy; ar = numpy.arange(10000)"</span> <span class="st">"numpy.random.choice(ar)"</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1" aria-label="code-block-4-7"></a><span class="ex">50000</span> loops, best of 5: 4.06 usec per loop</span></code></pre>
 </div>
 <p>Passing a Python list to <code>numpy.random.choice()</code> is 65.6x
 slower than passing a NumPy array. This is the additional overhead of
@@ -558,13 +558,13 @@ calling the function so that overhead is only paid once.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Python list, Manually select 1 item</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="op">&gt;</span>python <span class="ex">-m</span> timeit <span class="at">-s</span> <span class="st">"import numpy; ls = list(range(10000))"</span> <span class="st">"ls[numpy.random.randint(len(ls))]"</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="ex">200000</span> loops, best of 5: 1.19 usec per loop</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co"># NumPy array, Manually select 1 item</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="op">&gt;</span>python <span class="ex">-m</span> timeit <span class="at">-s</span> <span class="st">"import numpy; ar = numpy.arange(10000)"</span> <span class="st">"ar[numpy.random.randint(len(ar))]"</span></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="ex">200000</span> loops, best of 5: 1.22 usec per loop</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="co"># Python list, Manually select 1 item</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a><span class="op">&gt;</span>python <span class="ex">-m</span> timeit <span class="at">-s</span> <span class="st">"import numpy; ls = list(range(10000))"</span> <span class="st">"ls[numpy.random.randint(len(ls))]"</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1" aria-label="code-block-5-3"></a><span class="ex">200000</span> loops, best of 5: 1.19 usec per loop</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1" aria-label="code-block-5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1" aria-label="code-block-5-5"></a><span class="co"># NumPy array, Manually select 1 item</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1" aria-label="code-block-5-6"></a><span class="op">&gt;</span>python <span class="ex">-m</span> timeit <span class="at">-s</span> <span class="st">"import numpy; ar = numpy.arange(10000)"</span> <span class="st">"ar[numpy.random.randint(len(ar))]"</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1" aria-label="code-block-5-7"></a><span class="ex">200000</span> loops, best of 5: 1.22 usec per loop</span></code></pre>
 </div>
 <p>Regardless, for this simple application of
 <code>numpy.random.choice()</code>, merely using
@@ -591,19 +591,19 @@ loop over the array explicitly:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ar <span class="op">=</span> np.arange(<span class="dv">6</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ar</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ar <span class="op">+</span> <span class="dv">10</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>array([<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>])</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ar <span class="op">*</span> <span class="dv">2</span></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>array([ <span class="dv">0</span>,  <span class="dv">2</span>,  <span class="dv">4</span>,  <span class="dv">6</span>,  <span class="dv">8</span>, <span class="dv">10</span>])</span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ar<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>array([ <span class="dv">0</span>,  <span class="dv">1</span>,  <span class="dv">4</span>,  <span class="dv">9</span>, <span class="dv">16</span>, <span class="dv">25</span>])</span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> np.exp(ar)</span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>array([  <span class="fl">1.</span>        ,   <span class="fl">2.71828183</span>,   <span class="fl">7.3890561</span> ,  <span class="fl">20.08553692</span>,</span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>        <span class="fl">54.59815003</span>, <span class="fl">148.4131591</span> ])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a><span class="op">&gt;&gt;&gt;</span> ar <span class="op">=</span> np.arange(<span class="dv">6</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a><span class="op">&gt;&gt;&gt;</span> ar</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1" aria-label="code-block-6-4"></a>array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1" aria-label="code-block-6-5"></a><span class="op">&gt;&gt;&gt;</span> ar <span class="op">+</span> <span class="dv">10</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1" aria-label="code-block-6-6"></a>array([<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>])</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1" aria-label="code-block-6-7"></a><span class="op">&gt;&gt;&gt;</span> ar <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1" aria-label="code-block-6-8"></a>array([ <span class="dv">0</span>,  <span class="dv">2</span>,  <span class="dv">4</span>,  <span class="dv">6</span>,  <span class="dv">8</span>, <span class="dv">10</span>])</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1" aria-label="code-block-6-9"></a><span class="op">&gt;&gt;&gt;</span> ar<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1" aria-label="code-block-6-10"></a>array([ <span class="dv">0</span>,  <span class="dv">1</span>,  <span class="dv">4</span>,  <span class="dv">9</span>, <span class="dv">16</span>, <span class="dv">25</span>])</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1" aria-label="code-block-6-11"></a><span class="op">&gt;&gt;&gt;</span> np.exp(ar)</span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1" aria-label="code-block-6-12"></a>array([  <span class="fl">1.</span>        ,   <span class="fl">2.71828183</span>,   <span class="fl">7.3890561</span> ,  <span class="fl">20.08553692</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1" aria-label="code-block-6-13"></a>        <span class="fl">54.59815003</span>, <span class="fl">148.4131591</span> ])</span></code></pre>
 </div>
 <div id="callout3" class="callout">
 <div class="callout-square">
@@ -617,24 +617,24 @@ error or give an unexpected result:</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ls <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">6</span>))</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ls <span class="op">+</span> <span class="dv">10</span></span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  File <span class="st">"&lt;python-input-8&gt;"</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>    ls <span class="op">+</span> <span class="dv">10</span></span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>    <span class="op">~~~^~~~</span></span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="pp">TypeError</span>: can only concatenate <span class="bu">list</span> (<span class="kw">not</span> <span class="st">"int"</span>) to <span class="bu">list</span></span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ls <span class="op">*</span> <span class="dv">2</span></span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> ls <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>Traceback (most recent call last):</span>
-<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>  File <span class="st">"&lt;python-input-10&gt;"</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>    ls <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>    <span class="op">~~~^^~~</span></span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="pp">TypeError</span>: unsupported operand <span class="bu">type</span>(s) <span class="cf">for</span> <span class="op">**</span> <span class="kw">or</span> <span class="bu">pow</span>(): <span class="st">'list'</span> <span class="kw">and</span> <span class="st">'int'</span></span>
-<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> np.exp(ls)  <span class="co"># works but is slower, because NumPy converts the list into an array first</span></span>
-<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>array([  <span class="fl">1.</span>        ,   <span class="fl">2.71828183</span>,   <span class="fl">7.3890561</span> ,  <span class="fl">20.08553692</span>,</span>
-<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>        <span class="fl">54.59815003</span>, <span class="fl">148.4131591</span> ])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a><span class="op">&gt;&gt;&gt;</span> ls <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">6</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a><span class="op">&gt;&gt;&gt;</span> ls <span class="op">+</span> <span class="dv">10</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1" aria-label="code-block-7-3"></a>Traceback (most recent call last):</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1" aria-label="code-block-7-4"></a>  File <span class="st">"&lt;python-input-8&gt;"</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1" aria-label="code-block-7-5"></a>    ls <span class="op">+</span> <span class="dv">10</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1" aria-label="code-block-7-6"></a>    <span class="op">~~~^~~~</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1" aria-label="code-block-7-7"></a><span class="pp">TypeError</span>: can only concatenate <span class="bu">list</span> (<span class="kw">not</span> <span class="st">"int"</span>) to <span class="bu">list</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1" aria-label="code-block-7-8"></a><span class="op">&gt;&gt;&gt;</span> ls <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1" aria-label="code-block-7-9"></a>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1" aria-label="code-block-7-10"></a><span class="op">&gt;&gt;&gt;</span> ls <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1" aria-label="code-block-7-11"></a>Traceback (most recent call last):</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1" aria-label="code-block-7-12"></a>  File <span class="st">"&lt;python-input-10&gt;"</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1" aria-label="code-block-7-13"></a>    ls <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1" aria-label="code-block-7-14"></a>    <span class="op">~~~^^~~</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1" aria-label="code-block-7-15"></a><span class="pp">TypeError</span>: unsupported operand <span class="bu">type</span>(s) <span class="cf">for</span> <span class="op">**</span> <span class="kw">or</span> <span class="bu">pow</span>(): <span class="st">'list'</span> <span class="kw">and</span> <span class="st">'int'</span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1" aria-label="code-block-7-16"></a><span class="op">&gt;&gt;&gt;</span> np.exp(ls)  <span class="co"># works but is slower, because NumPy converts the list into an array first</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1" aria-label="code-block-7-17"></a>array([  <span class="fl">1.</span>        ,   <span class="fl">2.71828183</span>,   <span class="fl">7.3890561</span> ,  <span class="fl">20.08553692</span>,</span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1" aria-label="code-block-7-18"></a>        <span class="fl">54.59815003</span>, <span class="fl">148.4131591</span> ])</span></code></pre>
 </div>
 </div>
 </div>
@@ -649,12 +649,12 @@ that are broadcast across arrays.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="op">&gt;</span> python <span class="ex">-m</span> timeit <span class="at">-s</span> <span class="st">"import numpy; ar = numpy.arange(1)"</span> <span class="st">"ar + 10"</span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="ex">1000000</span> loops, best of 5: 359 nsec per loop</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="op">&gt;</span> python <span class="ex">-m</span> timeit <span class="at">-s</span> <span class="st">"import numpy; ar = numpy.arange(10)"</span> <span class="st">"ar + 10"</span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="ex">1000000</span> loops, best of 5: 362 nsec per loop</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="op">&gt;</span> python <span class="ex">-m</span> timeit <span class="at">-s</span> <span class="st">"import numpy; ar = numpy.arange(100)"</span> <span class="st">"ar + 10"</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="ex">1000000</span> loops, best of 5: 364 nsec per loop</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a><span class="op">&gt;</span> python <span class="ex">-m</span> timeit <span class="at">-s</span> <span class="st">"import numpy; ar = numpy.arange(1)"</span> <span class="st">"ar + 10"</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1" aria-label="code-block-8-2"></a><span class="ex">1000000</span> loops, best of 5: 359 nsec per loop</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1" aria-label="code-block-8-3"></a><span class="op">&gt;</span> python <span class="ex">-m</span> timeit <span class="at">-s</span> <span class="st">"import numpy; ar = numpy.arange(10)"</span> <span class="st">"ar + 10"</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1" aria-label="code-block-8-4"></a><span class="ex">1000000</span> loops, best of 5: 362 nsec per loop</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1" aria-label="code-block-8-5"></a><span class="op">&gt;</span> python <span class="ex">-m</span> timeit <span class="at">-s</span> <span class="st">"import numpy; ar = numpy.arange(100)"</span> <span class="st">"ar + 10"</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1" aria-label="code-block-8-6"></a><span class="ex">1000000</span> loops, best of 5: 364 nsec per loop</span></code></pre>
 </div>
 <p>If we were to use a regular <code>for</code> loop, the time to
 perform this operation would increase with the length of the array.
@@ -670,23 +670,23 @@ Added Python sum array, skipped a couple of others-->
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="im">from</span> timeit <span class="im">import</span> timeit</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">1000000</span>  <span class="co"># Number of elements in list</span></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>gen_list <span class="op">=</span> <span class="ss">f"ls = list(range(</span><span class="sc">{</span>N<span class="sc">}</span><span class="ss">))"</span></span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>gen_array <span class="op">=</span> <span class="ss">f"import numpy; ar = numpy.arange(</span><span class="sc">{</span>N<span class="sc">}</span><span class="ss">, dtype=numpy.int64)"</span></span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>py_sum_ls <span class="op">=</span> <span class="st">"sum([i*i for i in ls])"</span></span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>py_sum_ar <span class="op">=</span> <span class="st">"sum(ar*ar)"</span></span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>np_sum_ar <span class="op">=</span> <span class="st">"numpy.sum(ar*ar)"</span></span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>np_dot_ar <span class="op">=</span> <span class="st">"numpy.dot(ar, ar)"</span></span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"python_sum_list: </span><span class="sc">{</span>timeit(py_sum_ls, setup<span class="op">=</span>gen_list, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
-<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"python_sum_array: </span><span class="sc">{</span>timeit(py_sum_ar, setup<span class="op">=</span>gen_array, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
-<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"numpy_sum_array: </span><span class="sc">{</span>timeit(np_sum_ar, setup<span class="op">=</span>gen_array, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
-<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"numpy_dot_array: </span><span class="sc">{</span>timeit(np_dot_ar, setup<span class="op">=</span>gen_array, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a><span class="im">from</span> timeit <span class="im">import</span> timeit</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1" aria-label="code-block-9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1" aria-label="code-block-9-3"></a>N <span class="op">=</span> <span class="dv">1000000</span>  <span class="co"># Number of elements in list</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1" aria-label="code-block-9-4"></a></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1" aria-label="code-block-9-5"></a>gen_list <span class="op">=</span> <span class="ss">f"ls = list(range(</span><span class="sc">{</span>N<span class="sc">}</span><span class="ss">))"</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1" aria-label="code-block-9-6"></a>gen_array <span class="op">=</span> <span class="ss">f"import numpy; ar = numpy.arange(</span><span class="sc">{</span>N<span class="sc">}</span><span class="ss">, dtype=numpy.int64)"</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1" aria-label="code-block-9-7"></a></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1" aria-label="code-block-9-8"></a>py_sum_ls <span class="op">=</span> <span class="st">"sum([i*i for i in ls])"</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1" aria-label="code-block-9-9"></a>py_sum_ar <span class="op">=</span> <span class="st">"sum(ar*ar)"</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1" aria-label="code-block-9-10"></a>np_sum_ar <span class="op">=</span> <span class="st">"numpy.sum(ar*ar)"</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1" aria-label="code-block-9-11"></a>np_dot_ar <span class="op">=</span> <span class="st">"numpy.dot(ar, ar)"</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1" aria-label="code-block-9-12"></a></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1" aria-label="code-block-9-13"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1" aria-label="code-block-9-14"></a><span class="bu">print</span>(<span class="ss">f"python_sum_list: </span><span class="sc">{</span>timeit(py_sum_ls, setup<span class="op">=</span>gen_list, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1" aria-label="code-block-9-15"></a><span class="bu">print</span>(<span class="ss">f"python_sum_array: </span><span class="sc">{</span>timeit(py_sum_ar, setup<span class="op">=</span>gen_array, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1" aria-label="code-block-9-16"></a><span class="bu">print</span>(<span class="ss">f"numpy_sum_array: </span><span class="sc">{</span>timeit(np_sum_ar, setup<span class="op">=</span>gen_array, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1" aria-label="code-block-9-17"></a><span class="bu">print</span>(<span class="ss">f"numpy_dot_array: </span><span class="sc">{</span>timeit(np_dot_ar, setup<span class="op">=</span>gen_array, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -769,7 +769,7 @@ instead of writing your own code from scratch?</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint1" aria-expanded="false" aria-controls="collapseHint1">
   <h4 class="accordion-header" id="headingHint1"> Give me a hint </h4>
 </button>
-<div id="collapseHint1" class="accordion-collapse collapse" aria-labelledby="headingHint1" data-bs-parent="#accordionHint1">
+<div id="collapseHint1" class="accordion-collapse collapse" data-bs-parent="#accordionHint1" aria-labelledby="headingHint1">
 <div class="accordion-body">
 <p>These libraries could be specific to your area of research; but they
 could also include packages from other fields that provide tools you
@@ -790,18 +790,18 @@ library.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>points_per_polygon <span class="op">=</span> {}</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="cf">for</span> polygon_idx <span class="kw">in</span> <span class="bu">range</span>(n_polygons):</span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>    current_polygon <span class="op">=</span> polygons.iloc[polygon_idx,:][<span class="st">"geometry"</span>]</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>    <span class="co"># manually loop over all points, check if polygon contains that point</span></span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>    out_points <span class="op">=</span> []</span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_points):</span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>        current_point <span class="op">=</span> points.iloc[i, :]</span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>        <span class="cf">if</span> current_polygon.contains(current_point[<span class="st">"geometry"</span>]):</span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>            out_points.append(current_point.name)</span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a></span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>    points_per_polygon[polygon_idx] <span class="op">=</span> out_points</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1" aria-label="code-block-11-1"></a>points_per_polygon <span class="op">=</span> {}</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1" aria-label="code-block-11-2"></a><span class="cf">for</span> polygon_idx <span class="kw">in</span> <span class="bu">range</span>(n_polygons):</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1" aria-label="code-block-11-3"></a>    current_polygon <span class="op">=</span> polygons.iloc[polygon_idx,:][<span class="st">"geometry"</span>]</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1" aria-label="code-block-11-4"></a></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1" aria-label="code-block-11-5"></a>    <span class="co"># manually loop over all points, check if polygon contains that point</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1" aria-label="code-block-11-6"></a>    out_points <span class="op">=</span> []</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1" aria-label="code-block-11-7"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_points):</span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1" aria-label="code-block-11-8"></a>        current_point <span class="op">=</span> points.iloc[i, :]</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1" aria-label="code-block-11-9"></a>        <span class="cf">if</span> current_polygon.contains(current_point[<span class="st">"geometry"</span>]):</span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1" aria-label="code-block-11-10"></a>            out_points.append(current_point.name)</span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1" aria-label="code-block-11-11"></a></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1" aria-label="code-block-11-12"></a>    points_per_polygon[polygon_idx] <span class="op">=</span> out_points</span></code></pre>
 </div>
 <p>For about 500k points and 1000 polygons, the initial version of the
 code took about 20 hours to run.</p>
@@ -811,21 +811,21 @@ which took just 20 minutes:</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># 1) Extract points and corresponding names as two separate NumPy arrays from a larger data frame</span></span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="co"># This will make it easier to apply vectorised functions below</span></span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>points_array <span class="op">=</span> np.array(points.loc[:,<span class="st">"geometry"</span>])</span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>point_names_array <span class="op">=</span> np.array(points.loc[:,<span class="st">"name"</span>])</span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>points_per_polygon <span class="op">=</span> {}</span>
-<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="cf">for</span> polygon_idx <span class="kw">in</span> <span class="bu">range</span>(n_polygons):</span>
-<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>    current_polygon <span class="op">=</span> polygons.iloc[polygon_idx,:][<span class="st">"geometry"</span>]</span>
-<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>    <span class="co"># 2) apply `contains` to an array of points, rather than an individual point</span></span>
-<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>    points_in_polygon_idx <span class="op">=</span> current_polygon.contains(points_array)</span>
-<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>    <span class="co"># 3) Filter `point_names_array` to get just the names of points contained in the polygon</span></span>
-<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a>    points_in_polygon <span class="op">=</span> point_names_array[points_in_polygon_idx]</span>
-<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>    <span class="co"># 4) Turn this array into a Python list and store it in output data</span></span>
-<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>    points_per_polygon[polygon_idx] <span class="op">=</span> points_in_polygon.tolist()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1" aria-label="code-block-12-1"></a><span class="co"># 1) Extract points and corresponding names as two separate NumPy arrays from a larger data frame</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1" aria-label="code-block-12-2"></a><span class="co"># This will make it easier to apply vectorised functions below</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1" aria-label="code-block-12-3"></a>points_array <span class="op">=</span> np.array(points.loc[:,<span class="st">"geometry"</span>])</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1" aria-label="code-block-12-4"></a>point_names_array <span class="op">=</span> np.array(points.loc[:,<span class="st">"name"</span>])</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1" aria-label="code-block-12-5"></a></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1" aria-label="code-block-12-6"></a>points_per_polygon <span class="op">=</span> {}</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1" aria-label="code-block-12-7"></a><span class="cf">for</span> polygon_idx <span class="kw">in</span> <span class="bu">range</span>(n_polygons):</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1" aria-label="code-block-12-8"></a>    current_polygon <span class="op">=</span> polygons.iloc[polygon_idx,:][<span class="st">"geometry"</span>]</span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1" aria-label="code-block-12-9"></a></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1" aria-label="code-block-12-10"></a>    <span class="co"># 2) apply `contains` to an array of points, rather than an individual point</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1" aria-label="code-block-12-11"></a>    points_in_polygon_idx <span class="op">=</span> current_polygon.contains(points_array)</span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1" aria-label="code-block-12-12"></a>    <span class="co"># 3) Filter `point_names_array` to get just the names of points contained in the polygon</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1" aria-label="code-block-12-13"></a>    points_in_polygon <span class="op">=</span> point_names_array[points_in_polygon_idx]</span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1" aria-label="code-block-12-14"></a>    <span class="co"># 4) Turn this array into a Python list and store it in output data</span></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1" aria-label="code-block-12-15"></a>    points_per_polygon[polygon_idx] <span class="op">=</span> points_in_polygon.tolist()</span></code></pre>
 </div>
 <p>To vectorise this efficiently, the logic of the code had to be
 changed slightly:</p>
@@ -885,48 +885,48 @@ preferred over manual loops. Where you can’t find a suitable method,
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="im">from</span> timeit <span class="im">import</span> timeit</span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="im">import</span> pandas</span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="im">import</span> numpy</span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">100000</span>  <span class="co"># Number of rows in DataFrame</span></span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="kw">def</span> genDataFrame():</span>
-<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>    numpy.random.seed(<span class="dv">12</span>)  <span class="co"># Ensure each dataframe is identical</span></span>
-<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>    <span class="cf">return</span> pandas.DataFrame(</span>
-<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>    {</span>
-<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>        <span class="st">"f_vertical"</span>: numpy.random.random(size<span class="op">=</span>N),</span>
-<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>        <span class="st">"f_horizontal"</span>: numpy.random.random(size<span class="op">=</span>N),</span>
-<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>        <span class="co"># todo some spurious columns</span></span>
-<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a>    })</span>
-<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a></span>
-<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a><span class="kw">def</span> pythagoras(row):</span>
-<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a>    <span class="cf">return</span> (row[<span class="st">"f_vertical"</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> row[<span class="st">"f_horizontal"</span>]<span class="op">**</span><span class="dv">2</span>)<span class="op">**</span><span class="fl">0.5</span></span>
-<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a>    </span>
-<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="kw">def</span> for_range():</span>
-<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a>    rtn <span class="op">=</span> []</span>
-<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a>    df <span class="op">=</span> genDataFrame()</span>
-<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a>    <span class="cf">for</span> row_idx <span class="kw">in</span> <span class="bu">range</span>(df.shape[<span class="dv">0</span>]):</span>
-<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a>        row <span class="op">=</span> df.iloc[row_idx]</span>
-<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a>        rtn.append(pythagoras(row))</span>
-<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a>    <span class="cf">return</span> pandas.Series(rtn)</span>
-<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a></span>
-<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a><span class="kw">def</span> for_iterrows():</span>
-<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a>    rtn <span class="op">=</span> []</span>
-<span id="cb14-29"><a href="#cb14-29" tabindex="-1"></a>    df <span class="op">=</span> genDataFrame()</span>
-<span id="cb14-30"><a href="#cb14-30" tabindex="-1"></a>    <span class="cf">for</span> row_idx, row <span class="kw">in</span> df.iterrows():</span>
-<span id="cb14-31"><a href="#cb14-31" tabindex="-1"></a>        rtn.append(pythagoras(row))</span>
-<span id="cb14-32"><a href="#cb14-32" tabindex="-1"></a>    <span class="cf">return</span> pandas.Series(rtn)</span>
-<span id="cb14-33"><a href="#cb14-33" tabindex="-1"></a>    </span>
-<span id="cb14-34"><a href="#cb14-34" tabindex="-1"></a><span class="kw">def</span> pandas_apply():</span>
-<span id="cb14-35"><a href="#cb14-35" tabindex="-1"></a>    df <span class="op">=</span> genDataFrame()</span>
-<span id="cb14-36"><a href="#cb14-36" tabindex="-1"></a>    <span class="cf">return</span> df.<span class="bu">apply</span>(pythagoras, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb14-37"><a href="#cb14-37" tabindex="-1"></a></span>
-<span id="cb14-38"><a href="#cb14-38" tabindex="-1"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb14-39"><a href="#cb14-39" tabindex="-1"></a>gentime <span class="op">=</span> timeit(genDataFrame, number<span class="op">=</span>repeats)</span>
-<span id="cb14-40"><a href="#cb14-40" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"for_range: </span><span class="sc">{</span>timeit(for_range, number<span class="op">=</span><span class="bu">int</span>(repeats<span class="op">/</span><span class="dv">20</span>))<span class="op">*</span><span class="dv">20</span><span class="op">-</span>gentime<span class="sc">:.2f}</span><span class="ss">ms"</span>)  <span class="co"># scale with factor 20, otherwise it takes too long</span></span>
-<span id="cb14-41"><a href="#cb14-41" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"for_iterrows: </span><span class="sc">{</span>timeit(for_iterrows, number<span class="op">=</span><span class="bu">int</span>(repeats<span class="op">/</span><span class="dv">20</span>))<span class="op">*</span><span class="dv">20</span><span class="op">-</span>gentime<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
-<span id="cb14-42"><a href="#cb14-42" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"pandas_apply: </span><span class="sc">{</span>timeit(pandas_apply, number<span class="op">=</span><span class="bu">int</span>(repeats<span class="op">/</span><span class="dv">20</span>))<span class="op">*</span><span class="dv">20</span><span class="op">-</span>gentime<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1" aria-label="code-block-14-1"></a><span class="im">from</span> timeit <span class="im">import</span> timeit</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1" aria-label="code-block-14-2"></a><span class="im">import</span> pandas</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1" aria-label="code-block-14-3"></a><span class="im">import</span> numpy</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1" aria-label="code-block-14-4"></a></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1" aria-label="code-block-14-5"></a>N <span class="op">=</span> <span class="dv">100000</span>  <span class="co"># Number of rows in DataFrame</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1" aria-label="code-block-14-6"></a></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1" aria-label="code-block-14-7"></a><span class="kw">def</span> genDataFrame():</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1" aria-label="code-block-14-8"></a>    numpy.random.seed(<span class="dv">12</span>)  <span class="co"># Ensure each dataframe is identical</span></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1" aria-label="code-block-14-9"></a>    <span class="cf">return</span> pandas.DataFrame(</span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1" aria-label="code-block-14-10"></a>    {</span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1" aria-label="code-block-14-11"></a>        <span class="st">"f_vertical"</span>: numpy.random.random(size<span class="op">=</span>N),</span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1" aria-label="code-block-14-12"></a>        <span class="st">"f_horizontal"</span>: numpy.random.random(size<span class="op">=</span>N),</span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1" aria-label="code-block-14-13"></a>        <span class="co"># todo some spurious columns</span></span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1" aria-label="code-block-14-14"></a>    })</span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1" aria-label="code-block-14-15"></a></span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1" aria-label="code-block-14-16"></a><span class="kw">def</span> pythagoras(row):</span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1" aria-label="code-block-14-17"></a>    <span class="cf">return</span> (row[<span class="st">"f_vertical"</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> row[<span class="st">"f_horizontal"</span>]<span class="op">**</span><span class="dv">2</span>)<span class="op">**</span><span class="fl">0.5</span></span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1" aria-label="code-block-14-18"></a>    </span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1" aria-label="code-block-14-19"></a><span class="kw">def</span> for_range():</span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1" aria-label="code-block-14-20"></a>    rtn <span class="op">=</span> []</span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1" aria-label="code-block-14-21"></a>    df <span class="op">=</span> genDataFrame()</span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1" aria-label="code-block-14-22"></a>    <span class="cf">for</span> row_idx <span class="kw">in</span> <span class="bu">range</span>(df.shape[<span class="dv">0</span>]):</span>
+<span id="cb14-23"><a href="#cb14-23" tabindex="-1" aria-label="code-block-14-23"></a>        row <span class="op">=</span> df.iloc[row_idx]</span>
+<span id="cb14-24"><a href="#cb14-24" tabindex="-1" aria-label="code-block-14-24"></a>        rtn.append(pythagoras(row))</span>
+<span id="cb14-25"><a href="#cb14-25" tabindex="-1" aria-label="code-block-14-25"></a>    <span class="cf">return</span> pandas.Series(rtn)</span>
+<span id="cb14-26"><a href="#cb14-26" tabindex="-1" aria-label="code-block-14-26"></a></span>
+<span id="cb14-27"><a href="#cb14-27" tabindex="-1" aria-label="code-block-14-27"></a><span class="kw">def</span> for_iterrows():</span>
+<span id="cb14-28"><a href="#cb14-28" tabindex="-1" aria-label="code-block-14-28"></a>    rtn <span class="op">=</span> []</span>
+<span id="cb14-29"><a href="#cb14-29" tabindex="-1" aria-label="code-block-14-29"></a>    df <span class="op">=</span> genDataFrame()</span>
+<span id="cb14-30"><a href="#cb14-30" tabindex="-1" aria-label="code-block-14-30"></a>    <span class="cf">for</span> row_idx, row <span class="kw">in</span> df.iterrows():</span>
+<span id="cb14-31"><a href="#cb14-31" tabindex="-1" aria-label="code-block-14-31"></a>        rtn.append(pythagoras(row))</span>
+<span id="cb14-32"><a href="#cb14-32" tabindex="-1" aria-label="code-block-14-32"></a>    <span class="cf">return</span> pandas.Series(rtn)</span>
+<span id="cb14-33"><a href="#cb14-33" tabindex="-1" aria-label="code-block-14-33"></a>    </span>
+<span id="cb14-34"><a href="#cb14-34" tabindex="-1" aria-label="code-block-14-34"></a><span class="kw">def</span> pandas_apply():</span>
+<span id="cb14-35"><a href="#cb14-35" tabindex="-1" aria-label="code-block-14-35"></a>    df <span class="op">=</span> genDataFrame()</span>
+<span id="cb14-36"><a href="#cb14-36" tabindex="-1" aria-label="code-block-14-36"></a>    <span class="cf">return</span> df.<span class="bu">apply</span>(pythagoras, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb14-37"><a href="#cb14-37" tabindex="-1" aria-label="code-block-14-37"></a></span>
+<span id="cb14-38"><a href="#cb14-38" tabindex="-1" aria-label="code-block-14-38"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb14-39"><a href="#cb14-39" tabindex="-1" aria-label="code-block-14-39"></a>gentime <span class="op">=</span> timeit(genDataFrame, number<span class="op">=</span>repeats)</span>
+<span id="cb14-40"><a href="#cb14-40" tabindex="-1" aria-label="code-block-14-40"></a><span class="bu">print</span>(<span class="ss">f"for_range: </span><span class="sc">{</span>timeit(for_range, number<span class="op">=</span><span class="bu">int</span>(repeats<span class="op">/</span><span class="dv">20</span>))<span class="op">*</span><span class="dv">20</span><span class="op">-</span>gentime<span class="sc">:.2f}</span><span class="ss">ms"</span>)  <span class="co"># scale with factor 20, otherwise it takes too long</span></span>
+<span id="cb14-41"><a href="#cb14-41" tabindex="-1" aria-label="code-block-14-41"></a><span class="bu">print</span>(<span class="ss">f"for_iterrows: </span><span class="sc">{</span>timeit(for_iterrows, number<span class="op">=</span><span class="bu">int</span>(repeats<span class="op">/</span><span class="dv">20</span>))<span class="op">*</span><span class="dv">20</span><span class="op">-</span>gentime<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
+<span id="cb14-42"><a href="#cb14-42" tabindex="-1" aria-label="code-block-14-42"></a><span class="bu">print</span>(<span class="ss">f"pandas_apply: </span><span class="sc">{</span>timeit(pandas_apply, number<span class="op">=</span><span class="bu">int</span>(repeats<span class="op">/</span><span class="dv">20</span>))<span class="op">*</span><span class="dv">20</span><span class="op">-</span>gentime<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
 </div>
 <p><code>apply()</code> is 4x faster than the two <code>for</code>
 approaches, as it avoids the Python <code>for</code> loop.</p>
@@ -957,22 +957,22 @@ version of this calculation?</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="kw">def</span> vectorize():</span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>    df <span class="op">=</span> genDataFrame()</span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>    vertical <span class="op">=</span> df[<span class="st">"f_vertical"</span>]</span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>    horizontal <span class="op">=</span> df[<span class="st">"f_horizontal"</span>]</span>
-<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>    <span class="co"># Your code goes here</span></span>
-<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>    <span class="cf">return</span> pandas.Series(results)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1" aria-label="code-block-16-1"></a><span class="kw">def</span> vectorize():</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1" aria-label="code-block-16-2"></a>    df <span class="op">=</span> genDataFrame()</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1" aria-label="code-block-16-3"></a>    vertical <span class="op">=</span> df[<span class="st">"f_vertical"</span>]</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1" aria-label="code-block-16-4"></a>    horizontal <span class="op">=</span> df[<span class="st">"f_horizontal"</span>]</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1" aria-label="code-block-16-5"></a></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1" aria-label="code-block-16-6"></a>    <span class="co"># Your code goes here</span></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1" aria-label="code-block-16-7"></a></span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1" aria-label="code-block-16-8"></a>    <span class="cf">return</span> pandas.Series(results)</span></code></pre>
 </div>
 <p>Once you’ve done that, measure your performance by running</p>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>gentime <span class="op">=</span> timeit(genDataFrame, number<span class="op">=</span>repeats)</span>
-<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"vectorize: </span><span class="sc">{</span>timeit(vectorize, number<span class="op">=</span>repeats)<span class="op">-</span>gentime<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1" aria-label="code-block-17-1"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1" aria-label="code-block-17-2"></a>gentime <span class="op">=</span> timeit(genDataFrame, number<span class="op">=</span>repeats)</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1" aria-label="code-block-17-3"></a><span class="bu">print</span>(<span class="ss">f"vectorize: </span><span class="sc">{</span>timeit(vectorize, number<span class="op">=</span>repeats)<span class="op">-</span>gentime<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
 </div>
 <p>What result do you find? Does this match your expectations?</p>
 </div>
@@ -983,17 +983,17 @@ version of this calculation?</p>
 <button class="accordion-button hint-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHint2" aria-expanded="false" aria-controls="collapseHint2">
   <h4 class="accordion-header" id="headingHint2"> Give me a hint </h4>
 </button>
-<div id="collapseHint2" class="accordion-collapse collapse" aria-labelledby="headingHint2" data-bs-parent="#accordionHint2">
+<div id="collapseHint2" class="accordion-collapse collapse" data-bs-parent="#accordionHint2" aria-labelledby="headingHint2">
 <div class="accordion-body">
 <p>Remember that most common mathematical operations work element-wise
 when applied to NumPy arrays. For example:</p>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>ar <span class="op">=</span> np.array([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])</span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="bu">print</span>(ar<span class="op">**</span><span class="dv">2</span>)  <span class="co"># array([1, 4, 9])</span></span>
-<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="bu">print</span>(ar <span class="op">+</span> ar)  <span class="co"># array([2, 4, 6])</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1" aria-label="code-block-18-1"></a>ar <span class="op">=</span> np.array([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1" aria-label="code-block-18-2"></a></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1" aria-label="code-block-18-3"></a><span class="bu">print</span>(ar<span class="op">**</span><span class="dv">2</span>)  <span class="co"># array([1, 4, 9])</span></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1" aria-label="code-block-18-4"></a><span class="bu">print</span>(ar <span class="op">+</span> ar)  <span class="co"># array([2, 4, 6])</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1004,21 +1004,21 @@ when applied to NumPy arrays. For example:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="kw">def</span> vectorize():</span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>    df <span class="op">=</span> genDataFrame()</span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>    vertical <span class="op">=</span> df[<span class="st">"f_vertical"</span>]</span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>    horizontal <span class="op">=</span> df[<span class="st">"f_horizontal"</span>]</span>
-<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>    result <span class="op">=</span> numpy.sqrt(vertical<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> horizontal<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a>    <span class="cf">return</span> pandas.Series(result)</span>
-<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a></span>
-<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"vectorize: </span><span class="sc">{</span>timeit(vectorize, number<span class="op">=</span>repeats)<span class="op">-</span>gentime<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1" aria-label="code-block-19-1"></a><span class="kw">def</span> vectorize():</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1" aria-label="code-block-19-2"></a>    df <span class="op">=</span> genDataFrame()</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1" aria-label="code-block-19-3"></a>    vertical <span class="op">=</span> df[<span class="st">"f_vertical"</span>]</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1" aria-label="code-block-19-4"></a>    horizontal <span class="op">=</span> df[<span class="st">"f_horizontal"</span>]</span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1" aria-label="code-block-19-5"></a></span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1" aria-label="code-block-19-6"></a>    result <span class="op">=</span> numpy.sqrt(vertical<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> horizontal<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1" aria-label="code-block-19-7"></a></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1" aria-label="code-block-19-8"></a>    <span class="cf">return</span> pandas.Series(result)</span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1" aria-label="code-block-19-9"></a></span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1" aria-label="code-block-19-10"></a><span class="bu">print</span>(<span class="ss">f"vectorize: </span><span class="sc">{</span>timeit(vectorize, number<span class="op">=</span>repeats)<span class="op">-</span>gentime<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
 </div>
 <p>264x faster than <code>apply()</code>, 1000x faster than the two
 <code>for</code> approaches!</p>
@@ -1036,19 +1036,19 @@ dictionary. This can then be processed via list-comprehension:</p>
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="kw">def</span> to_dict():</span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>    df <span class="op">=</span> genDataFrame()</span>
-<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>    df_as_dict <span class="op">=</span> df.to_dict(orient<span class="op">=</span><span class="st">'index'</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>    <span class="cf">return</span> pandas.Series([(r[<span class="st">'f_vertical'</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> r[<span class="st">'f_horizontal'</span>]<span class="op">**</span><span class="dv">2</span>)<span class="op">**</span><span class="fl">0.5</span> <span class="cf">for</span> r <span class="kw">in</span> df_as_dict.values()])</span>
-<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"to_dict: </span><span class="sc">{</span>timeit(to_dict, number<span class="op">=</span>repeats)<span class="op">*</span><span class="dv">10</span><span class="op">-</span>gentime<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1" aria-label="code-block-21-1"></a><span class="kw">def</span> to_dict():</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1" aria-label="code-block-21-2"></a>    df <span class="op">=</span> genDataFrame()</span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1" aria-label="code-block-21-3"></a>    df_as_dict <span class="op">=</span> df.to_dict(orient<span class="op">=</span><span class="st">'index'</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1" aria-label="code-block-21-4"></a>    <span class="cf">return</span> pandas.Series([(r[<span class="st">'f_vertical'</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> r[<span class="st">'f_horizontal'</span>]<span class="op">**</span><span class="dv">2</span>)<span class="op">**</span><span class="fl">0.5</span> <span class="cf">for</span> r <span class="kw">in</span> df_as_dict.values()])</span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1" aria-label="code-block-21-5"></a></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1" aria-label="code-block-21-6"></a><span class="bu">print</span>(<span class="ss">f"to_dict: </span><span class="sc">{</span>timeit(to_dict, number<span class="op">=</span>repeats)<span class="op">*</span><span class="dv">10</span><span class="op">-</span>gentime<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
 </div>
 <p>Whilst still nearly 100x slower than pure vectorisation, it’s twice
 as fast as <code>apply()</code>.</p>
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="ex">to_dict:</span> 131.15ms</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" tabindex="-1" aria-label="code-block-22-1"></a><span class="ex">to_dict:</span> 131.15ms</span></code></pre>
 </div>
 <p>This is because indexing into Pandas’ <code>Series</code> (rows) is
 significantly slower than a Python dictionary. There is a slight
@@ -1058,29 +1058,29 @@ cost for any large DataFrame.</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="im">from</span> timeit <span class="im">import</span> timeit</span>
-<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pandas</span>
-<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">100000</span>  <span class="co"># Number of rows in DataFrame</span></span>
-<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a><span class="kw">def</span> genInput():</span>
-<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a>    s <span class="op">=</span> pandas.Series({<span class="st">'a'</span> : <span class="dv">1</span>, <span class="st">'b'</span> : <span class="dv">2</span>})</span>
-<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a>    d <span class="op">=</span> {<span class="st">'a'</span> : <span class="dv">1</span>, <span class="st">'b'</span> : <span class="dv">2</span>}</span>
-<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a>    <span class="cf">return</span> s, d</span>
-<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a></span>
-<span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a><span class="kw">def</span> series():</span>
-<span id="cb23-12"><a href="#cb23-12" tabindex="-1"></a>    s, _ <span class="op">=</span> genInput()</span>
-<span id="cb23-13"><a href="#cb23-13" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N):</span>
-<span id="cb23-14"><a href="#cb23-14" tabindex="-1"></a>        y <span class="op">=</span> s[<span class="st">'a'</span>] <span class="op">*</span> s[<span class="st">'b'</span>]</span>
-<span id="cb23-15"><a href="#cb23-15" tabindex="-1"></a></span>
-<span id="cb23-16"><a href="#cb23-16" tabindex="-1"></a><span class="kw">def</span> dictionary():</span>
-<span id="cb23-17"><a href="#cb23-17" tabindex="-1"></a>    _, d <span class="op">=</span> genInput()</span>
-<span id="cb23-18"><a href="#cb23-18" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N):</span>
-<span id="cb23-19"><a href="#cb23-19" tabindex="-1"></a>        y <span class="op">=</span> d[<span class="st">'a'</span>] <span class="op">*</span> d[<span class="st">'b'</span>]</span>
-<span id="cb23-20"><a href="#cb23-20" tabindex="-1"></a></span>
-<span id="cb23-21"><a href="#cb23-21" tabindex="-1"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb23-22"><a href="#cb23-22" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"series: </span><span class="sc">{</span>timeit(series, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
-<span id="cb23-23"><a href="#cb23-23" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"dictionary: </span><span class="sc">{</span>timeit(dictionary, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1" aria-label="code-block-23-1"></a><span class="im">from</span> timeit <span class="im">import</span> timeit</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1" aria-label="code-block-23-2"></a><span class="im">import</span> pandas <span class="im">as</span> pandas</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1" aria-label="code-block-23-3"></a></span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1" aria-label="code-block-23-4"></a>N <span class="op">=</span> <span class="dv">100000</span>  <span class="co"># Number of rows in DataFrame</span></span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1" aria-label="code-block-23-5"></a></span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1" aria-label="code-block-23-6"></a><span class="kw">def</span> genInput():</span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1" aria-label="code-block-23-7"></a>    s <span class="op">=</span> pandas.Series({<span class="st">'a'</span> : <span class="dv">1</span>, <span class="st">'b'</span> : <span class="dv">2</span>})</span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1" aria-label="code-block-23-8"></a>    d <span class="op">=</span> {<span class="st">'a'</span> : <span class="dv">1</span>, <span class="st">'b'</span> : <span class="dv">2</span>}</span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1" aria-label="code-block-23-9"></a>    <span class="cf">return</span> s, d</span>
+<span id="cb23-10"><a href="#cb23-10" tabindex="-1" aria-label="code-block-23-10"></a></span>
+<span id="cb23-11"><a href="#cb23-11" tabindex="-1" aria-label="code-block-23-11"></a><span class="kw">def</span> series():</span>
+<span id="cb23-12"><a href="#cb23-12" tabindex="-1" aria-label="code-block-23-12"></a>    s, _ <span class="op">=</span> genInput()</span>
+<span id="cb23-13"><a href="#cb23-13" tabindex="-1" aria-label="code-block-23-13"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N):</span>
+<span id="cb23-14"><a href="#cb23-14" tabindex="-1" aria-label="code-block-23-14"></a>        y <span class="op">=</span> s[<span class="st">'a'</span>] <span class="op">*</span> s[<span class="st">'b'</span>]</span>
+<span id="cb23-15"><a href="#cb23-15" tabindex="-1" aria-label="code-block-23-15"></a></span>
+<span id="cb23-16"><a href="#cb23-16" tabindex="-1" aria-label="code-block-23-16"></a><span class="kw">def</span> dictionary():</span>
+<span id="cb23-17"><a href="#cb23-17" tabindex="-1" aria-label="code-block-23-17"></a>    _, d <span class="op">=</span> genInput()</span>
+<span id="cb23-18"><a href="#cb23-18" tabindex="-1" aria-label="code-block-23-18"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N):</span>
+<span id="cb23-19"><a href="#cb23-19" tabindex="-1" aria-label="code-block-23-19"></a>        y <span class="op">=</span> d[<span class="st">'a'</span>] <span class="op">*</span> d[<span class="st">'b'</span>]</span>
+<span id="cb23-20"><a href="#cb23-20" tabindex="-1" aria-label="code-block-23-20"></a></span>
+<span id="cb23-21"><a href="#cb23-21" tabindex="-1" aria-label="code-block-23-21"></a>repeats <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb23-22"><a href="#cb23-22" tabindex="-1" aria-label="code-block-23-22"></a><span class="bu">print</span>(<span class="ss">f"series: </span><span class="sc">{</span>timeit(series, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span>
+<span id="cb23-23"><a href="#cb23-23" tabindex="-1" aria-label="code-block-23-23"></a><span class="bu">print</span>(<span class="ss">f"dictionary: </span><span class="sc">{</span>timeit(dictionary, number<span class="op">=</span>repeats)<span class="sc">:.2f}</span><span class="ss">ms"</span>)</span></code></pre>
 </div>
 <p>65x slower!</p>
 <div class="codewrapper">
@@ -1161,7 +1161,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/main" class="external-link">varnish (1.0.7)</a> [UoS fork]</p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/main" class="external-link">varnish (1.0.7)</a> [UoS fork]</p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1184,7 +1184,7 @@ any links that you are not going to use.
   "identifier": "https://rse.shef.ac.uk/pando-python/optimisation-numpy.html",
   "dateCreated": "2024-02-01",
   "dateModified": "2025-11-26",
-  "datePublished": "2026-04-14"
+  "datePublished": "2026-04-21"
 }
 
   </script><script>

@@ -263,7 +263,7 @@
       </button>
     </div><!--/div.accordion-header-->
 
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#introduction">Introduction</a></li>
 <li><a href="#performance-vs-maintainability">Performance vs Maintainability</a></li>
@@ -509,10 +509,10 @@ compiled software not being cross-platform.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">C<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode c" tabindex="0"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">/* C code */</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="dt">int</span> a <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="dt">int</span> b <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="dt">int</span> c <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span></code></pre>
+<pre class="sourceCode c" tabindex="0"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="co">/* C code */</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a><span class="dt">int</span> a <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a><span class="dt">int</span> b <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1" aria-label="code-block-1-4"></a><span class="dt">int</span> c <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span></code></pre>
 </div>
 <p>In Python, everything is a complex object. The interpreter uses extra
 fields in the header to keep track of data types at runtime or take care
@@ -522,10 +522,10 @@ in both time and memory usage.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Python code</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>c <span class="op">=</span> a <span class="op">+</span> b</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a><span class="co"># Python code</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a>a <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a>b <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1" aria-label="code-block-2-4"></a>c <span class="op">=</span> a <span class="op">+</span> b</span></code></pre>
 </div>
 <div id="callout1" class="callout">
 <div class="callout-square">
@@ -541,16 +541,16 @@ how many bytes an object takes up:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>sys.getsizeof(<span class="st">""</span>)  <span class="co"># 41</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>sys.getsizeof(<span class="st">"a"</span>)  <span class="co"># 42</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>sys.getsizeof(<span class="st">"ab"</span>)  <span class="co"># 43</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>sys.getsizeof([])  <span class="co"># 56</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>sys.getsizeof([<span class="st">"a"</span>])  <span class="co"># 64</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>sys.getsizeof(<span class="dv">1</span>)  <span class="co"># 28</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="im">import</span> sys</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a>sys.getsizeof(<span class="st">""</span>)  <span class="co"># 41</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a>sys.getsizeof(<span class="st">"a"</span>)  <span class="co"># 42</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a>sys.getsizeof(<span class="st">"ab"</span>)  <span class="co"># 43</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1" aria-label="code-block-3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1" aria-label="code-block-3-7"></a>sys.getsizeof([])  <span class="co"># 56</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1" aria-label="code-block-3-8"></a>sys.getsizeof([<span class="st">"a"</span>])  <span class="co"># 64</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1" aria-label="code-block-3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1" aria-label="code-block-3-10"></a>sys.getsizeof(<span class="dv">1</span>)  <span class="co"># 28</span></span></code></pre>
 </div>
 <p>(Note: For container objects (like lists and dictionaries) or custom
 classes, values returned by <code>getsizeof()</code> are
@@ -608,42 +608,42 @@ evaluates to <code>True</code>.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># file: test_demonstration.py</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co"># A simple function to be tested, this could instead be an imported package</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="kw">def</span> squared(x):</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co"># A simple test case</span></span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="kw">def</span> test_example():</span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    <span class="cf">assert</span> squared(<span class="dv">5</span>) <span class="op">==</span> <span class="dv">24</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="co"># file: test_demonstration.py</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a><span class="co"># A simple function to be tested, this could instead be an imported package</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a><span class="kw">def</span> squared(x):</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1" aria-label="code-block-4-7"></a><span class="co"># A simple test case</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1" aria-label="code-block-4-8"></a><span class="kw">def</span> test_example():</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1" aria-label="code-block-4-9"></a>    <span class="cf">assert</span> squared(<span class="dv">5</span>) <span class="op">==</span> <span class="dv">24</span></span></code></pre>
 </div>
 <p>When <code>py.test</code> is called inside a working directory, it
 will then recursively find and execute all the available tests.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="op">&gt;</span>py.test</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="ex">=================================================</span> test session starts =================================================</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="ex">platform</span> win32 <span class="at">--</span> Python 3.10.12, pytest-7.3.1, pluggy-1.3.0</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="ex">rootdir:</span> C:<span class="dt">\d</span>emo</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="ex">plugins:</span> anyio-4.0.0, cov-4.1.0, xdoctest-1.1.2</span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="ex">collected</span> 1 item</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="ex">test_demonstration.py</span> F                                                                                          <span class="pp">[</span><span class="ss">100%</span><span class="pp">]</span></span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="ex">======================================================</span> FAILURES =======================================================</span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="ex">____________________________________________________</span> test_example _____________________________________________________</span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>    <span class="ex">def</span> test_example<span class="er">(</span><span class="kw">)</span><span class="bu">:</span></span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="op">&gt;</span>       assert <span class="ex">squared</span><span class="er">(</span><span class="ex">5</span><span class="kw">)</span> <span class="ex">==</span> 24</span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="ex">E</span>       assert 25 == 24</span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="ex">E</span>        +  where 25 = squared<span class="er">(</span><span class="ex">5</span><span class="kw">)</span></span>
-<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a></span>
-<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="ex">test_demonstration.py:9:</span> AssertionError</span>
-<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="ex">===============================================</span> short test summary info ===============================================</span>
-<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="ex">FAILED</span> test_demonstration.py::test_example <span class="at">-</span> assert 25 == 24</span>
-<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="ex">==================================================</span> 1 failed in 0.07s ==================================================</span></code></pre>
+<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="op">&gt;</span>py.test</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a><span class="ex">=================================================</span> test session starts =================================================</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1" aria-label="code-block-5-3"></a><span class="ex">platform</span> win32 <span class="at">--</span> Python 3.10.12, pytest-7.3.1, pluggy-1.3.0</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1" aria-label="code-block-5-4"></a><span class="ex">rootdir:</span> C:<span class="dt">\d</span>emo</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1" aria-label="code-block-5-5"></a><span class="ex">plugins:</span> anyio-4.0.0, cov-4.1.0, xdoctest-1.1.2</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1" aria-label="code-block-5-6"></a><span class="ex">collected</span> 1 item</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1" aria-label="code-block-5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1" aria-label="code-block-5-8"></a><span class="ex">test_demonstration.py</span> F                                                                                          <span class="pp">[</span><span class="ss">100%</span><span class="pp">]</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1" aria-label="code-block-5-9"></a></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1" aria-label="code-block-5-10"></a><span class="ex">======================================================</span> FAILURES =======================================================</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1" aria-label="code-block-5-11"></a><span class="ex">____________________________________________________</span> test_example _____________________________________________________</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1" aria-label="code-block-5-12"></a></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1" aria-label="code-block-5-13"></a>    <span class="ex">def</span> test_example<span class="er">(</span><span class="kw">)</span><span class="bu">:</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1" aria-label="code-block-5-14"></a><span class="op">&gt;</span>       assert <span class="ex">squared</span><span class="er">(</span><span class="ex">5</span><span class="kw">)</span> <span class="ex">==</span> 24</span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1" aria-label="code-block-5-15"></a><span class="ex">E</span>       assert 25 == 24</span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1" aria-label="code-block-5-16"></a><span class="ex">E</span>        +  where 25 = squared<span class="er">(</span><span class="ex">5</span><span class="kw">)</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1" aria-label="code-block-5-17"></a></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1" aria-label="code-block-5-18"></a><span class="ex">test_demonstration.py:9:</span> AssertionError</span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1" aria-label="code-block-5-19"></a><span class="ex">===============================================</span> short test summary info ===============================================</span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1" aria-label="code-block-5-20"></a><span class="ex">FAILED</span> test_demonstration.py::test_example <span class="at">-</span> assert 25 == 24</span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1" aria-label="code-block-5-21"></a><span class="ex">==================================================</span> 1 failed in 0.07s ==================================================</span></code></pre>
 </div>
 <p>Whilst not designed for benchmarking, it does provide the total time
 the test suite took to execute. In some cases this may help identify
@@ -660,7 +660,7 @@ the outputs from your code.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <ul><li>Fixtures: A test fixture is a common class which multiple tests can
 inherit from. This class will typically include methods that perform
@@ -764,7 +764,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/main" class="external-link">varnish (1.0.7)</a> [UoS fork]</p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/RSE-Sheffield/uos-varnish/tree/main" class="external-link">varnish (1.0.7)</a> [UoS fork]</p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -787,7 +787,7 @@ any links that you are not going to use.
   "identifier": "https://rse.shef.ac.uk/pando-python/instructor/optimisation-introduction.html",
   "dateCreated": "2024-02-01",
   "dateModified": "2025-03-26",
-  "datePublished": "2026-04-14"
+  "datePublished": "2026-04-21"
 }
 
   </script><script>
